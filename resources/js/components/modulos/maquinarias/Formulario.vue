@@ -768,6 +768,7 @@
                                 'is-invalid': errors.foto,
                             }"
                             ref="input_foto"
+                            @change="cargaFile('foto', $event)"
                         />
                         <span
                             class="error invalid-feedback"
@@ -784,12 +785,13 @@
                         >
                         <input
                             type="file"
-                            placeholder="Foto"
+                            placeholder="Archivo"
                             class="form-control"
                             :class="{
                                 'is-invalid': errors.archivo,
                             }"
                             ref="input_archivo"
+                            @change="cargaFile('archivo', $event)"
                         />
                         <span
                             class="error invalid-feedback"
@@ -873,6 +875,9 @@ export default {
                 this.bModal = false;
             }
         },
+        maquinaria(newVal) {
+            this.oMaquinaria = newVal;
+        },
     },
     computed: {
         textoBoton() {
@@ -913,6 +918,10 @@ export default {
                 this.listEquipos = response.data.equipos;
             });
         },
+        cargaFile(key, event) {
+            this.oMaquinaria[key] = null;
+            this.oMaquinaria[key] = event.target.files[0];
+        },
         setRegistro() {
             this.enviando = true;
             try {
@@ -924,156 +933,129 @@ export default {
                     },
                 };
                 let formdata = new FormData();
-                formdata.append(
-                    "equipo_id",
-                    this.oMaquinaria.equipo_id ? this.oMaquinaria.equipo_id : ""
-                );
-                formdata.append(
-                    "descripcion",
-                    this.oMaquinaria.descripcion
-                        ? this.oMaquinaria.descripcion
-                        : ""
-                );
-                formdata.append(
-                    "prioridad",
-                    this.oMaquinaria.prioridad ? this.oMaquinaria.prioridad : ""
-                );
-                formdata.append(
-                    "ubicacion",
-                    this.oMaquinaria.ubicacion ? this.oMaquinaria.ubicacion : ""
-                );
-                formdata.append(
-                    "tipo",
-                    this.oMaquinaria.tipo ? this.oMaquinaria.tipo : ""
-                );
-                formdata.append(
-                    "marca",
-                    this.oMaquinaria.marca ? this.oMaquinaria.marca : ""
-                );
-                formdata.append(
-                    "modelo",
-                    this.oMaquinaria.modelo ? this.oMaquinaria.modelo : ""
-                );
-                formdata.append(
-                    "serie",
-                    this.oMaquinaria.serie ? this.oMaquinaria.serie : ""
-                );
-                formdata.append(
-                    "costo",
-                    this.oMaquinaria.costo ? this.oMaquinaria.costo : ""
-                );
-                formdata.append(
-                    "fecha_compra",
-                    this.oMaquinaria.fecha_compra
-                        ? this.oMaquinaria.fecha_compra
-                        : ""
-                );
-                formdata.append(
-                    "fecha_instalacion",
-                    this.oMaquinaria.fecha_instalacion
-                        ? this.oMaquinaria.fecha_instalacion
-                        : ""
-                );
-                formdata.append(
-                    "garantia_meses",
-                    this.oMaquinaria.garantia_meses
-                        ? this.oMaquinaria.garantia_meses
-                        : ""
-                );
-                formdata.append(
-                    "peso",
-                    this.oMaquinaria.peso ? this.oMaquinaria.peso : ""
-                );
-                formdata.append(
-                    "altura",
-                    this.oMaquinaria.altura ? this.oMaquinaria.altura : ""
-                );
-                formdata.append(
-                    "ancho",
-                    this.oMaquinaria.ancho ? this.oMaquinaria.ancho : ""
-                );
-                formdata.append(
-                    "largo",
-                    this.oMaquinaria.largo ? this.oMaquinaria.largo : ""
-                );
-                formdata.append(
-                    "voltios",
-                    this.oMaquinaria.voltios ? this.oMaquinaria.voltios : ""
-                );
-                formdata.append(
-                    "capacidad",
-                    this.oMaquinaria.capacidad ? this.oMaquinaria.capacidad : ""
-                );
-                formdata.append(
-                    "e_tecnicas",
-                    this.oMaquinaria.e_tecnicas
-                        ? this.oMaquinaria.e_tecnicas
-                        : ""
-                );
-                formdata.append(
-                    "fecha_ultimo_mantenimiento",
-                    this.oMaquinaria.fecha_ultimo_mantenimiento
-                        ? this.oMaquinaria.fecha_ultimo_mantenimiento
-                        : ""
-                );
-                formdata.append(
-                    "fecha_utlimo_termino",
-                    this.oMaquinaria.fecha_utlimo_termino
-                        ? this.oMaquinaria.fecha_utlimo_termino
-                        : ""
-                );
-                formdata.append(
-                    "estado",
-                    this.oMaquinaria.estado ? this.oMaquinaria.estado : ""
-                );
-                formdata.append(
-                    "fabricantes",
-                    this.oMaquinaria.fabricantes
-                        ? this.oMaquinaria.fabricantes
-                        : ""
-                );
-                formdata.append(
-                    "proveedor",
-                    this.oMaquinaria.proveedor ? this.oMaquinaria.proveedor : ""
-                );
-                formdata.append(
-                    "terciarios",
-                    this.oMaquinaria.terciarios
-                        ? this.oMaquinaria.terciarios
-                        : ""
-                );
-                formdata.append(
-                    "nombre_contacto",
-                    this.oMaquinaria.nombre_contacto
-                        ? this.oMaquinaria.nombre_contacto
-                        : ""
-                );
-                formdata.append(
-                    "num_fono",
-                    this.oMaquinaria.num_fono ? this.oMaquinaria.num_fono : ""
-                );
-                formdata.append(
-                    "correo",
-                    this.oMaquinaria.correo ? this.oMaquinaria.correo : ""
-                );
-                formdata.append(
-                    "dir",
-                    this.oMaquinaria.dir ? this.oMaquinaria.dir : ""
-                );
-                formdata.append(
-                    "num_identificacion",
-                    this.oMaquinaria.num_identificacion
-                        ? this.oMaquinaria.num_identificacion
-                        : ""
-                );
-                formdata.append(
-                    "foto",
-                    this.oMaquinaria.foto ? this.oMaquinaria.foto : ""
-                );
-                formdata.append(
-                    "archivo",
-                    this.oMaquinaria.archivo ? this.oMaquinaria.archivo : ""
-                );
+                if (this.oMaquinaria.equipo_id != "") {
+                    formdata.append("equipo_id", this.oMaquinaria.equipo_id);
+                }
+                if (this.oMaquinaria.descripcion.trim() != "") {
+                    formdata.append(
+                        "descripcion",
+                        this.oMaquinaria.descripcion
+                    );
+                }
+                if (this.oMaquinaria.prioridad.trim() != "") {
+                    formdata.append("prioridad", this.oMaquinaria.prioridad);
+                }
+                if (this.oMaquinaria.ubicacion.trim() != "") {
+                    formdata.append("ubicacion", this.oMaquinaria.ubicacion);
+                }
+                if (this.oMaquinaria.tipo.trim() != "") {
+                    formdata.append("tipo", this.oMaquinaria.tipo);
+                }
+                if (this.oMaquinaria.marca.trim() != "") {
+                    formdata.append("marca", this.oMaquinaria.marca);
+                }
+                if (this.oMaquinaria.modelo.trim() != "") {
+                    formdata.append("modelo", this.oMaquinaria.modelo);
+                }
+                if (this.oMaquinaria.serie.trim() != "") {
+                    formdata.append("serie", this.oMaquinaria.serie);
+                }
+                if (this.oMaquinaria.costo.trim() != "") {
+                    formdata.append("costo", this.oMaquinaria.costo);
+                }
+                if (this.oMaquinaria.fecha_compra.trim() != "") {
+                    formdata.append(
+                        "fecha_compra",
+                        this.oMaquinaria.fecha_compra
+                    );
+                }
+                if (this.oMaquinaria.fecha_instalacion.trim() != "") {
+                    formdata.append(
+                        "fecha_instalacion",
+                        this.oMaquinaria.fecha_instalacion
+                    );
+                }
+                if (this.oMaquinaria.garantia_meses.trim() != "") {
+                    formdata.append(
+                        "garantia_meses",
+                        this.oMaquinaria.garantia_meses
+                    );
+                }
+                if (this.oMaquinaria.peso.trim() != "") {
+                    formdata.append("peso", this.oMaquinaria.peso);
+                }
+                if (this.oMaquinaria.altura.trim() != "") {
+                    formdata.append("altura", this.oMaquinaria.altura);
+                }
+                if (this.oMaquinaria.ancho.trim() != "") {
+                    formdata.append("ancho", this.oMaquinaria.ancho);
+                }
+                if (this.oMaquinaria.largo.trim() != "") {
+                    formdata.append("largo", this.oMaquinaria.largo);
+                }
+                if (this.oMaquinaria.voltios.trim() != "") {
+                    formdata.append("voltios", this.oMaquinaria.voltios);
+                }
+                if (this.oMaquinaria.capacidad.trim() != "") {
+                    formdata.append("capacidad", this.oMaquinaria.capacidad);
+                }
+                if (this.oMaquinaria.e_tecnicas.trim() != "") {
+                    formdata.append("e_tecnicas", this.oMaquinaria.e_tecnicas);
+                }
+                if (this.oMaquinaria.fecha_ultimo_mantenimiento.trim() != "") {
+                    formdata.append(
+                        "fecha_ultimo_mantenimiento",
+                        this.oMaquinaria.fecha_ultimo_mantenimiento
+                    );
+                }
+                if (this.oMaquinaria.fecha_utlimo_termino.trim() != "") {
+                    formdata.append(
+                        "fecha_utlimo_termino",
+                        this.oMaquinaria.fecha_utlimo_termino
+                    );
+                }
+                if (this.oMaquinaria.estado.trim() != "") {
+                    formdata.append("estado", this.oMaquinaria.estado);
+                }
+                if (this.oMaquinaria.fabricantes.trim() != "") {
+                    formdata.append(
+                        "fabricantes",
+                        this.oMaquinaria.fabricantes
+                    );
+                }
+                if (this.oMaquinaria.proveedor.trim() != "") {
+                    formdata.append("proveedor", this.oMaquinaria.proveedor);
+                }
+                if (this.oMaquinaria.terciarios.trim() != "") {
+                    formdata.append("terciarios", this.oMaquinaria.terciarios);
+                }
+                if (this.oMaquinaria.nombre_contacto.trim() != "") {
+                    formdata.append(
+                        "nombre_contacto",
+                        this.oMaquinaria.nombre_contacto
+                    );
+                }
+                if (this.oMaquinaria.num_fono.trim() != "") {
+                    formdata.append("num_fono", this.oMaquinaria.num_fono);
+                }
+                if (this.oMaquinaria.correo.trim() != "") {
+                    formdata.append("correo", this.oMaquinaria.correo);
+                }
+                if (this.oMaquinaria.dir.trim() != "") {
+                    formdata.append("dir", this.oMaquinaria.dir);
+                }
+                if (this.oMaquinaria.num_identificacion.trim() != "") {
+                    formdata.append(
+                        "num_identificacion",
+                        this.oMaquinaria.num_identificacion
+                    );
+                }
+                if (this.oMaquinaria.foto) {
+                    formdata.append("foto", this.oMaquinaria.foto);
+                }
+                if (this.oMaquinaria.archivo) {
+                    formdata.append("archivo", this.oMaquinaria.archivo);
+                }
 
                 if (this.accion == "edit") {
                     url = "/admin/maquinarias/" + this.oMaquinaria.id;
@@ -1091,7 +1073,7 @@ export default {
                                 timer: 1500,
                             });
                             this.limpiaMaquinaria();
-                            this.$emit("envioModal");
+                            this.$router.push({ name: "maquinarias.index" });
                             this.errors = [];
                             if (this.accion == "edit") {
                                 this.textoBtn = "Actualizar";

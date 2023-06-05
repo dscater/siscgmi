@@ -64,6 +64,11 @@ Vue.prototype.$moment = moment
 export const EventBus = new Vue;
 window.EventBus = EventBus;
 
+// ARCHIVO GLOBAL DE FUNCIONES
+import globalMixin from './globalMixin.js'
+
+Vue.mixin(globalMixin)
+
 // COMPONENTES
 Vue.component('App', require('./App.vue').default);
 Vue.component('Auth', require('./Auth.vue').default);

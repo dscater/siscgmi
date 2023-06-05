@@ -139,7 +139,7 @@
                                                             <li>
                                                                 Fecha de compra:
                                                                 <span>{{
-                                                                    formatoFecha(
+                                                                    getFormatoFecha(
                                                                         row.item
                                                                             .fecha_compra
                                                                     )
@@ -149,7 +149,7 @@
                                                                 Fecha de
                                                                 instalación:
                                                                 <span>{{
-                                                                    formatoFecha(
+                                                                    getFormatoFecha(
                                                                         row.item
                                                                             .fecha_instalacion
                                                                     )
@@ -335,6 +335,7 @@
                                                                         row.item
                                                                             .url_archivo
                                                                     "
+                                                                    target="_blank"
                                                                     >Descargar</a
                                                                 >
                                                                 <span v-else
@@ -355,6 +356,43 @@
                                                         "
                                                     >
                                                         Ocultar Detalles
+                                                    </b-button>
+                                                    <b-button
+                                                        size="sm"
+                                                        pill
+                                                        variant="outline-warning"
+                                                        class="btn-flat"
+                                                        title="Editar registro"
+                                                        @click="
+                                                            editarRegistro(
+                                                                row.item
+                                                            )
+                                                        "
+                                                    >
+                                                        <i
+                                                            class="fa fa-edit"
+                                                        ></i>
+                                                    </b-button>
+                                                    <b-button
+                                                        size="sm"
+                                                        pill
+                                                        variant="outline-danger"
+                                                        class="btn-flat"
+                                                        title="Eliminar registro"
+                                                        @click="
+                                                            eliminaMaquinaria(
+                                                                row.item.id,
+                                                                row.item
+                                                                    .detalle_equipo +
+                                                                    ' |' +
+                                                                    row.item
+                                                                        .descripcion
+                                                            )
+                                                        "
+                                                    >
+                                                        <i
+                                                            class="fa fa-trash"
+                                                        ></i>
                                                     </b-button>
                                                 </template>
 
@@ -399,7 +437,10 @@
                                                                 eliminaMaquinaria(
                                                                     row.item.id,
                                                                     row.item
-                                                                        .nombre
+                                                                        .detalle_equipo +
+                                                                        '<br>' +
+                                                                        row.item
+                                                                            .descripcion
                                                                 )
                                                             "
                                                         >
@@ -558,6 +599,7 @@ export default {
                 });
         },
         eliminaMaquinaria(id, descripcion) {
+            console.log(descripcion);
             Swal.fire({
                 title: "¿Quierés eliminar este registro?",
                 html: `<strong>${descripcion}</strong>`,
@@ -656,7 +698,10 @@ export default {
             this.oMaquinaria.archivo = "";
         },
         formatoFecha(date) {
-            return this.$moment(String(date)).format("DD/MM/YYYY");
+            if (date) {
+                return this.$moment(String(date)).format("DD/MM/YYYY");
+            }
+            return "";
         },
     },
 };

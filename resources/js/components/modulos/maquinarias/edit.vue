@@ -20,7 +20,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <Formulario
-                                        :accion="'nuevo'"
+                                        :accion="'edit'"
                                         :maquinaria="oMaquinaria"
                                     ></Formulario>
                                 </div>

@@ -34,7 +34,7 @@ class MaquinariaController extends Controller
         DB::beginTransaction();
         try {
             // crear Maquinaria
-            $nueva_maquinaria = Maquinaria::create(array_map('mb_strtoupper', $request->except("foto")));
+            $nueva_maquinaria = Maquinaria::create(array_map('mb_strtoupper', $request->except("foto", "archivo")));
 
             if ($request->hasFile("foto")) {
                 $file_foto = $request->file("foto");
@@ -85,7 +85,7 @@ class MaquinariaController extends Controller
         DB::beginTransaction();
         try {
             $datos_original = HistorialAccion::getDetalleRegistro($maquinaria, "maquinarias");
-            $maquinaria->update(array_map('mb_strtoupper', $request->all()));
+            $maquinaria->update(array_map('mb_strtoupper', $request->except("foto", "archivo")));
             if ($request->hasFile("foto")) {
                 if ($maquinaria->foto && $maquinaria->foto != "") {
                     \File::delete(public_path() . "/imgs/maquinarias/" . $maquinaria->foto);
@@ -97,11 +97,11 @@ class MaquinariaController extends Controller
             }
             if ($request->hasFile("archivo")) {
                 if ($maquinaria->archivo && $maquinaria->archivo != "") {
-                    \File::delete(public_path() . "/imgs/maquinarias/" . $maquinaria->archivo);
+                    \File::delete(public_path() . "/files/maquinarias/" . $maquinaria->archivo);
                 }
                 $file_archivo = $request->file("archivo");
                 $nom_archivo = $maquinaria->id . time() . "." . $file_archivo->getClientOriginalExtension();
-                $file_archivo->move(public_path() . "/imgs/maquinarias/", $nom_archivo);
+                $file_archivo->move(public_path() . "/files/maquinarias/", $nom_archivo);
                 $maquinaria->archivo = $nom_archivo;
             }
             $maquinaria->save();
@@ -149,7 +149,7 @@ class MaquinariaController extends Controller
                 \File::delete(public_path() . "/imgs/maquinarias/" . $maquinaria->foto);
             }
             if ($maquinaria->archivo && $maquinaria->archivo != "") {
-                \File::delete(public_path() . "/imgs/maquinarias/" . $maquinaria->archivo);
+                \File::delete(public_path() . "/files/maquinarias/" . $maquinaria->archivo);
             }
             $datos_original = HistorialAccion::getDetalleRegistro($maquinaria, "maquinarias");
             $maquinaria->delete();
