@@ -154,9 +154,11 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="card-title font-weight-bold">DATOS BÁSICOS</h3>
+                        <h3 class="card-title font-weight-bold">
+                            DATOS BÁSICOS
+                        </h3>
                     </div>
-                    <hr class="col-md-12"/>
+                    <hr class="col-md-12" />
                     <div class="form-group col-md-6">
                         <label
                             :class="{
@@ -226,9 +228,11 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="card-title font-weight-bold">DATOS DE COMPRA</h3>
+                        <h3 class="card-title font-weight-bold">
+                            DATOS DE COMPRA
+                        </h3>
                     </div>
-                    <hr class="col-md-12"/>
+                    <hr class="col-md-12" />
                     <div class="form-group col-md-6">
                         <label
                             :class="{
@@ -320,9 +324,11 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="card-title font-weight-bold">DATOS TÉCNICOS</h3>
+                        <h3 class="card-title font-weight-bold">
+                            DATOS TÉCNICOS
+                        </h3>
                     </div>
-                    <hr class="col-md-12"/>
+                    <hr class="col-md-12" />
                     <div class="form-group col-md-6">
                         <label
                             :class="{
@@ -482,9 +488,11 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="card-title font-weight-bold">DATOS DE MANTENIMIENTO</h3>
+                        <h3 class="card-title font-weight-bold">
+                            DATOS DE MANTENIMIENTO
+                        </h3>
                     </div>
-                    <hr class="col-md-12"/>
+                    <hr class="col-md-12" />
                     <div class="form-group col-md-6">
                         <label
                             :class="{
@@ -564,9 +572,11 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="card-title font-weight-bold">DATOS DE TERCEROS</h3>
+                        <h3 class="card-title font-weight-bold">
+                            DATOS DE TERCEROS
+                        </h3>
                     </div>
-                    <hr class="col-md-12"/>
+                    <hr class="col-md-12" />
                     <div class="form-group col-md-6">
                         <label
                             :class="{
@@ -638,10 +648,10 @@
                             :class="{
                                 'text-danger': errors.nombre_contacto,
                             }"
-                            >Nombr de contacto</label
+                            >Nombre de contacto</label
                         >
                         <el-input
-                            placeholder="Nombr de contacto"
+                            placeholder="Nombre de contacto"
                             :class="{
                                 'is-invalid': errors.nombre_contacto,
                             }"
@@ -788,6 +798,17 @@
                         ></span>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <el-button
+                            type="primary"
+                            class="bg-primary"
+                            :loading="enviando"
+                            @click="setRegistro()"
+                            >{{ textoBoton }}</el-button
+                        >
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -892,7 +913,7 @@ export default {
                 this.listEquipos = response.data.equipos;
             });
         },
-        setRegistroModal() {
+        setRegistro() {
             this.enviando = true;
             try {
                 this.textoBtn = "Enviando...";

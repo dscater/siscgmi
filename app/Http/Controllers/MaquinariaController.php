@@ -34,9 +34,25 @@ class MaquinariaController extends Controller
         DB::beginTransaction();
         try {
             // crear Maquinaria
-            $nuevo_maquinaria = Maquinaria::create(array_map('mb_strtoupper', $request->all()));
+            $nueva_maquinaria = Maquinaria::create(array_map('mb_strtoupper', $request->except("foto")));
 
-            $datos_original = HistorialAccion::getDetalleRegistro($nuevo_maquinaria, "maquinarias");
+            if ($request->hasFile("foto")) {
+                $file_foto = $request->file("foto");
+                $nom_foto = $nueva_maquinaria->id . time() . "." . $file_foto->getClientOriginalExtension();
+                $file_foto->move(public_path() . "/imgs/maquinarias/", $nom_foto);
+                $nueva_maquinaria->foto = $nom_foto;
+            }
+
+            if ($request->hasFile("archivo")) {
+                $file_archivo = $request->file("archivo");
+                $nom_archivo = $nueva_maquinaria->id . time() . "." . $file_archivo->getClientOriginalExtension();
+                $file_archivo->move(public_path() . "/files/maquinarias/", $nom_archivo);
+                $nueva_maquinaria->archivo = $nom_archivo;
+            }
+
+            $nueva_maquinaria->save();
+
+            $datos_original = HistorialAccion::getDetalleRegistro($nueva_maquinaria, "maquinarias");
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'CREACIÓN',
@@ -50,7 +66,7 @@ class MaquinariaController extends Controller
             DB::commit();
             return response()->JSON([
                 'sw' => true,
-                'maquinaria' => $nuevo_maquinaria,
+                'maquinaria' => $nueva_maquinaria,
                 'msj' => 'El registro se realizó de forma correcta',
             ], 200);
         } catch (\Exception $e) {
@@ -64,14 +80,31 @@ class MaquinariaController extends Controller
 
     public function update(Request $request, Maquinaria $maquinaria)
     {
-        $this->validacion['codigo'] = 'required|min:4|max:4|unique:maquinarias,codigo,' . $maquinaria->id;
-        $this->validacion['codigo2'] = 'required|unique:maquinarias,codigo2,' . $maquinaria->id;
         $request->validate($this->validacion, $this->mensajes);
 
         DB::beginTransaction();
         try {
             $datos_original = HistorialAccion::getDetalleRegistro($maquinaria, "maquinarias");
             $maquinaria->update(array_map('mb_strtoupper', $request->all()));
+            if ($request->hasFile("foto")) {
+                if ($maquinaria->foto && $maquinaria->foto != "") {
+                    \File::delete(public_path() . "/imgs/maquinarias/" . $maquinaria->foto);
+                }
+                $file_foto = $request->file("foto");
+                $nom_foto = $maquinaria->id . time() . "." . $file_foto->getClientOriginalExtension();
+                $file_foto->move(public_path() . "/imgs/maquinarias/", $nom_foto);
+                $maquinaria->foto = $nom_foto;
+            }
+            if ($request->hasFile("archivo")) {
+                if ($maquinaria->archivo && $maquinaria->archivo != "") {
+                    \File::delete(public_path() . "/imgs/maquinarias/" . $maquinaria->archivo);
+                }
+                $file_archivo = $request->file("archivo");
+                $nom_archivo = $maquinaria->id . time() . "." . $file_archivo->getClientOriginalExtension();
+                $file_archivo->move(public_path() . "/imgs/maquinarias/", $nom_archivo);
+                $maquinaria->archivo = $nom_archivo;
+            }
+            $maquinaria->save();
 
             $datos_nuevo = HistorialAccion::getDetalleRegistro($maquinaria, "maquinarias");
             HistorialAccion::create([
@@ -112,6 +145,12 @@ class MaquinariaController extends Controller
     {
         DB::beginTransaction();
         try {
+            if ($maquinaria->foto && $maquinaria->foto != "") {
+                \File::delete(public_path() . "/imgs/maquinarias/" . $maquinaria->foto);
+            }
+            if ($maquinaria->archivo && $maquinaria->archivo != "") {
+                \File::delete(public_path() . "/imgs/maquinarias/" . $maquinaria->archivo);
+            }
             $datos_original = HistorialAccion::getDetalleRegistro($maquinaria, "maquinarias");
             $maquinaria->delete();
             HistorialAccion::create([

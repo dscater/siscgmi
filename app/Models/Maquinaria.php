@@ -23,6 +23,29 @@ class Maquinaria extends Model
         "archivo",
     ];
 
+    protected $appends = ["url_foto", "url_archivo", "detalle_equipo"];
+
+    public function getDetalleEquipoAttribute()
+    {
+        return $this->equipo->codigo . " | " . $this->equipo->nombre . " | " . $this->equipo->area->nombre . " | " . $this->equipo->sistema->nombre;
+    }
+
+    public function getUrlFotoAttribute()
+    {
+        if ($this->foto && $this->foto != "") {
+            return asset("imgs/maquinarias/" . $this->foto);
+        }
+        return asset("imgs/maquinarias/default.png");
+    }
+
+    public function getUrlArchivoAttribute()
+    {
+        if ($this->archivo && $this->archivo != "") {
+            return asset("files/maquinarias/" . $this->archivo);
+        }
+        return false;
+    }
+
     public function equipo()
     {
         return $this->belongsTo(Equipo::class, 'equipo_id');

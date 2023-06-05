@@ -99,25 +99,263 @@
                                                 </template>
                                                 <template #row-details="row">
                                                     <b-card>
+                                                        <h4 class="text-sm">
+                                                            DATOS BÁSICOS
+                                                        </h4>
                                                         <ul>
                                                             <li>
-                                                                Informe:
-                                                                <span
+                                                                Marca:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .marca
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Modelo:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .modelo
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Serie:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .serie
+                                                                }}</span>
+                                                            </li>
+                                                        </ul>
+                                                        <h4 class="text-sm">
+                                                            DATOS DE COMPRA
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Costo:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .costo
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Fecha de compra:
+                                                                <span>{{
+                                                                    formatoFecha(
+                                                                        row.item
+                                                                            .fecha_compra
+                                                                    )
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Fecha de
+                                                                instalación:
+                                                                <span>{{
+                                                                    formatoFecha(
+                                                                        row.item
+                                                                            .fecha_instalacion
+                                                                    )
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Garantía meses:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .garantia_meses
+                                                                }}</span>
+                                                            </li>
+                                                        </ul>
+                                                        <h4 class="text-sm">
+                                                            DATOS TÉCNICOS
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Peso:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .peso
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Altura:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .altura
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Ancho:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .ancho
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Largo:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .largo
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Voltios:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .voltios
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Capacidad:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .capacidad
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Especificaciones
+                                                                técnicas:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .e_tecnicas
+                                                                }}</span>
+                                                            </li>
+                                                        </ul>
+                                                        <h4 class="text-sm">
+                                                            DATOS DE
+                                                            MANTENIMIENTO
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Fecha de último
+                                                                mantenimiento:
+                                                                <span>{{
+                                                                    formatoFecha(
+                                                                        row.item
+                                                                            .fecha_ultimo_mantenimiento
+                                                                    )
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Fecha de último
+                                                                de termino:
+                                                                <span>{{
+                                                                    formatoFecha(
+                                                                        row.item
+                                                                            .fecha_utlimo_termino
+                                                                    )
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Estado:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .estado
+                                                                }}</span>
+                                                            </li>
+                                                        </ul>
+                                                        <h4 class="text-sm">
+                                                            DATOS DE TERCEROS
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Fabricantes:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .fabricantes
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Proveedor:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .proveedor
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Terciarios:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .terciarios
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Nombre de
+                                                                contacto:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .nombre_contacto
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Número de
+                                                                teléfono:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .num_fono
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Correo
+                                                                electrónico:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .correo
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Dirección:
+                                                                <span>{{
+                                                                    row.item.dir
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Número de
+                                                                identificación:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .num_identificacion
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Foto:
+                                                                <img
+                                                                    :src="
+                                                                        row.item
+                                                                            .url_foto
+                                                                    "
+                                                                    width="120px"
+                                                                />
+                                                            </li>
+                                                            <li>
+                                                                Archivo:
+                                                                <a
+                                                                    v-if="
+                                                                        row.item
+                                                                            .url_archivo
+                                                                    "
+                                                                    :href="
+                                                                        row.item
+                                                                            .url_archivo
+                                                                    "
+                                                                    >Descargar</a
+                                                                >
+                                                                <span v-else
                                                                     ><i
-                                                                        :class="[
-                                                                            row
-                                                                                .item
-                                                                                .ultimo_destinatario
-                                                                                .informe ==
-                                                                            1
-                                                                                ? 'fa fa-check-square'
-                                                                                : 'far fa-square',
-                                                                        ]"
-                                                                    ></i
-                                                                ></span>
+                                                                        class="text-gray"
+                                                                        >Sin
+                                                                        archivo</i
+                                                                    ></span
+                                                                >
                                                             </li>
                                                         </ul>
                                                     </b-card>
+                                                    <b-button
+                                                        size="sm"
+                                                        variant="primary"
+                                                        @click="
+                                                            row.toggleDetails
+                                                        "
+                                                    >
+                                                        Ocultar Detalles
+                                                    </b-button>
                                                 </template>
 
                                                 <template
@@ -221,7 +459,7 @@ export default {
             listRegistros: [],
             showOverlay: false,
             fields: [
-                { key: "equipo.nombre", label: "Equipo", sortable: true },
+                { key: "detalle_equipo", label: "Equipo", sortable: true },
                 { key: "descripcion", label: "Descripción", sortable: true },
                 { key: "prioridad", label: "Prioridad", sortable: true },
                 { key: "ubicacion", label: "Ubicación", sortable: true },
