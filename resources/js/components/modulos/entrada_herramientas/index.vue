@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Ingreso de Productos</h1>
+                        <h1>Entrada de Herramientas y Equipos de Protección</h1>
                     </div>
                 </div>
             </div>
@@ -20,13 +20,13 @@
                                         <button
                                             v-if="
                                                 permisos.includes(
-                                                    'ingreso_productos.create'
+                                                    'entrada_herramientas.create'
                                                 )
                                             "
                                             class="btn btn-primary btn-flat btn-block"
                                             @click="
                                                 abreModal('nuevo');
-                                                limpiaIngresoProducto();
+                                                limpiaEntradaHerramienta();
                                             "
                                         >
                                             <i class="fa fa-plus"></i>
@@ -84,23 +84,30 @@
                                                 empty-filtered-text="Sin resultados"
                                                 :filter="filter"
                                             >
-                                            <template
-                                                    #cell(fechas)="row"
-                                                >
-                                                <strong>Fabricación: </strong>
+                                                <template #cell(fechas)="row">
+                                                    <strong
+                                                        >Fabricación:
+                                                    </strong>
                                                     {{
                                                         formatoFecha(
                                                             row.item
                                                                 .fecha_fabricacion
                                                         )
-                                                    }}<br>
+                                                    }}<br />
                                                     <strong>Caducidad: </strong>
                                                     {{
                                                         formatoFecha(
                                                             row.item
                                                                 .fecha_caducidad
                                                         )
-                                                    }}<br>
+                                                    }}<br />
+                                                </template>
+                                                <template #cell(fecha)="row">
+                                                    {{
+                                                        formatoFecha(
+                                                            row.item.fecha
+                                                        )
+                                                    }}
                                                 </template>
                                                 <template
                                                     #cell(fecha_registro)="row"
@@ -140,18 +147,13 @@
                                                             class="btn-flat btn-block"
                                                             title="Eliminar registro"
                                                             @click="
-                                                                eliminaIngresoProducto(
+                                                                eliminaEntradaHerramienta(
                                                                     row.item.id,
                                                                     row.item
-                                                                        .producto
-                                                                        .nombre +
+                                                                        .id +
                                                                         ' | ' +
                                                                         row.item
-                                                                            .cantidad +
-                                                                        ' | ' +
-                                                                        row.item
-                                                                            .proveedor
-                                                                            .nombre
+                                                                            .detalle_herramienta
                                                                 )
                                                             "
                                                         >
@@ -202,9 +204,9 @@
         <Nuevo
             :muestra_modal="muestra_modal"
             :accion="modal_accion"
-            :ingreso_producto="oIngresoProducto"
+            :entrada_herramienta="oEntradaHerramienta"
             @close="muestra_modal = false"
-            @envioModal="getIngresoProductos"
+            @envioModal="getEntradaHerramientas"
         ></Nuevo>
     </div>
 </template>
@@ -222,23 +224,22 @@ export default {
             listRegistros: [],
             showOverlay: false,
             fields: [
-                { key: "producto.nombre", label: "Producto", sortable: true },
-                { key: "proveedor.razon_social", label: "Proveedor", sortable: true },
-                { key: "precio_compra", label: "Precio", sortable: true },
+                { key: "id", label: "Código", sortable: true },
+                { key: "factura", label: "Factura", sortable: true },
+                {
+                    key: "detalle_herramienta",
+                    label: "Herramienta/Equipo de protección",
+                    sortable: true,
+                },
                 { key: "cantidad", label: "Cantidad", sortable: true },
-                { key: "lote", label: "Lote", sortable: true },
-                { key: "fechas", label: "Fechas", sortable: true },
                 {
-                    key: "tipo_ingreso.nombre",
-                    label: "Tipo de Ingreso",
+                    key: "unidad_medida",
+                    label: "Unidad de medida",
                     sortable: true,
                 },
-                { key: "descripcion", label: "Descripción", sortable: true },
-                {
-                    key: "fecha_registro",
-                    label: "Fecha de registro",
-                    sortable: true,
-                },
+                { key: "precio", label: "Precio unitario", sortable: true },
+                { key: "total", label: "Total", sortable: true },
+                { key: "fecha", label: "Fecha de entrada", sortable: true },
                 { key: "accion", label: "Acción" },
             ],
             loading: true,
@@ -248,17 +249,15 @@ export default {
             }),
             muestra_modal: false,
             modal_accion: "nuevo",
-            oIngresoProducto: {
+            oEntradaHerramienta: {
                 id: 0,
-                producto_id: "",
-                proveedor_id: "",
-                precio_compra: "",
+                factura: "",
+                herramienta_id: "",
                 cantidad: "",
-                lote: "",
-                fecha_fabricacion: "",
-                fecha_caducidad: "",
-                tipo_ingreso_id: "",
-                descripcion: "",
+                unidad_medida: "",
+                precio: "",
+                total: "",
+                fecha: "",
             },
             currentPage: 1,
             perPage: 5,
@@ -276,48 +275,29 @@ export default {
     },
     mounted() {
         this.loadingWindow.close();
-        this.getIngresoProductos();
+        this.getEntradaHerramientas();
     },
     methods: {
         // Seleccionar Opciones de Tabla
         editarRegistro(item) {
-            this.oIngresoProducto.id = item.id;
-            this.oIngresoProducto.producto_id = item.producto_id
-                ? item.producto_id
-                : "";
-            this.oIngresoProducto.proveedor_id = item.proveedor_id
-                ? item.proveedor_id
-                : "";
-            this.oIngresoProducto.precio_compra = item.precio_compra
-                ? item.precio_compra
-                : "";
-            this.oIngresoProducto.cantidad = item.cantidad ? item.cantidad : "";
-            this.oIngresoProducto.lote = item.lote ? item.lote : "";
-            this.oIngresoProducto.fecha_fabricacion = item.fecha_fabricacion
-                ? item.fecha_fabricacion
-                : "";
-            this.oIngresoProducto.fecha_caducidad = item.fecha_caducidad
-                ? item.fecha_caducidad
-                : "";
-            this.oIngresoProducto.tipo_ingreso_id = item.tipo_ingreso_id
-                ? item.tipo_ingreso_id
-                : "";
-            this.oIngresoProducto.descripcion = item.descripcion
-                ? item.descripcion
-                : "";
-            this.oIngresoProducto.nombre_producto = item.nombre_producto
-                ? item.nombre_producto
-                : "";
+            this.oEntradaHerramienta.id = item.id;
+            this.oEntradaHerramienta.factura = item.factura;
+            this.oEntradaHerramienta.herramienta_id = item.herramienta_id;
+            this.oEntradaHerramienta.cantidad = item.cantidad;
+            this.oEntradaHerramienta.unidad_medida = item.unidad_medida;
+            this.oEntradaHerramienta.precio = item.precio;
+            this.oEntradaHerramienta.total = item.total;
+            this.oEntradaHerramienta.fecha = item.fecha;
 
             this.modal_accion = "edit";
             this.muestra_modal = true;
         },
 
-        // Listar IngresoProductos
-        getIngresoProductos() {
+        // Listar EntradaHerramientas
+        getEntradaHerramientas() {
             this.showOverlay = true;
             this.muestra_modal = false;
-            let url = "/admin/ingreso_productos";
+            let url = "/admin/entrada_herramientas";
             if (this.pagina != 0) {
                 url += "?page=" + this.pagina;
             }
@@ -327,11 +307,11 @@ export default {
                 })
                 .then((res) => {
                     this.showOverlay = false;
-                    this.listRegistros = res.data.ingreso_productos;
+                    this.listRegistros = res.data.entrada_herramientas;
                     this.totalRows = res.data.total;
                 });
         },
-        eliminaIngresoProducto(id, descripcion) {
+        eliminaEntradaHerramienta(id, descripcion) {
             Swal.fire({
                 title: "¿Quierés eliminar este registro?",
                 html: `<strong>${descripcion}</strong>`,
@@ -344,11 +324,11 @@ export default {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     axios
-                        .post("/admin/ingreso_productos/" + id, {
+                        .post("/admin/entrada_herramientas/" + id, {
                             _method: "DELETE",
                         })
                         .then((res) => {
-                            this.getIngresoProductos();
+                            this.getEntradaHerramientas();
                             this.filter = "";
                             Swal.fire({
                                 icon: "success",
@@ -383,11 +363,11 @@ export default {
                 }
             });
         },
-        abreModal(tipo_accion = "nuevo", ingreso_producto = null) {
+        abreModal(tipo_accion = "nuevo", entrada_herramienta = null) {
             this.muestra_modal = true;
             this.modal_accion = tipo_accion;
-            if (ingreso_producto) {
-                this.oIngresoProducto = ingreso_producto;
+            if (entrada_herramienta) {
+                this.oEntradaHerramienta = entrada_herramienta;
             }
         },
         onFiltered(filteredItems) {
@@ -395,16 +375,14 @@ export default {
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
         },
-        limpiaIngresoProducto() {
-            this.oIngresoProducto.producto_id = "";
-            this.oIngresoProducto.proveedor_id = "";
-            this.oIngresoProducto.precio_compra = "";
-            this.oIngresoProducto.cantidad = "";
-            this.oIngresoProducto.lote = "";
-            this.oIngresoProducto.fecha_fabricacion = "";
-            this.oIngresoProducto.fecha_caducidad = "";
-            this.oIngresoProducto.tipo_ingreso_id = "";
-            this.oIngresoProducto.descripcion = "";
+        limpiaEntradaHerramienta() {
+            this.oEntradaHerramienta.factura = "";
+            this.oEntradaHerramienta.herramienta_id = "";
+            this.oEntradaHerramienta.cantidad = "";
+            this.oEntradaHerramienta.unidad_medida = "";
+            this.oEntradaHerramienta.precio = "";
+            this.oEntradaHerramienta.total = "";
+            this.oEntradaHerramienta.fecha = "";
         },
         formatoFecha(date) {
             return this.$moment(String(date)).format("DD/MM/YYYY");

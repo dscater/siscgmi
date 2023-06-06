@@ -77,6 +77,7 @@ class HerramientaController extends Controller
         DB::beginTransaction();
         try {
             $datos_original = HistorialAccion::getDetalleRegistro($herramienta, "herramientas");
+            $herramienta->entradas()->delete();
             $herramienta->update(array_map('mb_strtoupper', $request->except("foto")));
             if ($request->hasFile("foto")) {
                 if ($herramienta->foto && $herramienta->foto != "") {

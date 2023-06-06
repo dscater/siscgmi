@@ -19,6 +19,13 @@ class EntradaHerramienta extends Model
         "fecha",
     ];
 
+    protected $appends = ["detalle_herramienta"];
+
+    public function getDetalleHerramientaAttribute()
+    {
+        return $this->herramienta->id . ' | ' . $this->herramienta->nombre;
+    }
+
     public function herramienta()
     {
         return $this->belongsTo(Herramienta::class, 'herramienta_id');

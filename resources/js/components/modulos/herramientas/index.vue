@@ -504,7 +504,7 @@ export default {
             console.log(descripcion);
             Swal.fire({
                 title: "¿Quierés eliminar este registro?",
-                html: `<strong>${descripcion}</strong>`,
+                html: `<strong>${descripcion}</strong><br><h4>Esto también eliminara los registros de entradas y no se podrá deshacer</h4>`,
                 showCancelButton: true,
                 confirmButtonColor: "#149FDA",
                 confirmButtonText: "Si, eliminar",

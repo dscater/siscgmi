@@ -23,138 +23,57 @@
                 <div class="modal-body">
                     <form>
                         <div class="row">
-                            <div
-                                class="form-group col-md-12"
-                                v-if="accion != 'edit'"
-                            >
-                                <label
-                                    :class="{
-                                        'text-danger': errors.producto_id,
-                                    }"
-                                    >Seleccionar Producto*</label
-                                >
-
-                                <el-select
-                                    class="w-100"
-                                    :class="{
-                                        'is-invalid': errors.producto_id,
-                                    }"
-                                    v-model="ingreso_producto.producto_id"
-                                    filterable
-                                    remote
-                                    reserve-keyword
-                                    placeholder="Buscar producto"
-                                    :remote-method="buscarProducto"
-                                    :loading="loading_buscador"
-                                    @change="muestraInfoProducto"
-                                >
-                                    <el-option
-                                        v-for="item in aux_lista_productos"
-                                        :key="item.id"
-                                        :value="item.id"
-                                        :label="item.nombre"
-                                    >
-                                    </el-option>
-                                </el-select>
-                                <span
-                                    class="error invalid-feedback"
-                                    v-if="errors.producto_id"
-                                    v-text="errors.producto_id[0]"
-                                ></span>
-                            </div>
-                            <div class="form-group col-md-12" v-else>
-                                <label
-                                    :class="{
-                                        'text-danger': errors.producto_id,
-                                    }"
-                                    >Producto*</label
-                                >
-                                <input
-                                    type="readonly"
-                                    class="form-control"
-                                    readonly
-                                    v-model="
-                                        ingreso_producto.nombre_producto
-                                    "
-                                />
-                            </div>
-                            <div
-                                class="col-md-12"
-                                v-if="oProducto && oProducto.codigo_almacen"
-                            >
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr class="bg-primary">
-                                            <th>Cód. Almacén</th>
-                                            <th>Cód. Producto</th>
-                                            <th>Nombre</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                {{ oProducto.codigo_almacen }}
-                                            </td>
-                                            <td>
-                                                {{ oProducto.codigo_producto }}
-                                            </td>
-                                            <td>{{ oProducto.nombre }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                             <div class="form-group col-md-6">
                                 <label
                                     :class="{
-                                        'text-danger': errors.proveedor_id,
+                                        'text-danger': errors.factura,
                                     }"
-                                    >Seleccionar Proveedor*</label
-                                >
-                                <el-select
-                                    placeholder="Proveedor"
-                                    class="w-100"
-                                    :class="{
-                                        'is-invalid': errors.proveedor_id,
-                                    }"
-                                    v-model="ingreso_producto.proveedor_id"
-                                    filterable
-                                >
-                                    <el-option
-                                        v-for="item in listProveedors"
-                                        :key="item.id"
-                                        :label="item.razon_social"
-                                        :value="item.id"
-                                    >
-                                    </el-option>
-                                </el-select>
-                                <span
-                                    class="error invalid-feedback"
-                                    v-if="errors.proveedor_id"
-                                    v-text="errors.proveedor_id[0]"
-                                ></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label
-                                    :class="{
-                                        'text-danger': errors.precio_compra,
-                                    }"
-                                    >Precio de compra*</label
+                                    >Factura</label
                                 >
                                 <el-input
-                                    type="number"
-                                    min="0.01"
-                                    placeholder="Precio de compra"
+                                    placeholder="Factura"
                                     :class="{
-                                        'is-invalid': errors.precio_compra,
+                                        'is-invalid': errors.factura,
                                     }"
-                                    v-model="ingreso_producto.precio_compra"
+                                    v-model="entrada_herramienta.factura"
                                     clearable
                                 >
                                 </el-input>
                                 <span
                                     class="error invalid-feedback"
-                                    v-if="errors.precio_compra"
-                                    v-text="errors.precio_compra[0]"
+                                    v-if="errors.factura"
+                                    v-text="errors.factura[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.herramienta_id,
+                                    }"
+                                    >Seleccionar EntradaHerramienta*</label
+                                >
+
+                                <el-select
+                                    class="w-100"
+                                    :class="{
+                                        'is-invalid': errors.herramienta_id,
+                                    }"
+                                    v-model="entrada_herramienta.herramienta_id"
+                                    filterable
+                                    placeholder="Herramienta/Equipo de protección"
+                                >
+                                    <el-option
+                                        v-for="item in listEntradaHerramientas"
+                                        :key="item.id"
+                                        :value="item.id"
+                                        :label="item.id + ' | ' + item.nombre"
+                                    >
+                                    </el-option>
+                                </el-select>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.herramienta_id"
+                                    v-text="errors.herramienta_id[0]"
                                 ></span>
                             </div>
                             <div class="form-group col-md-6">
@@ -169,8 +88,10 @@
                                     min="0.01"
                                     placeholder="Cantidad"
                                     :class="{ 'is-invalid': errors.cantidad }"
-                                    v-model="ingreso_producto.cantidad"
+                                    v-model="entrada_herramienta.cantidad"
                                     clearable
+                                    @change="calculaTotal"
+                                    @keyup.native="calculaTotal"
                                 >
                                 </el-input>
                                 <span
@@ -182,121 +103,96 @@
                             <div class="form-group col-md-6">
                                 <label
                                     :class="{
-                                        'text-danger': errors.lote,
+                                        'text-danger': errors.unidad_medida,
                                     }"
-                                    >Lote*</label
+                                    >Unidad de medida</label
                                 >
                                 <el-input
-                                    placeholder="Lote"
-                                    :class="{ 'is-invalid': errors.lote }"
-                                    v-model="ingreso_producto.lote"
+                                    placeholder="Unidad de medida"
+                                    :class="{
+                                        'is-invalid': errors.unidad_medida,
+                                    }"
+                                    v-model="entrada_herramienta.unidad_medida"
                                     clearable
                                 >
                                 </el-input>
                                 <span
                                     class="error invalid-feedback"
-                                    v-if="errors.lote"
-                                    v-text="errors.lote[0]"
+                                    v-if="errors.unidad_medida"
+                                    v-text="errors.unidad_medida[0]"
                                 ></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label
                                     :class="{
-                                        'text-danger': errors.fecha_fabricacion,
+                                        'text-danger': errors.precio,
                                     }"
-                                    >Fecha de fabricación*</label
+                                    >Precio unitario*</label
+                                >
+                                <el-input
+                                    type="number"
+                                    min="0.01"
+                                    placeholder="Precio de compra"
+                                    :class="{
+                                        'is-invalid': errors.precio,
+                                    }"
+                                    v-model="entrada_herramienta.precio"
+                                    clearable
+                                    @change="calculaTotal"
+                                    @keyup.native="calculaTotal"
+                                >
+                                </el-input>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.precio"
+                                    v-text="errors.precio[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.total,
+                                    }"
+                                    >Total</label
+                                >
+                                <el-input
+                                    placeholder="Total"
+                                    :class="{
+                                        'is-invalid': errors.total,
+                                    }"
+                                    v-model="entrada_herramienta.total"
+                                    clearable
+                                    readonly
+                                >
+                                </el-input>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.total"
+                                    v-text="errors.total[0]"
+                                ></span>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.fecha,
+                                    }"
+                                    >Fecha de entrada*</label
                                 >
                                 <el-input
                                     type="date"
-                                    placeholder="Fecha de fabricación"
+                                    placeholder="Fecha de entrada"
                                     :class="{
-                                        'is-invalid': errors.fecha_fabricacion,
+                                        'is-invalid': errors.fecha,
                                     }"
-                                    v-model="ingreso_producto.fecha_fabricacion"
+                                    v-model="entrada_herramienta.fecha"
                                     clearable
                                 >
                                 </el-input>
                                 <span
                                     class="error invalid-feedback"
-                                    v-if="errors.fecha_fabricacion"
-                                    v-text="errors.fecha_fabricacion[0]"
-                                ></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label
-                                    :class="{
-                                        'text-danger': errors.fecha_caducidad,
-                                    }"
-                                    >Fecha de caducidad*</label
-                                >
-                                <el-input
-                                    type="date"
-                                    placeholder="Fecha de caducidad"
-                                    :class="{
-                                        'is-invalid': errors.fecha_caducidad,
-                                    }"
-                                    v-model="ingreso_producto.fecha_caducidad"
-                                    clearable
-                                >
-                                </el-input>
-                                <span
-                                    class="error invalid-feedback"
-                                    v-if="errors.fecha_caducidad"
-                                    v-text="errors.fecha_caducidad[0]"
-                                ></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label
-                                    :class="{
-                                        'text-danger': errors.tipo_ingreso_id,
-                                    }"
-                                    >Seleccionar Tipo de ingreso*</label
-                                >
-                                <el-select
-                                    placeholder="Tipo de ingreso"
-                                    class="w-100"
-                                    :class="{
-                                        'is-invalid': errors.tipo_ingreso_id,
-                                    }"
-                                    v-model="ingreso_producto.tipo_ingreso_id"
-                                    filterable
-                                >
-                                    <el-option
-                                        v-for="item in listTipoIngresos"
-                                        :key="item.id"
-                                        :label="item.nombre"
-                                        :value="item.id"
-                                    >
-                                    </el-option>
-                                </el-select>
-                                <span
-                                    class="error invalid-feedback"
-                                    v-if="errors.tipo_ingreso_id"
-                                    v-text="errors.tipo_ingreso_id[0]"
-                                ></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label
-                                    :class="{
-                                        'text-danger': errors.descripcion,
-                                    }"
-                                    >Descripción</label
-                                >
-                                <el-input
-                                    type="textarea"
-                                    autosize
-                                    placeholder="Descripción"
-                                    :class="{
-                                        'is-invalid': errors.descripcion,
-                                    }"
-                                    v-model="ingreso_producto.descripcion"
-                                    clearable
-                                >
-                                </el-input>
-                                <span
-                                    class="error invalid-feedback"
-                                    v-if="errors.descripcion"
-                                    v-text="errors.descripcion[0]"
+                                    v-if="errors.fecha"
+                                    v-text="errors.fecha[0]"
                                 ></span>
                             </div>
                         </div>
@@ -335,19 +231,17 @@ export default {
             type: String,
             default: "nuevo",
         },
-        ingreso_producto: {
+        entrada_herramienta: {
             type: Object,
             default: {
                 id: 0,
-                producto_id: "",
-                proveedor_id: "",
-                precio_compra: "",
+                factura: "",
+                herramienta_id: "",
                 cantidad: "",
-                lote: "",
-                fecha_fabricacion: "",
-                fecha_caducidad: "",
-                tipo_ingreso_id: "",
-                descripcion: "",
+                unidad_medida: "",
+                precio: "",
+                total: "",
+                fecha: "",
             },
         },
     },
@@ -359,6 +253,9 @@ export default {
             } else {
                 this.bModal = false;
             }
+        },
+        entrada_herramienta(newVal) {
+            this.oEntradaHerramienta = newVal;
         },
     },
     computed: {
@@ -383,104 +280,68 @@ export default {
             bModal: this.muestra_modal,
             enviando: false,
             errors: [],
-            listProductos: [],
-            aux_lista_productos: [],
-            listProveedors: [],
-            listTipoIngresos: [],
-            loading_buscador: false,
-            timeOutProductos: null,
-            sw_busqueda: "todos",
-            oProducto: {
-                codigo_almacen: "",
-                codigo_producto: "",
-                nombre: "",
-            },
+            listEntradaHerramientas: [],
+            oEntradaHerramienta: this.entrada_herramienta,
         };
     },
     mounted() {
         this.bModal = this.muestra_modal;
-        this.getProveedors();
-        this.getTipoIngresos();
+        this.getEntradaHerramientas();
     },
     methods: {
-        getProveedors() {
-            axios.get("/admin/proveedors").then((response) => {
-                this.listProveedors = response.data.proveedors;
-            });
-        },
-        getTipoIngresos() {
-            axios.get("/admin/tipo_ingresos").then((response) => {
-                this.listTipoIngresos = response.data.tipo_ingresos;
+        getEntradaHerramientas() {
+            axios.get("/admin/herramientas").then((response) => {
+                this.listEntradaHerramientas = response.data.herramientas;
             });
         },
         setRegistroModal() {
             this.enviando = true;
             try {
                 this.textoBtn = "Enviando...";
-                let url = "/admin/ingreso_productos";
+                let url = "/admin/entrada_herramientas";
                 let config = {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
                 };
                 let formdata = new FormData();
-                formdata.append(
-                    "producto_id",
-                    this.ingreso_producto.producto_id
-                        ? this.ingreso_producto.producto_id
-                        : ""
-                );
-                formdata.append(
-                    "proveedor_id",
-                    this.ingreso_producto.proveedor_id
-                        ? this.ingreso_producto.proveedor_id
-                        : ""
-                );
-                formdata.append(
-                    "precio_compra",
-                    this.ingreso_producto.precio_compra
-                        ? this.ingreso_producto.precio_compra
-                        : ""
-                );
-                formdata.append(
-                    "cantidad",
-                    this.ingreso_producto.cantidad
-                        ? this.ingreso_producto.cantidad
-                        : ""
-                );
-                formdata.append(
-                    "lote",
-                    this.ingreso_producto.lote
-                        ? this.ingreso_producto.lote
-                        : ""
-                );
-                formdata.append(
-                    "fecha_fabricacion",
-                    this.ingreso_producto.fecha_fabricacion
-                        ? this.ingreso_producto.fecha_fabricacion
-                        : ""
-                );
-                formdata.append(
-                    "fecha_caducidad",
-                    this.ingreso_producto.fecha_caducidad
-                        ? this.ingreso_producto.fecha_caducidad
-                        : ""
-                );
-                formdata.append(
-                    "tipo_ingreso_id",
-                    this.ingreso_producto.tipo_ingreso_id
-                        ? this.ingreso_producto.tipo_ingreso_id
-                        : ""
-                );
-                formdata.append(
-                    "descripcion",
-                    this.ingreso_producto.descripcion
-                        ? this.ingreso_producto.descripcion
-                        : ""
-                );
+                if (this.entrada_herramienta.factura.trim() != "") {
+                    formdata.append(
+                        "factura",
+                        this.entrada_herramienta.factura
+                    );
+                }
+                if (this.entrada_herramienta.herramienta_id) {
+                    formdata.append(
+                        "herramienta_id",
+                        this.entrada_herramienta.herramienta_id
+                    );
+                }
+                if (this.entrada_herramienta.cantidad.trim() != "") {
+                    formdata.append(
+                        "cantidad",
+                        this.entrada_herramienta.cantidad
+                    );
+                }
+                if (this.entrada_herramienta.unidad_medida.trim() != "") {
+                    formdata.append(
+                        "unidad_medida",
+                        this.entrada_herramienta.unidad_medida
+                    );
+                }
+                if (this.entrada_herramienta.precio.trim() != "") {
+                    formdata.append("precio", this.entrada_herramienta.precio);
+                }
+                if (this.entrada_herramienta.total.trim() != "") {
+                    formdata.append("total", this.entrada_herramienta.total);
+                }
+                if (this.entrada_herramienta.fecha.trim() != "") {
+                    formdata.append("fecha", this.entrada_herramienta.fecha);
+                }
                 if (this.accion == "edit") {
                     url =
-                        "/admin/ingreso_productos/" + this.ingreso_producto.id;
+                        "/admin/entrada_herramientas/" +
+                        this.entrada_herramienta.id;
                     formdata.append("_method", "PUT");
                 }
                 axios
@@ -494,7 +355,7 @@ export default {
                                 showConfirmButton: false,
                                 timer: 1500,
                             });
-                            this.limpiaIngresoProducto();
+                            this.limpiaEntradaHerramienta();
                             this.$emit("envioModal");
                             this.errors = [];
                             if (this.accion == "edit") {
@@ -551,54 +412,21 @@ export default {
             this.bModal = false;
             this.$emit("close");
         },
-        limpiaIngresoProducto() {
+        limpiaEntradaHerramienta() {
             this.errors = [];
-            // this.oIngresoProducto.producto_id = "";
-            // this.oIngresoProducto.proveedor_id = "";
-            // this.oIngresoProducto.precio_compra = "";
-            // this.oIngresoProducto.cantidad = "";
-            // this.oIngresoProducto.lote = "";
-            // this.oIngresoProducto.fecha_fabricacion = "";
-            // this.oIngresoProducto.fecha_caducidad = "";
-            // this.oIngresoProducto.tipo_ingreso_id = "";
-            // this.oIngresoProducto.descripcion = "";
+            // this.oEntradaHerramienta.herramienta_id = "";
         },
-        buscarProducto(query) {
-            this.aux_lista_productos = [];
-            this.loading_buscador = true;
-            clearTimeout(this.timeOutProductos);
-            let self = this;
-            this.timeOutProductos = setTimeout(() => {
-                self.getProductosQuery(query);
-            }, 1000);
-        },
-        getProductosQuery(query) {
-            if (query !== "") {
-                axios
-                    .get("/admin/productos/buscar_producto", {
-                        params: {
-                            value: query,
-                            sw_busqueda: this.sw_busqueda,
-                        },
-                    })
-                    .then((response) => {
-                        this.loading_buscador = false;
-                        this.listProductos;
-                        this.aux_lista_productos = response.data;
-                    });
+        calculaTotal() {
+            if (
+                this.entrada_herramienta.cantidad != "" &&
+                this.entrada_herramienta.precio
+            ) {
+                this.entrada_herramienta.total = (
+                    parseFloat(this.entrada_herramienta.cantidad) *
+                    parseFloat(this.entrada_herramienta.precio)
+                ).toFixed(2);
             } else {
-                this.loading_buscador = false;
-                this.aux_lista_productos = [];
-            }
-        },
-        muestraInfoProducto() {
-            if (this.ingreso_producto.producto_id != "") {
-                let elem = this.aux_lista_productos.filter(
-                    (element) => element.id == this.ingreso_producto.producto_id
-                );
-                this.oProducto = elem[0];
-            } else {
-                this.oProducto = null;
+                this.entrada_herramienta.total = parseFloat(0).toFixed(2);
             }
         },
     },

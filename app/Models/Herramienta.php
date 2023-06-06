@@ -45,4 +45,9 @@ class Herramienta extends Model
         }
         return asset("imgs/herramientas/default.png");
     }
+
+    public function entradas()
+    {
+        return $this->hasMany(EntradaHerramienta::class, 'herramienta_id');
+    }
 }
