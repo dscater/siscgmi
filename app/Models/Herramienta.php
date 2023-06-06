@@ -35,4 +35,14 @@ class Herramienta extends Model
         "e_tecnicas",
         "foto",
     ];
+
+    protected $appends = ["url_foto"];
+
+    public function getUrlFotoAttribute()
+    {
+        if ($this->foto && $this->foto != "") {
+            return asset("imgs/herramientas/" . $this->foto);
+        }
+        return asset("imgs/herramientas/default.png");
+    }
 }

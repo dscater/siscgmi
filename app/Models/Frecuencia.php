@@ -13,4 +13,16 @@ class Frecuencia extends Model
         "variable_id",
         "frecuencia",
     ];
+
+    protected $appends = ["detalle_variable"];
+
+    public function getDetalleVariableAttribute()
+    {
+        return $this->variable->id . " | " . $this->variable->nombre . ' | ' . $this->variable->unidad;
+    }
+
+    public function variable()
+    {
+        return $this->belongsTo(VariableControl::class, 'variable_id');
+    }
 }

@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Categorías</h1>
+                        <h1>Frecuencias</h1>
                     </div>
                 </div>
             </div>
@@ -20,13 +20,13 @@
                                         <button
                                             v-if="
                                                 permisos.includes(
-                                                    'categorias.create'
+                                                    'frecuencias.create'
                                                 )
                                             "
                                             class="btn btn-primary btn-flat btn-block"
                                             @click="
                                                 abreModal('nuevo');
-                                                limpiaCategoria();
+                                                limpiaFrecuencia();
                                             "
                                         >
                                             <i class="fa fa-plus"></i>
@@ -122,10 +122,10 @@
                                                             class="btn-flat btn-block"
                                                             title="Eliminar registro"
                                                             @click="
-                                                                eliminaCategoria(
+                                                                eliminaFrecuencia(
                                                                     row.item.id,
                                                                     row.item
-                                                                        .nombre
+                                                                        .detalle_variable+'<br>Frecuencia: '+row.item.frecuencia
                                                                 )
                                                             "
                                                         >
@@ -176,9 +176,9 @@
         <Nuevo
             :muestra_modal="muestra_modal"
             :accion="modal_accion"
-            :categoria="oCategoria"
+            :frecuencia="oFrecuencia"
             @close="muestra_modal = false"
-            @envioModal="getCategorias"
+            @envioModal="getFrecuencias"
         ></Nuevo>
     </div>
 </template>
@@ -196,7 +196,8 @@ export default {
             listRegistros: [],
             showOverlay: false,
             fields: [
-                { key: "nombre", label: "Nombre", sortable: true },
+                { key: "detalle_variable", label: "Variable de control", sortable: true },
+                { key: "frecuencia", label: "Frecuencia", sortable: true },
                 { key: "accion", label: "Acción" },
             ],
             loading: true,
@@ -206,9 +207,10 @@ export default {
             }),
             muestra_modal: false,
             modal_accion: "nuevo",
-            oCategoria: {
+            oFrecuencia: {
                 id: 0,
-                nombre: "",
+                variable_id: "",
+                frecuencia: "",
             },
             currentPage: 1,
             perPage: 5,
@@ -226,26 +228,28 @@ export default {
     },
     mounted() {
         this.loadingWindow.close();
-        this.getCategorias();
+        this.getFrecuencias();
     },
     methods: {
         // Seleccionar Opciones de Tabla
         editarRegistro(item) {
-            this.oCategoria.id = item.id;
-            this.oCategoria.nombre = item.nombre ? item.nombre : "";
-            this.oCategoria.descripcion = item.descripcion
-                ? item.descripcion
+            this.oFrecuencia.id = item.id;
+            this.oFrecuencia.variable_id = item.variable_id
+                ? item.variable_id
+                : "";
+            this.oFrecuencia.frecuencia = item.frecuencia
+                ? item.frecuencia
                 : "";
 
             this.modal_accion = "edit";
             this.muestra_modal = true;
         },
 
-        // Listar Categorias
-        getCategorias() {
+        // Listar Frecuencias
+        getFrecuencias() {
             this.showOverlay = true;
             this.muestra_modal = false;
-            let url = "/admin/categorias";
+            let url = "/admin/frecuencias";
             if (this.pagina != 0) {
                 url += "?page=" + this.pagina;
             }
@@ -255,14 +259,14 @@ export default {
                 })
                 .then((res) => {
                     this.showOverlay = false;
-                    this.listRegistros = res.data.categorias;
+                    this.listRegistros = res.data.frecuencias;
                     this.totalRows = res.data.total;
                 });
         },
-        eliminaCategoria(id, descripcion) {
+        eliminaFrecuencia(id, frecuencia) {
             Swal.fire({
                 title: "¿Quierés eliminar este registro?",
-                html: `<strong>${descripcion}</strong>`,
+                html: `<strong>${frecuencia}</strong>`,
                 showCancelButton: true,
                 confirmButtonColor: "#149FDA",
                 confirmButtonText: "Si, eliminar",
@@ -272,11 +276,11 @@ export default {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     axios
-                        .post("/admin/categorias/" + id, {
+                        .post("/admin/frecuencias/" + id, {
                             _method: "DELETE",
                         })
                         .then((res) => {
-                            this.getCategorias();
+                            this.getFrecuencias();
                             this.filter = "";
                             Swal.fire({
                                 icon: "success",
@@ -311,11 +315,11 @@ export default {
                 }
             });
         },
-        abreModal(tipo_accion = "nuevo", categoria = null) {
+        abreModal(tipo_accion = "nuevo", frecuencia = null) {
             this.muestra_modal = true;
             this.modal_accion = tipo_accion;
-            if (categoria) {
-                this.oCategoria = categoria;
+            if (frecuencia) {
+                this.oFrecuencia = frecuencia;
             }
         },
         onFiltered(filteredItems) {
@@ -323,9 +327,9 @@ export default {
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
         },
-        limpiaCategoria() {
-            this.oCategoria.nombre = "";
-            this.oCategoria.descripcion = "";
+        limpiaFrecuencia() {
+            this.oFrecuencia.variable_id = "";
+            this.oFrecuencia.frecuencia = "";
         },
         formatoFecha(date) {
             return this.$moment(String(date)).format("DD/MM/YYYY");

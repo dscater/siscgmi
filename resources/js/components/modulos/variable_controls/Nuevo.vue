@@ -23,17 +23,17 @@
                 <div class="modal-body">
                     <form>
                         <div class="row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label
                                     :class="{
                                         'text-danger': errors.nombre,
                                     }"
-                                    >Nombre de categoría*</label
+                                    >Nombre*</label
                                 >
                                 <el-input
                                     placeholder="Nombre"
                                     :class="{ 'is-invalid': errors.nombre }"
-                                    v-model="categoria.nombre"
+                                    v-model="variable_control.nombre"
                                     clearable
                                 >
                                 </el-input>
@@ -41,6 +41,32 @@
                                     class="error invalid-feedback"
                                     v-if="errors.nombre"
                                     v-text="errors.nombre[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.unidad,
+                                    }"
+                                    >Unidad*</label
+                                >
+                                <el-select
+                                    class="w-100"
+                                    :class="{ 'is-invalid': errors.unidad }"
+                                    v-model="variable_control.unidad"
+                                    clearable
+                                >
+                                    <el-option
+                                        v-for="(item, index) in listUnidads"
+                                        :key="index"
+                                        :value="item"
+                                        :label="item"
+                                    ></el-option>
+                                </el-select>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.unidad"
+                                    v-text="errors.unidad[0]"
                                 ></span>
                             </div>
                         </div>
@@ -79,12 +105,12 @@ export default {
             type: String,
             default: "nuevo",
         },
-        categoria: {
+        variable_control: {
             type: Object,
             default: {
                 id: 0,
                 nombre: "",
-                descripcion: "",
+                unidad: "",
             },
         },
     },
@@ -120,6 +146,18 @@ export default {
             bModal: this.muestra_modal,
             enviando: false,
             errors: [],
+            listUnidads: [
+                "HORA",
+                "KILÓMETROS",
+                "MILLAS",
+                "DÍAS",
+                "UNIDADES",
+                "KILOGRAMOS",
+                "LIBRAS",
+                "METROS",
+                "GALONES",
+                "LITROS",
+            ],
         };
     },
     mounted() {
@@ -130,7 +168,7 @@ export default {
             this.enviando = true;
             try {
                 this.textoBtn = "Enviando...";
-                let url = "/admin/categorias";
+                let url = "/admin/variable_controls";
                 let config = {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -139,17 +177,20 @@ export default {
                 let formdata = new FormData();
                 formdata.append(
                     "nombre",
-                    this.categoria.nombre ? this.categoria.nombre : ""
+                    this.variable_control.nombre
+                        ? this.variable_control.nombre
+                        : ""
                 );
                 formdata.append(
-                    "descripcion",
-                    this.categoria.descripcion
-                        ? this.categoria.descripcion
+                    "unidad",
+                    this.variable_control.unidad
+                        ? this.variable_control.unidad
                         : ""
                 );
 
                 if (this.accion == "edit") {
-                    url = "/admin/categorias/" + this.categoria.id;
+                    url =
+                        "/admin/variable_controls/" + this.variable_control.id;
                     formdata.append("_method", "PUT");
                 }
                 axios
@@ -163,7 +204,7 @@ export default {
                                 showConfirmButton: false,
                                 timer: 1500,
                             });
-                            this.limpiaCategoria();
+                            this.limpiaVariableControl();
                             this.$emit("envioModal");
                             this.errors = [];
                             if (this.accion == "edit") {
@@ -220,10 +261,10 @@ export default {
             this.bModal = false;
             this.$emit("close");
         },
-        limpiaCategoria() {
+        limpiaVariableControl() {
             this.errors = [];
-            this.categoria.nombre = "";
-            this.categoria.descripcion = "";
+            this.variable_control.nombre = "";
+            this.variable_control.unidad = "";
         },
     },
 };

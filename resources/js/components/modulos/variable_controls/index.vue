@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Categorías</h1>
+                        <h1>Variables de control</h1>
                     </div>
                 </div>
             </div>
@@ -20,13 +20,13 @@
                                         <button
                                             v-if="
                                                 permisos.includes(
-                                                    'categorias.create'
+                                                    'variable_controls.create'
                                                 )
                                             "
                                             class="btn btn-primary btn-flat btn-block"
                                             @click="
                                                 abreModal('nuevo');
-                                                limpiaCategoria();
+                                                limpiaVariableControl();
                                             "
                                         >
                                             <i class="fa fa-plus"></i>
@@ -122,7 +122,7 @@
                                                             class="btn-flat btn-block"
                                                             title="Eliminar registro"
                                                             @click="
-                                                                eliminaCategoria(
+                                                                eliminaVariableControl(
                                                                     row.item.id,
                                                                     row.item
                                                                         .nombre
@@ -176,9 +176,9 @@
         <Nuevo
             :muestra_modal="muestra_modal"
             :accion="modal_accion"
-            :categoria="oCategoria"
+            :variable_control="oVariableControl"
             @close="muestra_modal = false"
-            @envioModal="getCategorias"
+            @envioModal="getVariableControls"
         ></Nuevo>
     </div>
 </template>
@@ -197,6 +197,7 @@ export default {
             showOverlay: false,
             fields: [
                 { key: "nombre", label: "Nombre", sortable: true },
+                { key: "unidad", label: "Unidad", sortable: true },
                 { key: "accion", label: "Acción" },
             ],
             loading: true,
@@ -206,9 +207,10 @@ export default {
             }),
             muestra_modal: false,
             modal_accion: "nuevo",
-            oCategoria: {
+            oVariableControl: {
                 id: 0,
                 nombre: "",
+                unidad: "",
             },
             currentPage: 1,
             perPage: 5,
@@ -226,26 +228,26 @@ export default {
     },
     mounted() {
         this.loadingWindow.close();
-        this.getCategorias();
+        this.getVariableControls();
     },
     methods: {
         // Seleccionar Opciones de Tabla
         editarRegistro(item) {
-            this.oCategoria.id = item.id;
-            this.oCategoria.nombre = item.nombre ? item.nombre : "";
-            this.oCategoria.descripcion = item.descripcion
-                ? item.descripcion
+            this.oVariableControl.id = item.id;
+            this.oVariableControl.nombre = item.nombre ? item.nombre : "";
+            this.oVariableControl.unidad = item.unidad
+                ? item.unidad
                 : "";
 
             this.modal_accion = "edit";
             this.muestra_modal = true;
         },
 
-        // Listar Categorias
-        getCategorias() {
+        // Listar VariableControls
+        getVariableControls() {
             this.showOverlay = true;
             this.muestra_modal = false;
-            let url = "/admin/categorias";
+            let url = "/admin/variable_controls";
             if (this.pagina != 0) {
                 url += "?page=" + this.pagina;
             }
@@ -255,14 +257,14 @@ export default {
                 })
                 .then((res) => {
                     this.showOverlay = false;
-                    this.listRegistros = res.data.categorias;
+                    this.listRegistros = res.data.variable_controls;
                     this.totalRows = res.data.total;
                 });
         },
-        eliminaCategoria(id, descripcion) {
+        eliminaVariableControl(id, unidad) {
             Swal.fire({
                 title: "¿Quierés eliminar este registro?",
-                html: `<strong>${descripcion}</strong>`,
+                html: `<strong>${unidad}</strong>`,
                 showCancelButton: true,
                 confirmButtonColor: "#149FDA",
                 confirmButtonText: "Si, eliminar",
@@ -272,11 +274,11 @@ export default {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     axios
-                        .post("/admin/categorias/" + id, {
+                        .post("/admin/variable_controls/" + id, {
                             _method: "DELETE",
                         })
                         .then((res) => {
-                            this.getCategorias();
+                            this.getVariableControls();
                             this.filter = "";
                             Swal.fire({
                                 icon: "success",
@@ -311,11 +313,11 @@ export default {
                 }
             });
         },
-        abreModal(tipo_accion = "nuevo", categoria = null) {
+        abreModal(tipo_accion = "nuevo", variable_control = null) {
             this.muestra_modal = true;
             this.modal_accion = tipo_accion;
-            if (categoria) {
-                this.oCategoria = categoria;
+            if (variable_control) {
+                this.oVariableControl = variable_control;
             }
         },
         onFiltered(filteredItems) {
@@ -323,9 +325,9 @@ export default {
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
         },
-        limpiaCategoria() {
-            this.oCategoria.nombre = "";
-            this.oCategoria.descripcion = "";
+        limpiaVariableControl() {
+            this.oVariableControl.nombre = "";
+            this.oVariableControl.unidad = "";
         },
         formatoFecha(date) {
             return this.$moment(String(date)).format("DD/MM/YYYY");

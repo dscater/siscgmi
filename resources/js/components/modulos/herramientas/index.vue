@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Categorías</h1>
+                        <h1>Herramientas</h1>
                     </div>
                 </div>
             </div>
@@ -17,21 +17,20 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <button
+                                        <router-link
                                             v-if="
                                                 permisos.includes(
-                                                    'categorias.create'
+                                                    'herramientas.create'
                                                 )
                                             "
+                                            :to="{
+                                                name: 'herramientas.create',
+                                            }"
                                             class="btn btn-primary btn-flat btn-block"
-                                            @click="
-                                                abreModal('nuevo');
-                                                limpiaCategoria();
-                                            "
                                         >
                                             <i class="fa fa-plus"></i>
                                             Nuevo
-                                        </button>
+                                        </router-link>
                                     </div>
                                 </div>
                             </div>
@@ -84,6 +83,216 @@
                                                 empty-filtered-text="Sin resultados"
                                                 :filter="filter"
                                             >
+                                                <template #cell(detalles)="row">
+                                                    <b-button
+                                                        size="sm"
+                                                        variant="primary"
+                                                        @click="
+                                                            row.toggleDetails
+                                                        "
+                                                    >
+                                                        {{
+                                                            row.detailsShowing
+                                                                ? "Ocultar"
+                                                                : "Ver"
+                                                        }}
+                                                        Detalles
+                                                    </b-button>
+                                                </template>
+                                                <template #row-details="row">
+                                                    <b-card>
+                                                        <h4 class="text-sm">
+                                                            DATOS DE INVENTARIO
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Costo unitario:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .costo
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Unidad de
+                                                                medida:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .unidad_medida
+                                                                }}</span>
+                                                            </li>
+                                                        </ul>
+                                                        <h4 class="text-sm">
+                                                            DATOS DE PROVEEDOR
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Proveedor:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .proveedor
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Dirección:
+                                                                <span>{{
+                                                                    row.item.dir
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Teléfono:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .fono
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Correo
+                                                                electrónico:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .correo
+                                                                }}</span>
+                                                            </li>
+                                                        </ul>
+                                                        <h4 class="text-sm">
+                                                            DATOS DE UBICACIÓN
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Almacén:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .almacen
+                                                                }}</span>
+                                                            </li>
+                                                        </ul>
+                                                        <h4 class="text-sm">
+                                                            DATOS DE TERCEROS
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Fabricante:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .fabricante
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Terciarios:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .terciarios
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Nombre Contacto:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .nombre_contacto
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Número de
+                                                                teléfono:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .num_fono
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Correo
+                                                                electrónico:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .correo_fabricante
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Dirección:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .dir_fabricante
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Número de
+                                                                identificación:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .num_identificacion
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Especificaciones
+                                                                técnicas:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .e_tecnicas
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Foto:
+                                                                <img
+                                                                    :src="
+                                                                        row.item
+                                                                            .url_foto
+                                                                    "
+                                                                    width="120px"
+                                                                />
+                                                            </li>
+                                                        </ul>
+                                                    </b-card>
+                                                    <b-button
+                                                        size="sm"
+                                                        variant="primary"
+                                                        @click="
+                                                            row.toggleDetails
+                                                        "
+                                                    >
+                                                        Ocultar Detalles
+                                                    </b-button>
+                                                    <b-button
+                                                        size="sm"
+                                                        pill
+                                                        variant="outline-warning"
+                                                        class="btn-flat"
+                                                        title="Editar registro"
+                                                        @click="
+                                                            editarRegistro(
+                                                                row.item
+                                                            )
+                                                        "
+                                                    >
+                                                        <i
+                                                            class="fa fa-edit"
+                                                        ></i>
+                                                    </b-button>
+                                                    <b-button
+                                                        size="sm"
+                                                        pill
+                                                        variant="outline-danger"
+                                                        class="btn-flat"
+                                                        title="Eliminar registro"
+                                                        @click="
+                                                            eliminaHerramienta(
+                                                                row.item.id,
+                                                                row.item
+                                                                    .codigo +
+                                                                    ' | ' +
+                                                                    row.item
+                                                                        .nombre +
+                                                                    '<br>' +
+                                                                    row.item
+                                                                        .descripcion
+                                                            )
+                                                        "
+                                                    >
+                                                        <i
+                                                            class="fa fa-trash"
+                                                        ></i>
+                                                    </b-button>
+                                                </template>
+
                                                 <template
                                                     #cell(fecha_registro)="row"
                                                 >
@@ -122,10 +331,16 @@
                                                             class="btn-flat btn-block"
                                                             title="Eliminar registro"
                                                             @click="
-                                                                eliminaCategoria(
+                                                                eliminaHerramienta(
                                                                     row.item.id,
                                                                     row.item
-                                                                        .nombre
+                                                                    .codigo +
+                                                                    ' | ' +
+                                                                    row.item
+                                                                        .nombre +
+                                                                    '<br>' +
+                                                                    row.item
+                                                                        .descripcion
                                                                 )
                                                             "
                                                         >
@@ -173,22 +388,11 @@
                 </div>
             </div>
         </section>
-        <Nuevo
-            :muestra_modal="muestra_modal"
-            :accion="modal_accion"
-            :categoria="oCategoria"
-            @close="muestra_modal = false"
-            @envioModal="getCategorias"
-        ></Nuevo>
     </div>
 </template>
 
 <script>
-import Nuevo from "./Nuevo.vue";
 export default {
-    components: {
-        Nuevo,
-    },
     data() {
         return {
             permisos: localStorage.getItem("permisos"),
@@ -196,7 +400,23 @@ export default {
             listRegistros: [],
             showOverlay: false,
             fields: [
+                { key: "codigo", label: "Código", sortable: true },
                 { key: "nombre", label: "Nombre", sortable: true },
+                { key: "descripcion", label: "Descripción", sortable: true },
+                {
+                    key: "clasificacion",
+                    label: "Clasificación",
+                    sortable: true,
+                },
+                {
+                    key: "cod_clasificacion",
+                    label: "Código Clasificación",
+                    sortable: true,
+                },
+                { key: "marca", label: "Marca", sortable: true },
+                { key: "modelo", label: "Modelo", sortable: true },
+                { key: "serie", label: "Serie", sortable: true },
+                { key: "detalles", label: "Detalles", sortable: true },
                 { key: "accion", label: "Acción" },
             ],
             loading: true,
@@ -206,9 +426,32 @@ export default {
             }),
             muestra_modal: false,
             modal_accion: "nuevo",
-            oCategoria: {
+            oHerramienta: {
                 id: 0,
+                codigo: "",
                 nombre: "",
+                descripcion: "",
+                clasificacion: "",
+                cod_clasificacion: "",
+                marca: "",
+                modelo: "",
+                serie: "",
+                costo: "",
+                unidad_medida: "",
+                proveedor: "",
+                dir: "",
+                fono: "",
+                correo: "",
+                almacen: "",
+                fabricante: "",
+                terciarios: "",
+                nombre_contacto: "",
+                num_fono: "",
+                correo_fabricante: "",
+                dir_fabricante: "",
+                num_identificacion: "",
+                e_tecnicas: "",
+                foto: "",
             },
             currentPage: 1,
             perPage: 5,
@@ -226,26 +469,24 @@ export default {
     },
     mounted() {
         this.loadingWindow.close();
-        this.getCategorias();
+        this.getHerramientas();
     },
     methods: {
         // Seleccionar Opciones de Tabla
         editarRegistro(item) {
-            this.oCategoria.id = item.id;
-            this.oCategoria.nombre = item.nombre ? item.nombre : "";
-            this.oCategoria.descripcion = item.descripcion
-                ? item.descripcion
-                : "";
-
-            this.modal_accion = "edit";
-            this.muestra_modal = true;
+            this.$router.push({
+                name: "herramientas.edit",
+                params: {
+                    id: item.id,
+                },
+            });
         },
 
-        // Listar Categorias
-        getCategorias() {
+        // Listar Herramientas
+        getHerramientas() {
             this.showOverlay = true;
             this.muestra_modal = false;
-            let url = "/admin/categorias";
+            let url = "/admin/herramientas";
             if (this.pagina != 0) {
                 url += "?page=" + this.pagina;
             }
@@ -255,11 +496,12 @@ export default {
                 })
                 .then((res) => {
                     this.showOverlay = false;
-                    this.listRegistros = res.data.categorias;
+                    this.listRegistros = res.data.herramientas;
                     this.totalRows = res.data.total;
                 });
         },
-        eliminaCategoria(id, descripcion) {
+        eliminaHerramienta(id, descripcion) {
+            console.log(descripcion);
             Swal.fire({
                 title: "¿Quierés eliminar este registro?",
                 html: `<strong>${descripcion}</strong>`,
@@ -272,11 +514,11 @@ export default {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     axios
-                        .post("/admin/categorias/" + id, {
+                        .post("/admin/herramientas/" + id, {
                             _method: "DELETE",
                         })
                         .then((res) => {
-                            this.getCategorias();
+                            this.getHerramientas();
                             this.filter = "";
                             Swal.fire({
                                 icon: "success",
@@ -311,11 +553,11 @@ export default {
                 }
             });
         },
-        abreModal(tipo_accion = "nuevo", categoria = null) {
+        abreModal(tipo_accion = "nuevo", herramienta = null) {
             this.muestra_modal = true;
             this.modal_accion = tipo_accion;
-            if (categoria) {
-                this.oCategoria = categoria;
+            if (herramienta) {
+                this.oHerramienta = herramienta;
             }
         },
         onFiltered(filteredItems) {
@@ -323,12 +565,37 @@ export default {
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
         },
-        limpiaCategoria() {
-            this.oCategoria.nombre = "";
-            this.oCategoria.descripcion = "";
+        limpiaHerramienta() {
+            this.oHerramienta.codigo = "";
+            this.oHerramienta.nombre = "";
+            this.oHerramienta.descripcion = "";
+            this.oHerramienta.clasificacion = "";
+            this.oHerramienta.cod_clasificacion = "";
+            this.oHerramienta.marca = "";
+            this.oHerramienta.modelo = "";
+            this.oHerramienta.serie = "";
+            this.oHerramienta.costo = "";
+            this.oHerramienta.unidad_medida = "";
+            this.oHerramienta.proveedor = "";
+            this.oHerramienta.dir = "";
+            this.oHerramienta.fono = "";
+            this.oHerramienta.correo = "";
+            this.oHerramienta.almacen = "";
+            this.oHerramienta.fabricante = "";
+            this.oHerramienta.terciarios = "";
+            this.oHerramienta.nombre_contacto = "";
+            this.oHerramienta.num_fono = "";
+            this.oHerramienta.correo_fabricante = "";
+            this.oHerramienta.dir_fabricante = "";
+            this.oHerramienta.num_identificacion = "";
+            this.oHerramienta.e_tecnicas = "";
+            this.oHerramienta.foto = "";
         },
         formatoFecha(date) {
-            return this.$moment(String(date)).format("DD/MM/YYYY");
+            if (date) {
+                return this.$moment(String(date)).format("DD/MM/YYYY");
+            }
+            return "";
         },
     },
 };

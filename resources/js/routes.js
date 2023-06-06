@@ -54,81 +54,109 @@ export default new Router({
         {
             path: "/sistemas",
             name: "sistemas.index",
-            component: require("./components/modulos/sistemas/index.vue").default,
+            component: require("./components/modulos/sistemas/index.vue")
+                .default,
         },
 
         // equipos
         {
             path: "/equipos",
             name: "equipos.index",
-            component: require("./components/modulos/equipos/index.vue").default,
+            component: require("./components/modulos/equipos/index.vue")
+                .default,
         },
 
         // subunidads
         {
             path: "/subunidads",
             name: "subunidads.index",
-            component: require("./components/modulos/subunidads/index.vue").default,
+            component: require("./components/modulos/subunidads/index.vue")
+                .default,
         },
 
         // maquinarias
         {
             path: "/maquinarias",
             name: "maquinarias.index",
-            component: require("./components/modulos/maquinarias/index.vue").default,
+            component: require("./components/modulos/maquinarias/index.vue")
+                .default,
         },
         {
             path: "/maquinarias/create",
             name: "maquinarias.create",
-            component: require("./components/modulos/maquinarias/create.vue").default,
+            component: require("./components/modulos/maquinarias/create.vue")
+                .default,
         },
         {
             path: "/maquinarias/:id",
             name: "maquinarias.edit",
-            component: require("./components/modulos/maquinarias/edit.vue").default,
-            props:true,
+            component: require("./components/modulos/maquinarias/edit.vue")
+                .default,
+            props: true,
         },
 
         // variable_controls
         {
             path: "/variable_controls",
             name: "variable_controls.index",
-            component: require("./components/modulos/variable_controls/index.vue").default,
+            component:
+                require("./components/modulos/variable_controls/index.vue")
+                    .default,
         },
 
         // frecuencias
         {
             path: "/frecuencias",
             name: "frecuencias.index",
-            component: require("./components/modulos/frecuencias/index.vue").default,
+            component: require("./components/modulos/frecuencias/index.vue")
+                .default,
         },
 
         // herramientas
         {
             path: "/herramientas",
             name: "herramientas.index",
-            component: require("./components/modulos/herramientas/index.vue").default,
+            component: require("./components/modulos/herramientas/index.vue")
+                .default,
+        },
+        {
+            path: "/herramientas/create",
+            name: "herramientas.create",
+            component: require("./components/modulos/herramientas/create.vue")
+                .default,
+        },
+        {
+            path: "/herramientas/:id",
+            name: "herramientas.edit",
+            component: require("./components/modulos/herramientas/edit.vue")
+                .default,
+            props: true,
         },
 
         // entrada_herramientas
         {
             path: "/entrada_herramientas",
             name: "entrada_herramientas.index",
-            component: require("./components/modulos/entrada_herramientas/index.vue").default,
+            component:
+                require("./components/modulos/entrada_herramientas/index.vue")
+                    .default,
         },
 
         // repuestos
         {
             path: "/repuestos",
             name: "repuestos.index",
-            component: require("./components/modulos/repuestos/index.vue").default,
+            component: require("./components/modulos/repuestos/index.vue")
+                .default,
         },
 
         // entrada_repuestos
         {
             path: "/entrada_repuestos",
             name: "entrada_repuestos.index",
-            component: require("./components/modulos/entrada_repuestos/index.vue").default,
+            component:
+                require("./components/modulos/entrada_repuestos/index.vue")
+                    .default,
         },
 
         // Reportes

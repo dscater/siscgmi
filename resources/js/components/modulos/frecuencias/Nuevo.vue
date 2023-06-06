@@ -23,24 +23,59 @@
                 <div class="modal-body">
                     <form>
                         <div class="row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label
                                     :class="{
-                                        'text-danger': errors.nombre,
+                                        'text-danger': errors.variable_id,
                                     }"
-                                    >Nombre de categoría*</label
+                                    >Variable de control*</label
+                                >
+                                <el-select
+                                    class="w-100"
+                                    :class="{
+                                        'is-invalid': errors.variable_id,
+                                    }"
+                                    v-model="frecuencia.variable_id"
+                                    clearable
+                                >
+                                    <el-option
+                                        v-for="item in listVariables"
+                                        :key="item.id"
+                                        :value="item.id"
+                                        :label="
+                                            item.id +
+                                            ' | ' +
+                                            item.nombre +
+                                            ' | ' +
+                                            item.unidad
+                                        "
+                                    >
+                                    </el-option>
+                                </el-select>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.variable_id"
+                                    v-text="errors.variable_id[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.frecuencia,
+                                    }"
+                                    >Frecuencia*</label
                                 >
                                 <el-input
-                                    placeholder="Nombre"
-                                    :class="{ 'is-invalid': errors.nombre }"
-                                    v-model="categoria.nombre"
+                                    placeholder="frecuencia"
+                                    :class="{ 'is-invalid': errors.frecuencia }"
+                                    v-model="frecuencia.frecuencia"
                                     clearable
                                 >
                                 </el-input>
                                 <span
                                     class="error invalid-feedback"
-                                    v-if="errors.nombre"
-                                    v-text="errors.nombre[0]"
+                                    v-if="errors.frecuencia"
+                                    v-text="errors.frecuencia[0]"
                                 ></span>
                             </div>
                         </div>
@@ -79,12 +114,12 @@ export default {
             type: String,
             default: "nuevo",
         },
-        categoria: {
+        frecuencia: {
             type: Object,
             default: {
                 id: 0,
-                nombre: "",
-                descripcion: "",
+                variable_id: "",
+                frecuencia: "",
             },
         },
     },
@@ -120,17 +155,24 @@ export default {
             bModal: this.muestra_modal,
             enviando: false,
             errors: [],
+            listVariables: [],
         };
     },
     mounted() {
         this.bModal = this.muestra_modal;
+        this.getVariables();
     },
     methods: {
+        getVariables() {
+            axios.get("/admin/variable_controls").then((response) => {
+                this.listVariables = response.data.variable_controls;
+            });
+        },
         setRegistroModal() {
             this.enviando = true;
             try {
                 this.textoBtn = "Enviando...";
-                let url = "/admin/categorias";
+                let url = "/admin/frecuencias";
                 let config = {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -138,18 +180,18 @@ export default {
                 };
                 let formdata = new FormData();
                 formdata.append(
-                    "nombre",
-                    this.categoria.nombre ? this.categoria.nombre : ""
+                    "variable_id",
+                    this.frecuencia.variable_id
+                        ? this.frecuencia.variable_id
+                        : ""
                 );
                 formdata.append(
-                    "descripcion",
-                    this.categoria.descripcion
-                        ? this.categoria.descripcion
-                        : ""
+                    "frecuencia",
+                    this.frecuencia.frecuencia ? this.frecuencia.frecuencia : ""
                 );
 
                 if (this.accion == "edit") {
-                    url = "/admin/categorias/" + this.categoria.id;
+                    url = "/admin/frecuencias/" + this.frecuencia.id;
                     formdata.append("_method", "PUT");
                 }
                 axios
@@ -163,7 +205,7 @@ export default {
                                 showConfirmButton: false,
                                 timer: 1500,
                             });
-                            this.limpiaCategoria();
+                            this.limpiaFrecuencia();
                             this.$emit("envioModal");
                             this.errors = [];
                             if (this.accion == "edit") {
@@ -220,10 +262,10 @@ export default {
             this.bModal = false;
             this.$emit("close");
         },
-        limpiaCategoria() {
+        limpiaFrecuencia() {
             this.errors = [];
-            this.categoria.nombre = "";
-            this.categoria.descripcion = "";
+            this.frecuencia.variable_id = "";
+            this.frecuencia.frecuencia = "";
         },
     },
 };
