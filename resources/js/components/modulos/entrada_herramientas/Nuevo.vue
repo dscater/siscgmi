@@ -50,7 +50,7 @@
                                     :class="{
                                         'text-danger': errors.herramienta_id,
                                     }"
-                                    >Seleccionar EntradaHerramienta*</label
+                                    >Seleccionar Herramienta/Equipo de protección*</label
                                 >
 
                                 <el-select
@@ -63,10 +63,10 @@
                                     placeholder="Herramienta/Equipo de protección"
                                 >
                                     <el-option
-                                        v-for="item in listEntradaHerramientas"
+                                        v-for="item in listHerramientas"
                                         :key="item.id"
                                         :value="item.id"
-                                        :label="item.id + ' | ' + item.nombre"
+                                        :label="item.codigo + ' | ' + item.nombre"
                                     >
                                     </el-option>
                                 </el-select>
@@ -280,7 +280,7 @@ export default {
             bModal: this.muestra_modal,
             enviando: false,
             errors: [],
-            listEntradaHerramientas: [],
+            listHerramientas: [],
             oEntradaHerramienta: this.entrada_herramienta,
         };
     },
@@ -291,7 +291,7 @@ export default {
     methods: {
         getEntradaHerramientas() {
             axios.get("/admin/herramientas").then((response) => {
-                this.listEntradaHerramientas = response.data.herramientas;
+                this.listHerramientas = response.data.herramientas;
             });
         },
         setRegistroModal() {

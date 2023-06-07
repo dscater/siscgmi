@@ -18,6 +18,13 @@ class EntradaRepuesto extends Model
         "fecha",
     ];
 
+    protected $appends = ["detalle_repuesto"];
+
+    public function getDetalleRepuestoAttribute()
+    {
+        return $this->repuesto->codigo . ' | ' . $this->repuesto->nombre;
+    }
+
     public function repuesto()
     {
         return $this->belongsTo(Repuesto::class, 'repuesto_id');

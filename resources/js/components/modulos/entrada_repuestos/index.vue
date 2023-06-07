@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Categorías</h1>
+                        <h1>Entrada de Repuestos e Insumos</h1>
                     </div>
                 </div>
             </div>
@@ -20,13 +20,13 @@
                                         <button
                                             v-if="
                                                 permisos.includes(
-                                                    'categorias.create'
+                                                    'entrada_repuestos.create'
                                                 )
                                             "
                                             class="btn btn-primary btn-flat btn-block"
                                             @click="
                                                 abreModal('nuevo');
-                                                limpiaCategoria();
+                                                limpiaEntradaRepuesto();
                                             "
                                         >
                                             <i class="fa fa-plus"></i>
@@ -84,6 +84,31 @@
                                                 empty-filtered-text="Sin resultados"
                                                 :filter="filter"
                                             >
+                                                <template #cell(fechas)="row">
+                                                    <strong
+                                                        >Fabricación:
+                                                    </strong>
+                                                    {{
+                                                        formatoFecha(
+                                                            row.item
+                                                                .fecha_fabricacion
+                                                        )
+                                                    }}<br />
+                                                    <strong>Caducidad: </strong>
+                                                    {{
+                                                        formatoFecha(
+                                                            row.item
+                                                                .fecha_caducidad
+                                                        )
+                                                    }}<br />
+                                                </template>
+                                                <template #cell(fecha)="row">
+                                                    {{
+                                                        formatoFecha(
+                                                            row.item.fecha
+                                                        )
+                                                    }}
+                                                </template>
                                                 <template
                                                     #cell(fecha_registro)="row"
                                                 >
@@ -122,10 +147,13 @@
                                                             class="btn-flat btn-block"
                                                             title="Eliminar registro"
                                                             @click="
-                                                                eliminaCategoria(
+                                                                eliminaEntradaRepuesto(
                                                                     row.item.id,
                                                                     row.item
-                                                                        .nombre
+                                                                        .id +
+                                                                        ' | ' +
+                                                                        row.item
+                                                                            .detalle_repuesto
                                                                 )
                                                             "
                                                         >
@@ -176,9 +204,9 @@
         <Nuevo
             :muestra_modal="muestra_modal"
             :accion="modal_accion"
-            :categoria="oCategoria"
+            :entrada_repuesto="oEntradaRepuesto"
             @close="muestra_modal = false"
-            @envioModal="getCategorias"
+            @envioModal="getEntradaRepuestos"
         ></Nuevo>
     </div>
 </template>
@@ -196,7 +224,17 @@ export default {
             listRegistros: [],
             showOverlay: false,
             fields: [
-                { key: "nombre", label: "Nombre", sortable: true },
+                { key: "id", label: "Código", sortable: true },
+                { key: "factura", label: "Factura", sortable: true },
+                {
+                    key: "detalle_repuesto",
+                    label: "Repuesto/Equipo de protección",
+                    sortable: true,
+                },
+                { key: "cantidad", label: "Cantidad", sortable: true },
+                { key: "precio", label: "Precio unitario", sortable: true },
+                { key: "total", label: "Total", sortable: true },
+                { key: "fecha", label: "Fecha de entrada", sortable: true },
                 { key: "accion", label: "Acción" },
             ],
             loading: true,
@@ -206,9 +244,14 @@ export default {
             }),
             muestra_modal: false,
             modal_accion: "nuevo",
-            oCategoria: {
+            oEntradaRepuesto: {
                 id: 0,
-                nombre: "",
+                factura: "",
+                repuesto_id: "",
+                cantidad: "",
+                precio: "",
+                total: "",
+                fecha: "",
             },
             currentPage: 1,
             perPage: 5,
@@ -226,26 +269,28 @@ export default {
     },
     mounted() {
         this.loadingWindow.close();
-        this.getCategorias();
+        this.getEntradaRepuestos();
     },
     methods: {
         // Seleccionar Opciones de Tabla
         editarRegistro(item) {
-            this.oCategoria.id = item.id;
-            this.oCategoria.nombre = item.nombre ? item.nombre : "";
-            this.oCategoria.descripcion = item.descripcion
-                ? item.descripcion
-                : "";
+            this.oEntradaRepuesto.id = item.id;
+            this.oEntradaRepuesto.factura = item.factura;
+            this.oEntradaRepuesto.repuesto_id = item.repuesto_id;
+            this.oEntradaRepuesto.cantidad = item.cantidad;
+            this.oEntradaRepuesto.precio = item.precio;
+            this.oEntradaRepuesto.total = item.total;
+            this.oEntradaRepuesto.fecha = item.fecha;
 
             this.modal_accion = "edit";
             this.muestra_modal = true;
         },
 
-        // Listar Categorias
-        getCategorias() {
+        // Listar EntradaRepuestos
+        getEntradaRepuestos() {
             this.showOverlay = true;
             this.muestra_modal = false;
-            let url = "/admin/categorias";
+            let url = "/admin/entrada_repuestos";
             if (this.pagina != 0) {
                 url += "?page=" + this.pagina;
             }
@@ -255,11 +300,11 @@ export default {
                 })
                 .then((res) => {
                     this.showOverlay = false;
-                    this.listRegistros = res.data.categorias;
+                    this.listRegistros = res.data.entrada_repuestos;
                     this.totalRows = res.data.total;
                 });
         },
-        eliminaCategoria(id, descripcion) {
+        eliminaEntradaRepuesto(id, descripcion) {
             Swal.fire({
                 title: "¿Quierés eliminar este registro?",
                 html: `<strong>${descripcion}</strong>`,
@@ -272,11 +317,11 @@ export default {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     axios
-                        .post("/admin/categorias/" + id, {
+                        .post("/admin/entrada_repuestos/" + id, {
                             _method: "DELETE",
                         })
                         .then((res) => {
-                            this.getCategorias();
+                            this.getEntradaRepuestos();
                             this.filter = "";
                             Swal.fire({
                                 icon: "success",
@@ -311,11 +356,11 @@ export default {
                 }
             });
         },
-        abreModal(tipo_accion = "nuevo", categoria = null) {
+        abreModal(tipo_accion = "nuevo", entrada_repuesto = null) {
             this.muestra_modal = true;
             this.modal_accion = tipo_accion;
-            if (categoria) {
-                this.oCategoria = categoria;
+            if (entrada_repuesto) {
+                this.oEntradaRepuesto = entrada_repuesto;
             }
         },
         onFiltered(filteredItems) {
@@ -323,9 +368,13 @@ export default {
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
         },
-        limpiaCategoria() {
-            this.oCategoria.nombre = "";
-            this.oCategoria.descripcion = "";
+        limpiaEntradaRepuesto() {
+            this.oEntradaRepuesto.factura = "";
+            this.oEntradaRepuesto.repuesto_id = "";
+            this.oEntradaRepuesto.cantidad = "";
+            this.oEntradaRepuesto.precio = "";
+            this.oEntradaRepuesto.total = "";
+            this.oEntradaRepuesto.fecha = "";
         },
         formatoFecha(date) {
             return this.$moment(String(date)).format("DD/MM/YYYY");

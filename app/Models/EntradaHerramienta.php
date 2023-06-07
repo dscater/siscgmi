@@ -23,7 +23,7 @@ class EntradaHerramienta extends Model
 
     public function getDetalleHerramientaAttribute()
     {
-        return $this->herramienta->id . ' | ' . $this->herramienta->nombre;
+        return $this->herramienta->codigo . ' | ' . $this->herramienta->nombre;
     }
 
     public function herramienta()

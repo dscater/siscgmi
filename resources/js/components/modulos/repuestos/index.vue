@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Categorías</h1>
+                        <h1>Repuestos e Insumos</h1>
                     </div>
                 </div>
             </div>
@@ -17,21 +17,20 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <button
+                                        <router-link
                                             v-if="
                                                 permisos.includes(
-                                                    'categorias.create'
+                                                    'repuestos.create'
                                                 )
                                             "
+                                            :to="{
+                                                name: 'repuestos.create',
+                                            }"
                                             class="btn btn-primary btn-flat btn-block"
-                                            @click="
-                                                abreModal('nuevo');
-                                                limpiaCategoria();
-                                            "
                                         >
                                             <i class="fa fa-plus"></i>
                                             Nuevo
-                                        </button>
+                                        </router-link>
                                     </div>
                                 </div>
                             </div>
@@ -84,6 +83,231 @@
                                                 empty-filtered-text="Sin resultados"
                                                 :filter="filter"
                                             >
+                                                <template #cell(detalles)="row">
+                                                    <b-button
+                                                        size="sm"
+                                                        variant="primary"
+                                                        @click="
+                                                            row.toggleDetails
+                                                        "
+                                                    >
+                                                        {{
+                                                            row.detailsShowing
+                                                                ? "Ocultar"
+                                                                : "Ver"
+                                                        }}
+                                                        Detalles
+                                                    </b-button>
+                                                </template>
+                                                <template #row-details="row">
+                                                    <b-card>
+                                                        <h4 class="text-sm">
+                                                            DATOS DE DEPENDENCIA
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Equipo:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .detalle_equipo
+                                                                }}</span>
+                                                            </li>
+                                                        </ul>
+                                                        <h4 class="text-sm">
+                                                            DATOS DE INVENTARIO
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Precio:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .precio
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Stock Actual:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .stock_actual
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Stock Mínimo:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .stock_min
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Stock Máximo:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .stock_max
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Unidad de
+                                                                medida:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .unidad_medida
+                                                                }}</span>
+                                                            </li>
+                                                        </ul>
+                                                        <h4 class="text-sm">
+                                                            DATOS DE PROVEEDOR
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Dirección:
+                                                                <span>{{
+                                                                    row.item.dir
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Teléfono:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .fono
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Correo
+                                                                electrónico:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .correo
+                                                                }}</span>
+                                                            </li>
+                                                        </ul>
+                                                        <h4 class="text-sm">
+                                                            DATOS DE UBICACIÓN
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Almacén:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .almacen
+                                                                }}</span>
+                                                            </li>
+                                                        </ul>
+                                                        <h4 class="text-sm">
+                                                            DATOS DE TERCEROS
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Fabricante:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .fabricante
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Proveedor:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .proveedor
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Terciarios:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .terciarios
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Nombre Contacto:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .nombre_contacto
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Número de
+                                                                teléfono:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .num_fono
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Correo
+                                                                electrónico:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .correo_fabricante
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Dirección:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .dir_fabricante
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Número de
+                                                                identificación:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .num_identificacion
+                                                                }}</span>
+                                                            </li>
+                                                        </ul>
+                                                    </b-card>
+                                                    <b-button
+                                                        size="sm"
+                                                        variant="primary"
+                                                        @click="
+                                                            row.toggleDetails
+                                                        "
+                                                    >
+                                                        Ocultar Detalles
+                                                    </b-button>
+                                                    <b-button
+                                                        size="sm"
+                                                        pill
+                                                        variant="outline-warning"
+                                                        class="btn-flat"
+                                                        title="Editar registro"
+                                                        @click="
+                                                            editarRegistro(
+                                                                row.item
+                                                            )
+                                                        "
+                                                    >
+                                                        <i
+                                                            class="fa fa-edit"
+                                                        ></i>
+                                                    </b-button>
+                                                    <b-button
+                                                        size="sm"
+                                                        pill
+                                                        variant="outline-danger"
+                                                        class="btn-flat"
+                                                        title="Eliminar registro"
+                                                        @click="
+                                                            eliminaRepuesto(
+                                                                row.item.id,
+                                                                row.item
+                                                                    .codigo +
+                                                                    ' | ' +
+                                                                    row.item
+                                                                        .nombre +
+                                                                    '<br>' +
+                                                                    row.item
+                                                                        .descripcion
+                                                            )
+                                                        "
+                                                    >
+                                                        <i
+                                                            class="fa fa-trash"
+                                                        ></i>
+                                                    </b-button>
+                                                </template>
+
                                                 <template
                                                     #cell(fecha_registro)="row"
                                                 >
@@ -122,10 +346,16 @@
                                                             class="btn-flat btn-block"
                                                             title="Eliminar registro"
                                                             @click="
-                                                                eliminaCategoria(
+                                                                eliminaRepuesto(
                                                                     row.item.id,
                                                                     row.item
-                                                                        .nombre
+                                                                        .codigo +
+                                                                        ' | ' +
+                                                                        row.item
+                                                                            .nombre +
+                                                                        '<br>' +
+                                                                        row.item
+                                                                            .descripcion
                                                                 )
                                                             "
                                                         >
@@ -173,22 +403,11 @@
                 </div>
             </div>
         </section>
-        <Nuevo
-            :muestra_modal="muestra_modal"
-            :accion="modal_accion"
-            :categoria="oCategoria"
-            @close="muestra_modal = false"
-            @envioModal="getCategorias"
-        ></Nuevo>
     </div>
 </template>
 
 <script>
-import Nuevo from "./Nuevo.vue";
 export default {
-    components: {
-        Nuevo,
-    },
     data() {
         return {
             permisos: localStorage.getItem("permisos"),
@@ -196,7 +415,14 @@ export default {
             listRegistros: [],
             showOverlay: false,
             fields: [
+                { key: "codigo", label: "Código", sortable: true },
                 { key: "nombre", label: "Nombre", sortable: true },
+                { key: "descripcion", label: "Descripción", sortable: true },
+                { key: "marca", label: "Marca", sortable: true },
+                { key: "modelo", label: "Modelo", sortable: true },
+                { key: "serie", label: "Serie", sortable: true },
+                { key: "stock_actual", label: "Stock Actual", sortable: true },
+                { key: "detalles", label: "Detalles", sortable: true },
                 { key: "accion", label: "Acción" },
             ],
             loading: true,
@@ -206,10 +432,6 @@ export default {
             }),
             muestra_modal: false,
             modal_accion: "nuevo",
-            oCategoria: {
-                id: 0,
-                nombre: "",
-            },
             currentPage: 1,
             perPage: 5,
             pageOptions: [
@@ -226,26 +448,24 @@ export default {
     },
     mounted() {
         this.loadingWindow.close();
-        this.getCategorias();
+        this.getRepuestos();
     },
     methods: {
         // Seleccionar Opciones de Tabla
         editarRegistro(item) {
-            this.oCategoria.id = item.id;
-            this.oCategoria.nombre = item.nombre ? item.nombre : "";
-            this.oCategoria.descripcion = item.descripcion
-                ? item.descripcion
-                : "";
-
-            this.modal_accion = "edit";
-            this.muestra_modal = true;
+            this.$router.push({
+                name: "repuestos.edit",
+                params: {
+                    id: item.id,
+                },
+            });
         },
 
-        // Listar Categorias
-        getCategorias() {
+        // Listar Repuestos
+        getRepuestos() {
             this.showOverlay = true;
             this.muestra_modal = false;
-            let url = "/admin/categorias";
+            let url = "/admin/repuestos";
             if (this.pagina != 0) {
                 url += "?page=" + this.pagina;
             }
@@ -255,14 +475,15 @@ export default {
                 })
                 .then((res) => {
                     this.showOverlay = false;
-                    this.listRegistros = res.data.categorias;
+                    this.listRegistros = res.data.repuestos;
                     this.totalRows = res.data.total;
                 });
         },
-        eliminaCategoria(id, descripcion) {
+        eliminaRepuesto(id, descripcion) {
+            console.log(descripcion);
             Swal.fire({
                 title: "¿Quierés eliminar este registro?",
-                html: `<strong>${descripcion}</strong>`,
+                html: `<strong>${descripcion}</strong><br><h4>Esto también eliminara los registros de entradas y no se podrá deshacer</h4>`,
                 showCancelButton: true,
                 confirmButtonColor: "#149FDA",
                 confirmButtonText: "Si, eliminar",
@@ -272,11 +493,11 @@ export default {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     axios
-                        .post("/admin/categorias/" + id, {
+                        .post("/admin/repuestos/" + id, {
                             _method: "DELETE",
                         })
                         .then((res) => {
-                            this.getCategorias();
+                            this.getRepuestos();
                             this.filter = "";
                             Swal.fire({
                                 icon: "success",
@@ -311,11 +532,11 @@ export default {
                 }
             });
         },
-        abreModal(tipo_accion = "nuevo", categoria = null) {
+        abreModal(tipo_accion = "nuevo", repuesto = null) {
             this.muestra_modal = true;
             this.modal_accion = tipo_accion;
-            if (categoria) {
-                this.oCategoria = categoria;
+            if (repuesto) {
+                this.oRepuesto = repuesto;
             }
         },
         onFiltered(filteredItems) {
@@ -323,12 +544,37 @@ export default {
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
         },
-        limpiaCategoria() {
-            this.oCategoria.nombre = "";
-            this.oCategoria.descripcion = "";
+        limpiaRepuesto() {
+            this.oRepuesto.codigo = "";
+            this.oRepuesto.nombre = "";
+            this.oRepuesto.descripcion = "";
+            this.oRepuesto.clasificacion = "";
+            this.oRepuesto.cod_clasificacion = "";
+            this.oRepuesto.marca = "";
+            this.oRepuesto.modelo = "";
+            this.oRepuesto.serie = "";
+            this.oRepuesto.costo = "";
+            this.oRepuesto.unidad_medida = "";
+            this.oRepuesto.proveedor = "";
+            this.oRepuesto.dir = "";
+            this.oRepuesto.fono = "";
+            this.oRepuesto.correo = "";
+            this.oRepuesto.almacen = "";
+            this.oRepuesto.fabricante = "";
+            this.oRepuesto.terciarios = "";
+            this.oRepuesto.nombre_contacto = "";
+            this.oRepuesto.num_fono = "";
+            this.oRepuesto.correo_fabricante = "";
+            this.oRepuesto.dir_fabricante = "";
+            this.oRepuesto.num_identificacion = "";
+            this.oRepuesto.e_tecnicas = "";
+            this.oRepuesto.foto = "";
         },
         formatoFecha(date) {
-            return this.$moment(String(date)).format("DD/MM/YYYY");
+            if (date) {
+                return this.$moment(String(date)).format("DD/MM/YYYY");
+            }
+            return "";
         },
     },
 };

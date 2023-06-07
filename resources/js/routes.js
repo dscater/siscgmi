@@ -149,6 +149,19 @@ export default new Router({
             component: require("./components/modulos/repuestos/index.vue")
                 .default,
         },
+        {
+            path: "/repuestos/create",
+            name: "repuestos.create",
+            component: require("./components/modulos/repuestos/create.vue")
+                .default,
+        },
+        {
+            path: "/repuestos/:id",
+            name: "repuestos.edit",
+            component: require("./components/modulos/repuestos/edit.vue")
+                .default,
+            props: true,
+        },
 
         // entrada_repuestos
         {

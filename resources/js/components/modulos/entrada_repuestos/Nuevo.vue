@@ -23,24 +23,154 @@
                 <div class="modal-body">
                     <form>
                         <div class="row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label
                                     :class="{
-                                        'text-danger': errors.nombre,
+                                        'text-danger': errors.factura,
                                     }"
-                                    >Nombre de categoría*</label
+                                    >Factura</label
                                 >
                                 <el-input
-                                    placeholder="Nombre"
-                                    :class="{ 'is-invalid': errors.nombre }"
-                                    v-model="categoria.nombre"
+                                    placeholder="Factura"
+                                    :class="{
+                                        'is-invalid': errors.factura,
+                                    }"
+                                    v-model="entrada_repuesto.factura"
                                     clearable
                                 >
                                 </el-input>
                                 <span
                                     class="error invalid-feedback"
-                                    v-if="errors.nombre"
-                                    v-text="errors.nombre[0]"
+                                    v-if="errors.factura"
+                                    v-text="errors.factura[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.repuesto_id,
+                                    }"
+                                    >Seleccionar Repuesto/Insumo*</label
+                                >
+
+                                <el-select
+                                    class="w-100"
+                                    :class="{
+                                        'is-invalid': errors.repuesto_id,
+                                    }"
+                                    v-model="entrada_repuesto.repuesto_id"
+                                    filterable
+                                    placeholder="Repuesto/Equipo de protección"
+                                >
+                                    <el-option
+                                        v-for="item in listRepuestos"
+                                        :key="item.id"
+                                        :value="item.id"
+                                        :label="item.codigo + ' | ' + item.nombre"
+                                    >
+                                    </el-option>
+                                </el-select>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.repuesto_id"
+                                    v-text="errors.repuesto_id[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.cantidad,
+                                    }"
+                                    >Cantidad*</label
+                                >
+                                <el-input
+                                    type="number"
+                                    min="0.01"
+                                    placeholder="Cantidad"
+                                    :class="{ 'is-invalid': errors.cantidad }"
+                                    v-model="entrada_repuesto.cantidad"
+                                    clearable
+                                    @change="calculaTotal"
+                                    @keyup.native="calculaTotal"
+                                >
+                                </el-input>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.cantidad"
+                                    v-text="errors.cantidad[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.precio,
+                                    }"
+                                    >Precio*</label
+                                >
+                                <el-input
+                                    type="number"
+                                    min="0.01"
+                                    placeholder="Precio de compra"
+                                    :class="{
+                                        'is-invalid': errors.precio,
+                                    }"
+                                    v-model="entrada_repuesto.precio"
+                                    clearable
+                                    @change="calculaTotal"
+                                    @keyup.native="calculaTotal"
+                                >
+                                </el-input>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.precio"
+                                    v-text="errors.precio[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.total,
+                                    }"
+                                    >Total</label
+                                >
+                                <el-input
+                                    placeholder="Total"
+                                    :class="{
+                                        'is-invalid': errors.total,
+                                    }"
+                                    v-model="entrada_repuesto.total"
+                                    clearable
+                                    readonly
+                                >
+                                </el-input>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.total"
+                                    v-text="errors.total[0]"
+                                ></span>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.fecha,
+                                    }"
+                                    >Fecha de entrada*</label
+                                >
+                                <el-input
+                                    type="date"
+                                    placeholder="Fecha de entrada"
+                                    :class="{
+                                        'is-invalid': errors.fecha,
+                                    }"
+                                    v-model="entrada_repuesto.fecha"
+                                    clearable
+                                >
+                                </el-input>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.fecha"
+                                    v-text="errors.fecha[0]"
                                 ></span>
                             </div>
                         </div>
@@ -79,12 +209,16 @@ export default {
             type: String,
             default: "nuevo",
         },
-        categoria: {
+        entrada_repuesto: {
             type: Object,
             default: {
                 id: 0,
-                nombre: "",
-                descripcion: "",
+                factura: "",
+                repuesto_id: "",
+                cantidad: "",
+                precio: "",
+                total: "",
+                fecha: "",
             },
         },
     },
@@ -96,6 +230,9 @@ export default {
             } else {
                 this.bModal = false;
             }
+        },
+        entrada_repuesto(newVal) {
+            this.oEntradaRepuesto = newVal;
         },
     },
     computed: {
@@ -120,36 +257,62 @@ export default {
             bModal: this.muestra_modal,
             enviando: false,
             errors: [],
+            listRepuestos: [],
+            oEntradaRepuesto: this.entrada_repuesto,
         };
     },
     mounted() {
         this.bModal = this.muestra_modal;
+        this.getEntradaRepuestos();
     },
     methods: {
+        getEntradaRepuestos() {
+            axios.get("/admin/repuestos").then((response) => {
+                this.listRepuestos = response.data.repuestos;
+            });
+        },
         setRegistroModal() {
             this.enviando = true;
             try {
                 this.textoBtn = "Enviando...";
-                let url = "/admin/categorias";
+                let url = "/admin/entrada_repuestos";
                 let config = {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
                 };
                 let formdata = new FormData();
-                formdata.append(
-                    "nombre",
-                    this.categoria.nombre ? this.categoria.nombre : ""
-                );
-                formdata.append(
-                    "descripcion",
-                    this.categoria.descripcion
-                        ? this.categoria.descripcion
-                        : ""
-                );
-
+                if (this.entrada_repuesto.factura.trim() != "") {
+                    formdata.append(
+                        "factura",
+                        this.entrada_repuesto.factura
+                    );
+                }
+                if (this.entrada_repuesto.repuesto_id) {
+                    formdata.append(
+                        "repuesto_id",
+                        this.entrada_repuesto.repuesto_id
+                    );
+                }
+                if (this.entrada_repuesto.cantidad.trim() != "") {
+                    formdata.append(
+                        "cantidad",
+                        this.entrada_repuesto.cantidad
+                    );
+                }
+                if (this.entrada_repuesto.precio.trim() != "") {
+                    formdata.append("precio", this.entrada_repuesto.precio);
+                }
+                if (this.entrada_repuesto.total.trim() != "") {
+                    formdata.append("total", this.entrada_repuesto.total);
+                }
+                if (this.entrada_repuesto.fecha.trim() != "") {
+                    formdata.append("fecha", this.entrada_repuesto.fecha);
+                }
                 if (this.accion == "edit") {
-                    url = "/admin/categorias/" + this.categoria.id;
+                    url =
+                        "/admin/entrada_repuestos/" +
+                        this.entrada_repuesto.id;
                     formdata.append("_method", "PUT");
                 }
                 axios
@@ -163,7 +326,7 @@ export default {
                                 showConfirmButton: false,
                                 timer: 1500,
                             });
-                            this.limpiaCategoria();
+                            this.limpiaEntradaRepuesto();
                             this.$emit("envioModal");
                             this.errors = [];
                             if (this.accion == "edit") {
@@ -220,10 +383,22 @@ export default {
             this.bModal = false;
             this.$emit("close");
         },
-        limpiaCategoria() {
+        limpiaEntradaRepuesto() {
             this.errors = [];
-            this.categoria.nombre = "";
-            this.categoria.descripcion = "";
+            // this.oEntradaRepuesto.repuesto_id = "";
+        },
+        calculaTotal() {
+            if (
+                this.entrada_repuesto.cantidad != "" &&
+                this.entrada_repuesto.precio
+            ) {
+                this.entrada_repuesto.total = (
+                    parseFloat(this.entrada_repuesto.cantidad) *
+                    parseFloat(this.entrada_repuesto.precio)
+                ).toFixed(2);
+            } else {
+                this.entrada_repuesto.total = parseFloat(0).toFixed(2);
+            }
         },
     },
 };

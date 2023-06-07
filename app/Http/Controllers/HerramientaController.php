@@ -48,9 +48,9 @@ class HerramientaController extends Controller
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'CREACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' REGISTRO UN SISTEMA',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' REGISTRO UN HERRAMIENTAS/EQUIPOS DE PROTECCIÓN',
                 'datos_original' => $datos_original,
-                'modulo' => 'SISTEMAS',
+                'modulo' => 'HERRAMIENTAS/EQUIPOS DE PROTECCIÓN',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
@@ -77,7 +77,6 @@ class HerramientaController extends Controller
         DB::beginTransaction();
         try {
             $datos_original = HistorialAccion::getDetalleRegistro($herramienta, "herramientas");
-            $herramienta->entradas()->delete();
             $herramienta->update(array_map('mb_strtoupper', $request->except("foto")));
             if ($request->hasFile("foto")) {
                 if ($herramienta->foto && $herramienta->foto != "") {
@@ -95,10 +94,10 @@ class HerramientaController extends Controller
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'MODIFICACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UN SISTEMA',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UN HERRAMIENTAS/EQUIPOS DE PROTECCIÓN',
                 'datos_original' => $datos_original,
                 'datos_nuevo' => $datos_nuevo,
-                'modulo' => 'SISTEMAS',
+                'modulo' => 'HERRAMIENTAS/EQUIPOS DE PROTECCIÓN',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
@@ -133,15 +132,15 @@ class HerramientaController extends Controller
             if ($herramienta->foto && $herramienta->foto != "") {
                 \File::delete(public_path() . "/imgs/herramientas/" . $herramienta->foto);
             }
-
+            $herramienta->entradas()->delete();
             $datos_original = HistorialAccion::getDetalleRegistro($herramienta, "herramientas");
             $herramienta->delete();
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'ELIMINACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' ELIMINÓ UN SISTEMA',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' ELIMINÓ UN HERRAMIENTAS/EQUIPOS DE PROTECCIÓN',
                 'datos_original' => $datos_original,
-                'modulo' => 'SISTEMAS',
+                'modulo' => 'HERRAMIENTAS/EQUIPOS DE PROTECCIÓN',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
