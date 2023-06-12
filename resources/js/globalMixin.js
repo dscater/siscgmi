@@ -1,11 +1,40 @@
+import axios from "axios";
+
 export default {
     methods: {
         getFormatoFecha(date) {
-            console.log(date);
             if (date) {
                 return this.$moment(String(date)).format("DD/MM/YYYY");
             }
             return "";
+        },
+        getUsuariosTipo(tipo) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get("/admin/usuarios/getUsuarioTipo", {
+                        params: {
+                            tipo: tipo,
+                        },
+                    })
+                    .then((response) => {
+                        resolve(response);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
+        getUsuarioById(id) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get("/admin/usuarios/getUsuario/" + id)
+                    .then((response) => {
+                        resolve(response);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
         },
     },
 };

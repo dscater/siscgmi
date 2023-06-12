@@ -172,6 +172,14 @@ export default new Router({
                     .default,
         },
 
+        // personals
+        {
+            path: "/personals",
+            name: "personals.index",
+            component: require("./components/modulos/personals/index.vue")
+                .default,
+        },
+
         // Reportes
         {
             path: "/reportes/usuarios",
@@ -204,5 +212,5 @@ export default new Router({
         },
     ],
     mode: "history",
-    linkActiveClass: "active",
+    linkActiveClass: "active open",
 });

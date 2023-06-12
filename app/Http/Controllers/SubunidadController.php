@@ -41,9 +41,9 @@ class SubunidadController extends Controller
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'CREACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' REGISTRO UN SISTEMA',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' REGISTRO UNA SUBUNIDAD',
                 'datos_original' => $datos_original,
-                'modulo' => 'SISTEMAS',
+                'modulo' => 'SUBUNIDADES',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
@@ -78,10 +78,10 @@ class SubunidadController extends Controller
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'MODIFICACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UN SISTEMA',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UNA SUBUNIDAD',
                 'datos_original' => $datos_original,
                 'datos_nuevo' => $datos_nuevo,
-                'modulo' => 'SISTEMAS',
+                'modulo' => 'SUBUNIDADES',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
@@ -118,9 +118,9 @@ class SubunidadController extends Controller
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'ELIMINACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' ELIMINÓ UN SISTEMA',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' ELIMINÓ UNA SUBUNIDAD',
                 'datos_original' => $datos_original,
-                'modulo' => 'SISTEMAS',
+                'modulo' => 'SUBUNIDADES',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);

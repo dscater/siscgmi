@@ -14,6 +14,7 @@ use App\Http\Controllers\HistorialAccionController;
 use App\Http\Controllers\IngresoProductoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaquinariaController;
+use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
@@ -40,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('admin')->group(function () {
         // Usuarios
+        Route::get('usuarios/getUsuarioTipo', [UserController::class, 'getUsuarioTipo']);
         Route::get('usuarios/getUsuario/{usuario}', [UserController::class, 'getUsuario']);
         Route::get('usuarios/userActual', [UserController::class, 'userActual']);
         Route::get('usuarios/getInfoBox', [UserController::class, 'getInfoBox']);
@@ -65,7 +67,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('equipos', EquipoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
-        
+
         // subunidads
         Route::resource('subunidads', SubunidadController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
@@ -103,6 +105,11 @@ Route::middleware(['auth'])->group(function () {
 
         // entrada_repuestos
         Route::resource('entrada_repuestos', EntradaRepuestoController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
+
+        // personal
+        Route::resource('personals', PersonalController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 

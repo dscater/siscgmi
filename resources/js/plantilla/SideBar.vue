@@ -93,7 +93,8 @@
                             permisos.includes('herramientas.index') ||
                             permisos.includes('entrada_herramientas.index') ||
                             permisos.includes('repuestos.index') ||
-                            permisos.includes('entrada_repuestos.index')
+                            permisos.includes('entrada_repuestos.index') ||
+                            permisos.includes('personals.index')
                         "
                     >
                         ADMINISTRACIÓN
@@ -170,85 +171,201 @@
                     <li
                         class="nav-item"
                         v-if="permisos.includes('variable_controls.index')"
+                        :class="[
+                            $route.name == 'variable_controls.index' ||
+                            $route.name == 'frecuencias.index'
+                                ? 'menu-is-opening menu-open'
+                                : '',
+                        ]"
                     >
-                        <router-link
-                            exact
-                            :to="{ name: 'variable_controls.index' }"
-                            class="nav-link"
-                            v-loading.fullscreen.lock="fullscreenLoading"
-                        >
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tasks"></i>
-                            <p>Variables de control</p>
-                        </router-link>
-                    </li>
-                    <li
-                        class="nav-item"
-                        v-if="permisos.includes('frecuencias.index')"
-                    >
-                        <router-link
-                            exact
-                            :to="{ name: 'frecuencias.index' }"
-                            class="nav-link"
-                            v-loading.fullscreen.lock="fullscreenLoading"
+                            <p>
+                                Variables de control
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul
+                            class="nav nav-treeview"
+                            :style.display="[
+                                $route.name == 'variable_controls.index' ||
+                                $route.name == 'frecuencias.index'
+                                    ? 'block'
+                                    : '',
+                            ]"
                         >
-                            <i class="nav-icon fas fa-file-signature"></i>
-                            <p>Frecuencias</p>
-                        </router-link>
+                            <li class="nav-item">
+                                <router-link
+                                    exact
+                                    :to="{ name: 'variable_controls.index' }"
+                                    class="nav-link"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    <i class="nav-icon fas fa-angle-right"></i>
+                                    <p>Variables de control</p>
+                                </router-link>
+                            </li>
+                            <li
+                                class="nav-item"
+                                v-if="permisos.includes('frecuencias.index')"
+                            >
+                                <router-link
+                                    exact
+                                    :to="{ name: 'frecuencias.index' }"
+                                    class="nav-link"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    <i class="nav-icon fas fa-angle-right"></i>
+                                    <p>Frecuencias</p>
+                                </router-link>
+                            </li>
+                        </ul>
                     </li>
                     <li
                         class="nav-item"
                         v-if="permisos.includes('herramientas.index')"
+                        :class="[
+                            $route.name == 'herramientas.index' ||
+                            $route.name == 'entrada_herramientas.index'
+                                ? 'menu-is-opening menu-open'
+                                : '',
+                        ]"
                     >
-                        <router-link
-                            exact
-                            :to="{ name: 'herramientas.index' }"
-                            class="nav-link"
-                            v-loading.fullscreen.lock="fullscreenLoading"
-                        >
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-boxes"></i>
-                            <p>Herramientas y Equipos de protección</p>
-                        </router-link>
-                    </li>
-                    <li
-                        class="nav-item"
-                        v-if="permisos.includes('entrada_herramientas.index')"
-                    >
-                        <router-link
-                            exact
-                            :to="{ name: 'entrada_herramientas.index' }"
-                            class="nav-link"
-                            v-loading.fullscreen.lock="fullscreenLoading"
+                            <p>
+                                Herramientas y Equipos de protección
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul
+                            class="nav nav-treeview"
+                            :style.display="[
+                                $route.name == 'herramientas.index' ||
+                                $route.name == 'entrada_herramientas.index'
+                                    ? 'block'
+                                    : '',
+                            ]"
                         >
-                            <i class="nav-icon fas fa-sign-in-alt"></i>
-                            <p>Entrada de Herramientas y Equipos de protección</p>
-                        </router-link>
+                            <li
+                                class="nav-item"
+                                v-if="permisos.includes('herramientas.index')"
+                            >
+                                <router-link
+                                    exact
+                                    :to="{ name: 'herramientas.index' }"
+                                    class="nav-link"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    <i class="nav-icon fas fa-angle-right"></i>
+                                    <p>Herramientas y Equipos de protección</p>
+                                </router-link>
+                            </li>
+                            <li
+                                class="nav-item"
+                                v-if="
+                                    permisos.includes(
+                                        'entrada_herramientas.index'
+                                    )
+                                "
+                            >
+                                <router-link
+                                    exact
+                                    :to="{ name: 'entrada_herramientas.index' }"
+                                    class="nav-link"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    <i class="nav-icon fas fa-angle-right"></i>
+                                    <p>
+                                        Entrada de Herramientas y Equipos de
+                                        protección
+                                    </p>
+                                </router-link>
+                            </li>
+                        </ul>
                     </li>
                     <li
                         class="nav-item"
                         v-if="permisos.includes('repuestos.index')"
+                        :class="[
+                            $route.name == 'repuestos.index' ||
+                            $route.name == 'entrada_repuestos.index'
+                                ? 'menu-is-opening menu-open'
+                                : '',
+                        ]"
                     >
-                        <router-link
-                            exact
-                            :to="{ name: 'repuestos.index' }"
-                            class="nav-link"
-                            v-loading.fullscreen.lock="fullscreenLoading"
-                        >
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-boxes"></i>
-                            <p>Repuestos e Insumos</p>
-                        </router-link>
+                            <p>
+                                Repuestos e Insumos
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul
+                            class="nav nav-treeview"
+                            :style.display="[
+                                $route.name == 'repuestos.index' ||
+                                $route.name == 'entrada_herramientas.index'
+                                    ? 'block'
+                                    : '',
+                            ]"
+                        >
+                            <li
+                                class="nav-item"
+                                v-if="permisos.includes('repuestos.index')"
+                            >
+                                <router-link
+                                    exact
+                                    :to="{ name: 'repuestos.index' }"
+                                    class="nav-link"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    <i class="nav-icon fas fa-angle-right"></i>
+                                    <p>Repuestos e Insumos</p>
+                                </router-link>
+                            </li>
+                            <li
+                                class="nav-item"
+                                v-if="
+                                    permisos.includes('entrada_repuestos.index')
+                                "
+                            >
+                                <router-link
+                                    exact
+                                    :to="{ name: 'entrada_repuestos.index' }"
+                                    class="nav-link"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    <i class="nav-icon fas fa-angle-right"></i>
+                                    <p>Entrada de Repuestos e Insumos</p>
+                                </router-link>
+                            </li>
+                        </ul>
                     </li>
                     <li
                         class="nav-item"
-                        v-if="permisos.includes('entrada_repuestos.index')"
+                        v-if="permisos.includes('personals.index')"
                     >
                         <router-link
                             exact
-                            :to="{ name: 'entrada_repuestos.index' }"
+                            :to="{ name: 'personals.index' }"
                             class="nav-link"
                             v-loading.fullscreen.lock="fullscreenLoading"
                         >
-                            <i class="nav-icon fas fa-sign-in-alt"></i>
-                            <p>Entrada de Repuestos e Insumos</p>
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Personal</p>
                         </router-link>
                     </li>
                     <li
@@ -269,8 +386,10 @@
                         class="nav-header bg-navy"
                         v-if="
                             permisos.includes('reportes.usuarios') ||
-                            permisos.includes('reportes.kardex_herramientas')||
-                            permisos.includes('reportes.informacion_herramientas')
+                            permisos.includes('reportes.kardex_herramientas') ||
+                            permisos.includes(
+                                'reportes.informacion_herramientas'
+                            )
                         "
                     >
                         REPORTES
@@ -296,12 +415,18 @@
                             class="nav-link"
                         >
                             <i class="fas fa-file-pdf nav-icon"></i>
-                            <p>Kardex de herramientas y equipos de protección</p>
+                            <p>
+                                Kardex de herramientas y equipos de protección
+                            </p>
                         </router-link>
                     </li>
                     <li
                         class="nav-item"
-                        v-if="permisos.includes('reportes.informacion_herramientas')"
+                        v-if="
+                            permisos.includes(
+                                'reportes.informacion_herramientas'
+                            )
+                        "
                     >
                         <router-link
                             :to="{ name: 'reportes.informacion_herramientas' }"

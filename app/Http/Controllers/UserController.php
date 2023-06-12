@@ -123,6 +123,11 @@ class UserController extends Controller
             'entrada_repuestos.edit',
             'entrada_repuestos.destroy',
 
+            'personals.index',
+            'personals.create',
+            'personals.edit',
+            'personals.destroy',
+
             'reportes.usuarios',
             'reportes.kardex_herramientas',
             'reportes.informacion_herramientas',
@@ -132,7 +137,9 @@ class UserController extends Controller
         "JEFE DE MANTENIMIENTO" => [],
         "SUPERVISOR DE COMPRAS" => [],
         "AUXILIAR DE MANTENIMIENTO" => [],
-        "AUXILIAR DE ALMACÉN" => []
+        "AUXILIAR DE ALMACÉN" => [],
+        "SERVICIOS" => [],
+        "TERCEROS" => [],
     ];
 
 
@@ -467,5 +474,21 @@ class UserController extends Controller
     public function getUsuario(User $usuario)
     {
         return response()->JSON($usuario);
+    }
+
+    public function getUsuarioTipo(Request $request)
+    {
+        $tipo = $request->tipo;
+        $usuarios = [];
+        if ($tipo != "todos") {
+            if (is_array($tipo)) {
+                $usuarios = User::where("id", "!=", 1)->whereIn("tipo", $tipo)->get();
+            } else {
+                $usuarios = User::where("id", "!=", 1)->where("tipo", $tipo)->get();
+            }
+        } else {
+            $usuarios = User::where("id", "!=", 1)->get();
+        }
+        return response()->JSON($usuarios);
     }
 }

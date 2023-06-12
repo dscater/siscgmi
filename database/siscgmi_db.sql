@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 07-06-2023 a las 17:50:22
+-- Tiempo de generación: 12-06-2023 a las 20:45:54
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -72,6 +72,69 @@ CREATE TABLE `configuracions` (
 
 INSERT INTO `configuracions` (`id`, `nombre_sistema`, `alias`, `razon_social`, `nit`, `ciudad`, `dir`, `fono`, `web`, `actividad`, `correo`, `logo`, `created_at`, `updated_at`) VALUES
 (1, 'SISTEMA DE COMPUTARIZADO DE GESTIÓN DE MANTENIMIENTO E INVENTARIOS', 'SISCGMI', 'EMPRESA DE PRUEBA', '10000000000', 'LA PAZ', 'LA PAZ', '222222', '', 'ACTIVIDAD', '', '1685568966_logo.png', NULL, '2023-05-31 21:36:06');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_herramientas`
+--
+
+CREATE TABLE `detalle_herramientas` (
+  `id` bigint UNSIGNED NOT NULL,
+  `orden_generada_id` bigint UNSIGNED NOT NULL,
+  `herramienta_id` bigint UNSIGNED NOT NULL,
+  `cantidad_solicitada` double NOT NULL,
+  `costo` decimal(24,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_pedidos`
+--
+
+CREATE TABLE `detalle_pedidos` (
+  `id` bigint UNSIGNED NOT NULL,
+  `pedido_repuesto_id` bigint UNSIGNED NOT NULL,
+  `repuesto_id` bigint UNSIGNED NOT NULL,
+  `cantidad_requerida` double NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_personals`
+--
+
+CREATE TABLE `detalle_personals` (
+  `id` bigint UNSIGNED NOT NULL,
+  `orden_generada_id` bigint UNSIGNED NOT NULL,
+  `personal_id` bigint UNSIGNED NOT NULL,
+  `costo` decimal(24,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_repuestos`
+--
+
+CREATE TABLE `detalle_repuestos` (
+  `id` bigint UNSIGNED NOT NULL,
+  `orden_generada_id` bigint UNSIGNED NOT NULL,
+  `repuesto_id` bigint UNSIGNED NOT NULL,
+  `cantidad_requerida` double NOT NULL,
+  `costo` decimal(24,2) NOT NULL,
+  `total` decimal(24,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -147,6 +210,20 @@ INSERT INTO `equipos` (`id`, `area_id`, `sistema_id`, `codigo`, `nombre`, `numer
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `familias`
+--
+
+CREATE TABLE `familias` (
+  `id` bigint UNSIGNED NOT NULL,
+  `codigo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `frecuencias`
 --
 
@@ -164,6 +241,37 @@ CREATE TABLE `frecuencias` (
 
 INSERT INTO `frecuencias` (`id`, `variable_id`, `frecuencia`, `created_at`, `updated_at`) VALUES
 (1, 1, '1', '2023-06-06 15:15:51', '2023-06-06 15:16:28');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `gama_detalles`
+--
+
+CREATE TABLE `gama_detalles` (
+  `id` bigint UNSIGNED NOT NULL,
+  `gama_id` bigint UNSIGNED NOT NULL,
+  `tarea` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tiempo` double NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `gama_mantenimientos`
+--
+
+CREATE TABLE `gama_mantenimientos` (
+  `id` bigint UNSIGNED NOT NULL,
+  `codigo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `familia_id` bigint UNSIGNED NOT NULL,
+  `equipo_id` bigint UNSIGNED NOT NULL,
+  `descripcion` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -308,7 +416,17 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (71, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA ENTRADA DE HERRAMIENTA/EQUIPO DE PROTECCIÓN', 'cantidad: 100<br/>created_at: 2023-06-07 13:15:13<br/>factura: 4343<br/>fecha: 2023-06-07<br/>herramienta_id: 3<br/>id: 3<br/>precio: 50<br/>total: 5000.00<br/>unidad_medida: UNIDADES<br/>updated_at: 2023-06-07 13:15:13<br/>', NULL, 'ENTRADA DE HERRAMIENTAS/EQUIPOS DE PROTECCIÓN', '2023-06-07', '13:15:13', '2023-06-07 17:15:13', '2023-06-07 17:15:13'),
 (72, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA ENTRADA DE REPUESTOS/INSUMOS', 'cantidad: 100<br/>created_at: 2023-06-07 13:46:01<br/>factura: 1000001<br/>fecha: 2023-06-07<br/>id: 3<br/>precio: 50<br/>repuesto_id: 1<br/>total: 5000.00<br/>updated_at: 2023-06-07 13:46:01<br/>', NULL, 'ENTRADA DE REPUESTOS/INSUMOS', '2023-06-07', '13:46:01', '2023-06-07 17:46:01', '2023-06-07 17:46:01'),
 (73, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA ENTRADA DE REPUESTOS/INSUMOS', 'cantidad: 100<br/>created_at: 2023-06-07 13:46:01<br/>factura: 1000001<br/>fecha: 2023-06-07<br/>id: 3<br/>precio: 50.00<br/>repuesto_id: 1<br/>total: 5000.00<br/>updated_at: 2023-06-07 13:46:01<br/>', NULL, 'ENTRADA DE REPUESTOS/INSUMOS', '2023-06-07', '13:47:00', '2023-06-07 17:47:00', '2023-06-07 17:47:00'),
-(74, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA ENTRADA DE REPUESTOS/INSUMOS', 'cantidad: 50<br/>created_at: 2023-06-07 13:46:01<br/>factura: 1000001<br/>fecha: 2023-06-07<br/>id: 3<br/>precio: 50.00<br/>repuesto_id: 1<br/>total: 2500.00<br/>updated_at: 2023-06-07 13:47:00<br/>', NULL, 'ENTRADA DE REPUESTOS/INSUMOS', '2023-06-07', '13:48:57', '2023-06-07 17:48:57', '2023-06-07 17:48:57');
+(74, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA ENTRADA DE REPUESTOS/INSUMOS', 'cantidad: 50<br/>created_at: 2023-06-07 13:46:01<br/>factura: 1000001<br/>fecha: 2023-06-07<br/>id: 3<br/>precio: 50.00<br/>repuesto_id: 1<br/>total: 2500.00<br/>updated_at: 2023-06-07 13:47:00<br/>', NULL, 'ENTRADA DE REPUESTOS/INSUMOS', '2023-06-07', '13:48:57', '2023-06-07 17:48:57', '2023-06-07 17:48:57'),
+(75, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'acceso: 1<br/>ci: 3333<br/>ci_exp: LP<br/>correo: <br/>created_at: 2023-06-12 16:31:19<br/>dir: LOS OLIVOS<br/>especialidad: ESPECIALIDAD<br/>fecha_registro: 2023-06-12<br/>fono: 77777<br/>foto: default.png<br/>id: 4<br/>materno: CONDORI<br/>nombre: AGUSTIN<br/>password: $2y$10$1597Bo.Ua1Erz4IpnwIwqOWr9okA.2QX9HAH8l6tHAwnjbanPmEu6<br/>paterno: CONDORI<br/>tipo: AUXILIAR DE MANTENIMIENTO<br/>updated_at: 2023-06-12 16:31:19<br/>usuario: ACONDORI<br/>', NULL, 'USUARIOS', '2023-06-12', '16:31:19', '2023-06-12 20:31:19', '2023-06-12 20:31:19'),
+(76, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'acceso: 1<br/>ci: 3333<br/>ci_exp: LP<br/>correo: <br/>created_at: 2023-06-12 16:31:19<br/>dir: LOS OLIVOS<br/>especialidad: ESPECIALIDAD<br/>fecha_registro: 2023-06-12<br/>fono: 77777<br/>foto: default.png<br/>id: 4<br/>materno: CONDORI<br/>nombre: AGUSTIN<br/>password: $2y$10$1597Bo.Ua1Erz4IpnwIwqOWr9okA.2QX9HAH8l6tHAwnjbanPmEu6<br/>paterno: CONDORI<br/>tipo: AUXILIAR DE MANTENIMIENTO<br/>updated_at: 2023-06-12 16:31:19<br/>usuario: ACONDORI<br/>', 'acceso: 1<br/>ci: 3333<br/>ci_exp: LP<br/>correo: agustin@gmail.com<br/>created_at: 2023-06-12 16:31:19<br/>dir: LOS OLIVOS<br/>especialidad: ESPECIALIDAD<br/>fecha_registro: 2023-06-12<br/>fono: 77777<br/>foto: default.png<br/>id: 4<br/>materno: CONDORI<br/>nombre: AGUSTIN<br/>password: $2y$10$1597Bo.Ua1Erz4IpnwIwqOWr9okA.2QX9HAH8l6tHAwnjbanPmEu6<br/>paterno: CONDORI<br/>tipo: AUXILIAR DE MANTENIMIENTO<br/>updated_at: 2023-06-12 16:37:03<br/>usuario: ACONDORI<br/>', 'USUARIOS', '2023-06-12', '16:37:03', '2023-06-12 20:37:03', '2023-06-12 20:37:03'),
+(77, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'acceso: 1<br/>ci: 3333<br/>ci_exp: LP<br/>correo: agustin@gmail.com<br/>created_at: 2023-06-12 16:31:19<br/>dir: LOS OLIVOS<br/>especialidad: ESPECIALIDAD<br/>fecha_registro: 2023-06-12<br/>fono: 77777<br/>foto: default.png<br/>id: 4<br/>materno: CONDORI<br/>nombre: AGUSTIN<br/>password: $2y$10$1597Bo.Ua1Erz4IpnwIwqOWr9okA.2QX9HAH8l6tHAwnjbanPmEu6<br/>paterno: CONDORI<br/>tipo: AUXILIAR DE MANTENIMIENTO<br/>updated_at: 2023-06-12 16:37:03<br/>usuario: ACONDORI<br/>', 'acceso: 1<br/>ci: 3333<br/>ci_exp: LP<br/>correo: agustin@gmail.com<br/>created_at: 2023-06-12 16:31:19<br/>dir: LOS OLIVOS<br/>especialidad: ESPECIALIDAD<br/>fecha_registro: 2023-06-12<br/>fono: 77777; 66666<br/>foto: default.png<br/>id: 4<br/>materno: CONDORI<br/>nombre: AGUSTIN<br/>password: $2y$10$1597Bo.Ua1Erz4IpnwIwqOWr9okA.2QX9HAH8l6tHAwnjbanPmEu6<br/>paterno: CONDORI<br/>tipo: AUXILIAR DE MANTENIMIENTO<br/>updated_at: 2023-06-12 16:37:16<br/>usuario: ACONDORI<br/>', 'USUARIOS', '2023-06-12', '16:37:16', '2023-06-12 20:37:16', '2023-06-12 20:37:16'),
+(78, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PERSONAL', 'correo: AGUSTIN@GMAIL.COM<br/>created_at: 2023-06-12 16:38:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD<br/>id: 1<br/>nro_doc: 3333<br/>razon_social: RAZON S.A.<br/>telefono: 77777; 66666<br/>tipo_mo: USUARIOS<br/>updated_at: 2023-06-12 16:38:44<br/>user_id: 4<br/>', NULL, 'PERSONAL', '2023-06-12', '16:38:44', '2023-06-12 20:38:44', '2023-06-12 20:38:44'),
+(79, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PERSONAL', 'correo: JDK@GMAIL.COM<br/>created_at: 2023-06-12 16:40:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD 2<br/>id: 2<br/>nro_doc: 4545<br/>razon_social: JDK S.A.<br/>telefono: 77777; 66666<br/>tipo_mo: SERVICIOS<br/>updated_at: 2023-06-12 16:40:44<br/>user_id: <br/>', NULL, 'PERSONAL', '2023-06-12', '16:40:44', '2023-06-12 20:40:44', '2023-06-12 20:40:44'),
+(80, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PERSONAL', 'correo: AGUSTIN@GMAIL.COM<br/>created_at: 2023-06-12 16:38:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD<br/>id: 1<br/>nro_doc: 3333<br/>razon_social: RAZON S.A.<br/>telefono: 77777; 66666<br/>tipo_mo: USUARIOS<br/>updated_at: 2023-06-12 16:38:44<br/>user_id: 4<br/>', 'correo: AGUSTIN@GMAIL.COM<br/>created_at: 2023-06-12 16:38:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD<br/>id: 1<br/>nro_doc: 3333<br/>razon_social: RAZON S.A. MODIFICADO<br/>telefono: 77777; 66666<br/>tipo_mo: USUARIOS<br/>updated_at: 2023-06-12 16:44:02<br/>user_id: 4<br/>', 'PERSONAL', '2023-06-12', '16:44:02', '2023-06-12 20:44:02', '2023-06-12 20:44:02'),
+(81, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PERSONAL', 'correo: AGUSTIN@GMAIL.COM<br/>created_at: 2023-06-12 16:38:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD<br/>id: 1<br/>nro_doc: 3333<br/>razon_social: RAZON S.A. MODIFICADO<br/>telefono: 77777; 66666<br/>tipo_mo: USUARIOS<br/>updated_at: 2023-06-12 16:44:02<br/>user_id: 4<br/>', 'correo: AGUSTIN@GMAIL.COM<br/>created_at: 2023-06-12 16:38:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD<br/>id: 1<br/>nro_doc: 3333<br/>razon_social: RAZON S.A. MODIFICADO<br/>telefono: 77777; 66666<br/>tipo_mo: USUARIOS<br/>updated_at: 2023-06-12 16:44:02<br/>user_id: 4<br/>', 'PERSONAL', '2023-06-12', '16:45:16', '2023-06-12 20:45:16', '2023-06-12 20:45:16'),
+(82, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PERSONAL', 'correo: JDK@GMAIL.COM<br/>created_at: 2023-06-12 16:40:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD 2<br/>id: 2<br/>nro_doc: 4545<br/>razon_social: JDK S.A.<br/>telefono: 77777; 66666<br/>tipo_mo: SERVICIOS<br/>updated_at: 2023-06-12 16:40:44<br/>user_id: <br/>', 'correo: JDK@GMAIL.COM<br/>created_at: 2023-06-12 16:40:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD 2<br/>id: 2<br/>nro_doc: 4545<br/>razon_social: JDK S.A.<br/>telefono: 656565<br/>tipo_mo: SERVICIOS<br/>updated_at: 2023-06-12 16:45:28<br/>user_id: <br/>', 'PERSONAL', '2023-06-12', '16:45:28', '2023-06-12 20:45:28', '2023-06-12 20:45:28'),
+(83, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PERSONAL', 'correo: JDK@GMAIL.COM<br/>created_at: 2023-06-12 16:40:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD 2<br/>id: 2<br/>nro_doc: 4545<br/>razon_social: JDK S.A.<br/>telefono: 656565<br/>tipo_mo: SERVICIOS<br/>updated_at: 2023-06-12 16:45:28<br/>user_id: <br/>', 'correo: JDK@GMAIL.COM<br/>created_at: 2023-06-12 16:40:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD 2<br/>id: 2<br/>nro_doc: 4545<br/>razon_social: JDK S.A.<br/>telefono: 656565<br/>tipo_mo: SERVICIOS<br/>updated_at: 2023-06-12 16:45:28<br/>user_id: <br/>', 'PERSONAL', '2023-06-12', '16:45:36', '2023-06-12 20:45:36', '2023-06-12 20:45:36'),
+(84, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN PERSONAL', 'correo: JDK@GMAIL.COM<br/>created_at: 2023-06-12 16:40:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD 2<br/>id: 2<br/>nro_doc: 4545<br/>razon_social: JDK S.A.<br/>telefono: 656565<br/>tipo_mo: SERVICIOS<br/>updated_at: 2023-06-12 16:45:28<br/>user_id: <br/>', NULL, 'PERSONAL', '2023-06-12', '16:45:40', '2023-06-12 20:45:40', '2023-06-12 20:45:40');
 
 -- --------------------------------------------------------
 
@@ -421,7 +539,127 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (14, '2023_05_31_164627_create_entrada_repuestos_table', 1),
 (15, '2023_05_31_164656_create_kardex_herramientas_table', 1),
 (16, '2023_01_26_144253_create_historial_accions_table', 2),
-(17, '2023_06_07_130719_create_kardex_repuestos_table', 3);
+(17, '2023_06_07_130719_create_kardex_repuestos_table', 3),
+(18, '2023_06_12_143249_create_personals_table', 4),
+(19, '2023_06_12_143616_create_familias_table', 4),
+(20, '2023_06_12_143627_create_sub_familias_table', 4),
+(21, '2023_06_12_143640_create_gama_mantenimientos_table', 4),
+(22, '2023_06_12_143713_create_plan_mantenimientos_table', 4),
+(23, '2023_06_12_143811_create_orden_trabajos_table', 4),
+(24, '2023_06_12_143900_create_orden_generadas_table', 4),
+(25, '2023_06_12_143928_create_detalle_repuestos_table', 4),
+(26, '2023_06_12_144025_create_detalle_herramientas_table', 4),
+(27, '2023_06_12_144035_create_detalle_personals_table', 4),
+(28, '2023_06_12_144111_create_pedido_repuestos_table', 4),
+(29, '2023_06_12_144309_create_gama_detalles_table', 4),
+(30, '2023_06_12_144656_create_notificacions_table', 4),
+(31, '2023_06_12_144706_create_notificacion_users_table', 4),
+(32, '2023_06_12_150032_create_programacions_table', 4),
+(33, '2023_06_12_152430_create_detalle_pedidos_table', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `notificacions`
+--
+
+CREATE TABLE `notificacions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `notificacion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `notificacion_users`
+--
+
+CREATE TABLE `notificacion_users` (
+  `id` bigint UNSIGNED NOT NULL,
+  `notificacion_id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `visto` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `orden_generadas`
+--
+
+CREATE TABLE `orden_generadas` (
+  `id` bigint UNSIGNED NOT NULL,
+  `orden_id` bigint UNSIGNED NOT NULL,
+  `archivo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion_documentacion` text COLLATE utf8mb4_unicode_ci,
+  `comentario` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `orden_trabajos`
+--
+
+CREATE TABLE `orden_trabajos` (
+  `id` bigint UNSIGNED NOT NULL,
+  `fecha_programada` date NOT NULL,
+  `subunidad_id` bigint UNSIGNED NOT NULL,
+  `gama_id` bigint UNSIGNED NOT NULL,
+  `prioridad` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tiempo` double NOT NULL,
+  `dias` double NOT NULL,
+  `tipo_mantenimiento` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedido_repuestos`
+--
+
+CREATE TABLE `pedido_repuestos` (
+  `id` bigint UNSIGNED NOT NULL,
+  `orden_id` bigint UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `personals`
+--
+
+CREATE TABLE `personals` (
+  `id` bigint UNSIGNED NOT NULL,
+  `tipo_mo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint UNSIGNED DEFAULT NULL,
+  `razon_social` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nro_doc` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `especialidad` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `correo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `telefono` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `domicilio` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `personals`
+--
+
+INSERT INTO `personals` (`id`, `tipo_mo`, `user_id`, `razon_social`, `nro_doc`, `especialidad`, `correo`, `telefono`, `domicilio`, `created_at`, `updated_at`) VALUES
+(1, 'USUARIOS', 4, 'RAZON S.A. MODIFICADO', '3333', 'ESPECIALIDAD', 'AGUSTIN@GMAIL.COM', '77777; 66666', 'LOS OLIVOS', '2023-06-12 20:38:44', '2023-06-12 20:44:02');
 
 -- --------------------------------------------------------
 
@@ -437,6 +675,47 @@ CREATE TABLE `personal_access_tokens` (
   `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `abilities` text COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `plan_mantenimientos`
+--
+
+CREATE TABLE `plan_mantenimientos` (
+  `id` bigint UNSIGNED NOT NULL,
+  `subunidad_id` bigint UNSIGNED NOT NULL,
+  `gama_id` bigint UNSIGNED NOT NULL,
+  `pm` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prioridad` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tiempo` double NOT NULL,
+  `dias` double DEFAULT NULL,
+  `tipo_mantenimiento` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ultima_fecha_programada` date DEFAULT NULL,
+  `ultima_fecha_terminada` date DEFAULT NULL,
+  `programacion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_final` date DEFAULT NULL,
+  `variable_control_id` bigint UNSIGNED NOT NULL,
+  `frecuencia_id` bigint UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `programacions`
+--
+
+CREATE TABLE `programacions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `plan_mantenimiento_id` bigint UNSIGNED NOT NULL,
+  `numero` int NOT NULL,
+  `dias` double NOT NULL,
+  `fecha` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -538,6 +817,20 @@ INSERT INTO `subunidads` (`id`, `area_id`, `sistema_id`, `equipo_id`, `codigo`, 
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `sub_familias`
+--
+
+CREATE TABLE `sub_familias` (
+  `id` bigint UNSIGNED NOT NULL,
+  `familia_id` bigint UNSIGNED NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `users`
 --
 
@@ -553,7 +846,7 @@ CREATE TABLE `users` (
   `dir` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `correo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fono` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tipo` enum('ADMINISTRADOR','GERENTE','GERENTE DE PRODUCCIÓN','JEFE DE MANTENIMIENTO','SUPERVISOR DE COMPRAS','AUXILIAR DE MANTENIMIENTO','AUXILIAR DE ALMACÉN') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo` enum('ADMINISTRADOR','GERENTE','GERENTE DE PRODUCCIÓN','JEFE DE MANTENIMIENTO','SUPERVISOR DE COMPRAS','AUXILIAR DE MANTENIMIENTO','AUXILIAR DE ALMACÉN') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `acceso` int NOT NULL,
@@ -569,7 +862,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `usuario`, `nombre`, `paterno`, `materno`, `ci`, `ci_exp`, `especialidad`, `dir`, `correo`, `fono`, `tipo`, `foto`, `password`, `acceso`, `fecha_registro`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin', 'admin', NULL, '', '', NULL, '', NULL, '', 'ADMINISTRADOR', NULL, '$2y$10$RrCZZySOwPej2gMFWsrjMe6dLzfaL5Q88h4J75I1FesEBRNPwq1x.', 1, '2023-01-11', NULL, NULL),
 (2, 'JPERES', 'JUAN', 'PERES', 'MAMANI', '1111', 'LP', NULL, '', '', '', 'GERENTE', 'default.png', '$2y$10$t1vtRZ48507H2YKWgrU02Olg8W6bhN8yV8PduODfUJeMSIXEzqF/e', 1, '2023-06-01', '2023-06-01 15:39:49', '2023-06-01 15:39:49'),
-(3, 'JGONZALES', 'JOSE ALBERTO', 'GONZALES', 'CONDORI', '2222', 'CB', 'ESPECIALIDAD', 'LOS OLIVOS', 'jose@gmail.com', '222222; 777777', 'GERENTE DE PRODUCCIÓN', '1685634062_JGONZALES.jpg', '$2y$10$KHi883Cz5Us3yixbNjs7cuxIWYst68Dkp6xZpJprokMjSYVvQpQUK', 1, '2023-06-01', '2023-06-01 15:41:02', '2023-06-01 15:42:49');
+(3, 'JGONZALES', 'JOSE ALBERTO', 'GONZALES', 'CONDORI', '2222', 'CB', 'ESPECIALIDAD', 'LOS OLIVOS', 'jose@gmail.com', '222222; 777777', 'GERENTE DE PRODUCCIÓN', '1685634062_JGONZALES.jpg', '$2y$10$KHi883Cz5Us3yixbNjs7cuxIWYst68Dkp6xZpJprokMjSYVvQpQUK', 1, '2023-06-01', '2023-06-01 15:41:02', '2023-06-01 15:42:49'),
+(4, 'ACONDORI', 'AGUSTIN', 'CONDORI', 'CONDORI', '3333', 'LP', 'ESPECIALIDAD', 'LOS OLIVOS', 'agustin@gmail.com', '77777; 66666', 'AUXILIAR DE MANTENIMIENTO', 'default.png', '$2y$10$1597Bo.Ua1Erz4IpnwIwqOWr9okA.2QX9HAH8l6tHAwnjbanPmEu6', 1, '2023-06-12', '2023-06-12 20:31:19', '2023-06-12 20:37:16');
 
 -- --------------------------------------------------------
 
@@ -611,6 +905,38 @@ ALTER TABLE `configuracions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `detalle_herramientas`
+--
+ALTER TABLE `detalle_herramientas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `detalle_herramientas_orden_generada_id_foreign` (`orden_generada_id`),
+  ADD KEY `detalle_herramientas_herramienta_id_foreign` (`herramienta_id`);
+
+--
+-- Indices de la tabla `detalle_pedidos`
+--
+ALTER TABLE `detalle_pedidos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `detalle_pedidos_pedido_repuesto_id_foreign` (`pedido_repuesto_id`),
+  ADD KEY `detalle_pedidos_repuesto_id_foreign` (`repuesto_id`);
+
+--
+-- Indices de la tabla `detalle_personals`
+--
+ALTER TABLE `detalle_personals`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `detalle_personals_orden_generada_id_foreign` (`orden_generada_id`),
+  ADD KEY `detalle_personals_personal_id_foreign` (`personal_id`);
+
+--
+-- Indices de la tabla `detalle_repuestos`
+--
+ALTER TABLE `detalle_repuestos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `detalle_repuestos_orden_generada_id_foreign` (`orden_generada_id`),
+  ADD KEY `detalle_repuestos_repuesto_id_foreign` (`repuesto_id`);
+
+--
 -- Indices de la tabla `entrada_herramientas`
 --
 ALTER TABLE `entrada_herramientas`
@@ -633,10 +959,33 @@ ALTER TABLE `equipos`
   ADD KEY `equipos_sistema_id_foreign` (`sistema_id`);
 
 --
+-- Indices de la tabla `familias`
+--
+ALTER TABLE `familias`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `familias_codigo_unique` (`codigo`);
+
+--
 -- Indices de la tabla `frecuencias`
 --
 ALTER TABLE `frecuencias`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `gama_detalles`
+--
+ALTER TABLE `gama_detalles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `gama_detalles_gama_id_foreign` (`gama_id`);
+
+--
+-- Indices de la tabla `gama_mantenimientos`
+--
+ALTER TABLE `gama_mantenimientos`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `gama_mantenimientos_codigo_unique` (`codigo`),
+  ADD KEY `gama_mantenimientos_familia_id_foreign` (`familia_id`),
+  ADD KEY `gama_mantenimientos_equipo_id_foreign` (`equipo_id`);
 
 --
 -- Indices de la tabla `herramientas`
@@ -670,12 +1019,66 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `notificacions`
+--
+ALTER TABLE `notificacions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `notificacion_users`
+--
+ALTER TABLE `notificacion_users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `notificacion_users_notificacion_id_foreign` (`notificacion_id`),
+  ADD KEY `notificacion_users_user_id_foreign` (`user_id`);
+
+--
+-- Indices de la tabla `orden_generadas`
+--
+ALTER TABLE `orden_generadas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `orden_trabajos`
+--
+ALTER TABLE `orden_trabajos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `orden_trabajos_subunidad_id_foreign` (`subunidad_id`),
+  ADD KEY `orden_trabajos_gama_id_foreign` (`gama_id`);
+
+--
+-- Indices de la tabla `pedido_repuestos`
+--
+ALTER TABLE `pedido_repuestos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `personals`
+--
+ALTER TABLE `personals`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `personals_user_id_foreign` (`user_id`);
+
+--
 -- Indices de la tabla `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Indices de la tabla `plan_mantenimientos`
+--
+ALTER TABLE `plan_mantenimientos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `programacions`
+--
+ALTER TABLE `programacions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `programacions_plan_mantenimiento_id_foreign` (`plan_mantenimiento_id`);
 
 --
 -- Indices de la tabla `repuestos`
@@ -702,6 +1105,13 @@ ALTER TABLE `subunidads`
   ADD KEY `subunidads_area_id_foreign` (`area_id`),
   ADD KEY `subunidads_sistema_id_foreign` (`sistema_id`),
   ADD KEY `subunidads_equipo_id_foreign` (`equipo_id`);
+
+--
+-- Indices de la tabla `sub_familias`
+--
+ALTER TABLE `sub_familias`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sub_familias_familia_id_foreign` (`familia_id`);
 
 --
 -- Indices de la tabla `users`
@@ -733,6 +1143,30 @@ ALTER TABLE `configuracions`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `detalle_herramientas`
+--
+ALTER TABLE `detalle_herramientas`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_pedidos`
+--
+ALTER TABLE `detalle_pedidos`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_personals`
+--
+ALTER TABLE `detalle_personals`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_repuestos`
+--
+ALTER TABLE `detalle_repuestos`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `entrada_herramientas`
 --
 ALTER TABLE `entrada_herramientas`
@@ -751,10 +1185,28 @@ ALTER TABLE `equipos`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `familias`
+--
+ALTER TABLE `familias`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `frecuencias`
 --
 ALTER TABLE `frecuencias`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `gama_detalles`
+--
+ALTER TABLE `gama_detalles`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `gama_mantenimientos`
+--
+ALTER TABLE `gama_mantenimientos`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `herramientas`
@@ -766,7 +1218,7 @@ ALTER TABLE `herramientas`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT de la tabla `kardex_repuestos`
@@ -784,12 +1236,60 @@ ALTER TABLE `maquinarias`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT de la tabla `notificacions`
+--
+ALTER TABLE `notificacions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `notificacion_users`
+--
+ALTER TABLE `notificacion_users`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `orden_generadas`
+--
+ALTER TABLE `orden_generadas`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `orden_trabajos`
+--
+ALTER TABLE `orden_trabajos`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pedido_repuestos`
+--
+ALTER TABLE `pedido_repuestos`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `personals`
+--
+ALTER TABLE `personals`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `plan_mantenimientos`
+--
+ALTER TABLE `plan_mantenimientos`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `programacions`
+--
+ALTER TABLE `programacions`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -811,10 +1311,16 @@ ALTER TABLE `subunidads`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `sub_familias`
+--
+ALTER TABLE `sub_familias`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `variable_controls`
@@ -827,11 +1333,78 @@ ALTER TABLE `variable_controls`
 --
 
 --
+-- Filtros para la tabla `detalle_herramientas`
+--
+ALTER TABLE `detalle_herramientas`
+  ADD CONSTRAINT `detalle_herramientas_herramienta_id_foreign` FOREIGN KEY (`herramienta_id`) REFERENCES `herramientas` (`id`),
+  ADD CONSTRAINT `detalle_herramientas_orden_generada_id_foreign` FOREIGN KEY (`orden_generada_id`) REFERENCES `orden_generadas` (`id`);
+
+--
+-- Filtros para la tabla `detalle_pedidos`
+--
+ALTER TABLE `detalle_pedidos`
+  ADD CONSTRAINT `detalle_pedidos_pedido_repuesto_id_foreign` FOREIGN KEY (`pedido_repuesto_id`) REFERENCES `pedido_repuestos` (`id`),
+  ADD CONSTRAINT `detalle_pedidos_repuesto_id_foreign` FOREIGN KEY (`repuesto_id`) REFERENCES `repuestos` (`id`);
+
+--
+-- Filtros para la tabla `detalle_personals`
+--
+ALTER TABLE `detalle_personals`
+  ADD CONSTRAINT `detalle_personals_orden_generada_id_foreign` FOREIGN KEY (`orden_generada_id`) REFERENCES `orden_generadas` (`id`),
+  ADD CONSTRAINT `detalle_personals_personal_id_foreign` FOREIGN KEY (`personal_id`) REFERENCES `personals` (`id`);
+
+--
+-- Filtros para la tabla `detalle_repuestos`
+--
+ALTER TABLE `detalle_repuestos`
+  ADD CONSTRAINT `detalle_repuestos_orden_generada_id_foreign` FOREIGN KEY (`orden_generada_id`) REFERENCES `orden_generadas` (`id`),
+  ADD CONSTRAINT `detalle_repuestos_repuesto_id_foreign` FOREIGN KEY (`repuesto_id`) REFERENCES `repuestos` (`id`);
+
+--
 -- Filtros para la tabla `equipos`
 --
 ALTER TABLE `equipos`
   ADD CONSTRAINT `equipos_area_id_foreign` FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`),
   ADD CONSTRAINT `equipos_sistema_id_foreign` FOREIGN KEY (`sistema_id`) REFERENCES `sistemas` (`id`);
+
+--
+-- Filtros para la tabla `gama_detalles`
+--
+ALTER TABLE `gama_detalles`
+  ADD CONSTRAINT `gama_detalles_gama_id_foreign` FOREIGN KEY (`gama_id`) REFERENCES `gama_mantenimientos` (`id`);
+
+--
+-- Filtros para la tabla `gama_mantenimientos`
+--
+ALTER TABLE `gama_mantenimientos`
+  ADD CONSTRAINT `gama_mantenimientos_equipo_id_foreign` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`),
+  ADD CONSTRAINT `gama_mantenimientos_familia_id_foreign` FOREIGN KEY (`familia_id`) REFERENCES `familias` (`id`);
+
+--
+-- Filtros para la tabla `notificacion_users`
+--
+ALTER TABLE `notificacion_users`
+  ADD CONSTRAINT `notificacion_users_notificacion_id_foreign` FOREIGN KEY (`notificacion_id`) REFERENCES `notificacions` (`id`),
+  ADD CONSTRAINT `notificacion_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Filtros para la tabla `orden_trabajos`
+--
+ALTER TABLE `orden_trabajos`
+  ADD CONSTRAINT `orden_trabajos_gama_id_foreign` FOREIGN KEY (`gama_id`) REFERENCES `gama_mantenimientos` (`id`),
+  ADD CONSTRAINT `orden_trabajos_subunidad_id_foreign` FOREIGN KEY (`subunidad_id`) REFERENCES `subunidads` (`id`);
+
+--
+-- Filtros para la tabla `personals`
+--
+ALTER TABLE `personals`
+  ADD CONSTRAINT `personals_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Filtros para la tabla `programacions`
+--
+ALTER TABLE `programacions`
+  ADD CONSTRAINT `programacions_plan_mantenimiento_id_foreign` FOREIGN KEY (`plan_mantenimiento_id`) REFERENCES `plan_mantenimientos` (`id`);
 
 --
 -- Filtros para la tabla `sistemas`
@@ -846,6 +1419,12 @@ ALTER TABLE `subunidads`
   ADD CONSTRAINT `subunidads_area_id_foreign` FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`),
   ADD CONSTRAINT `subunidads_equipo_id_foreign` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`),
   ADD CONSTRAINT `subunidads_sistema_id_foreign` FOREIGN KEY (`sistema_id`) REFERENCES `sistemas` (`id`);
+
+--
+-- Filtros para la tabla `sub_familias`
+--
+ALTER TABLE `sub_familias`
+  ADD CONSTRAINT `sub_familias_familia_id_foreign` FOREIGN KEY (`familia_id`) REFERENCES `familias` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
