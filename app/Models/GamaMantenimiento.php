@@ -11,8 +11,23 @@ class GamaMantenimiento extends Model
 
     protected $fillable = [
         "codigo",
-        "familia_id",
+        "subfamilia_id",
         "equipo_id",
         "descripcion",
     ];
+
+    public function gama_detalles()
+    {
+        return $this->hasMany(GamaDetalles::class, 'gama_id');
+    }
+
+    public function subfamilia()
+    {
+        return $this->belongsTo(SubFamilia::class, 'subfamilia_id');
+    }
+
+    public function equipo()
+    {
+        return $this->belongsTo(Equipo::class, 'equipo_id');
+    }
 }

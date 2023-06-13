@@ -1,6 +1,6 @@
 :root {
-    --principal: #083B7A;
-    --secundario: #50A3CC;
+    --principal: #083b7a;
+    --secundario: #50a3cc;
     --correcto: #d2e7c9;
     --secondary: #da1900;
     --transparente: #000000bd;
@@ -19,18 +19,17 @@
 .el-button--warning:focus,
 .el-button--warning:hover {
     color: #1f2d3d !important;
-    background-color: #50A3CC !important;
-    border-color: #50A3CC !important;
+    background-color: #50a3cc !important;
+    border-color: #50a3cc !important;
 }
-
 
 .el-button--warning.is-disabled,
 .el-button--warning.is-disabled:active,
 .el-button--warning.is-disabled:focus,
 .el-button--warning.is-disabled:hover {
     color: #1f2d3d !important;
-    background-color: #50A3CC !important;
-    border-color: #50A3CC !important;
+    background-color: #50a3cc !important;
+    border-color: #50a3cc !important;
 }
 
 .text-secondary {
@@ -56,7 +55,7 @@
     overflow: auto;
 }
 
-.el-avatar>img {
+.el-avatar > img {
     width: 100%;
 }
 
@@ -86,7 +85,6 @@ input.form-control {
     cursor: not-allowed;
 }
 
-
 .readonly .el-input__inner {
     background: rgb(237, 246, 250);
 }
@@ -94,4 +92,38 @@ input.form-control {
 .contenedor_tabla tr.seleccionado {
     background: rgb(237, 246, 250);
     border: solid 2px var(--secundario);
+}
+
+/* .nav-sidebar > .nav-item.menu-is-opening.menu-open > a.nav-link {
+    border-bottom: solid 3px var(--secundario) !important;
+} */
+
+[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active,
+[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active:hover,
+[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active:focus {
+    background: var(--principal) !important;
+    border-left-color: var(--secundario) !important;
+    color: white;
+}
+
+/* .nav-flat.nav-sidebar
+    > .nav-item
+    > .nav-treeview
+    .nav-item:last-child
+    > .nav-link {
+    border-bottom: solid 3px var(--secundario) !important;
+} */
+
+.nav-flat.nav-sidebar > .nav-item .nav-treeview .nav-item > .nav-link,
+.nav-flat.nav-sidebar > .nav-item > .nav-treeview .nav-item > .nav-link {
+    border-left-color: var(--secundario);
+}
+
+.main-header {
+    border-bottom-color: var(--secundario) !important;
+    border-width: 3px;
+}
+
+:disabled {
+    background: var(--secundario)!important;
 }

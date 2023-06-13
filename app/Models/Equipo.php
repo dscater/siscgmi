@@ -18,6 +18,8 @@ class Equipo extends Model
         "codigo2",
     ];
 
+    protected $appends = ["full_name"];
+
     public function area()
     {
         return $this->belongsTo(Area::class, 'area_id');
@@ -25,5 +27,10 @@ class Equipo extends Model
     public function sistema()
     {
         return $this->belongsTo(Sistema::class, 'sistema_id');
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->codigo . " | " . $this->nombre;
     }
 }

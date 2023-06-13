@@ -13,4 +13,10 @@ class Familia extends Model
         "codigo",
         "nombre",
     ];
+
+    protected $appends = ["full_name"];
+    public function getFullNameAttribute()
+    {
+        return $this->codigo . ' | ' . $this->nombre;
+    }
 }

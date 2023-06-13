@@ -13,9 +13,15 @@ class SubFamilia extends Model
         "familia_id",
         "nombre",
     ];
+    protected $appends = ["full_name"];
 
     public function familia()
     {
         return $this->belongsTo(Familia::class, 'familia_id');
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->familia->codigo . ' | ' . $this->familia->nombre . ' | ' . $this->nombre;
     }
 }

@@ -101,6 +101,102 @@
                     </li>
                     <li
                         class="nav-item"
+                        v-if="
+                            permisos.includes('gama_mantenimientos.index') ||
+                            permisos.includes('familias.index') ||
+                            permisos.includes('sub_familias.index')
+                        "
+                        :class="[
+                            $route.name == 'gama_mantenimientos.index' ||
+                            $route.name == 'gama_mantenimientos.create' ||
+                            $route.name == 'gama_mantenimientos.edit' ||
+                            $route.name == 'familias.index' ||
+                            $route.name == 'sub_familias.index'
+                                ? 'menu-is-opening menu-open'
+                                : '',
+                        ]"
+                    >
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-boxes"></i>
+                            <p>
+                                Gama de mantenimiento
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul
+                            class="nav nav-treeview"
+                            :style.display="[
+                                $route.name == 'gama_mantenimientos.index' ||
+                                $route.name == 'familias.index' ||
+                                $route.name == 'sub_familias.index'
+                                    ? 'block'
+                                    : '',
+                            ]"
+                        >
+                            <li
+                                class="nav-item"
+                                v-if="
+                                    permisos.includes(
+                                        'gama_mantenimientos.index'
+                                    )
+                                "
+                            >
+                                <router-link
+                                    exact
+                                    :to="{ name: 'gama_mantenimientos.index' }"
+                                    class="nav-link"
+                                    :class="[
+                                        $route.name ==
+                                            'gama_mantenimientos.create' ||
+                                        $route.name ==
+                                            'gama_mantenimientos.edit'
+                                            ? 'active'
+                                            : '',
+                                    ]"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    <i class="nav-icon fas fa-angle-right"></i>
+                                    <p>Gama de Mantenimiento</p>
+                                </router-link>
+                            </li>
+                            <li
+                                class="nav-item"
+                                v-if="permisos.includes('familias.index')"
+                            >
+                                <router-link
+                                    exact
+                                    :to="{ name: 'familias.index' }"
+                                    class="nav-link"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    <i class="nav-icon fas fa-angle-right"></i>
+                                    <p>Familias</p>
+                                </router-link>
+                            </li>
+                            <li
+                                class="nav-item"
+                                v-if="permisos.includes('sub_familias.index')"
+                            >
+                                <router-link
+                                    exact
+                                    :to="{ name: 'sub_familias.index' }"
+                                    class="nav-link"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    <i class="nav-icon fas fa-angle-right"></i>
+                                    <p>Subfamilias</p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
+                    <li
+                        class="nav-item"
                         v-if="permisos.includes('areas.index')"
                     >
                         <router-link

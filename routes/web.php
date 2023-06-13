@@ -8,7 +8,9 @@ use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\EntradaHerramientaController;
 use App\Http\Controllers\EntradaRepuestoController;
 use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\FamiliaController;
 use App\Http\Controllers\FrecuenciaController;
+use App\Http\Controllers\GamaMantenimientoController;
 use App\Http\Controllers\HerramientaController;
 use App\Http\Controllers\HistorialAccionController;
 use App\Http\Controllers\IngresoProductoController;
@@ -22,6 +24,7 @@ use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RepuestoController;
 use App\Http\Controllers\SalidaProductoController;
 use App\Http\Controllers\SistemaController;
+use App\Http\Controllers\SubFamiliaController;
 use App\Http\Controllers\SubunidadController;
 use App\Http\Controllers\TipoIngresoController;
 use App\Http\Controllers\TipoSalidaController;
@@ -110,6 +113,21 @@ Route::middleware(['auth'])->group(function () {
 
         // personal
         Route::resource('personals', PersonalController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
+
+        // familia
+        Route::resource('familias', FamiliaController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
+
+        // sub_familia
+        Route::resource('sub_familias', SubFamiliaController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
+
+        // gama_mantenimiento
+        Route::resource('gama_mantenimientos', GamaMantenimientoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 

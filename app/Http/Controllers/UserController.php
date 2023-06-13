@@ -128,6 +128,21 @@ class UserController extends Controller
             'personals.edit',
             'personals.destroy',
 
+            'familias.index',
+            'familias.create',
+            'familias.edit',
+            'familias.destroy',
+
+            'sub_familias.index',
+            'sub_familias.create',
+            'sub_familias.edit',
+            'sub_familias.destroy',
+
+            'gama_mantenimientos.index',
+            'gama_mantenimientos.create',
+            'gama_mantenimientos.edit',
+            'gama_mantenimientos.destroy',
+
             'reportes.usuarios',
             'reportes.kardex_herramientas',
             'reportes.informacion_herramientas',

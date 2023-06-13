@@ -16,12 +16,12 @@ class CreateGamaMantenimientosTable extends Migration
         Schema::create('gama_mantenimientos', function (Blueprint $table) {
             $table->id();
             $table->string("codigo", 255)->unique();
-            $table->unsignedBigInteger("familia_id");
+            $table->unsignedBigInteger("subfamilia_id");
             $table->unsignedBigInteger("equipo_id");
             $table->text("descripcion")->nullable();
             $table->timestamps();
 
-            $table->foreign("familia_id")->on("familias")->references("id");
+            $table->foreign("subfamilia_id")->on("sub_familias")->references("id");
             $table->foreign("equipo_id")->on("equipos")->references("id");
         });
     }

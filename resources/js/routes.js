@@ -180,6 +180,44 @@ export default new Router({
                 .default,
         },
 
+        // familias
+        {
+            path: "/familias",
+            name: "familias.index",
+            component: require("./components/modulos/familias/index.vue")
+                .default,
+        },
+        // sub_familias
+        {
+            path: "/sub_familias",
+            name: "sub_familias.index",
+            component: require("./components/modulos/sub_familias/index.vue")
+                .default,
+        },
+        // gama_mantenimientos
+        {
+            path: "/gama_mantenimientos",
+            name: "gama_mantenimientos.index",
+            component:
+                require("./components/modulos/gama_mantenimientos/index.vue")
+                    .default,
+        },
+        {
+            path: "/gama_mantenimientos/create",
+            name: "gama_mantenimientos.create",
+            component:
+                require("./components/modulos/gama_mantenimientos/create.vue")
+                    .default,
+        },
+        {
+            path: "/gama_mantenimientos/:id",
+            name: "gama_mantenimientos.edit",
+            component:
+                require("./components/modulos/gama_mantenimientos/edit.vue")
+                    .default,
+            props: true,
+        },
+
         // Reportes
         {
             path: "/reportes/usuarios",
