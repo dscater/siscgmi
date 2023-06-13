@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 12-06-2023 a las 20:45:54
+-- Tiempo de generación: 13-06-2023 a las 16:45:17
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -221,6 +221,13 @@ CREATE TABLE `familias` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `familias`
+--
+
+INSERT INTO `familias` (`id`, `codigo`, `nombre`, `created_at`, `updated_at`) VALUES
+(1, 'F001', 'FAMILIA #1 MODIFICADO', '2023-06-13 15:14:35', '2023-06-13 15:15:06');
+
 -- --------------------------------------------------------
 
 --
@@ -257,6 +264,14 @@ CREATE TABLE `gama_detalles` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `gama_detalles`
+--
+
+INSERT INTO `gama_detalles` (`id`, `gama_id`, `tarea`, `tiempo`, `created_at`, `updated_at`) VALUES
+(1, 2, 'TAREA 1', 7, '2023-06-13 16:37:24', '2023-06-13 16:42:43'),
+(3, 2, 'NUEVA TAREA 2', 10, '2023-06-13 16:43:34', '2023-06-13 16:43:34');
+
 -- --------------------------------------------------------
 
 --
@@ -266,12 +281,19 @@ CREATE TABLE `gama_detalles` (
 CREATE TABLE `gama_mantenimientos` (
   `id` bigint UNSIGNED NOT NULL,
   `codigo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `familia_id` bigint UNSIGNED NOT NULL,
+  `subfamilia_id` bigint UNSIGNED NOT NULL,
   `equipo_id` bigint UNSIGNED NOT NULL,
   `descripcion` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `gama_mantenimientos`
+--
+
+INSERT INTO `gama_mantenimientos` (`id`, `codigo`, `subfamilia_id`, `equipo_id`, `descripcion`, `created_at`, `updated_at`) VALUES
+(2, 'GM001', 1, 1, '', '2023-06-13 16:37:24', '2023-06-13 16:37:24');
 
 -- --------------------------------------------------------
 
@@ -426,7 +448,20 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (81, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PERSONAL', 'correo: AGUSTIN@GMAIL.COM<br/>created_at: 2023-06-12 16:38:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD<br/>id: 1<br/>nro_doc: 3333<br/>razon_social: RAZON S.A. MODIFICADO<br/>telefono: 77777; 66666<br/>tipo_mo: USUARIOS<br/>updated_at: 2023-06-12 16:44:02<br/>user_id: 4<br/>', 'correo: AGUSTIN@GMAIL.COM<br/>created_at: 2023-06-12 16:38:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD<br/>id: 1<br/>nro_doc: 3333<br/>razon_social: RAZON S.A. MODIFICADO<br/>telefono: 77777; 66666<br/>tipo_mo: USUARIOS<br/>updated_at: 2023-06-12 16:44:02<br/>user_id: 4<br/>', 'PERSONAL', '2023-06-12', '16:45:16', '2023-06-12 20:45:16', '2023-06-12 20:45:16'),
 (82, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PERSONAL', 'correo: JDK@GMAIL.COM<br/>created_at: 2023-06-12 16:40:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD 2<br/>id: 2<br/>nro_doc: 4545<br/>razon_social: JDK S.A.<br/>telefono: 77777; 66666<br/>tipo_mo: SERVICIOS<br/>updated_at: 2023-06-12 16:40:44<br/>user_id: <br/>', 'correo: JDK@GMAIL.COM<br/>created_at: 2023-06-12 16:40:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD 2<br/>id: 2<br/>nro_doc: 4545<br/>razon_social: JDK S.A.<br/>telefono: 656565<br/>tipo_mo: SERVICIOS<br/>updated_at: 2023-06-12 16:45:28<br/>user_id: <br/>', 'PERSONAL', '2023-06-12', '16:45:28', '2023-06-12 20:45:28', '2023-06-12 20:45:28'),
 (83, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PERSONAL', 'correo: JDK@GMAIL.COM<br/>created_at: 2023-06-12 16:40:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD 2<br/>id: 2<br/>nro_doc: 4545<br/>razon_social: JDK S.A.<br/>telefono: 656565<br/>tipo_mo: SERVICIOS<br/>updated_at: 2023-06-12 16:45:28<br/>user_id: <br/>', 'correo: JDK@GMAIL.COM<br/>created_at: 2023-06-12 16:40:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD 2<br/>id: 2<br/>nro_doc: 4545<br/>razon_social: JDK S.A.<br/>telefono: 656565<br/>tipo_mo: SERVICIOS<br/>updated_at: 2023-06-12 16:45:28<br/>user_id: <br/>', 'PERSONAL', '2023-06-12', '16:45:36', '2023-06-12 20:45:36', '2023-06-12 20:45:36'),
-(84, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN PERSONAL', 'correo: JDK@GMAIL.COM<br/>created_at: 2023-06-12 16:40:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD 2<br/>id: 2<br/>nro_doc: 4545<br/>razon_social: JDK S.A.<br/>telefono: 656565<br/>tipo_mo: SERVICIOS<br/>updated_at: 2023-06-12 16:45:28<br/>user_id: <br/>', NULL, 'PERSONAL', '2023-06-12', '16:45:40', '2023-06-12 20:45:40', '2023-06-12 20:45:40');
+(84, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN PERSONAL', 'correo: JDK@GMAIL.COM<br/>created_at: 2023-06-12 16:40:44<br/>domicilio: LOS OLIVOS<br/>especialidad: ESPECIALIDAD 2<br/>id: 2<br/>nro_doc: 4545<br/>razon_social: JDK S.A.<br/>telefono: 656565<br/>tipo_mo: SERVICIOS<br/>updated_at: 2023-06-12 16:45:28<br/>user_id: <br/>', NULL, 'PERSONAL', '2023-06-12', '16:45:40', '2023-06-12 20:45:40', '2023-06-12 20:45:40'),
+(85, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA FAMILIA', 'id: 1<br/>codigo: F001<br/>nombre: FAMILIA #1<br/>created_at: 2023-06-13 11:14:35<br/>updated_at: 2023-06-13 11:14:35<br/>', NULL, 'FAMILIAS', '2023-06-13', '11:14:35', '2023-06-13 15:14:35', '2023-06-13 15:14:35'),
+(86, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA FAMILIA', 'id: 1<br/>codigo: F001<br/>nombre: FAMILIA #1<br/>created_at: 2023-06-13 11:14:35<br/>updated_at: 2023-06-13 11:14:35<br/>', 'id: 1<br/>codigo: F001<br/>nombre: FAMILIA #1 MODIFICADO<br/>created_at: 2023-06-13 11:14:35<br/>updated_at: 2023-06-13 11:15:06<br/>', 'FAMILIAS', '2023-06-13', '11:15:06', '2023-06-13 15:15:06', '2023-06-13 15:15:06'),
+(87, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA FAMILIA', 'id: 2<br/>codigo: F002<br/>nombre: FAMILIA #2<br/>created_at: 2023-06-13 11:15:15<br/>updated_at: 2023-06-13 11:15:15<br/>', NULL, 'FAMILIAS', '2023-06-13', '11:15:15', '2023-06-13 15:15:15', '2023-06-13 15:15:15'),
+(88, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA FAMILIA', 'id: 2<br/>codigo: F002<br/>nombre: FAMILIA #2<br/>created_at: 2023-06-13 11:15:15<br/>updated_at: 2023-06-13 11:15:15<br/>', NULL, 'FAMILIAS', '2023-06-13', '11:15:38', '2023-06-13 15:15:38', '2023-06-13 15:15:38'),
+(89, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA SUBFAMILIA', 'id: 1<br/>familia_id: 1<br/>nombre: SUBFAMILIA #1<br/>created_at: 2023-06-13 11:22:07<br/>updated_at: 2023-06-13 11:22:07<br/>', NULL, 'SISTEMAS', '2023-06-13', '11:22:07', '2023-06-13 15:22:07', '2023-06-13 15:22:07'),
+(90, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA SUBFAMILIA', 'id: 1<br/>familia_id: 1<br/>nombre: SUBFAMILIA #1<br/>created_at: 2023-06-13 11:22:07<br/>updated_at: 2023-06-13 11:22:07<br/>', 'id: 1<br/>familia_id: 1<br/>nombre: SUBFAMILIA #1 MODIFICADO<br/>created_at: 2023-06-13 11:22:07<br/>updated_at: 2023-06-13 11:23:19<br/>', 'SUBFAMILIAS', '2023-06-13', '11:23:19', '2023-06-13 15:23:19', '2023-06-13 15:23:19'),
+(91, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA SUBFAMILIA', 'id: 2<br/>familia_id: 1<br/>nombre: SUB #2<br/>created_at: 2023-06-13 11:23:29<br/>updated_at: 2023-06-13 11:23:29<br/>', NULL, 'SUBFAMILIAS', '2023-06-13', '11:23:29', '2023-06-13 15:23:29', '2023-06-13 15:23:29'),
+(92, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA SUBFAMILIA', 'id: 2<br/>familia_id: 1<br/>nombre: SUB #2<br/>created_at: 2023-06-13 11:23:29<br/>updated_at: 2023-06-13 11:23:29<br/>', NULL, 'SUBFAMILIAS', '2023-06-13', '11:23:33', '2023-06-13 15:23:33', '2023-06-13 15:23:33'),
+(93, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN REPUESTOS/INSUMO', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', NULL, 'REPUESTOS/INSUMOS', '2023-06-13', '12:37:24', '2023-06-13 16:37:24', '2023-06-13 16:37:24'),
+(94, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTOS/INSUMO', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'REPUESTOS/INSUMOS', '2023-06-13', '12:38:30', '2023-06-13 16:38:30', '2023-06-13 16:38:30'),
+(95, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTOS/INSUMO', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'REPUESTOS/INSUMOS', '2023-06-13', '12:42:43', '2023-06-13 16:42:43', '2023-06-13 16:42:43'),
+(96, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTOS/INSUMO', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'REPUESTOS/INSUMOS', '2023-06-13', '12:43:35', '2023-06-13 16:43:35', '2023-06-13 16:43:35'),
+(97, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTOS/INSUMO', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'REPUESTOS/INSUMOS', '2023-06-13', '12:44:39', '2023-06-13 16:44:39', '2023-06-13 16:44:39');
 
 -- --------------------------------------------------------
 
@@ -828,6 +863,13 @@ CREATE TABLE `sub_familias` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `sub_familias`
+--
+
+INSERT INTO `sub_familias` (`id`, `familia_id`, `nombre`, `created_at`, `updated_at`) VALUES
+(1, 1, 'SUBFAMILIA #1 MODIFICADO', '2023-06-13 15:22:07', '2023-06-13 15:23:19');
+
 -- --------------------------------------------------------
 
 --
@@ -984,7 +1026,6 @@ ALTER TABLE `gama_detalles`
 ALTER TABLE `gama_mantenimientos`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `gama_mantenimientos_codigo_unique` (`codigo`),
-  ADD KEY `gama_mantenimientos_familia_id_foreign` (`familia_id`),
   ADD KEY `gama_mantenimientos_equipo_id_foreign` (`equipo_id`);
 
 --
@@ -1188,7 +1229,7 @@ ALTER TABLE `equipos`
 -- AUTO_INCREMENT de la tabla `familias`
 --
 ALTER TABLE `familias`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `frecuencias`
@@ -1200,13 +1241,13 @@ ALTER TABLE `frecuencias`
 -- AUTO_INCREMENT de la tabla `gama_detalles`
 --
 ALTER TABLE `gama_detalles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `gama_mantenimientos`
 --
 ALTER TABLE `gama_mantenimientos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `herramientas`
@@ -1218,7 +1259,7 @@ ALTER TABLE `herramientas`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT de la tabla `kardex_repuestos`
@@ -1314,7 +1355,7 @@ ALTER TABLE `subunidads`
 -- AUTO_INCREMENT de la tabla `sub_familias`
 --
 ALTER TABLE `sub_familias`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -1377,8 +1418,7 @@ ALTER TABLE `gama_detalles`
 -- Filtros para la tabla `gama_mantenimientos`
 --
 ALTER TABLE `gama_mantenimientos`
-  ADD CONSTRAINT `gama_mantenimientos_equipo_id_foreign` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`),
-  ADD CONSTRAINT `gama_mantenimientos_familia_id_foreign` FOREIGN KEY (`familia_id`) REFERENCES `familias` (`id`);
+  ADD CONSTRAINT `gama_mantenimientos_equipo_id_foreign` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`);
 
 --
 -- Filtros para la tabla `notificacion_users`
