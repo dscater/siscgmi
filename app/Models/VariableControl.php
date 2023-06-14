@@ -13,4 +13,11 @@ class VariableControl extends Model
         "nombre",
         "unidad",
     ];
+
+    protected $appends = ["full_name"];
+
+    public function getFullNameAttribute()
+    {
+        return $this->id . ' | ' . $this->nombre . ' | ' . $this->unidad;
+    }
 }

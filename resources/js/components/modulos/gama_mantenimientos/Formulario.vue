@@ -28,6 +28,28 @@
                     <div class="form-group col-md-12">
                         <label
                             :class="{
+                                'text-danger': errors.codificacion,
+                            }"
+                            >Codificación*</label
+                        >
+                        <el-input
+                            placeholder="Codificación"
+                            :class="{
+                                'is-invalid': errors.codificacion,
+                            }"
+                            v-model="oGamaMantenimiento.codificacion"
+                            clearable
+                        >
+                        </el-input>
+                        <span
+                            class="error invalid-feedback"
+                            v-if="errors.codificacion"
+                            v-text="errors.codificacion[0]"
+                        ></span>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label
+                            :class="{
                                 'text-danger': errors.subfamilia_id,
                             }"
                             >Seleccionar Subfamilia*</label
@@ -236,6 +258,7 @@ export default {
             default: {
                 id: 0,
                 codigo: "",
+                codificacion: "",
                 subfamilia_id: "",
                 equipo_id: "",
                 descripcion: "",
@@ -309,8 +332,11 @@ export default {
                     formdata.append("codigo", this.oGamaMantenimiento.codigo);
                 }
 
-                if (this.oGamaMantenimiento.codigo.trim() != "") {
-                    formdata.append("codigo", this.oGamaMantenimiento.codigo);
+                if (this.oGamaMantenimiento.codificacion.trim() != "") {
+                    formdata.append(
+                        "codificacion",
+                        this.oGamaMantenimiento.codificacion
+                    );
                 }
                 if (this.oGamaMantenimiento.subfamilia_id) {
                     formdata.append(
@@ -386,6 +412,26 @@ export default {
                         if (error.response) {
                             if (error.response.status === 422) {
                                 this.errors = error.response.data.errors;
+                                let mensaje = `<ul class="text-center">`;
+                                for (let key in this.errors) {
+                                    if (this.errors.hasOwnProperty(key)) {
+                                        const value = this.errors[key];
+                                        if (Array.isArray(value)) {
+                                            value.forEach((error) => {
+                                                mensaje += `<li><span>${error.trim()}</span></li>`;
+                                            });
+                                        }
+                                    }
+                                }
+                                mensaje += `<ul/>`;
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Completa el formulario",
+                                    html: mensaje,
+                                    showConfirmButton: true,
+                                    confirmButtonColor: "#149FDA",
+                                    confirmButtonText: "Aceptar",
+                                });
                             }
                             if (
                                 error.response.status === 420 ||

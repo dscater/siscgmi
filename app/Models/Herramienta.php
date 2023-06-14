@@ -11,6 +11,7 @@ class Herramienta extends Model
 
     protected $fillable = [
         "codigo",
+        "codificacion",
         "nombre",
         "descripcion",
         "clasificacion",

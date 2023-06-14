@@ -66,7 +66,9 @@
                                         v-for="item in listRepuestos"
                                         :key="item.id"
                                         :value="item.id"
-                                        :label="item.codigo + ' | ' + item.nombre"
+                                        :label="
+                                            item.codigo + ' | ' + item.nombre
+                                        "
                                     >
                                     </el-option>
                                 </el-select>
@@ -282,11 +284,11 @@ export default {
                     },
                 };
                 let formdata = new FormData();
-                if (this.entrada_repuesto.factura.trim() != "") {
-                    formdata.append(
-                        "factura",
-                        this.entrada_repuesto.factura
-                    );
+                if (
+                    this.entrada_repuesto.factura &&
+                    this.entrada_repuesto.factura.trim() != ""
+                ) {
+                    formdata.append("factura", this.entrada_repuesto.factura);
                 }
                 if (this.entrada_repuesto.repuesto_id) {
                     formdata.append(
@@ -294,25 +296,24 @@ export default {
                         this.entrada_repuesto.repuesto_id
                     );
                 }
-                if (this.entrada_repuesto.cantidad.trim() != "") {
-                    formdata.append(
-                        "cantidad",
-                        this.entrada_repuesto.cantidad
-                    );
+                if (this.entrada_repuesto.cantidad) {
+                    formdata.append("cantidad", this.entrada_repuesto.cantidad);
                 }
-                if (this.entrada_repuesto.precio.trim() != "") {
+                if (this.entrada_repuesto.precio) {
                     formdata.append("precio", this.entrada_repuesto.precio);
                 }
-                if (this.entrada_repuesto.total.trim() != "") {
+                if (this.entrada_repuesto.total) {
                     formdata.append("total", this.entrada_repuesto.total);
                 }
-                if (this.entrada_repuesto.fecha.trim() != "") {
+                if (
+                    this.entrada_repuesto.fecha &&
+                    this.entrada_repuesto.fecha.trim() != ""
+                ) {
                     formdata.append("fecha", this.entrada_repuesto.fecha);
                 }
                 if (this.accion == "edit") {
                     url =
-                        "/admin/entrada_repuestos/" +
-                        this.entrada_repuesto.id;
+                        "/admin/entrada_repuestos/" + this.entrada_repuesto.id;
                     formdata.append("_method", "PUT");
                 }
                 axios

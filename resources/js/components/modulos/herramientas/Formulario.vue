@@ -28,6 +28,28 @@
                     <div class="form-group col-md-6">
                         <label
                             :class="{
+                                'text-danger': errors.codificacion,
+                            }"
+                            >Codificación*</label
+                        >
+                        <el-input
+                            placeholder="Codificación"
+                            :class="{
+                                'is-invalid': errors.codificacion,
+                            }"
+                            v-model="oHerramienta.codificacion"
+                            clearable
+                        >
+                        </el-input>
+                        <span
+                            class="error invalid-feedback"
+                            v-if="errors.codificacion"
+                            v-text="errors.codificacion[0]"
+                        ></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label
+                            :class="{
                                 'text-danger': errors.nombre,
                             }"
                             >Nombre*</label
@@ -703,97 +725,175 @@ export default {
                     },
                 };
                 let formdata = new FormData();
-                if (this.oHerramienta.codigo.trim() != "") {
+                if (
+                    this.oHerramienta.codigo &&
+                    this.oHerramienta.codigo.trim() != ""
+                ) {
                     formdata.append("codigo", this.oHerramienta.codigo);
                 }
-                if (this.oHerramienta.nombre.trim() != "") {
+                if (
+                    this.oHerramienta.codificacion &&
+                    this.oHerramienta.codificacion.trim() != ""
+                ) {
+                    formdata.append(
+                        "codificacion",
+                        this.oHerramienta.codificacion
+                    );
+                }
+                if (
+                    this.oHerramienta.nombre &&
+                    this.oHerramienta.nombre.trim() != ""
+                ) {
                     formdata.append("nombre", this.oHerramienta.nombre);
                 }
-                if (this.oHerramienta.descripcion.trim() != "") {
+                if (
+                    this.oHerramienta.descripcion &&
+                    this.oHerramienta.descripcion.trim() != ""
+                ) {
                     formdata.append(
                         "descripcion",
                         this.oHerramienta.descripcion
                     );
                 }
-                if (this.oHerramienta.clasificacion.trim() != "") {
+                if (
+                    this.oHerramienta.clasificacion &&
+                    this.oHerramienta.clasificacion.trim() != ""
+                ) {
                     formdata.append(
                         "clasificacion",
                         this.oHerramienta.clasificacion
                     );
                 }
-                if (this.oHerramienta.cod_clasificacion.trim() != "") {
+                if (
+                    this.oHerramienta.cod_clasificacion &&
+                    this.oHerramienta.cod_clasificacion.trim() != ""
+                ) {
                     formdata.append(
                         "cod_clasificacion",
                         this.oHerramienta.cod_clasificacion
                     );
                 }
-                if (this.oHerramienta.marca.trim() != "") {
+                if (
+                    this.oHerramienta.marca &&
+                    this.oHerramienta.marca.trim() != ""
+                ) {
                     formdata.append("marca", this.oHerramienta.marca);
                 }
-                if (this.oHerramienta.modelo.trim() != "") {
+                if (
+                    this.oHerramienta.modelo &&
+                    this.oHerramienta.modelo.trim() != ""
+                ) {
                     formdata.append("modelo", this.oHerramienta.modelo);
                 }
-                if (this.oHerramienta.serie.trim() != "") {
+                if (
+                    this.oHerramienta.serie &&
+                    this.oHerramienta.serie.trim() != ""
+                ) {
                     formdata.append("serie", this.oHerramienta.serie);
                 }
-                if (this.oHerramienta.costo.trim() != "") {
+                if (
+                    this.oHerramienta.costo &&
+                    this.oHerramienta.costo.trim() != ""
+                ) {
                     formdata.append("costo", this.oHerramienta.costo);
                 }
-                if (this.oHerramienta.unidad_medida.trim() != "") {
+                if (
+                    this.oHerramienta.unidad_medida &&
+                    this.oHerramienta.unidad_medida.trim() != ""
+                ) {
                     formdata.append(
                         "unidad_medida",
                         this.oHerramienta.unidad_medida
                     );
                 }
-                if (this.oHerramienta.proveedor.trim() != "") {
+                if (
+                    this.oHerramienta.proveedor &&
+                    this.oHerramienta.proveedor.trim() != ""
+                ) {
                     formdata.append("proveedor", this.oHerramienta.proveedor);
                 }
-                if (this.oHerramienta.dir.trim() != "") {
+                if (
+                    this.oHerramienta.dir &&
+                    this.oHerramienta.dir.trim() != ""
+                ) {
                     formdata.append("dir", this.oHerramienta.dir);
                 }
-                if (this.oHerramienta.fono.trim() != "") {
+                if (
+                    this.oHerramienta.fono &&
+                    this.oHerramienta.fono.trim() != ""
+                ) {
                     formdata.append("fono", this.oHerramienta.fono);
                 }
-                if (this.oHerramienta.correo.trim() != "") {
+                if (
+                    this.oHerramienta.correo &&
+                    this.oHerramienta.correo.trim() != ""
+                ) {
                     formdata.append("correo", this.oHerramienta.correo);
                 }
-                if (this.oHerramienta.almacen.trim() != "") {
+                if (
+                    this.oHerramienta.almacen &&
+                    this.oHerramienta.almacen.trim() != ""
+                ) {
                     formdata.append("almacen", this.oHerramienta.almacen);
                 }
-                if (this.oHerramienta.fabricante.trim() != "") {
+                if (
+                    this.oHerramienta.fabricante &&
+                    this.oHerramienta.fabricante.trim() != ""
+                ) {
                     formdata.append("fabricante", this.oHerramienta.fabricante);
                 }
-                if (this.oHerramienta.terciarios.trim() != "") {
+                if (
+                    this.oHerramienta.terciarios &&
+                    this.oHerramienta.terciarios.trim() != ""
+                ) {
                     formdata.append("terciarios", this.oHerramienta.terciarios);
                 }
-                if (this.oHerramienta.nombre_contacto.trim() != "") {
+                if (
+                    this.oHerramienta.nombre_contacto &&
+                    this.oHerramienta.nombre_contacto.trim() != ""
+                ) {
                     formdata.append(
                         "nombre_contacto",
                         this.oHerramienta.nombre_contacto
                     );
                 }
-                if (this.oHerramienta.num_fono.trim() != "") {
+                if (
+                    this.oHerramienta.num_fono &&
+                    this.oHerramienta.num_fono.trim() != ""
+                ) {
                     formdata.append("num_fono", this.oHerramienta.num_fono);
                 }
-                if (this.oHerramienta.correo_fabricante.trim() != "") {
+                if (
+                    this.oHerramienta.correo_fabricante &&
+                    this.oHerramienta.correo_fabricante.trim() != ""
+                ) {
                     formdata.append(
                         "correo_fabricante",
                         this.oHerramienta.correo_fabricante
                     );
                 }
-                if (this.oHerramienta.dir_fabricante.trim() != "") {
+                if (
+                    this.oHerramienta.dir_fabricante &&
+                    this.oHerramienta.dir_fabricante.trim() != ""
+                ) {
                     formdata.append(
                         "dir_fabricante",
                         this.oHerramienta.dir_fabricante
                     );
                 }
-                if (this.oHerramienta.num_identificacion.trim() != "") {
+                if (
+                    this.oHerramienta.num_identificacion &&
+                    this.oHerramienta.num_identificacion.trim() != ""
+                ) {
                     formdata.append(
                         "num_identificacion",
                         this.oHerramienta.num_identificacion
                     );
                 }
-                if (this.oHerramienta.e_tecnicas.trim() != "") {
+                if (
+                    this.oHerramienta.e_tecnicas &&
+                    this.oHerramienta.e_tecnicas.trim() != ""
+                ) {
                     formdata.append("e_tecnicas", this.oHerramienta.e_tecnicas);
                 }
 
@@ -844,6 +944,26 @@ export default {
                         if (error.response) {
                             if (error.response.status === 422) {
                                 this.errors = error.response.data.errors;
+                                let mensaje = `<ul class="text-center">`;
+                                for (let key in this.errors) {
+                                    if (this.errors.hasOwnProperty(key)) {
+                                        const value = this.errors[key];
+                                        if (Array.isArray(value)) {
+                                            value.forEach((error) => {
+                                                mensaje += `<li><span>${error.trim()}</span></li>`;
+                                            });
+                                        }
+                                    }
+                                }
+                                mensaje += `<ul/>`;
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Completa el formulario",
+                                    html: mensaje,
+                                    showConfirmButton: true,
+                                    confirmButtonColor: "#149FDA",
+                                    confirmButtonText: "Aceptar",
+                                });
                             }
                             if (
                                 error.response.status === 420 ||
@@ -870,38 +990,31 @@ export default {
         },
         limpiaHerramienta() {
             this.errors = [];
-            this.oHerramienta.equipo_id = "";
+            this.oHerramienta.codigo = "";
+            this.oHerramienta.codificacion = "";
+            this.oHerramienta.nombre = "";
             this.oHerramienta.descripcion = "";
-            this.oHerramienta.prioridad = "";
-            this.oHerramienta.ubicacion = "";
-            this.oHerramienta.tipo = "";
+            this.oHerramienta.clasificacion = "";
+            this.oHerramienta.cod_clasificacion = "";
             this.oHerramienta.marca = "";
             this.oHerramienta.modelo = "";
             this.oHerramienta.serie = "";
             this.oHerramienta.costo = "";
-            this.oHerramienta.fecha_compra = "";
-            this.oHerramienta.fecha_instalacion = "";
-            this.oHerramienta.garantia_meses = "";
-            this.oHerramienta.peso = "";
-            this.oHerramienta.altura = "";
-            this.oHerramienta.ancho = "";
-            this.oHerramienta.largo = "";
-            this.oHerramienta.voltios = "";
-            this.oHerramienta.capacidad = "";
-            this.oHerramienta.e_tecnicas = "";
-            this.oHerramienta.fecha_ultimo_mantenimiento = "";
-            this.oHerramienta.fecha_utlimo_termino = "";
-            this.oHerramienta.estado = "";
-            this.oHerramienta.fabricantes = "";
+            this.oHerramienta.unidad_medida = "";
             this.oHerramienta.proveedor = "";
+            this.oHerramienta.dir = "";
+            this.oHerramienta.fono = "";
+            this.oHerramienta.correo = "";
+            this.oHerramienta.almacen = "";
+            this.oHerramienta.fabricante = "";
             this.oHerramienta.terciarios = "";
             this.oHerramienta.nombre_contacto = "";
             this.oHerramienta.num_fono = "";
-            this.oHerramienta.correo = "";
-            this.oHerramienta.dir = "";
+            this.oHerramienta.correo_fabricante = "";
+            this.oHerramienta.dir_fabricante = "";
             this.oHerramienta.num_identificacion = "";
+            this.oHerramienta.e_tecnicas = "";
             this.oHerramienta.foto = "";
-            this.oHerramienta.archivo = "";
         },
     },
 };

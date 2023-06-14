@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 13-06-2023 a las 16:45:17
+-- Tiempo de generación: 14-06-2023 a las 17:06:12
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -281,6 +281,7 @@ INSERT INTO `gama_detalles` (`id`, `gama_id`, `tarea`, `tiempo`, `created_at`, `
 CREATE TABLE `gama_mantenimientos` (
   `id` bigint UNSIGNED NOT NULL,
   `codigo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `codificacion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `subfamilia_id` bigint UNSIGNED NOT NULL,
   `equipo_id` bigint UNSIGNED NOT NULL,
   `descripcion` text COLLATE utf8mb4_unicode_ci,
@@ -292,8 +293,8 @@ CREATE TABLE `gama_mantenimientos` (
 -- Volcado de datos para la tabla `gama_mantenimientos`
 --
 
-INSERT INTO `gama_mantenimientos` (`id`, `codigo`, `subfamilia_id`, `equipo_id`, `descripcion`, `created_at`, `updated_at`) VALUES
-(2, 'GM001', 1, 1, '', '2023-06-13 16:37:24', '2023-06-13 16:37:24');
+INSERT INTO `gama_mantenimientos` (`id`, `codigo`, `codificacion`, `subfamilia_id`, `equipo_id`, `descripcion`, `created_at`, `updated_at`) VALUES
+(2, 'GM001', 'GM001HH8', 1, 1, '', '2023-06-13 16:37:24', '2023-06-14 16:05:09');
 
 -- --------------------------------------------------------
 
@@ -304,6 +305,7 @@ INSERT INTO `gama_mantenimientos` (`id`, `codigo`, `subfamilia_id`, `equipo_id`,
 CREATE TABLE `herramientas` (
   `id` bigint UNSIGNED NOT NULL,
   `codigo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `codificacion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `descripcion` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `clasificacion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -335,9 +337,10 @@ CREATE TABLE `herramientas` (
 -- Volcado de datos para la tabla `herramientas`
 --
 
-INSERT INTO `herramientas` (`id`, `codigo`, `nombre`, `descripcion`, `clasificacion`, `cod_clasificacion`, `marca`, `modelo`, `serie`, `costo`, `unidad_medida`, `proveedor`, `dir`, `fono`, `correo`, `almacen`, `fabricante`, `terciarios`, `nombre_contacto`, `num_fono`, `correo_fabricante`, `dir_fabricante`, `num_identificacion`, `e_tecnicas`, `foto`, `created_at`, `updated_at`) VALUES
-(1, 'H001', 'HERRAMIENTA #1', 'DESC, HERRAMIENTA #1', 'CLASIFICACION 1', 'CLASI1', 'MARCA 1', 'MODELO 1', 'SERIE 1', 1000.00, 'METROS', 'PERES S.A.', 'LOS OLIVOS', '222222', 'PERES@GMAIL.COM', 'ALMACEN 1', 'FABRICANTE 1', 'TERCIARIOS 1', 'JUAN PERES', '222222', 'FABRICANTE@GMAIL.COM', 'LOS PEDREGALES', '23323211111', 'ESPECIFICACIONES TECNIAS HERRAMIENTA #1', '11686068009.jpeg', '2023-06-06 16:05:22', '2023-06-06 16:13:29'),
-(3, 'E001', 'EQUIPO #1', 'DESC EQUIPO # 1', 'CLASIFICACION EQUIPO', 'CODIGOCLAS', 'MARCA EQUIPOS', 'MODELO EQUIPO', 'SERIEEQUIPO', 3000.00, 'METROS', 'PROVEEDOR DEL EQUIPO', NULL, NULL, NULL, 'ALMACEN EQUIPOS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-06 21:08:23', '2023-06-06 21:08:23');
+INSERT INTO `herramientas` (`id`, `codigo`, `codificacion`, `nombre`, `descripcion`, `clasificacion`, `cod_clasificacion`, `marca`, `modelo`, `serie`, `costo`, `unidad_medida`, `proveedor`, `dir`, `fono`, `correo`, `almacen`, `fabricante`, `terciarios`, `nombre_contacto`, `num_fono`, `correo_fabricante`, `dir_fabricante`, `num_identificacion`, `e_tecnicas`, `foto`, `created_at`, `updated_at`) VALUES
+(1, 'H001', 'CH001PPP', 'HERRAMIENTA #1', 'DESC, HERRAMIENTA #1', 'CLASIFICACION 1', 'CLASI1', 'MARCA 1', 'MODELO 1', 'SERIE 1', 1000.00, 'METROS', 'PERES S.A.', 'LOS OLIVOS', '222222', 'PERES@GMAIL.COM', 'ALMACEN 1', 'FABRICANTE 1', 'TERCIARIOS 1', 'JUAN PERES', '222222', 'FABRICANTE@GMAIL.COM', 'LOS PEDREGALES', '23323211111', 'ESPECIFICACIONES TECNIAS HERRAMIENTA #1', '11686068009.jpeg', '2023-06-06 16:05:22', '2023-06-14 15:29:08'),
+(3, 'E001', 'CO002OOP', 'EQUIPO #1', 'DESC EQUIPO # 1', 'CLASIFICACION EQUIPO', 'CODIGOCLAS', 'MARCA EQUIPOS', 'MODELO EQUIPO', 'SERIEEQUIPO', 3000.00, 'METROS', 'PROVEEDOR DEL EQUIPO', NULL, NULL, NULL, 'ALMACEN EQUIPOS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-06 21:08:23', '2023-06-14 15:31:00'),
+(4, 'EQ003', 'CO003POO', 'EQUIPO #3', 'DESC. EQ. #3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PROVEEDOR #3', NULL, NULL, NULL, 'ALMACEN #1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-14 15:31:43', '2023-06-14 15:31:43');
 
 -- --------------------------------------------------------
 
@@ -461,7 +464,21 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (94, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTOS/INSUMO', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'REPUESTOS/INSUMOS', '2023-06-13', '12:38:30', '2023-06-13 16:38:30', '2023-06-13 16:38:30'),
 (95, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTOS/INSUMO', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'REPUESTOS/INSUMOS', '2023-06-13', '12:42:43', '2023-06-13 16:42:43', '2023-06-13 16:42:43'),
 (96, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTOS/INSUMO', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'REPUESTOS/INSUMOS', '2023-06-13', '12:43:35', '2023-06-13 16:43:35', '2023-06-13 16:43:35'),
-(97, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTOS/INSUMO', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'REPUESTOS/INSUMOS', '2023-06-13', '12:44:39', '2023-06-13 16:44:39', '2023-06-13 16:44:39');
+(97, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTOS/INSUMO', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'id: 2<br/>codigo: GM001<br/>subfamilia_id: 1<br/>equipo_id: 1<br/>descripcion: <br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:37:24<br/>', 'REPUESTOS/INSUMOS', '2023-06-13', '12:44:39', '2023-06-13 16:44:39', '2023-06-13 16:44:39'),
+(98, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN SISTEMA', 'altura: 2M<br/>ancho: 1M<br/>archivo: <br/>capacidad: 300KG<br/>codificacion: <br/>correo: PROVEEDOR@GMAIL.COM<br/>costo: 1000.00<br/>created_at: 2023-06-05 13:16:25<br/>descripcion: MAQUINARIA #1<br/>dir: LOS OLIVOS<br/>e_tecnicas: ESPEC. TECNICAS<br/>equipo_id: 1<br/>estado: ACTIVA<br/>fabricantes: FABRICANTE 1<br/>fecha_compra: 2023-01-01<br/>fecha_instalacion: 2023-06-05<br/>fecha_ultimo_mantenimiento: 0223-06-05<br/>fecha_utlimo_termino: 2023-08-08<br/>foto: <br/>garantia_meses: 24<br/>id: 1<br/>largo: 1M<br/>marca: MARCA 1<br/>modelo: MODELO 1<br/>nombre_contacto: JUAN PERES<br/>num_fono: 7777<br/>num_identificacion: 232332<br/>peso: 100 KG<br/>prioridad: P1-URGENTE<br/>proveedor: PROVEEDOR 1<br/>serie: SERIE 1<br/>terciarios: TERCIARIO 1<br/>tipo: REFRIGERACIÓN<br/>ubicacion: PRODUCCIÓN<br/>updated_at: 2023-06-05 13:16:25<br/>voltios: 140 VOLTIOS<br/>', 'altura: 2M<br/>ancho: 1M<br/>archivo: <br/>capacidad: 300KG<br/>codificacion: HVF001LP<br/>correo: PROVEEDOR@GMAIL.COM<br/>costo: 1000.00<br/>created_at: 2023-06-05 13:16:25<br/>descripcion: MAQUINARIA #1<br/>dir: LOS OLIVOS<br/>e_tecnicas: ESPEC. TECNICAS<br/>equipo_id: 1<br/>estado: ACTIVA<br/>fabricantes: FABRICANTE 1<br/>fecha_compra: 2023-01-01<br/>fecha_instalacion: 2023-06-05<br/>fecha_ultimo_mantenimiento: 0223-06-05<br/>fecha_utlimo_termino: 2023-08-08<br/>foto: <br/>garantia_meses: 24<br/>id: 1<br/>largo: 1M<br/>marca: MARCA 1<br/>modelo: MODELO 1<br/>nombre_contacto: JUAN PERES<br/>num_fono: 7777<br/>num_identificacion: 232332<br/>peso: 100 KG<br/>prioridad: P1-URGENTE<br/>proveedor: PROVEEDOR 1<br/>serie: SERIE 1<br/>terciarios: TERCIARIO 1<br/>tipo: REFRIGERACIÓN<br/>ubicacion: PRODUCCIÓN<br/>updated_at: 2023-06-14 11:23:19<br/>voltios: 140 VOLTIOS<br/>', 'SISTEMAS', '2023-06-14', '11:23:19', '2023-06-14 15:23:19', '2023-06-14 15:23:19'),
+(99, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN SISTEMA', 'altura: 2M<br/>ancho: 1M<br/>archivo: 21686004196.pdf<br/>capacidad: 500KG<br/>codificacion: <br/>correo: PROVEEDOR@GMAIL.COM<br/>costo: 2500.00<br/>created_at: 2023-06-05 18:05:32<br/>descripcion: MAQUINARIA #2<br/>dir: LOS OLIVOS<br/>e_tecnicas: ESPEC. TECNICAS MAQUINA #2<br/>equipo_id: 2<br/>estado: INDISPUESTA<br/>fabricantes: FABRICANTE 2<br/>fecha_compra: 2023-01-03<br/>fecha_instalacion: 2023-06-04<br/>fecha_ultimo_mantenimiento: 0223-06-04<br/>fecha_utlimo_termino: 2023-06-06<br/>foto: 21686003889.png<br/>garantia_meses: 24<br/>id: 2<br/>largo: 1M<br/>marca: MARCA 2<br/>modelo: MODELO 2<br/>nombre_contacto: ALBERTO GONZALES<br/>num_fono: 6666666<br/>num_identificacion: 232332<br/>peso: 200KG<br/>prioridad: P2-ALTA<br/>proveedor: PROVEEDOR 2<br/>serie: SERIE 2<br/>terciarios: TERCIARIO 2<br/>tipo: COMPRESIÓN<br/>ubicacion: PATIO<br/>updated_at: 2023-06-05 18:29:56<br/>voltios: 120VOLTIOS<br/>', 'altura: 2M<br/>ancho: 1M<br/>archivo: 21686004196.pdf<br/>capacidad: 500KG<br/>codificacion: HP002LP<br/>correo: PROVEEDOR@GMAIL.COM<br/>costo: 2500.00<br/>created_at: 2023-06-05 18:05:32<br/>descripcion: MAQUINARIA #2<br/>dir: LOS OLIVOS<br/>e_tecnicas: ESPEC. TECNICAS MAQUINA #2<br/>equipo_id: 2<br/>estado: INDISPUESTA<br/>fabricantes: FABRICANTE 2<br/>fecha_compra: 2023-01-03<br/>fecha_instalacion: 2023-06-04<br/>fecha_ultimo_mantenimiento: 0223-06-04<br/>fecha_utlimo_termino: 2023-06-06<br/>foto: 21686003889.png<br/>garantia_meses: 24<br/>id: 2<br/>largo: 1M<br/>marca: MARCA 2<br/>modelo: MODELO 2<br/>nombre_contacto: ALBERTO GONZALES<br/>num_fono: 6666666<br/>num_identificacion: 232332<br/>peso: 200KG<br/>prioridad: P2-ALTA<br/>proveedor: PROVEEDOR 2<br/>serie: SERIE 2<br/>terciarios: TERCIARIO 2<br/>tipo: COMPRESIÓN<br/>ubicacion: PATIO<br/>updated_at: 2023-06-14 11:23:32<br/>voltios: 120VOLTIOS<br/>', 'SISTEMAS', '2023-06-14', '11:23:32', '2023-06-14 15:23:32', '2023-06-14 15:23:32'),
+(100, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HERRAMIENTAS/EQUIPOS DE PROTECCIÓN', 'almacen: ALMACEN 1<br/>clasificacion: CLASIFICACION 1<br/>cod_clasificacion: CLASI1<br/>codificacion: <br/>codigo: H001<br/>correo: PERES@GMAIL.COM<br/>correo_fabricante: FABRICANTE@GMAIL.COM<br/>costo: 1000.00<br/>created_at: 2023-06-06 12:05:22<br/>descripcion: DESC, HERRAMIENTA #1<br/>dir: LOS OLIVOS<br/>dir_fabricante: LOS PEDREGALES<br/>e_tecnicas: ESPECIFICACIONES TECNIAS HERRAMIENTA #1<br/>fabricante: FABRICANTE 1<br/>fono: 222222<br/>foto: 11686068009.jpeg<br/>id: 1<br/>marca: MARCA 1<br/>modelo: MODELO 1<br/>nombre: HERRAMIENTA #1<br/>nombre_contacto: JUAN PERES<br/>num_fono: 222222<br/>num_identificacion: 23323211111<br/>proveedor: PERES S.A.<br/>serie: SERIE 1<br/>terciarios: TERCIARIOS 1<br/>unidad_medida: METROS<br/>updated_at: 2023-06-06 12:13:29<br/>', 'almacen: ALMACEN 1<br/>clasificacion: CLASIFICACION 1<br/>cod_clasificacion: CLASI1<br/>codificacion: CH001PPP<br/>codigo: H001<br/>correo: PERES@GMAIL.COM<br/>correo_fabricante: FABRICANTE@GMAIL.COM<br/>costo: 1000.00<br/>created_at: 2023-06-06 12:05:22<br/>descripcion: DESC, HERRAMIENTA #1<br/>dir: LOS OLIVOS<br/>dir_fabricante: LOS PEDREGALES<br/>e_tecnicas: ESPECIFICACIONES TECNIAS HERRAMIENTA #1<br/>fabricante: FABRICANTE 1<br/>fono: 222222<br/>foto: 11686068009.jpeg<br/>id: 1<br/>marca: MARCA 1<br/>modelo: MODELO 1<br/>nombre: HERRAMIENTA #1<br/>nombre_contacto: JUAN PERES<br/>num_fono: 222222<br/>num_identificacion: 23323211111<br/>proveedor: PERES S.A.<br/>serie: SERIE 1<br/>terciarios: TERCIARIOS 1<br/>unidad_medida: METROS<br/>updated_at: 2023-06-14 11:29:08<br/>', 'HERRAMIENTAS/EQUIPOS DE PROTECCIÓN', '2023-06-14', '11:29:08', '2023-06-14 15:29:08', '2023-06-14 15:29:08'),
+(101, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HERRAMIENTAS/EQUIPOS DE PROTECCIÓN', 'almacen: ALMACEN EQUIPOS<br/>clasificacion: CLASIFICACION EQUIPO<br/>cod_clasificacion: CODIGOCLAS<br/>codificacion: <br/>codigo: E001<br/>correo: <br/>correo_fabricante: <br/>costo: 3000.00<br/>created_at: 2023-06-06 17:08:23<br/>descripcion: DESC EQUIPO # 1<br/>dir: <br/>dir_fabricante: <br/>e_tecnicas: <br/>fabricante: <br/>fono: <br/>foto: <br/>id: 3<br/>marca: MARCA EQUIPOS<br/>modelo: MODELO EQUIPO<br/>nombre: EQUIPO #1<br/>nombre_contacto: <br/>num_fono: <br/>num_identificacion: <br/>proveedor: PROVEEDOR DEL EQUIPO<br/>serie: SERIEEQUIPO<br/>terciarios: <br/>unidad_medida: METROS<br/>updated_at: 2023-06-06 17:08:23<br/>', 'almacen: ALMACEN EQUIPOS<br/>clasificacion: CLASIFICACION EQUIPO<br/>cod_clasificacion: CODIGOCLAS<br/>codificacion: CO002OOP<br/>codigo: E001<br/>correo: <br/>correo_fabricante: <br/>costo: 3000.00<br/>created_at: 2023-06-06 17:08:23<br/>descripcion: DESC EQUIPO # 1<br/>dir: <br/>dir_fabricante: <br/>e_tecnicas: <br/>fabricante: <br/>fono: <br/>foto: <br/>id: 3<br/>marca: MARCA EQUIPOS<br/>modelo: MODELO EQUIPO<br/>nombre: EQUIPO #1<br/>nombre_contacto: <br/>num_fono: <br/>num_identificacion: <br/>proveedor: PROVEEDOR DEL EQUIPO<br/>serie: SERIEEQUIPO<br/>terciarios: <br/>unidad_medida: METROS<br/>updated_at: 2023-06-14 11:31:00<br/>', 'HERRAMIENTAS/EQUIPOS DE PROTECCIÓN', '2023-06-14', '11:31:00', '2023-06-14 15:31:00', '2023-06-14 15:31:00'),
+(102, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN HERRAMIENTAS/EQUIPOS DE PROTECCIÓN', 'almacen: ALMACEN #1<br/>clasificacion: <br/>cod_clasificacion: <br/>codificacion: CO003POO<br/>codigo: EQ003<br/>correo: <br/>correo_fabricante: <br/>costo: <br/>created_at: 2023-06-14 11:31:43<br/>descripcion: DESC. EQ. #3<br/>dir: <br/>dir_fabricante: <br/>e_tecnicas: <br/>fabricante: <br/>fono: <br/>foto: <br/>id: 4<br/>marca: <br/>modelo: <br/>nombre: EQUIPO #3<br/>nombre_contacto: <br/>num_fono: <br/>num_identificacion: <br/>proveedor: PROVEEDOR #3<br/>serie: <br/>terciarios: <br/>unidad_medida: <br/>updated_at: 2023-06-14 11:31:43<br/>', NULL, 'HERRAMIENTAS/EQUIPOS DE PROTECCIÓN', '2023-06-14', '11:31:43', '2023-06-14 15:31:43', '2023-06-14 15:31:43'),
+(103, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HERRAMIENTAS/EQUIPOS DE PROTECCIÓN', 'almacen: ALMACEN #1<br/>clasificacion: <br/>cod_clasificacion: <br/>codificacion: CO003POO<br/>codigo: EQ003<br/>correo: <br/>correo_fabricante: <br/>costo: <br/>created_at: 2023-06-14 11:31:43<br/>descripcion: DESC. EQ. #3<br/>dir: <br/>dir_fabricante: <br/>e_tecnicas: <br/>fabricante: <br/>fono: <br/>foto: <br/>id: 4<br/>marca: <br/>modelo: <br/>nombre: EQUIPO #3<br/>nombre_contacto: <br/>num_fono: <br/>num_identificacion: <br/>proveedor: PROVEEDOR #3<br/>serie: <br/>terciarios: <br/>unidad_medida: <br/>updated_at: 2023-06-14 11:31:43<br/>', 'almacen: ALMACEN #1<br/>clasificacion: <br/>cod_clasificacion: <br/>codificacion: CO003POO<br/>codigo: EQ003<br/>correo: <br/>correo_fabricante: <br/>costo: <br/>created_at: 2023-06-14 11:31:43<br/>descripcion: DESC. EQ. #3<br/>dir: <br/>dir_fabricante: <br/>e_tecnicas: <br/>fabricante: <br/>fono: <br/>foto: <br/>id: 4<br/>marca: <br/>modelo: <br/>nombre: EQUIPO #3<br/>nombre_contacto: <br/>num_fono: <br/>num_identificacion: <br/>proveedor: PROVEEDOR #3<br/>serie: <br/>terciarios: <br/>unidad_medida: <br/>updated_at: 2023-06-14 11:31:43<br/>', 'HERRAMIENTAS/EQUIPOS DE PROTECCIÓN', '2023-06-14', '11:31:54', '2023-06-14 15:31:54', '2023-06-14 15:31:54'),
+(104, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN SISTEMA', 'altura: <br/>ancho: <br/>archivo: <br/>capacidad: <br/>codificacion: COO003EET<br/>correo: <br/>costo: <br/>created_at: 2023-06-14 11:32:36<br/>descripcion: DESC. MAQUINARIA #3<br/>dir: <br/>e_tecnicas: <br/>equipo_id: 2<br/>estado: ACTIVA<br/>fabricantes: <br/>fecha_compra: <br/>fecha_instalacion: <br/>fecha_ultimo_mantenimiento: <br/>fecha_utlimo_termino: <br/>foto: <br/>garantia_meses: <br/>id: 4<br/>largo: <br/>marca: <br/>modelo: <br/>nombre_contacto: <br/>num_fono: <br/>num_identificacion: <br/>peso: <br/>prioridad: P3-MEDIA<br/>proveedor: <br/>serie: <br/>terciarios: <br/>tipo: REFRIGERACIÓN<br/>ubicacion: PATIO<br/>updated_at: 2023-06-14 11:32:36<br/>voltios: <br/>', NULL, 'SISTEMAS', '2023-06-14', '11:32:36', '2023-06-14 15:32:36', '2023-06-14 15:32:36'),
+(105, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN SISTEMA', 'altura: <br/>ancho: <br/>archivo: <br/>capacidad: <br/>codificacion: COO003EET<br/>correo: <br/>costo: <br/>created_at: 2023-06-14 11:32:36<br/>descripcion: DESC. MAQUINARIA #3<br/>dir: <br/>e_tecnicas: <br/>equipo_id: 2<br/>estado: ACTIVA<br/>fabricantes: <br/>fecha_compra: <br/>fecha_instalacion: <br/>fecha_ultimo_mantenimiento: <br/>fecha_utlimo_termino: <br/>foto: <br/>garantia_meses: <br/>id: 4<br/>largo: <br/>marca: <br/>modelo: <br/>nombre_contacto: <br/>num_fono: <br/>num_identificacion: <br/>peso: <br/>prioridad: P3-MEDIA<br/>proveedor: <br/>serie: <br/>terciarios: <br/>tipo: REFRIGERACIÓN<br/>ubicacion: PATIO<br/>updated_at: 2023-06-14 11:32:36<br/>voltios: <br/>', 'altura: <br/>ancho: <br/>archivo: <br/>capacidad: <br/>codificacion: COO003EET<br/>correo: <br/>costo: <br/>created_at: 2023-06-14 11:32:36<br/>descripcion: DESC. MAQUINARIA #3<br/>dir: <br/>e_tecnicas: <br/>equipo_id: 2<br/>estado: ACTIVA<br/>fabricantes: <br/>fecha_compra: <br/>fecha_instalacion: <br/>fecha_ultimo_mantenimiento: <br/>fecha_utlimo_termino: <br/>foto: <br/>garantia_meses: <br/>id: 4<br/>largo: <br/>marca: <br/>modelo: <br/>nombre_contacto: <br/>num_fono: <br/>num_identificacion: <br/>peso: <br/>prioridad: P3-MEDIA<br/>proveedor: <br/>serie: <br/>terciarios: <br/>tipo: REFRIGERACIÓN<br/>ubicacion: PATIO<br/>updated_at: 2023-06-14 11:32:36<br/>voltios: <br/>', 'SISTEMAS', '2023-06-14', '11:34:52', '2023-06-14 15:34:52', '2023-06-14 15:34:52'),
+(106, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA ENTRADA DE HERRAMIENTA/EQUIPO DE PROTECCIÓN', 'cantidad: 100<br/>created_at: 2023-06-07 13:15:13<br/>factura: 4343<br/>fecha: 2023-06-07<br/>herramienta_id: 3<br/>id: 3<br/>precio: 50.00<br/>total: 5000.00<br/>unidad_medida: UNIDADES<br/>updated_at: 2023-06-07 13:15:13<br/>', 'cantidad: 100<br/>created_at: 2023-06-07 13:15:13<br/>factura: 4343<br/>fecha: 2023-06-07<br/>herramienta_id: 3<br/>id: 3<br/>precio: 50.00<br/>total: 5000.00<br/>unidad_medida: UNIDADES<br/>updated_at: 2023-06-07 13:15:13<br/>', 'ENTRADA DE HERRAMIENTAS/EQUIPOS DE PROTECCIÓN', '2023-06-14', '11:37:36', '2023-06-14 15:37:36', '2023-06-14 15:37:36'),
+(107, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTOS/INSUMO', 'almacen: ALMACEN 1<br/>codificacion: <br/>codigo: R001<br/>correo: PROVEEDOR@GMAIL.COM<br/>correo_fabricante: FABRICANTE@GMAIL.COM<br/>created_at: 2023-06-07 13:01:13<br/>descripcion: DESC. REPUESTO #1 MODIFICADO<br/>dir: LOS OLIVOS<br/>dir_fabricante: LOS OLIVOS #2<br/>equipo_id: 1<br/>fabricante: FABRICANTE 1<br/>fono: 222222<br/>id: 1<br/>marca: MARCA 1<br/>modelo: MODELO 1<br/>nombre: REPUESTO #1<br/>nombre_contacto: JUAN PERES<br/>num_fono: 7777777<br/>num_identificacion: 433434<br/>precio: 560.00<br/>proveedor: PROVEEDOR 1<br/>serie: SERIE 1<br/>stock_actual: 0<br/>stock_max: 200<br/>stock_min: 10<br/>terciarios: TERCIARIO 1<br/>unidad_medida: UNIDADES<br/>updated_at: 2023-06-07 13:48:57<br/>', 'almacen: ALMACEN 1<br/>codificacion: RC001POPE<br/>codigo: R001<br/>correo: PROVEEDOR@GMAIL.COM<br/>correo_fabricante: FABRICANTE@GMAIL.COM<br/>created_at: 2023-06-07 13:01:13<br/>descripcion: DESC. REPUESTO #1 MODIFICADO<br/>dir: LOS OLIVOS<br/>dir_fabricante: LOS OLIVOS #2<br/>equipo_id: 1<br/>fabricante: FABRICANTE 1<br/>fono: 222222<br/>id: 1<br/>marca: MARCA 1<br/>modelo: MODELO 1<br/>nombre: REPUESTO #1<br/>nombre_contacto: JUAN PERES<br/>num_fono: 7777777<br/>num_identificacion: 433434<br/>precio: 560.00<br/>proveedor: PROVEEDOR 1<br/>serie: SERIE 1<br/>stock_actual: 0<br/>stock_max: 200<br/>stock_min: 10<br/>terciarios: TERCIARIO 1<br/>unidad_medida: UNIDADES<br/>updated_at: 2023-06-14 11:42:41<br/>', 'REPUESTOS/INSUMOS', '2023-06-14', '11:42:41', '2023-06-14 15:42:41', '2023-06-14 15:42:41'),
+(108, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTOS/INSUMO', 'almacen: ALMACEN 1<br/>codificacion: <br/>codigo: I001<br/>correo: <br/>correo_fabricante: <br/>created_at: 2023-06-07 13:05:13<br/>descripcion: DESC. INSUMO #1<br/>dir: <br/>dir_fabricante: <br/>equipo_id: 2<br/>fabricante: <br/>fono: <br/>id: 2<br/>marca: <br/>modelo: <br/>nombre: INSUMO #1<br/>nombre_contacto: <br/>num_fono: <br/>num_identificacion: <br/>precio: 300.00<br/>proveedor: <br/>serie: <br/>stock_actual: 0<br/>stock_max: 100<br/>stock_min: 5<br/>terciarios: <br/>unidad_medida: <br/>updated_at: 2023-06-07 13:05:13<br/>', 'almacen: ALMACEN 1<br/>codificacion: I00012EIO<br/>codigo: I001<br/>correo: <br/>correo_fabricante: <br/>created_at: 2023-06-07 13:05:13<br/>descripcion: DESC. INSUMO #1<br/>dir: <br/>dir_fabricante: <br/>equipo_id: 2<br/>fabricante: <br/>fono: <br/>id: 2<br/>marca: <br/>modelo: <br/>nombre: INSUMO #1<br/>nombre_contacto: <br/>num_fono: <br/>num_identificacion: <br/>precio: 300.00<br/>proveedor: <br/>serie: <br/>stock_actual: 0<br/>stock_max: 100<br/>stock_min: 5<br/>terciarios: <br/>unidad_medida: <br/>updated_at: 2023-06-14 11:44:44<br/>', 'REPUESTOS/INSUMOS', '2023-06-14', '11:44:44', '2023-06-14 15:44:44', '2023-06-14 15:44:44'),
+(109, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN REPUESTOS/INSUMO', 'almacen: ALMACEN<br/>codificacion: I004IRR<br/>codigo: I003<br/>correo: <br/>correo_fabricante: <br/>created_at: 2023-06-14 11:45:31<br/>descripcion: DESC. REP. #2<br/>dir: <br/>dir_fabricante: <br/>equipo_id: 2<br/>fabricante: <br/>fono: <br/>id: 3<br/>marca: <br/>modelo: <br/>nombre: REPUESTO #2<br/>nombre_contacto: <br/>num_fono: <br/>num_identificacion: <br/>precio: 900<br/>proveedor: <br/>serie: <br/>stock_actual: 0<br/>stock_max: 20<br/>stock_min: 4<br/>terciarios: <br/>unidad_medida: <br/>updated_at: 2023-06-14 11:45:31<br/>', NULL, 'REPUESTOS/INSUMOS', '2023-06-14', '11:45:31', '2023-06-14 15:45:31', '2023-06-14 15:45:31'),
+(110, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTOS/INSUMO', 'codificacion: <br/>codigo: GM001<br/>created_at: 2023-06-13 12:37:24<br/>descripcion: <br/>equipo_id: 1<br/>id: 2<br/>subfamilia_id: 1<br/>updated_at: 2023-06-13 12:37:24<br/>', 'codificacion: <br/>codigo: GM001<br/>created_at: 2023-06-13 12:37:24<br/>descripcion: <br/>equipo_id: 1<br/>id: 2<br/>subfamilia_id: 1<br/>updated_at: 2023-06-13 12:37:24<br/>', 'REPUESTOS/INSUMOS', '2023-06-14', '12:03:51', '2023-06-14 16:03:51', '2023-06-14 16:03:51'),
+(111, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTOS/INSUMO', 'codificacion: <br/>codigo: GM001<br/>created_at: 2023-06-13 12:37:24<br/>descripcion: <br/>equipo_id: 1<br/>id: 2<br/>subfamilia_id: 1<br/>updated_at: 2023-06-13 12:37:24<br/>', 'codificacion: GM001HH8<br/>codigo: GM001<br/>created_at: 2023-06-13 12:37:24<br/>descripcion: <br/>equipo_id: 1<br/>id: 2<br/>subfamilia_id: 1<br/>updated_at: 2023-06-14 12:05:09<br/>', 'REPUESTOS/INSUMOS', '2023-06-14', '12:05:09', '2023-06-14 16:05:09', '2023-06-14 16:05:09');
 
 -- --------------------------------------------------------
 
@@ -498,6 +515,7 @@ CREATE TABLE `kardex_repuestos` (
 CREATE TABLE `maquinarias` (
   `id` bigint UNSIGNED NOT NULL,
   `equipo_id` bigint UNSIGNED NOT NULL,
+  `codificacion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `descripcion` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `prioridad` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ubicacion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -537,9 +555,10 @@ CREATE TABLE `maquinarias` (
 -- Volcado de datos para la tabla `maquinarias`
 --
 
-INSERT INTO `maquinarias` (`id`, `equipo_id`, `descripcion`, `prioridad`, `ubicacion`, `tipo`, `marca`, `modelo`, `serie`, `costo`, `fecha_compra`, `fecha_instalacion`, `garantia_meses`, `peso`, `altura`, `ancho`, `largo`, `voltios`, `capacidad`, `e_tecnicas`, `fecha_ultimo_mantenimiento`, `fecha_utlimo_termino`, `estado`, `fabricantes`, `proveedor`, `terciarios`, `nombre_contacto`, `num_fono`, `correo`, `dir`, `num_identificacion`, `foto`, `archivo`, `created_at`, `updated_at`) VALUES
-(1, 1, 'MAQUINARIA #1', 'P1-URGENTE', 'PRODUCCIÓN', 'REFRIGERACIÓN', 'MARCA 1', 'MODELO 1', 'SERIE 1', 1000.00, '2023-01-01', '2023-06-05', 24, '100 KG', '2M', '1M', '1M', '140 VOLTIOS', '300KG', 'ESPEC. TECNICAS', '0223-06-05', '2023-08-08', 'ACTIVA', 'FABRICANTE 1', 'PROVEEDOR 1', 'TERCIARIO 1', 'JUAN PERES', '7777', 'PROVEEDOR@GMAIL.COM', 'LOS OLIVOS', '232332', NULL, '', '2023-06-05 17:16:25', '2023-06-05 17:16:25'),
-(2, 2, 'MAQUINARIA #2', 'P2-ALTA', 'PATIO', 'COMPRESIÓN', 'MARCA 2', 'MODELO 2', 'SERIE 2', 2500.00, '2023-01-03', '2023-06-04', 24, '200KG', '2M', '1M', '1M', '120VOLTIOS', '500KG', 'ESPEC. TECNICAS MAQUINA #2', '0223-06-04', '2023-06-06', 'INDISPUESTA', 'FABRICANTE 2', 'PROVEEDOR 2', 'TERCIARIO 2', 'ALBERTO GONZALES', '6666666', 'PROVEEDOR@GMAIL.COM', 'LOS OLIVOS', '232332', '21686003889.png', '21686004196.pdf', '2023-06-05 22:05:32', '2023-06-05 22:29:56');
+INSERT INTO `maquinarias` (`id`, `equipo_id`, `codificacion`, `descripcion`, `prioridad`, `ubicacion`, `tipo`, `marca`, `modelo`, `serie`, `costo`, `fecha_compra`, `fecha_instalacion`, `garantia_meses`, `peso`, `altura`, `ancho`, `largo`, `voltios`, `capacidad`, `e_tecnicas`, `fecha_ultimo_mantenimiento`, `fecha_utlimo_termino`, `estado`, `fabricantes`, `proveedor`, `terciarios`, `nombre_contacto`, `num_fono`, `correo`, `dir`, `num_identificacion`, `foto`, `archivo`, `created_at`, `updated_at`) VALUES
+(1, 1, 'HVF001LP', 'MAQUINARIA #1', 'P1-URGENTE', 'PRODUCCIÓN', 'REFRIGERACIÓN', 'MARCA 1', 'MODELO 1', 'SERIE 1', 1000.00, '2023-01-01', '2023-06-05', 24, '100 KG', '2M', '1M', '1M', '140 VOLTIOS', '300KG', 'ESPEC. TECNICAS', '0223-06-05', '2023-08-08', 'ACTIVA', 'FABRICANTE 1', 'PROVEEDOR 1', 'TERCIARIO 1', 'JUAN PERES', '7777', 'PROVEEDOR@GMAIL.COM', 'LOS OLIVOS', '232332', NULL, '', '2023-06-05 17:16:25', '2023-06-14 15:23:19'),
+(2, 2, 'HP002LP', 'MAQUINARIA #2', 'P2-ALTA', 'PATIO', 'COMPRESIÓN', 'MARCA 2', 'MODELO 2', 'SERIE 2', 2500.00, '2023-01-03', '2023-06-04', 24, '200KG', '2M', '1M', '1M', '120VOLTIOS', '500KG', 'ESPEC. TECNICAS MAQUINA #2', '0223-06-04', '2023-06-06', 'INDISPUESTA', 'FABRICANTE 2', 'PROVEEDOR 2', 'TERCIARIO 2', 'ALBERTO GONZALES', '6666666', 'PROVEEDOR@GMAIL.COM', 'LOS OLIVOS', '232332', '21686003889.png', '21686004196.pdf', '2023-06-05 22:05:32', '2023-06-14 15:23:32'),
+(4, 2, 'COO003EET', 'DESC. MAQUINARIA #3', 'P3-MEDIA', 'PATIO', 'REFRIGERACIÓN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ACTIVA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-14 15:32:36', '2023-06-14 15:32:36');
 
 -- --------------------------------------------------------
 
@@ -722,6 +741,7 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `plan_mantenimientos` (
   `id` bigint UNSIGNED NOT NULL,
+  `codificacion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `subunidad_id` bigint UNSIGNED NOT NULL,
   `gama_id` bigint UNSIGNED NOT NULL,
   `pm` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -735,6 +755,7 @@ CREATE TABLE `plan_mantenimientos` (
   `fecha_final` date DEFAULT NULL,
   `variable_control_id` bigint UNSIGNED NOT NULL,
   `frecuencia_id` bigint UNSIGNED NOT NULL,
+  `estado` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -764,6 +785,7 @@ CREATE TABLE `programacions` (
 CREATE TABLE `repuestos` (
   `id` bigint UNSIGNED NOT NULL,
   `codigo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `codificacion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `descripcion` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `marca` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -795,9 +817,10 @@ CREATE TABLE `repuestos` (
 -- Volcado de datos para la tabla `repuestos`
 --
 
-INSERT INTO `repuestos` (`id`, `codigo`, `nombre`, `descripcion`, `marca`, `modelo`, `serie`, `equipo_id`, `precio`, `stock_min`, `stock_max`, `stock_actual`, `unidad_medida`, `dir`, `fono`, `correo`, `almacen`, `fabricante`, `proveedor`, `terciarios`, `nombre_contacto`, `num_fono`, `correo_fabricante`, `dir_fabricante`, `num_identificacion`, `created_at`, `updated_at`) VALUES
-(1, 'R001', 'REPUESTO #1', 'DESC. REPUESTO #1 MODIFICADO', 'MARCA 1', 'MODELO 1', 'SERIE 1', 1, 560.00, 10, 200, 0, 'UNIDADES', 'LOS OLIVOS', '222222', 'PROVEEDOR@GMAIL.COM', 'ALMACEN 1', 'FABRICANTE 1', 'PROVEEDOR 1', 'TERCIARIO 1', 'JUAN PERES', '7777777', 'FABRICANTE@GMAIL.COM', 'LOS OLIVOS #2', '433434', '2023-06-07 17:01:13', '2023-06-07 17:48:57'),
-(2, 'I001', 'INSUMO #1', 'DESC. INSUMO #1', NULL, NULL, NULL, 2, 300.00, 5, 100, 0, NULL, NULL, NULL, NULL, 'ALMACEN 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-07 17:05:13', '2023-06-07 17:05:13');
+INSERT INTO `repuestos` (`id`, `codigo`, `codificacion`, `nombre`, `descripcion`, `marca`, `modelo`, `serie`, `equipo_id`, `precio`, `stock_min`, `stock_max`, `stock_actual`, `unidad_medida`, `dir`, `fono`, `correo`, `almacen`, `fabricante`, `proveedor`, `terciarios`, `nombre_contacto`, `num_fono`, `correo_fabricante`, `dir_fabricante`, `num_identificacion`, `created_at`, `updated_at`) VALUES
+(1, 'R001', 'RC001POPE', 'REPUESTO #1', 'DESC. REPUESTO #1 MODIFICADO', 'MARCA 1', 'MODELO 1', 'SERIE 1', 1, 560.00, 10, 200, 0, 'UNIDADES', 'LOS OLIVOS', '222222', 'PROVEEDOR@GMAIL.COM', 'ALMACEN 1', 'FABRICANTE 1', 'PROVEEDOR 1', 'TERCIARIO 1', 'JUAN PERES', '7777777', 'FABRICANTE@GMAIL.COM', 'LOS OLIVOS #2', '433434', '2023-06-07 17:01:13', '2023-06-14 15:42:41'),
+(2, 'I001', 'I00012EIO', 'INSUMO #1', 'DESC. INSUMO #1', NULL, NULL, NULL, 2, 300.00, 5, 100, 0, NULL, NULL, NULL, NULL, 'ALMACEN 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-07 17:05:13', '2023-06-14 15:44:44'),
+(3, 'I003', 'I004IRR', 'REPUESTO #2', 'DESC. REP. #2', NULL, NULL, NULL, 2, 900.00, 4, 20, 0, NULL, NULL, NULL, NULL, 'ALMACEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-14 15:45:31', '2023-06-14 15:45:31');
 
 -- --------------------------------------------------------
 
@@ -1253,13 +1276,13 @@ ALTER TABLE `gama_mantenimientos`
 -- AUTO_INCREMENT de la tabla `herramientas`
 --
 ALTER TABLE `herramientas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT de la tabla `kardex_repuestos`
@@ -1271,7 +1294,7 @@ ALTER TABLE `kardex_repuestos`
 -- AUTO_INCREMENT de la tabla `maquinarias`
 --
 ALTER TABLE `maquinarias`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -1337,7 +1360,7 @@ ALTER TABLE `programacions`
 -- AUTO_INCREMENT de la tabla `repuestos`
 --
 ALTER TABLE `repuestos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `sistemas`

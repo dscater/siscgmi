@@ -28,6 +28,28 @@
                     <div class="form-group col-md-6">
                         <label
                             :class="{
+                                'text-danger': errors.codificacion,
+                            }"
+                            >Codificación*</label
+                        >
+                        <el-input
+                            placeholder="Codificación"
+                            :class="{
+                                'is-invalid': errors.codificacion,
+                            }"
+                            v-model="oRepuesto.codificacion"
+                            clearable
+                        >
+                        </el-input>
+                        <span
+                            class="error invalid-feedback"
+                            v-if="errors.codificacion"
+                            v-text="errors.codificacion[0]"
+                        ></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label
+                            :class="{
                                 'text-danger': errors.nombre,
                             }"
                             >Nombre*</label
@@ -594,6 +616,7 @@ export default {
             default: {
                 id: 0,
                 codigo: "",
+                codificacion: "",
                 nombre: "",
                 descripcion: "",
                 marca: "",
@@ -686,85 +709,139 @@ export default {
                     },
                 };
                 let formdata = new FormData();
-                if (this.oRepuesto.codigo.trim() != "") {
+                if (
+                    this.oRepuesto.codigo &&
+                    this.oRepuesto.codigo.trim() != ""
+                ) {
                     formdata.append("codigo", this.oRepuesto.codigo);
                 }
-                if (this.oRepuesto.nombre.trim() != "") {
+                if (
+                    this.oRepuesto.codificacion &&
+                    this.oRepuesto.codificacion.trim() != ""
+                ) {
+                    formdata.append(
+                        "codificacion",
+                        this.oRepuesto.codificacion
+                    );
+                }
+                if (
+                    this.oRepuesto.nombre &&
+                    this.oRepuesto.nombre.trim() != ""
+                ) {
                     formdata.append("nombre", this.oRepuesto.nombre);
                 }
-                if (this.oRepuesto.descripcion.trim() != "") {
+                if (
+                    this.oRepuesto.descripcion &&
+                    this.oRepuesto.descripcion.trim() != ""
+                ) {
                     formdata.append("descripcion", this.oRepuesto.descripcion);
                 }
-                if (this.oRepuesto.marca.trim() != "") {
+                if (this.oRepuesto.marca && this.oRepuesto.marca.trim() != "") {
                     formdata.append("marca", this.oRepuesto.marca);
                 }
-                if (this.oRepuesto.modelo.trim() != "") {
+                if (
+                    this.oRepuesto.modelo &&
+                    this.oRepuesto.modelo.trim() != ""
+                ) {
                     formdata.append("modelo", this.oRepuesto.modelo);
                 }
-                if (this.oRepuesto.serie.trim() != "") {
+                if (this.oRepuesto.serie && this.oRepuesto.serie.trim() != "") {
                     formdata.append("serie", this.oRepuesto.serie);
                 }
                 if (this.oRepuesto.equipo_id) {
                     formdata.append("equipo_id", this.oRepuesto.equipo_id);
                 }
-                if (this.oRepuesto.precio.trim() != "") {
+                if (this.oRepuesto.precio) {
                     formdata.append("precio", this.oRepuesto.precio);
                 }
-                if (("" + this.oRepuesto.stock_min).trim() != "") {
+                if (this.oRepuesto.stock_min) {
                     formdata.append("stock_min", this.oRepuesto.stock_min);
                 }
-                if (("" + this.oRepuesto.stock_max).trim() != "") {
+                if (this.oRepuesto.stock_max) {
                     formdata.append("stock_max", this.oRepuesto.stock_max);
                 }
-                if (this.oRepuesto.unidad_medida.trim() != "") {
+                if (
+                    this.oRepuesto.unidad_medida &&
+                    this.oRepuesto.unidad_medida.trim() != ""
+                ) {
                     formdata.append(
                         "unidad_medida",
                         this.oRepuesto.unidad_medida
                     );
                 }
-                if (this.oRepuesto.dir.trim() != "") {
+                if (this.oRepuesto.dir && this.oRepuesto.dir.trim() != "") {
                     formdata.append("dir", this.oRepuesto.dir);
                 }
-                if (this.oRepuesto.fono.trim() != "") {
+                if (this.oRepuesto.fono && this.oRepuesto.fono.trim() != "") {
                     formdata.append("fono", this.oRepuesto.fono);
                 }
-                if (this.oRepuesto.correo.trim() != "") {
+                if (
+                    this.oRepuesto.correo &&
+                    this.oRepuesto.correo.trim() != ""
+                ) {
                     formdata.append("correo", this.oRepuesto.correo);
                 }
-                if (this.oRepuesto.almacen.trim() != "") {
+                if (
+                    this.oRepuesto.almacen &&
+                    this.oRepuesto.almacen.trim() != ""
+                ) {
                     formdata.append("almacen", this.oRepuesto.almacen);
                 }
-                if (this.oRepuesto.fabricante.trim() != "") {
+                if (
+                    this.oRepuesto.fabricante &&
+                    this.oRepuesto.fabricante.trim() != ""
+                ) {
                     formdata.append("fabricante", this.oRepuesto.fabricante);
                 }
-                if (this.oRepuesto.proveedor.trim() != "") {
+                if (
+                    this.oRepuesto.proveedor &&
+                    this.oRepuesto.proveedor.trim() != ""
+                ) {
                     formdata.append("proveedor", this.oRepuesto.proveedor);
                 }
-                if (this.oRepuesto.terciarios.trim() != "") {
+                if (
+                    this.oRepuesto.terciarios &&
+                    this.oRepuesto.terciarios.trim() != ""
+                ) {
                     formdata.append("terciarios", this.oRepuesto.terciarios);
                 }
-                if (this.oRepuesto.nombre_contacto.trim() != "") {
+                if (
+                    this.oRepuesto.nombre_contacto &&
+                    this.oRepuesto.nombre_contacto.trim() != ""
+                ) {
                     formdata.append(
                         "nombre_contacto",
                         this.oRepuesto.nombre_contacto
                     );
                 }
-                if (this.oRepuesto.num_fono.trim() != "") {
+                if (
+                    this.oRepuesto.num_fono &&
+                    this.oRepuesto.num_fono.trim() != ""
+                ) {
                     formdata.append("num_fono", this.oRepuesto.num_fono);
                 }
-                if (this.oRepuesto.correo_fabricante.trim() != "") {
+                if (
+                    this.oRepuesto.correo_fabricante &&
+                    this.oRepuesto.correo_fabricante.trim() != ""
+                ) {
                     formdata.append(
                         "correo_fabricante",
                         this.oRepuesto.correo_fabricante
                     );
                 }
-                if (this.oRepuesto.dir_fabricante.trim() != "") {
+                if (
+                    this.oRepuesto.dir_fabricante &&
+                    this.oRepuesto.dir_fabricante.trim() != ""
+                ) {
                     formdata.append(
                         "dir_fabricante",
                         this.oRepuesto.dir_fabricante
                     );
                 }
-                if (this.oRepuesto.num_identificacion.trim() != "") {
+                if (
+                    this.oRepuesto.num_identificacion &&
+                    this.oRepuesto.num_identificacion.trim() != ""
+                ) {
                     formdata.append(
                         "num_identificacion",
                         this.oRepuesto.num_identificacion
@@ -814,6 +891,26 @@ export default {
                         if (error.response) {
                             if (error.response.status === 422) {
                                 this.errors = error.response.data.errors;
+                                let mensaje = `<ul class="text-center">`;
+                                for (let key in this.errors) {
+                                    if (this.errors.hasOwnProperty(key)) {
+                                        const value = this.errors[key];
+                                        if (Array.isArray(value)) {
+                                            value.forEach((error) => {
+                                                mensaje += `<li><span>${error.trim()}</span></li>`;
+                                            });
+                                        }
+                                    }
+                                }
+                                mensaje += `<ul/>`;
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Completa el formulario",
+                                    html: mensaje,
+                                    showConfirmButton: true,
+                                    confirmButtonColor: "#149FDA",
+                                    confirmButtonText: "Aceptar",
+                                });
                             }
                             if (
                                 error.response.status === 420 ||
@@ -841,6 +938,7 @@ export default {
         limpiaRepuesto() {
             this.errors = [];
             this.oRepuesto.codigo = "";
+            this.oRepuesto.codificacion = "";
             this.oRepuesto.nombre = "";
             this.oRepuesto.descripcion = "";
             this.oRepuesto.marca = "";

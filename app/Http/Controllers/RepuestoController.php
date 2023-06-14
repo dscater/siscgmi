@@ -12,6 +12,7 @@ class RepuestoController extends Controller
 {
     public $validacion = [
         "codigo" => "required",
+        "codificacion" => "required",
         "nombre" => "required",
         "descripcion" => "required",
         "equipo_id" => "required",
@@ -82,16 +83,6 @@ class RepuestoController extends Controller
         try {
             $datos_original = HistorialAccion::getDetalleRegistro($repuesto, "repuestos");
             $repuesto->update(array_map('mb_strtoupper', $request->except("foto")));
-            // if ($request->hasFile("foto")) {
-            //     if ($repuesto->foto && $repuesto->foto != "") {
-            //         \File::delete(public_path() . "/imgs/repuestos/" . $repuesto->foto);
-            //     }
-            //     $file_foto = $request->file("foto");
-            //     $nom_foto = $repuesto->id . time() . "." . $file_foto->getClientOriginalExtension();
-            //     $file_foto->move(public_path() . "/imgs/repuestos/", $nom_foto);
-            //     $repuesto->foto = $nom_foto;
-            // }
-
             $repuesto->save();
 
             $datos_nuevo = HistorialAccion::getDetalleRegistro($repuesto, "repuestos");
@@ -133,10 +124,6 @@ class RepuestoController extends Controller
     {
         DB::beginTransaction();
         try {
-            // if ($repuesto->foto && $repuesto->foto != "") {
-            //     \File::delete(public_path() . "/imgs/repuestos/" . $repuesto->foto);
-            // }
-
             $datos_original = HistorialAccion::getDetalleRegistro($repuesto, "repuestos");
             $repuesto->entradas()->delete();
             $repuesto->delete();

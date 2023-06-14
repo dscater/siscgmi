@@ -11,6 +11,7 @@ class Repuesto extends Model
 
     protected $fillable = [
         "codigo",
+        "codificacion",
         "nombre",
         "descripcion",
         "marca",

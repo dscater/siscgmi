@@ -143,6 +143,11 @@ class UserController extends Controller
             'gama_mantenimientos.edit',
             'gama_mantenimientos.destroy',
 
+            'plan_mantenimientos.index',
+            'plan_mantenimientos.create',
+            'plan_mantenimientos.edit',
+            'plan_mantenimientos.destroy',
+
             'reportes.usuarios',
             'reportes.kardex_herramientas',
             'reportes.informacion_herramientas',

@@ -10,6 +10,7 @@ class PlanMantenimiento extends Model
     use HasFactory;
 
     protected $fillable = [
+        "codificacion",
         "subunidad_id",
         "gama_id",
         "pm",
@@ -23,5 +24,31 @@ class PlanMantenimiento extends Model
         "fecha_final",
         "variable_control_id",
         "frecuencia_id",
+        "estado",
     ];
+
+    public function subunidad()
+    {
+        return $this->belongsTo(Subunidad::class, 'subunidad_id');
+    }
+
+    public function gama()
+    {
+        return $this->belongsTo(GamaMantenimiento::class, 'gama_id');
+    }
+
+    public function variable_control()
+    {
+        return $this->belongsTo(VariableControl::class, 'variable_control_id');
+    }
+
+    public function frecuencia()
+    {
+        return $this->belongsTo(Frecuencia::class, 'frecuencia_id');
+    }
+
+    public function programacions()
+    {
+        return $this->hasMany(Programacion::class, 'plan_mantenimiento_id');
+    }
 }

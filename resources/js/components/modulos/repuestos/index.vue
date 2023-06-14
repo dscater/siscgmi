@@ -416,6 +416,7 @@ export default {
             showOverlay: false,
             fields: [
                 { key: "codigo", label: "Código", sortable: true },
+                { key: "codificacion", label: "Codificación", sortable: true },
                 { key: "nombre", label: "Nombre", sortable: true },
                 { key: "descripcion", label: "Descripción", sortable: true },
                 { key: "marca", label: "Marca", sortable: true },
@@ -532,43 +533,10 @@ export default {
                 }
             });
         },
-        abreModal(tipo_accion = "nuevo", repuesto = null) {
-            this.muestra_modal = true;
-            this.modal_accion = tipo_accion;
-            if (repuesto) {
-                this.oRepuesto = repuesto;
-            }
-        },
         onFiltered(filteredItems) {
             // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
-        },
-        limpiaRepuesto() {
-            this.oRepuesto.codigo = "";
-            this.oRepuesto.nombre = "";
-            this.oRepuesto.descripcion = "";
-            this.oRepuesto.clasificacion = "";
-            this.oRepuesto.cod_clasificacion = "";
-            this.oRepuesto.marca = "";
-            this.oRepuesto.modelo = "";
-            this.oRepuesto.serie = "";
-            this.oRepuesto.costo = "";
-            this.oRepuesto.unidad_medida = "";
-            this.oRepuesto.proveedor = "";
-            this.oRepuesto.dir = "";
-            this.oRepuesto.fono = "";
-            this.oRepuesto.correo = "";
-            this.oRepuesto.almacen = "";
-            this.oRepuesto.fabricante = "";
-            this.oRepuesto.terciarios = "";
-            this.oRepuesto.nombre_contacto = "";
-            this.oRepuesto.num_fono = "";
-            this.oRepuesto.correo_fabricante = "";
-            this.oRepuesto.dir_fabricante = "";
-            this.oRepuesto.num_identificacion = "";
-            this.oRepuesto.e_tecnicas = "";
-            this.oRepuesto.foto = "";
         },
         formatoFecha(date) {
             if (date) {

@@ -17,6 +17,7 @@ use App\Http\Controllers\IngresoProductoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaquinariaController;
 use App\Http\Controllers\PersonalController;
+use App\Http\Controllers\PlanMantenimientoController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
@@ -128,6 +129,11 @@ Route::middleware(['auth'])->group(function () {
 
         // gama_mantenimiento
         Route::resource('gama_mantenimientos', GamaMantenimientoController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
+
+        // plan_mantenimiento
+        Route::resource('plan_mantenimientos', PlanMantenimientoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 

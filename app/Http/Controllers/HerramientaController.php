@@ -12,6 +12,7 @@ class HerramientaController extends Controller
 {
     public $validacion = [
         "codigo" => "required",
+        "codificacion" => "required",
         "nombre" => "required",
         "descripcion" => "required",
         "proveedor" => "required",

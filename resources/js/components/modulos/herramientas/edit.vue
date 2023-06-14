@@ -49,6 +49,7 @@ export default {
             oHerramienta: {
                 id: 0,
                 codigo: "",
+                codificacion: "",
                 nombre: "",
                 descripcion: "",
                 clasificacion: "",

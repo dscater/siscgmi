@@ -82,6 +82,8 @@
                     <li
                         class="nav-header bg-navy"
                         v-if="
+                            permisos.includes('plan_mantenimientos.index') ||
+                            permisos.includes('gama_mantenimientos.index') ||
                             permisos.includes('users.index') ||
                             permisos.includes('areas.index') ||
                             permisos.includes('sistemas.index') ||
@@ -98,6 +100,19 @@
                         "
                     >
                         ADMINISTRACIÓN
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('plan_mantenimientos.index')"
+                    >
+                        <router-link
+                            :to="{ name: 'plan_mantenimientos.index' }"
+                            class="nav-link"
+                            v-loading.fullscreen.lock="fullscreenLoading"
+                        >
+                            <i class="nav-icon fas fa-clipboard-list"></i>
+                            <p>Plan de Mantenimiento</p>
+                        </router-link>
                     </li>
                     <li
                         class="nav-item"

@@ -49,6 +49,7 @@ export default {
             oRepuesto: {
                 id: 0,
                 codigo: "",
+                codificacion: "",
                 nombre: "",
                 descripcion: "",
                 marca: "",

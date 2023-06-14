@@ -49,6 +49,7 @@ export default {
             oGamaMantenimiento: {
                 id: 0,
                 codigo: "",
+                codificacion: "",
                 subfamilia_id: "",
                 equipo_id: "",
                 descripcion: "",

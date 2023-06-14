@@ -959,46 +959,79 @@ export default {
                 if (this.oMaquinaria.equipo_id) {
                     formdata.append("equipo_id", this.oMaquinaria.equipo_id);
                 }
-                if (this.oMaquinaria.codificacion.trim() != "") {
+                if (
+                    this.oMaquinaria.codificacion &&
+                    this.oMaquinaria.codificacion.trim() != ""
+                ) {
                     formdata.append(
                         "codificacion",
                         this.oMaquinaria.codificacion
                     );
                 }
-                if (this.oMaquinaria.descripcion.trim() != "") {
+                if (
+                    this.oMaquinaria.descripcion &&
+                    this.oMaquinaria.descripcion.trim() != ""
+                ) {
                     formdata.append(
                         "descripcion",
                         this.oMaquinaria.descripcion
                     );
                 }
-                if (this.oMaquinaria.prioridad.trim() != "") {
+                if (
+                    this.oMaquinaria.prioridad &&
+                    this.oMaquinaria.prioridad.trim() != ""
+                ) {
                     formdata.append("prioridad", this.oMaquinaria.prioridad);
                 }
-                if (this.oMaquinaria.ubicacion.trim() != "") {
+                if (
+                    this.oMaquinaria.ubicacion &&
+                    this.oMaquinaria.ubicacion.trim() != ""
+                ) {
                     formdata.append("ubicacion", this.oMaquinaria.ubicacion);
                 }
-                if (this.oMaquinaria.tipo.trim() != "") {
+                if (
+                    this.oMaquinaria.tipo &&
+                    this.oMaquinaria.tipo.trim() != ""
+                ) {
                     formdata.append("tipo", this.oMaquinaria.tipo);
                 }
-                if (this.oMaquinaria.marca.trim() != "") {
+                if (
+                    this.oMaquinaria.marca &&
+                    this.oMaquinaria.marca.trim() != ""
+                ) {
                     formdata.append("marca", this.oMaquinaria.marca);
                 }
-                if (this.oMaquinaria.modelo.trim() != "") {
+                if (
+                    this.oMaquinaria.modelo &&
+                    this.oMaquinaria.modelo.trim() != ""
+                ) {
                     formdata.append("modelo", this.oMaquinaria.modelo);
                 }
-                if (this.oMaquinaria.serie.trim() != "") {
+                if (
+                    this.oMaquinaria.serie &&
+                    this.oMaquinaria.serie.trim() != ""
+                ) {
                     formdata.append("serie", this.oMaquinaria.serie);
                 }
-                if (this.oMaquinaria.costo.trim() != "") {
+                if (
+                    this.oMaquinaria.costo &&
+                    this.oMaquinaria.costo.trim() != ""
+                ) {
                     formdata.append("costo", this.oMaquinaria.costo);
                 }
-                if (this.oMaquinaria.fecha_compra.trim() != "") {
+                if (
+                    this.oMaquinaria.fecha_compra &&
+                    this.oMaquinaria.fecha_compra.trim() != ""
+                ) {
                     formdata.append(
                         "fecha_compra",
                         this.oMaquinaria.fecha_compra
                     );
                 }
-                if (this.oMaquinaria.fecha_instalacion.trim() != "") {
+                if (
+                    this.oMaquinaria.fecha_instalacion &&
+                    this.oMaquinaria.fecha_instalacion.trim() != ""
+                ) {
                     formdata.append(
                         "fecha_instalacion",
                         this.oMaquinaria.fecha_instalacion
@@ -1010,70 +1043,121 @@ export default {
                         this.oMaquinaria.garantia_meses
                     );
                 }
-                if (this.oMaquinaria.peso.trim() != "") {
+                if (
+                    this.oMaquinaria.peso &&
+                    this.oMaquinaria.peso.trim() != ""
+                ) {
                     formdata.append("peso", this.oMaquinaria.peso);
                 }
-                if (this.oMaquinaria.altura.trim() != "") {
+                if (
+                    this.oMaquinaria.altura &&
+                    this.oMaquinaria.altura.trim() != ""
+                ) {
                     formdata.append("altura", this.oMaquinaria.altura);
                 }
-                if (this.oMaquinaria.ancho.trim() != "") {
+                if (
+                    this.oMaquinaria.ancho &&
+                    this.oMaquinaria.ancho.trim() != ""
+                ) {
                     formdata.append("ancho", this.oMaquinaria.ancho);
                 }
-                if (this.oMaquinaria.largo.trim() != "") {
+                if (
+                    this.oMaquinaria.largo &&
+                    this.oMaquinaria.largo.trim() != ""
+                ) {
                     formdata.append("largo", this.oMaquinaria.largo);
                 }
-                if (this.oMaquinaria.voltios.trim() != "") {
+                if (
+                    this.oMaquinaria.voltios &&
+                    this.oMaquinaria.voltios.trim() != ""
+                ) {
                     formdata.append("voltios", this.oMaquinaria.voltios);
                 }
-                if (this.oMaquinaria.capacidad.trim() != "") {
+                if (
+                    this.oMaquinaria.capacidad &&
+                    this.oMaquinaria.capacidad.trim() != ""
+                ) {
                     formdata.append("capacidad", this.oMaquinaria.capacidad);
                 }
-                if (this.oMaquinaria.e_tecnicas.trim() != "") {
+                if (
+                    this.oMaquinaria.e_tecnicas &&
+                    this.oMaquinaria.e_tecnicas.trim() != ""
+                ) {
                     formdata.append("e_tecnicas", this.oMaquinaria.e_tecnicas);
                 }
-                if (this.oMaquinaria.fecha_ultimo_mantenimiento.trim() != "") {
+                if (
+                    this.oMaquinaria.fecha_ultimo_mantenimiento &&
+                    this.oMaquinaria.fecha_ultimo_mantenimiento.trim() != ""
+                ) {
                     formdata.append(
                         "fecha_ultimo_mantenimiento",
                         this.oMaquinaria.fecha_ultimo_mantenimiento
                     );
                 }
-                if (this.oMaquinaria.fecha_utlimo_termino.trim() != "") {
+                if (
+                    this.oMaquinaria.fecha_utlimo_termino &&
+                    this.oMaquinaria.fecha_utlimo_termino.trim() != ""
+                ) {
                     formdata.append(
                         "fecha_utlimo_termino",
                         this.oMaquinaria.fecha_utlimo_termino
                     );
                 }
-                if (this.oMaquinaria.estado.trim() != "") {
+                if (
+                    this.oMaquinaria.estado &&
+                    this.oMaquinaria.estado.trim() != ""
+                ) {
                     formdata.append("estado", this.oMaquinaria.estado);
                 }
-                if (this.oMaquinaria.fabricantes.trim() != "") {
+                if (
+                    this.oMaquinaria.fabricantes &&
+                    this.oMaquinaria.fabricantes.trim() != ""
+                ) {
                     formdata.append(
                         "fabricantes",
                         this.oMaquinaria.fabricantes
                     );
                 }
-                if (this.oMaquinaria.proveedor.trim() != "") {
+                if (
+                    this.oMaquinaria.proveedor &&
+                    this.oMaquinaria.proveedor.trim() != ""
+                ) {
                     formdata.append("proveedor", this.oMaquinaria.proveedor);
                 }
-                if (this.oMaquinaria.terciarios.trim() != "") {
+                if (
+                    this.oMaquinaria.terciarios &&
+                    this.oMaquinaria.terciarios.trim() != ""
+                ) {
                     formdata.append("terciarios", this.oMaquinaria.terciarios);
                 }
-                if (this.oMaquinaria.nombre_contacto.trim() != "") {
+                if (
+                    this.oMaquinaria.nombre_contacto &&
+                    this.oMaquinaria.nombre_contacto.trim() != ""
+                ) {
                     formdata.append(
                         "nombre_contacto",
                         this.oMaquinaria.nombre_contacto
                     );
                 }
-                if (this.oMaquinaria.num_fono.trim() != "") {
+                if (
+                    this.oMaquinaria.num_fono &&
+                    this.oMaquinaria.num_fono.trim() != ""
+                ) {
                     formdata.append("num_fono", this.oMaquinaria.num_fono);
                 }
-                if (this.oMaquinaria.correo.trim() != "") {
+                if (
+                    this.oMaquinaria.correo &&
+                    this.oMaquinaria.correo.trim() != ""
+                ) {
                     formdata.append("correo", this.oMaquinaria.correo);
                 }
-                if (this.oMaquinaria.dir.trim() != "") {
+                if (this.oMaquinaria.dir && this.oMaquinaria.dir.trim() != "") {
                     formdata.append("dir", this.oMaquinaria.dir);
                 }
-                if (this.oMaquinaria.num_identificacion.trim() != "") {
+                if (
+                    this.oMaquinaria.num_identificacion &&
+                    this.oMaquinaria.num_identificacion.trim() != ""
+                ) {
                     formdata.append(
                         "num_identificacion",
                         this.oMaquinaria.num_identificacion

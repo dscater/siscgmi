@@ -11,10 +11,18 @@ class GamaMantenimiento extends Model
 
     protected $fillable = [
         "codigo",
+        "codificacion",
         "subfamilia_id",
         "equipo_id",
         "descripcion",
     ];
+
+    protected $appends = ["full_name"];
+
+    public function getFullNameAttribute()
+    {
+        return $this->codigo . ' | ' . $this->descripcion;
+    }
 
     public function gama_detalles()
     {

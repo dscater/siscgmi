@@ -50,7 +50,8 @@
                                     :class="{
                                         'text-danger': errors.herramienta_id,
                                     }"
-                                    >Seleccionar Herramienta/Equipo de protección*</label
+                                    >Seleccionar Herramienta/Equipo de
+                                    protección*</label
                                 >
 
                                 <el-select
@@ -66,7 +67,9 @@
                                         v-for="item in listHerramientas"
                                         :key="item.id"
                                         :value="item.id"
-                                        :label="item.codigo + ' | ' + item.nombre"
+                                        :label="
+                                            item.codigo + ' | ' + item.nombre
+                                        "
                                     >
                                     </el-option>
                                 </el-select>
@@ -305,7 +308,10 @@ export default {
                     },
                 };
                 let formdata = new FormData();
-                if (this.entrada_herramienta.factura.trim() != "") {
+                if (
+                    this.entrada_herramienta.factura &&
+                    this.entrada_herramienta.factura.trim() != ""
+                ) {
                     formdata.append(
                         "factura",
                         this.entrada_herramienta.factura
@@ -317,25 +323,31 @@ export default {
                         this.entrada_herramienta.herramienta_id
                     );
                 }
-                if (this.entrada_herramienta.cantidad.trim() != "") {
+                if (this.entrada_herramienta.cantidad) {
                     formdata.append(
                         "cantidad",
                         this.entrada_herramienta.cantidad
                     );
                 }
-                if (this.entrada_herramienta.unidad_medida.trim() != "") {
+                if (
+                    this.entrada_herramienta.unidad_medida &&
+                    this.entrada_herramienta.unidad_medida.trim() != ""
+                ) {
                     formdata.append(
                         "unidad_medida",
                         this.entrada_herramienta.unidad_medida
                     );
                 }
-                if (this.entrada_herramienta.precio.trim() != "") {
+                if (this.entrada_herramienta.precio) {
                     formdata.append("precio", this.entrada_herramienta.precio);
                 }
-                if (this.entrada_herramienta.total.trim() != "") {
+                if (this.entrada_herramienta.total) {
                     formdata.append("total", this.entrada_herramienta.total);
                 }
-                if (this.entrada_herramienta.fecha.trim() != "") {
+                if (
+                    this.entrada_herramienta.fecha &&
+                    this.entrada_herramienta.fecha.trim() != ""
+                ) {
                     formdata.append("fecha", this.entrada_herramienta.fecha);
                 }
                 if (this.accion == "edit") {

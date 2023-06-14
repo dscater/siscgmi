@@ -304,6 +304,7 @@ export default {
             showOverlay: false,
             fields: [
                 { key: "codigo", label: "Código", sortable: true },
+                { key: "codificacion", label: "Codificación", sortable: true },
                 {
                     key: "subfamilia.full_name",
                     label: "Subfamilia/Familia",
@@ -424,24 +425,10 @@ export default {
                 }
             });
         },
-        abreModal(tipo_accion = "nuevo", gama_mantenimiento = null) {
-            this.muestra_modal = true;
-            this.modal_accion = tipo_accion;
-            if (gama_mantenimiento) {
-                this.oGamaMantenimiento = gama_mantenimiento;
-            }
-        },
         onFiltered(filteredItems) {
             // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
-        },
-        limpiaGamaMantenimiento() {
-            this.oGamaMantenimiento.codigo = "";
-            this.oGamaMantenimiento.subfamilia_id = "";
-            this.oGamaMantenimiento.equipo_id = "";
-            this.oGamaMantenimiento.descripcion = "";
-            this.oGamaMantenimiento.gama_detalles = [];
         },
         formatoFecha(date) {
             if (date) {

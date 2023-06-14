@@ -13,6 +13,7 @@ class GamaMantenimientoController extends Controller
 {
     public $validacion = [
         "codigo" => "required",
+        "codificacion" => "required",
         "subfamilia_id" => "required",
         "equipo_id" => "required",
         "gama_detalles" => "required|array|min:1",

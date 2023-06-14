@@ -218,6 +218,30 @@ export default new Router({
             props: true,
         },
 
+        // plan_mantenimientos
+        {
+            path: "/plan_mantenimientos",
+            name: "plan_mantenimientos.index",
+            component:
+                require("./components/modulos/plan_mantenimientos/index.vue")
+                    .default,
+        },
+        {
+            path: "/plan_mantenimientos/create",
+            name: "plan_mantenimientos.create",
+            component:
+                require("./components/modulos/plan_mantenimientos/create.vue")
+                    .default,
+        },
+        {
+            path: "/plan_mantenimientos/:id",
+            name: "plan_mantenimientos.edit",
+            component:
+                require("./components/modulos/plan_mantenimientos/edit.vue")
+                    .default,
+            props: true,
+        },
+
         // Reportes
         {
             path: "/reportes/usuarios",

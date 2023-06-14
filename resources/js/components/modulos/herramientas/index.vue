@@ -401,6 +401,7 @@ export default {
             showOverlay: false,
             fields: [
                 { key: "codigo", label: "Código", sortable: true },
+                { key: "codificacion", label: "Codificación", sortable: true },
                 { key: "nombre", label: "Nombre", sortable: true },
                 { key: "descripcion", label: "Descripción", sortable: true },
                 {
@@ -426,33 +427,6 @@ export default {
             }),
             muestra_modal: false,
             modal_accion: "nuevo",
-            oHerramienta: {
-                id: 0,
-                codigo: "",
-                nombre: "",
-                descripcion: "",
-                clasificacion: "",
-                cod_clasificacion: "",
-                marca: "",
-                modelo: "",
-                serie: "",
-                costo: "",
-                unidad_medida: "",
-                proveedor: "",
-                dir: "",
-                fono: "",
-                correo: "",
-                almacen: "",
-                fabricante: "",
-                terciarios: "",
-                nombre_contacto: "",
-                num_fono: "",
-                correo_fabricante: "",
-                dir_fabricante: "",
-                num_identificacion: "",
-                e_tecnicas: "",
-                foto: "",
-            },
             currentPage: 1,
             perPage: 5,
             pageOptions: [
@@ -553,43 +527,10 @@ export default {
                 }
             });
         },
-        abreModal(tipo_accion = "nuevo", herramienta = null) {
-            this.muestra_modal = true;
-            this.modal_accion = tipo_accion;
-            if (herramienta) {
-                this.oHerramienta = herramienta;
-            }
-        },
         onFiltered(filteredItems) {
             // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
-        },
-        limpiaHerramienta() {
-            this.oHerramienta.codigo = "";
-            this.oHerramienta.nombre = "";
-            this.oHerramienta.descripcion = "";
-            this.oHerramienta.clasificacion = "";
-            this.oHerramienta.cod_clasificacion = "";
-            this.oHerramienta.marca = "";
-            this.oHerramienta.modelo = "";
-            this.oHerramienta.serie = "";
-            this.oHerramienta.costo = "";
-            this.oHerramienta.unidad_medida = "";
-            this.oHerramienta.proveedor = "";
-            this.oHerramienta.dir = "";
-            this.oHerramienta.fono = "";
-            this.oHerramienta.correo = "";
-            this.oHerramienta.almacen = "";
-            this.oHerramienta.fabricante = "";
-            this.oHerramienta.terciarios = "";
-            this.oHerramienta.nombre_contacto = "";
-            this.oHerramienta.num_fono = "";
-            this.oHerramienta.correo_fabricante = "";
-            this.oHerramienta.dir_fabricante = "";
-            this.oHerramienta.num_identificacion = "";
-            this.oHerramienta.e_tecnicas = "";
-            this.oHerramienta.foto = "";
         },
         formatoFecha(date) {
             if (date) {

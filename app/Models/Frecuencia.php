@@ -14,7 +14,12 @@ class Frecuencia extends Model
         "frecuencia",
     ];
 
-    protected $appends = ["detalle_variable"];
+    protected $appends = ["detalle_variable", "full_name"];
+
+    public function getFullNameAttribute()
+    {
+        return $this->variable->id . " | " . $this->variable->nombre . ' | ' . $this->variable->unidad;
+    }
 
     public function getDetalleVariableAttribute()
     {

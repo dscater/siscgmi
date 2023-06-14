@@ -19,6 +19,12 @@ class Subunidad extends Model
         "codigo2",
     ];
 
+    protected $appends = ["full_name"];
+    public function getFullNameAttribute()
+    {
+        return $this->codigo . ' | ' . $this->nombre . ' | ' . $this->equipo->nombre;
+    }
+
     public function area()
     {
         return $this->belongsTo(Area::class, 'area_id');

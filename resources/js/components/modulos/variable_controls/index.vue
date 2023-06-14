@@ -196,6 +196,7 @@ export default {
             listRegistros: [],
             showOverlay: false,
             fields: [
+                { key: "id", label: "Código", sortable: true },
                 { key: "nombre", label: "Nombre", sortable: true },
                 { key: "unidad", label: "Unidad", sortable: true },
                 { key: "accion", label: "Acción" },
