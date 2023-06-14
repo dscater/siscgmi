@@ -109,9 +109,9 @@
                                                                 Última Fecha
                                                                 Programada:
                                                                 <span>{{
-                                                                    this.getFormatoFecha(
+                                                                    getFormatoFecha(
                                                                         row.item
-                                                                            .utlima_fecha_programada
+                                                                            .ultima_fecha_programada
                                                                     )
                                                                 }}</span>
                                                             </li>
@@ -119,9 +119,9 @@
                                                                 Última Fecha
                                                                 Terminada:
                                                                 <span>{{
-                                                                    this.getFormatoFecha(
+                                                                    getFormatoFecha(
                                                                         row.item
-                                                                            .utlima_fecha_terminada
+                                                                            .ultima_fecha_terminada
                                                                     )
                                                                 }}</span>
                                                             </li>
@@ -141,7 +141,7 @@
                                                                 Fecha final de
                                                                 programación:
                                                                 <span>{{
-                                                                    this.getFormatoFecha(
+                                                                    getFormatoFecha(
                                                                         row.item
                                                                             .fecha_final
                                                                     )
@@ -177,11 +177,43 @@
                                                         <table>
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Nro. mantenimiento</th>
-                                                                    <th>Días</th>
-                                                                    <th>Fecha</th>
+                                                                    <th>
+                                                                        Nro.
+                                                                        mantenimiento
+                                                                    </th>
+                                                                    <th>
+                                                                        Días
+                                                                    </th>
+                                                                    <th>
+                                                                        Fecha
+                                                                    </th>
                                                                 </tr>
                                                             </thead>
+                                                            <tbody>
+                                                                <tr
+                                                                    v-for="item in row
+                                                                        .item
+                                                                        .programacions"
+                                                                >
+                                                                    <td>
+                                                                        {{
+                                                                            item.numero
+                                                                        }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{
+                                                                            item.dias
+                                                                        }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{
+                                                                            getFormatoFecha(
+                                                                                item.fecha
+                                                                            )
+                                                                        }}
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
                                                         </table>
                                                     </b-card>
                                                     <b-button
@@ -218,14 +250,14 @@
                                                         @click="
                                                             eliminaPlanMantenimiento(
                                                                 row.item.id,
-                                                                row.item
-                                                                    .codigo +
-                                                                    ' | ' +
-                                                                    row.item
-                                                                        .nombre +
+                                                                row.item.id +
                                                                     '<br>' +
                                                                     row.item
-                                                                        .descripcion
+                                                                        .codificacion +
+                                                                    '<br>' +
+                                                                    row.item
+                                                                        .gama
+                                                                        .full_name
                                                             )
                                                         "
                                                     >
@@ -276,13 +308,14 @@
                                                                 eliminaPlanMantenimiento(
                                                                     row.item.id,
                                                                     row.item
-                                                                        .codigo +
-                                                                        ' | ' +
-                                                                        row.item
-                                                                            .nombre +
+                                                                        .id +
                                                                         '<br>' +
                                                                         row.item
-                                                                            .descripcion
+                                                                            .codificacion +
+                                                                        '<br>' +
+                                                                        row.item
+                                                                            .gama
+                                                                            .full_name
                                                                 )
                                                             "
                                                         >
@@ -434,10 +467,9 @@ export default {
                 });
         },
         eliminaPlanMantenimiento(id, descripcion) {
-            console.log(descripcion);
             Swal.fire({
                 title: "¿Quierés eliminar este registro?",
-                html: `<strong>${descripcion}</strong><br><h4>Esto también eliminara los registros de entradas y no se podrá deshacer</h4>`,
+                html: `<strong>${descripcion}</strong>`,
                 showCancelButton: true,
                 confirmButtonColor: "#149FDA",
                 confirmButtonText: "Si, eliminar",

@@ -68,6 +68,7 @@
                                 'is-invalid': errors.gama_id,
                             }"
                             v-model="oPlanMantenimiento.gama_id"
+                            @change="getTiempoGama"
                             clearable
                         >
                             <el-option
@@ -150,6 +151,7 @@
                             }"
                             v-model="oPlanMantenimiento.tiempo"
                             clearable
+                            readonly
                         />
                         <span
                             class="error invalid-feedback"
@@ -232,6 +234,8 @@
                             }"
                             v-model="oPlanMantenimiento.ultima_fecha_programada"
                             clearable
+                            @change="getPlanProgramacion"
+                            @keyup="getPlanProgramacion"
                         />
                         <span
                             class="error invalid-feedback"
@@ -254,6 +258,8 @@
                             }"
                             v-model="oPlanMantenimiento.ultima_fecha_terminada"
                             clearable
+                            @change="getPlanProgramacion"
+                            @keyup="getPlanProgramacion"
                         />
                         <span
                             class="error invalid-feedback"
@@ -284,6 +290,7 @@
                             }"
                             v-model="oPlanMantenimiento.programacion"
                             clearable
+                            @change="getPlanProgramacion"
                         >
                             <el-option
                                 v-for="(item, index) in listProgramacions"
@@ -313,6 +320,8 @@
                             }"
                             v-model="oPlanMantenimiento.fecha_final"
                             clearable
+                            @change="getPlanProgramacion"
+                            @keyup="getPlanProgramacion"
                         />
                         <span
                             class="error invalid-feedback"
@@ -343,6 +352,10 @@
                             }"
                             v-model="oPlanMantenimiento.variable_control_id"
                             clearable
+                            @change="
+                                getPlanProgramacion();
+                                getFrecuencias();
+                            "
                         >
                             <el-option
                                 v-for="item in listVariableControls"
@@ -372,6 +385,7 @@
                             }"
                             v-model="oPlanMantenimiento.frecuencia_id"
                             clearable
+                            @change="getPlanProgramacion"
                         >
                             <el-option
                                 v-for="item in listFrecuencias"
@@ -394,15 +408,55 @@
                         </h3>
                     </div>
                     <hr class="col-md-12" />
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Número de mantenimiento</th>
-                                <th>Días</th>
-                                <th>Fecha</th>
-                            </tr>
-                        </thead>
-                    </table>
+                    <b-skeleton-wrapper :loading="loading" class="w-100">
+                        <template #loading>
+                            <b-skeleton-table
+                                :rows="3"
+                                :columns="3"
+                                :table-props="{ bordered: true, striped: true }"
+                            >
+                            </b-skeleton-table>
+                        </template>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Número de mantenimiento</th>
+                                    <th>Días</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template
+                                    v-if="
+                                        oPlanMantenimiento.programacions
+                                            .length > 0
+                                    "
+                                >
+                                    <tr
+                                        v-for="(
+                                            item, index
+                                        ) in oPlanMantenimiento.programacions"
+                                    >
+                                        <td>{{ item.numero }}</td>
+                                        <td>{{ item.dias }}</td>
+                                        <td>{{ item.fecha }}</td>
+                                    </tr>
+                                </template>
+                                <template v-else>
+                                    <tr>
+                                        <td colspan="3" class="text-center">
+                                            NO SE CARGÓ LA INFORMACIÓN NECESARIA
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                        <span
+                            class="error invalid-feedback"
+                            v-if="errors.programacions"
+                            v-text="errors.programacions[0]"
+                        ></span>
+                    </b-skeleton-wrapper>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
@@ -480,6 +534,7 @@ export default {
             user: JSON.parse(localStorage.getItem("user")),
             bModal: this.muestra_modal,
             enviando: false,
+            loading: true,
             errors: [],
             oPlanMantenimiento: this.plan_mantenimiento,
             listSubunidads: [],
@@ -501,10 +556,13 @@ export default {
     },
     mounted() {
         this.bModal = this.muestra_modal;
+        let self = this;
+        setTimeout(() => {
+            self.loading = false;
+        }, 500);
         this.getSubunidads();
         this.getGamaMantenimientos();
         this.getVariableControls();
-        this.getFrecuencias();
     },
     methods: {
         getSubunidads() {
@@ -523,204 +581,112 @@ export default {
             });
         },
         getFrecuencias() {
-            axios.get("/admin/frecuencias").then((response) => {
-                this.listFrecuencias = response.data.frecuencias;
-            });
+            if (this.oPlanMantenimiento.variable_control_id != "") {
+                axios
+                    .get("/admin/frecuencias/getByVariableControl", {
+                        params: {
+                            id: this.oPlanMantenimiento.variable_control_id,
+                        },
+                    })
+                    .then((response) => {
+                        this.listFrecuencias = response.data;
+                    });
+            } else {
+                this.listFrecuencias = [];
+            }
+        },
+        getPlanProgramacion() {
+            if (
+                this.oPlanMantenimiento.programacion != "" &&
+                this.oPlanMantenimiento.fecha_final != "" &&
+                this.oPlanMantenimiento.frecuencia_id != ""
+            ) {
+                this.loading = true;
+                let obtiene = true;
+                let mensaje = "";
+                let fecha = "";
+                if (
+                    this.oPlanMantenimiento.programacion ==
+                    "ÚLTIMA VEZ QUE SE PROGRAMÓ"
+                ) {
+                    fecha = this.oPlanMantenimiento.ultima_fecha_programada;
+                    if (
+                        !this.oPlanMantenimiento.ultima_fecha_programada ||
+                        this.oPlanMantenimiento.ultima_fecha_programada == ""
+                    ) {
+                        obtiene = false;
+                        mensaje = "Debes indicar la última fecha programada";
+                    }
+                }
+                if (
+                    this.oPlanMantenimiento.programacion ==
+                    "ÚLTIMA VEZ QUE SE TERMINÓ"
+                ) {
+                    fecha = this.oPlanMantenimiento.ultima_fecha_terminada;
+                    if (
+                        !this.oPlanMantenimiento.ultima_fecha_terminada ||
+                        this.oPlanMantenimiento.ultima_fecha_terminada == ""
+                    ) {
+                        obtiene = false;
+                        mensaje = "Debes indicar la última fecha terminada";
+                    }
+                }
+                if (obtiene) {
+                    axios
+                        .get("/admin/plan_mantenimientos/getPlanProgramacion", {
+                            params: {
+                                fecha_recibida: fecha,
+                                fecha_final:
+                                    this.oPlanMantenimiento.fecha_final,
+                                frecuencia_id:
+                                    this.oPlanMantenimiento.frecuencia_id,
+                            },
+                        })
+                        .then((response) => {
+                            this.oPlanMantenimiento.programacions =
+                                response.data;
+                            let self = this;
+                            setTimeout(() => {
+                                self.loading = false;
+                            }, 500);
+                        });
+                } else {
+                    this.loading = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Completa el formulario",
+                        html: mensaje,
+                        showConfirmButton: true,
+                        confirmButtonColor: "#149FDA",
+                        confirmButtonText: "Aceptar",
+                    });
+                }
+            }
+        },
+        getTiempoGama() {
+            if (this.oPlanMantenimiento.gama_id != "") {
+                axios
+                    .get("/admin/gama_mantenimientos/getTiempo/" + this.oPlanMantenimiento.gama_id)
+                    .then((response) => {
+                        this.oPlanMantenimiento.tiempo = response.data;
+                    });
+            } else {
+                this.oPlanMantenimiento.tiempo = "";
+            }
         },
         setRegistro() {
             this.enviando = true;
             try {
                 this.textoBtn = "Enviando...";
                 let url = "/admin/plan_mantenimientos";
-                let config = {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                };
-                let formdata = new FormData();
-                if (
-                    this.oPlanMantenimiento.codigo &&
-                    this.oPlanMantenimiento.codigo.trim() != ""
-                ) {
-                    formdata.append("codigo", this.oPlanMantenimiento.codigo);
-                }
-                if (
-                    this.oPlanMantenimiento.codificacion &&
-                    this.oPlanMantenimiento.codificacion.trim() != ""
-                ) {
-                    formdata.append(
-                        "codificacion",
-                        this.oPlanMantenimiento.codificacion
-                    );
-                }
-                if (
-                    this.oPlanMantenimiento.nombre &&
-                    this.oPlanMantenimiento.nombre.trim() != ""
-                ) {
-                    formdata.append("nombre", this.oPlanMantenimiento.nombre);
-                }
-                if (
-                    this.oPlanMantenimiento.descripcion &&
-                    this.oPlanMantenimiento.descripcion.trim() != ""
-                ) {
-                    formdata.append(
-                        "descripcion",
-                        this.oPlanMantenimiento.descripcion
-                    );
-                }
-                if (
-                    this.oPlanMantenimiento.marca &&
-                    this.oPlanMantenimiento.marca.trim() != ""
-                ) {
-                    formdata.append("marca", this.oPlanMantenimiento.marca);
-                }
-                if (
-                    this.oPlanMantenimiento.modelo &&
-                    this.oPlanMantenimiento.modelo.trim() != ""
-                ) {
-                    formdata.append("modelo", this.oPlanMantenimiento.modelo);
-                }
-                if (
-                    this.oPlanMantenimiento.serie &&
-                    this.oPlanMantenimiento.serie.trim() != ""
-                ) {
-                    formdata.append("serie", this.oPlanMantenimiento.serie);
-                }
-                if (this.oPlanMantenimiento.equipo_id) {
-                    formdata.append(
-                        "equipo_id",
-                        this.oPlanMantenimiento.equipo_id
-                    );
-                }
-                if (this.oPlanMantenimiento.precio) {
-                    formdata.append("precio", this.oPlanMantenimiento.precio);
-                }
-                if (this.oPlanMantenimiento.stock_min) {
-                    formdata.append(
-                        "stock_min",
-                        this.oPlanMantenimiento.stock_min
-                    );
-                }
-                if (this.oPlanMantenimiento.stock_max) {
-                    formdata.append(
-                        "stock_max",
-                        this.oPlanMantenimiento.stock_max
-                    );
-                }
-                if (
-                    this.oPlanMantenimiento.unidad_medida &&
-                    this.oPlanMantenimiento.unidad_medida.trim() != ""
-                ) {
-                    formdata.append(
-                        "unidad_medida",
-                        this.oPlanMantenimiento.unidad_medida
-                    );
-                }
-                if (
-                    this.oPlanMantenimiento.dir &&
-                    this.oPlanMantenimiento.dir.trim() != ""
-                ) {
-                    formdata.append("dir", this.oPlanMantenimiento.dir);
-                }
-                if (
-                    this.oPlanMantenimiento.fono &&
-                    this.oPlanMantenimiento.fono.trim() != ""
-                ) {
-                    formdata.append("fono", this.oPlanMantenimiento.fono);
-                }
-                if (
-                    this.oPlanMantenimiento.correo &&
-                    this.oPlanMantenimiento.correo.trim() != ""
-                ) {
-                    formdata.append("correo", this.oPlanMantenimiento.correo);
-                }
-                if (
-                    this.oPlanMantenimiento.almacen &&
-                    this.oPlanMantenimiento.almacen.trim() != ""
-                ) {
-                    formdata.append("almacen", this.oPlanMantenimiento.almacen);
-                }
-                if (
-                    this.oPlanMantenimiento.fabricante &&
-                    this.oPlanMantenimiento.fabricante.trim() != ""
-                ) {
-                    formdata.append(
-                        "fabricante",
-                        this.oPlanMantenimiento.fabricante
-                    );
-                }
-                if (
-                    this.oPlanMantenimiento.proveedor &&
-                    this.oPlanMantenimiento.proveedor.trim() != ""
-                ) {
-                    formdata.append(
-                        "proveedor",
-                        this.oPlanMantenimiento.proveedor
-                    );
-                }
-                if (
-                    this.oPlanMantenimiento.terciarios &&
-                    this.oPlanMantenimiento.terciarios.trim() != ""
-                ) {
-                    formdata.append(
-                        "terciarios",
-                        this.oPlanMantenimiento.terciarios
-                    );
-                }
-                if (
-                    this.oPlanMantenimiento.nombre_contacto &&
-                    this.oPlanMantenimiento.nombre_contacto.trim() != ""
-                ) {
-                    formdata.append(
-                        "nombre_contacto",
-                        this.oPlanMantenimiento.nombre_contacto
-                    );
-                }
-                if (
-                    this.oPlanMantenimiento.num_fono &&
-                    this.oPlanMantenimiento.num_fono.trim() != ""
-                ) {
-                    formdata.append(
-                        "num_fono",
-                        this.oPlanMantenimiento.num_fono
-                    );
-                }
-                if (
-                    this.oPlanMantenimiento.correo_fabricante &&
-                    this.oPlanMantenimiento.correo_fabricante.trim() != ""
-                ) {
-                    formdata.append(
-                        "correo_fabricante",
-                        this.oPlanMantenimiento.correo_fabricante
-                    );
-                }
-                if (
-                    this.oPlanMantenimiento.dir_fabricante &&
-                    this.oPlanMantenimiento.dir_fabricante.trim() != ""
-                ) {
-                    formdata.append(
-                        "dir_fabricante",
-                        this.oPlanMantenimiento.dir_fabricante
-                    );
-                }
-                if (
-                    this.oPlanMantenimiento.num_identificacion &&
-                    this.oPlanMantenimiento.num_identificacion.trim() != ""
-                ) {
-                    formdata.append(
-                        "num_identificacion",
-                        this.oPlanMantenimiento.num_identificacion
-                    );
-                }
-
                 if (this.accion == "edit") {
                     url =
                         "/admin/plan_mantenimientos/" +
                         this.oPlanMantenimiento.id;
-                    formdata.append("_method", "PUT");
+                    this.oPlanMantenimiento["_method"] = "PUT";
                 }
                 axios
-                    .post(url, formdata, config)
+                    .post(url, this.oPlanMantenimiento)
                     .then((res) => {
                         this.enviando = false;
                         if (res.data.sw) {
@@ -760,7 +726,7 @@ export default {
                         if (error.response) {
                             if (error.response.status === 422) {
                                 this.errors = error.response.data.errors;
-                                let mensaje = `<ul class="text-center">`;
+                                let mensaje = `<ul class="text-left">`;
                                 for (let key in this.errors) {
                                     if (this.errors.hasOwnProperty(key)) {
                                         const value = this.errors[key];

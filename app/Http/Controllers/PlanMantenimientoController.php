@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Frecuencia;
 use App\Models\HistorialAccion;
+use App\Models\PlanMantenimiento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,9 +21,13 @@ class PlanMantenimientoController extends Controller
         "tipo_mantenimiento" => "required",
         "programacion" => "required",
         "fecha_final" => "required|date",
+        "programacions" => "required|array|min:1"
     ];
 
-    public $mensajes = [];
+    public $mensajes = [
+        "programacions.required" => "No se generó la programación respectiva",
+        "programacions.min" => "Debe existir al menos :min generación",
+    ];
 
     public function index(Request $request)
     {
@@ -36,17 +42,17 @@ class PlanMantenimientoController extends Controller
         DB::beginTransaction();
         try {
             // crear PlanMantenimiento
-            $request["stock_actual"] = 0;
-            $nueva_plan_mantenimiento = PlanMantenimiento::create(array_map('mb_strtoupper', $request->except("foto")));
-            $nueva_plan_mantenimiento->save();
+            $request["estado"] = "PLANIFICADO";
+            $nueva_plan_mantenimiento = PlanMantenimiento::create(array_map('mb_strtoupper', $request->except("programacions")));
+            $nueva_plan_mantenimiento->programacions()->createMany($request->programacions);
 
             $datos_original = HistorialAccion::getDetalleRegistro($nueva_plan_mantenimiento, "plan_mantenimientos");
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'CREACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' REGISTRO UN REPUESTOS/INSUMO',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' REGISTRO UN PLAN DE MANTENIMIENTO',
                 'datos_original' => $datos_original,
-                'modulo' => 'REPUESTOS/INSUMOS',
+                'modulo' => 'PLAN DE MANTENIMIENTO',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
@@ -73,17 +79,17 @@ class PlanMantenimientoController extends Controller
         DB::beginTransaction();
         try {
             $datos_original = HistorialAccion::getDetalleRegistro($plan_mantenimiento, "plan_mantenimientos");
-            $plan_mantenimiento->update(array_map('mb_strtoupper', $request->except("foto")));
-            $plan_mantenimiento->save();
-
+            $plan_mantenimiento->update(array_map('mb_strtoupper', $request->except("programacions")));
+            $plan_mantenimiento->programacions()->delete();
+            $plan_mantenimiento->programacions()->createMany($request->programacions);
             $datos_nuevo = HistorialAccion::getDetalleRegistro($plan_mantenimiento, "plan_mantenimientos");
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'MODIFICACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UN REPUESTOS/INSUMO',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UN PLAN DE MANTENIMIENTO',
                 'datos_original' => $datos_original,
                 'datos_nuevo' => $datos_nuevo,
-                'modulo' => 'REPUESTOS/INSUMOS',
+                'modulo' => 'PLAN DE MANTENIMIENTO',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
@@ -107,7 +113,7 @@ class PlanMantenimientoController extends Controller
     {
         return response()->JSON([
             'sw' => true,
-            'plan_mantenimiento' => $plan_mantenimiento
+            'plan_mantenimiento' => $plan_mantenimiento->load("programacions")
         ], 200);
     }
 
@@ -116,13 +122,14 @@ class PlanMantenimientoController extends Controller
         DB::beginTransaction();
         try {
             $datos_original = HistorialAccion::getDetalleRegistro($plan_mantenimiento, "plan_mantenimientos");
+            $plan_mantenimiento->programacions()->delete();
             $plan_mantenimiento->delete();
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'ELIMINACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' ELIMINÓ UN REPUESTOS/INSUMO',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' ELIMINÓ UN PLAN DE MANTENIMIENTO',
                 'datos_original' => $datos_original,
-                'modulo' => 'REPUESTOS/INSUMOS',
+                'modulo' => 'PLAN DE MANTENIMIENTO',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
@@ -138,5 +145,29 @@ class PlanMantenimientoController extends Controller
                 'message' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function getPlanProgramacion(Request $request)
+    {
+        $frecuencia_id = $request->frecuencia_id;
+        $frecuencia = Frecuencia::find($frecuencia_id)->frecuencia;
+        $fecha_recibida = $request->fecha_recibida;
+        $fecha_final = $request->fecha_final;
+
+        $fecha_inicio = date("Y-m-d", strtotime($fecha_recibida . '-1 days'));
+        $programacions = [];
+        $contador = 1;
+        $fecha_inicio = date("Y-m-d", strtotime($fecha_inicio . "+$frecuencia days"));
+        while ($fecha_inicio <= date("Y-m-d", strtotime($fecha_final))) {
+            $fecha = $fecha_inicio;
+            $programacions[] = [
+                "id" => 0,
+                "numero" => $contador++,
+                "dias" => $frecuencia,
+                "fecha" => $fecha,
+            ];
+            $fecha_inicio = date("Y-m-d", strtotime($fecha_inicio . "+$frecuencia days"));
+        }
+        return response()->JSON($programacions);
     }
 }

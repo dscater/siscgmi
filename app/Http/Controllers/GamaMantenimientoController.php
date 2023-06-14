@@ -139,6 +139,11 @@ class GamaMantenimientoController extends Controller
         ], 200);
     }
 
+    public function getTiempo(GamaMantenimiento $gama_mantenimiento)
+    {
+        return response()->JSON($gama_mantenimiento->tiempo_total, 200);
+    }
+
     public function destroy(GamaMantenimiento $gama_mantenimiento)
     {
         DB::beginTransaction();

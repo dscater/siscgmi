@@ -88,6 +88,7 @@ Route::middleware(['auth'])->group(function () {
         ]);
 
         // frecuencias
+        Route::get("frecuencias/getByVariableControl", [FrecuenciaController::class, "getByVariableControl"]);
         Route::resource('frecuencias', FrecuenciaController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
@@ -128,11 +129,13 @@ Route::middleware(['auth'])->group(function () {
         ]);
 
         // gama_mantenimiento
+        Route::get("gama_mantenimientos/getTiempo/{gama_mantenimiento}", [GamaMantenimientoController::class, 'getTiempo']);
         Route::resource('gama_mantenimientos', GamaMantenimientoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 
         // plan_mantenimiento
+        Route::get("plan_mantenimientos/getPlanProgramacion", [PlanMantenimientoController::class, 'getPlanProgramacion']);
         Route::resource('plan_mantenimientos', PlanMantenimientoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);

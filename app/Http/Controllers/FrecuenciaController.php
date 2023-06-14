@@ -102,6 +102,13 @@ class FrecuenciaController extends Controller
         ], 200);
     }
 
+    public function getByVariableControl(Request $request)
+    {
+        $id = $request->id;
+        $frecuencias = Frecuencia::where("variable_id", $id)->get();
+        return response()->JSON($frecuencias);
+    }
+
     public function destroy(Frecuencia $frecuencia)
     {
         DB::beginTransaction();

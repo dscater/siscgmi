@@ -140,6 +140,9 @@ return [
     'attributes' => [
 
         'cliente_id' => 'cliente',
+        'subunidad_id' => 'subunidad',
+        'gama_id' => 'gama de mantenimiento',
+        'codificacion' => 'codificación',
         'lugar_id' => 'lugar',
         'tipo_embarque_id' => 'tipo embarque',
         'oficina_id' => 'oficina',

@@ -891,7 +891,7 @@ export default {
                         if (error.response) {
                             if (error.response.status === 422) {
                                 this.errors = error.response.data.errors;
-                                let mensaje = `<ul class="text-center">`;
+                                let mensaje = `<ul class="text-left">`;
                                 for (let key in this.errors) {
                                     if (this.errors.hasOwnProperty(key)) {
                                         const value = this.errors[key];

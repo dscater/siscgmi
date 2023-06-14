@@ -17,7 +17,11 @@ class GamaMantenimiento extends Model
         "descripcion",
     ];
 
-    protected $appends = ["full_name"];
+    protected $appends = ["full_name", "tiempo_total"];
+    public function getTiempoTotalAttribute()
+    {
+        return $this->gama_detalles()->sum("tiempo");
+    }
 
     public function getFullNameAttribute()
     {
