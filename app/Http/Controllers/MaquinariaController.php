@@ -12,6 +12,7 @@ class MaquinariaController extends Controller
 {
     public $validacion = [
         "equipo_id" => "required",
+        "codificacion" => "required",
         "descripcion" => "required",
         "prioridad" => "required",
         "ubicacion" => "required",

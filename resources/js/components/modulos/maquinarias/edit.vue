@@ -49,6 +49,7 @@ export default {
             oMaquinaria: {
                 id: 0,
                 equipo_id: "",
+                codificacion: "",
                 descripcion: "",
                 prioridad: "",
                 ubicacion: "",

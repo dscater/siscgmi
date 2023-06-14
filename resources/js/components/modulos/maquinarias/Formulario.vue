@@ -43,6 +43,28 @@
                     <div class="form-group col-md-6">
                         <label
                             :class="{
+                                'text-danger': errors.codificacion,
+                            }"
+                            >Códificación*</label
+                        >
+                        <el-input
+                            placeholder="Códificación"
+                            :class="{
+                                'is-invalid': errors.codificacion,
+                            }"
+                            v-model="oMaquinaria.codificacion"
+                            clearable
+                        >
+                        </el-input>
+                        <span
+                            class="error invalid-feedback"
+                            v-if="errors.codificacion"
+                            v-text="errors.codificacion[0]"
+                        ></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label
+                            :class="{
                                 'text-danger': errors.descripcion,
                             }"
                             >Descripción*</label
@@ -832,6 +854,7 @@ export default {
             default: {
                 id: 0,
                 equipo_id: "",
+                codificacion: "",
                 descripcion: "",
                 prioridad: "",
                 ubicacion: "",
@@ -933,8 +956,14 @@ export default {
                     },
                 };
                 let formdata = new FormData();
-                if (this.oMaquinaria.equipo_id != "") {
+                if (this.oMaquinaria.equipo_id) {
                     formdata.append("equipo_id", this.oMaquinaria.equipo_id);
+                }
+                if (this.oMaquinaria.codificacion.trim() != "") {
+                    formdata.append(
+                        "codificacion",
+                        this.oMaquinaria.codificacion
+                    );
                 }
                 if (this.oMaquinaria.descripcion.trim() != "") {
                     formdata.append(
@@ -975,7 +1004,7 @@ export default {
                         this.oMaquinaria.fecha_instalacion
                     );
                 }
-                if (this.oMaquinaria.garantia_meses.trim() != "") {
+                if (this.oMaquinaria.garantia_meses) {
                     formdata.append(
                         "garantia_meses",
                         this.oMaquinaria.garantia_meses
@@ -1100,6 +1129,26 @@ export default {
                         if (error.response) {
                             if (error.response.status === 422) {
                                 this.errors = error.response.data.errors;
+                                let mensaje = `<ul class="text-center">`;
+                                for (let key in this.errors) {
+                                    if (this.errors.hasOwnProperty(key)) {
+                                        const value = this.errors[key];
+                                        if (Array.isArray(value)) {
+                                            value.forEach((error) => {
+                                                mensaje += `<li><span>${error.trim()}</span></li>`;
+                                            });
+                                        }
+                                    }
+                                }
+                                mensaje += `<ul/>`;
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Completa el formulario",
+                                    html: mensaje,
+                                    showConfirmButton: true,
+                                    confirmButtonColor: "#149FDA",
+                                    confirmButtonText: "Aceptar",
+                                });
                             }
                             if (
                                 error.response.status === 420 ||
@@ -1127,6 +1176,7 @@ export default {
         limpiaMaquinaria() {
             this.errors = [];
             this.oMaquinaria.equipo_id = "";
+            this.oMaquinaria.codificacion = "";
             this.oMaquinaria.descripcion = "";
             this.oMaquinaria.prioridad = "";
             this.oMaquinaria.ubicacion = "";

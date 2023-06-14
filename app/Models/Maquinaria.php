@@ -10,7 +10,8 @@ class Maquinaria extends Model
     use HasFactory;
 
     protected $fillable = [
-        "equipo_id", "descripcion", "prioridad",
+        "equipo_id", "codificacion", "descripcion", "prioridad",
+        "descripcion", "prioridad",
         "ubicacion", "tipo", "marca",
         "modelo", "serie", "costo",
         "fecha_compra", "fecha_instalacion", "garantia_meses",

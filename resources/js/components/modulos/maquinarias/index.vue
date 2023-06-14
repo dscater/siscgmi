@@ -501,6 +501,7 @@ export default {
             showOverlay: false,
             fields: [
                 { key: "detalle_equipo", label: "Equipo", sortable: true },
+                { key: "codificacion", label: "Codificación", sortable: true },
                 { key: "descripcion", label: "Descripción", sortable: true },
                 { key: "prioridad", label: "Prioridad", sortable: true },
                 { key: "ubicacion", label: "Ubicación", sortable: true },
@@ -516,41 +517,6 @@ export default {
             }),
             muestra_modal: false,
             modal_accion: "nuevo",
-            oMaquinaria: {
-                id: 0,
-                equipo_id: "",
-                descripcion: "",
-                prioridad: "",
-                ubicacion: "",
-                tipo: "",
-                marca: "",
-                modelo: "",
-                serie: "",
-                costo: "",
-                fecha_compra: "",
-                fecha_instalacion: "",
-                garantia_meses: "",
-                peso: "",
-                altura: "",
-                ancho: "",
-                largo: "",
-                voltios: "",
-                capacidad: "",
-                e_tecnicas: "",
-                fecha_ultimo_mantenimiento: "",
-                fecha_utlimo_termino: "",
-                estado: "",
-                fabricantes: "",
-                proveedor: "",
-                terciarios: "",
-                nombre_contacto: "",
-                num_fono: "",
-                correo: "",
-                dir: "",
-                num_identificacion: "",
-                foto: "",
-                archivo: "",
-            },
             currentPage: 1,
             perPage: 5,
             pageOptions: [
@@ -651,51 +617,10 @@ export default {
                 }
             });
         },
-        abreModal(tipo_accion = "nuevo", maquinaria = null) {
-            this.muestra_modal = true;
-            this.modal_accion = tipo_accion;
-            if (maquinaria) {
-                this.oMaquinaria = maquinaria;
-            }
-        },
         onFiltered(filteredItems) {
             // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
-        },
-        limpiaMaquinaria() {
-            this.oMaquinaria.equipo_id = "";
-            this.oMaquinaria.descripcion = "";
-            this.oMaquinaria.prioridad = "";
-            this.oMaquinaria.ubicacion = "";
-            this.oMaquinaria.tipo = "";
-            this.oMaquinaria.marca = "";
-            this.oMaquinaria.modelo = "";
-            this.oMaquinaria.serie = "";
-            this.oMaquinaria.costo = "";
-            this.oMaquinaria.fecha_compra = "";
-            this.oMaquinaria.fecha_instalacion = "";
-            this.oMaquinaria.garantia_meses = "";
-            this.oMaquinaria.peso = "";
-            this.oMaquinaria.altura = "";
-            this.oMaquinaria.ancho = "";
-            this.oMaquinaria.largo = "";
-            this.oMaquinaria.voltios = "";
-            this.oMaquinaria.capacidad = "";
-            this.oMaquinaria.e_tecnicas = "";
-            this.oMaquinaria.fecha_ultimo_mantenimiento = "";
-            this.oMaquinaria.fecha_utlimo_termino = "";
-            this.oMaquinaria.estado = "";
-            this.oMaquinaria.fabricantes = "";
-            this.oMaquinaria.proveedor = "";
-            this.oMaquinaria.terciarios = "";
-            this.oMaquinaria.nombre_contacto = "";
-            this.oMaquinaria.num_fono = "";
-            this.oMaquinaria.correo = "";
-            this.oMaquinaria.dir = "";
-            this.oMaquinaria.num_identificacion = "";
-            this.oMaquinaria.foto = "";
-            this.oMaquinaria.archivo = "";
         },
         formatoFecha(date) {
             if (date) {
