@@ -532,7 +532,7 @@
                             <p>Lista de Usuarios</p>
                         </router-link>
                     </li>
-                    <li
+                    <!-- <li
                         class="nav-item"
                         v-if="permisos.includes('reportes.kardex_herramientas')"
                     >
@@ -561,7 +561,7 @@
                             <i class="fas fa-file-pdf nav-icon"></i>
                             <p>Información de herramientas</p>
                         </router-link>
-                    </li>
+                    </li> -->
                     <li class="nav-header bg-navy">OTRAS OPCIONES</li>
                     <li
                         class="nav-item"

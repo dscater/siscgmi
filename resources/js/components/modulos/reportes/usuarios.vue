@@ -187,7 +187,15 @@ export default {
                 "Tipo de usuario",
                 // "Rango de fechas",
             ],
-            listTipos: ["ADMINISTRADOR", "GERENCIA", "SUPERVISOR", "VENDEDOR"],
+            listTipos: [
+                "ADMINISTRADOR",
+                "GERENTE",
+                "GERENTE DE PRODUCCIÓN",
+                "JEFE DE MANTENIMIENTO",
+                "SUPERVISOR DE COMPRAS",
+                "AUXILIAR DE MANTENIMIENTO",
+                "AUXILIAR DE ALMACÉN",
+            ],
             errors: [],
         };
     },
