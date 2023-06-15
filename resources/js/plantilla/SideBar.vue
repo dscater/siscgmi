@@ -1,6 +1,6 @@
 <template>
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-dark-info">
         <!-- Brand Logo -->
         <router-link
             exact
@@ -20,7 +20,7 @@
         </router-link>
 
         <!-- Sidebar -->
-        <div class="sidebar">
+        <div class="sidebar p-0">
             <!-- Sidebar user (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
@@ -44,7 +44,7 @@
             </div>
 
             <!-- SidebarSearch Form -->
-            <div class="form-inline">
+            <div class="form-inline pl-1 pr-1">
                 <div class="input-group" data-widget="sidebar-search">
                     <input
                         class="form-control form-control-sidebar bg-white"
@@ -61,7 +61,7 @@
             </div>
 
             <!-- Sidebar Menu -->
-            <nav class="mt-2">
+            <nav class="mt-2 pr-1 pl-1">
                 <ul
                     class="nav nav-pills nav-sidebar flex-column text-xs nav-flat"
                     data-widget="treeview"
