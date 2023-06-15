@@ -187,6 +187,7 @@ export default new Router({
             component: require("./components/modulos/familias/index.vue")
                 .default,
         },
+
         // sub_familias
         {
             path: "/sub_familias",
@@ -240,6 +241,14 @@ export default new Router({
                 require("./components/modulos/plan_mantenimientos/edit.vue")
                     .default,
             props: true,
+        },
+
+        // orden_trabajos
+        {
+            path: "/orden_trabajos",
+            name: "orden_trabajos.index",
+            component: require("./components/modulos/orden_trabajos/index.vue")
+                .default,
         },
 
         // Reportes

@@ -16,6 +16,7 @@ use App\Http\Controllers\HistorialAccionController;
 use App\Http\Controllers\IngresoProductoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaquinariaController;
+use App\Http\Controllers\OrdenTrabajoController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\PlanMantenimientoController;
 use App\Http\Controllers\VentaController;
@@ -137,6 +138,11 @@ Route::middleware(['auth'])->group(function () {
         // plan_mantenimiento
         Route::get("plan_mantenimientos/getPlanProgramacion", [PlanMantenimientoController::class, 'getPlanProgramacion']);
         Route::resource('plan_mantenimientos', PlanMantenimientoController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
+
+        // plan_mantenimiento
+        Route::resource('orden_trabajos', OrdenTrabajoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 

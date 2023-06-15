@@ -148,6 +148,11 @@ class UserController extends Controller
             'plan_mantenimientos.edit',
             'plan_mantenimientos.destroy',
 
+            'orden_trabajos.index',
+            'orden_trabajos.create',
+            'orden_trabajos.edit',
+            'orden_trabajos.destroy',
+
             'reportes.usuarios',
             'reportes.kardex_herramientas',
             'reportes.informacion_herramientas',

@@ -8,6 +8,10 @@ export default {
             }
             return "";
         },
+        getFeachaActual() {
+            console.log(this.$moment().format("YYYY-MM-DD"));
+            return this.$moment().format("YYYY-MM-DD");
+        },
         getUsuariosTipo(tipo) {
             return new Promise((resolve, reject) => {
                 axios

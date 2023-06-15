@@ -119,11 +119,24 @@ input.form-control {
     border-left-color: var(--secundario);
 }
 
-.main-header {
+.main-header,
+.layout-navbar-fixed
+    .wrapper
+    .sidebar-dark-primary
+    .brand-link:not([class*="navbar"]) {
     border-bottom-color: var(--secundario) !important;
-    border-width: 3px;
+    border-width: 2.5px;
 }
 
 :disabled {
-    background: var(--secundario)!important;
+    background: var(--secundario) !important;
+}
+
+.content-wrapper {
+    /* background-color: var(--secundario); */
+}
+
+.content-header h1 {
+    /* text-shadow: 0 0 3px var(--secundario), 0 0 5px white!important; */
+    font-weight: bold;
 }

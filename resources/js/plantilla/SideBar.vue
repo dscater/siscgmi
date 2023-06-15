@@ -83,6 +83,7 @@
                         class="nav-header bg-navy"
                         v-if="
                             permisos.includes('plan_mantenimientos.index') ||
+                            permisos.includes('orden_trabajos.index') ||
                             permisos.includes('gama_mantenimientos.index') ||
                             permisos.includes('users.index') ||
                             permisos.includes('areas.index') ||
@@ -464,6 +465,20 @@
                                 </router-link>
                             </li>
                         </ul>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('orden_trabajos.index')"
+                    >
+                        <router-link
+                            exact
+                            :to="{ name: 'orden_trabajos.index' }"
+                            class="nav-link"
+                            v-loading.fullscreen.lock="fullscreenLoading"
+                        >
+                            <i class="nav-icon fas fa-file-archive"></i>
+                            <p>Ordenes de trabajo</p>
+                        </router-link>
                     </li>
                     <li
                         class="nav-item"

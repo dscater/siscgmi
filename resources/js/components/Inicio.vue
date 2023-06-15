@@ -12,7 +12,7 @@
                                         text-align: center;
                                     "
                                 >
-                                    SISTEMA {{ configuracion.nombre_sistema }}
+                                    {{ configuracion.nombre_sistema }}
                                 </h2>
                                 <h3 style="text-align: center">
                                     ¡BIENVENID@ {{ user.full_name }}!

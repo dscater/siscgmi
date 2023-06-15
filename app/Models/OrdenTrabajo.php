@@ -19,4 +19,14 @@ class OrdenTrabajo extends Model
         "tipo_mantenimiento",
         "estado",
     ];
+
+    public function subunidad()
+    {
+        return $this->belongsTo(Subunidad::class, 'subunidad_id');
+    }
+
+    public function gama()
+    {
+        return $this->belongsTo(GamaMantenimiento::class, 'gama_id');
+    }
 }
