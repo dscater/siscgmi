@@ -26,9 +26,19 @@
 
         table thead tr th,
         tbody tr td {
+            padding: 3px;
             font-size: 10pt;
             word-wrap: break-word;
         }
+
+        table thead tr th {
+            font-size: 9pt;
+        }
+
+        table tbody tr td {
+            font-size: 8pt;
+        }
+
 
         .encabezado {
             width: 100%;
@@ -83,23 +93,8 @@
             background: rgb(236, 236, 236)
         }
 
-        table thead tr th {
-            padding: 3px;
-            font-size: 10pt;
-        }
-
-        table tbody tr td {
-            padding: 3px;
-            font-size: 8.5pt;
-        }
-
         tr {
             page-break-inside: avoid !important;
-        }
-
-        table tbody tr td.franco {
-            background: red;
-            color: white;
         }
 
         .centreado {
