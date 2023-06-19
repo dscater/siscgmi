@@ -147,3 +147,28 @@ input.form-control {
     /* text-shadow: 0 0 3px var(--secundario), 0 0 5px white!important; */
     font-weight: bold;
 }
+
+:disabled,
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: white;
+    cursor: not-allowed;
+}
+
+.notificacion{
+    display: flex;
+    align-items: center;
+}
+
+.notificacion.active{
+    background-color: white;
+    color: black;
+}
+
+.desc_notificacion{
+    max-width: 120px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+}

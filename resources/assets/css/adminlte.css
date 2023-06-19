@@ -2929,14 +2929,14 @@ fieldset:disabled a.btn {
 .btn-primary:hover {
   color: #fff;
   background-color: #0069d9;
-  border-color: #0062cc;
+  border-color: #083b7a;
 }
 
 .btn-primary:focus,
 .btn-primary.focus {
   color: #fff;
   background-color: #0069d9;
-  border-color: #0062cc;
+  border-color: #083b7a;
   box-shadow: 0 0 0 0 rgba(38, 143, 255, 0.5);
 }
 
@@ -2951,7 +2951,7 @@ fieldset:disabled a.btn {
 .btn-primary:not(:disabled):not(.disabled).active,
 .show>.btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #0062cc;
+  background-color: #083b7a;
   border-color: #005cbf;
 }
 
@@ -3055,14 +3055,14 @@ fieldset:disabled a.btn {
 .btn-info:hover {
   color: #fff;
   background-color: #138496;
-  border-color: #117a8b;
+  border-color: #50a3cc;
 }
 
 .btn-info:focus,
 .btn-info.focus {
   color: #fff;
   background-color: #138496;
-  border-color: #117a8b;
+  border-color: #50a3cc;
   box-shadow: 0 0 0 0 rgba(58, 176, 195, 0.5);
 }
 
@@ -3077,7 +3077,7 @@ fieldset:disabled a.btn {
 .btn-info:not(:disabled):not(.disabled).active,
 .show>.btn-info.dropdown-toggle {
   color: #fff;
-  background-color: #117a8b;
+  background-color: #50a3cc;
   border-color: #10707f;
 }
 
@@ -5752,7 +5752,7 @@ a.badge:focus {
 a.badge-primary:hover,
 a.badge-primary:focus {
   color: #fff;
-  background-color: #0062cc;
+  background-color: #083b7a;
 }
 
 a.badge-primary:focus,
@@ -5803,7 +5803,7 @@ a.badge-success.focus {
 a.badge-info:hover,
 a.badge-info:focus {
   color: #fff;
-  background-color: #117a8b;
+  background-color: #50a3cc;
 }
 
 a.badge-info:focus,
@@ -7451,7 +7451,7 @@ a.bg-primary:hover,
 a.bg-primary:focus,
 button.bg-primary:hover,
 button.bg-primary:focus {
-  background-color: #0062cc !important;
+  background-color: #083b7a !important;
 }
 
 .bg-secondary {
@@ -7484,7 +7484,7 @@ a.bg-info:hover,
 a.bg-info:focus,
 button.bg-info:hover,
 button.bg-info:focus {
-  background-color: #117a8b !important;
+  background-color: #50a3cc !important;
 }
 
 .bg-warning {
@@ -34596,7 +34596,7 @@ html.maximized-card {
 }
 
 .callout.callout-info {
-  border-left-color: #117a8b;
+  border-left-color: #50a3cc;
 }
 
 .callout.callout-success {
@@ -47917,7 +47917,7 @@ blockquote.quote-gray-dark h6 {
 }
 
 .bg-primary.btn:hover {
-  border-color: #0062cc;
+  border-color: #083b7a;
   color: #ececec;
 }
 
@@ -47925,7 +47925,7 @@ blockquote.quote-gray-dark h6 {
 .bg-primary.btn:not(:disabled):not(.disabled).active,
 .bg-primary.btn:active,
 .bg-primary.btn.active {
-  background-color: #0062cc !important;
+  background-color: #083b7a !important;
   border-color: #005cbf;
   color: #fff;
 }
@@ -47986,7 +47986,7 @@ blockquote.quote-gray-dark h6 {
 }
 
 .bg-info.btn:hover {
-  border-color: #117a8b;
+  border-color: #50a3cc;
   color: #ececec;
 }
 
@@ -47994,7 +47994,7 @@ blockquote.quote-gray-dark h6 {
 .bg-info.btn:not(:disabled):not(.disabled).active,
 .bg-info.btn:active,
 .bg-info.btn.active {
-  background-color: #117a8b !important;
+  background-color: #50a3cc !important;
   border-color: #10707f;
   color: #fff;
 }
@@ -48239,7 +48239,7 @@ blockquote.quote-gray-dark h6 {
 }
 
 .bg-blue.btn:hover {
-  border-color: #0062cc;
+  border-color: #083b7a;
   color: #ececec;
 }
 
@@ -48247,7 +48247,7 @@ blockquote.quote-gray-dark h6 {
 .bg-blue.btn:not(:disabled):not(.disabled).active,
 .bg-blue.btn:active,
 .bg-blue.btn.active {
-  background-color: #0062cc !important;
+  background-color: #083b7a !important;
   border-color: #005cbf;
   color: #fff;
 }
@@ -48446,7 +48446,7 @@ blockquote.quote-gray-dark h6 {
 }
 
 .bg-cyan.btn:hover {
-  border-color: #117a8b;
+  border-color: #50a3cc;
   color: #ececec;
 }
 
@@ -48454,7 +48454,7 @@ blockquote.quote-gray-dark h6 {
 .bg-cyan.btn:not(:disabled):not(.disabled).active,
 .bg-cyan.btn:active,
 .bg-cyan.btn.active {
-  background-color: #117a8b !important;
+  background-color: #50a3cc !important;
   border-color: #10707f;
   color: #fff;
 }
@@ -48544,7 +48544,7 @@ blockquote.quote-gray-dark h6 {
 
   .table td.bg-primary.btn:hover,
   .table th.bg-primary.btn:hover {
-    border-color: #0062cc;
+    border-color: #083b7a;
     color: #ececec;
   }
 
@@ -48556,7 +48556,7 @@ blockquote.quote-gray-dark h6 {
   .table th.bg-primary.btn:not(:disabled):not(.disabled).active,
   .table th.bg-primary.btn:active,
   .table th.bg-primary.btn.active {
-    background-color: #0062cc !important;
+    background-color: #083b7a !important;
     border-color: #005cbf;
     color: #fff;
   }
@@ -48637,7 +48637,7 @@ blockquote.quote-gray-dark h6 {
 
   .table td.bg-info.btn:hover,
   .table th.bg-info.btn:hover {
-    border-color: #117a8b;
+    border-color: #50a3cc;
     color: #ececec;
   }
 
@@ -48649,7 +48649,7 @@ blockquote.quote-gray-dark h6 {
   .table th.bg-info.btn:not(:disabled):not(.disabled).active,
   .table th.bg-info.btn:active,
   .table th.bg-info.btn.active {
-    background-color: #117a8b !important;
+    background-color: #50a3cc !important;
     border-color: #10707f;
     color: #fff;
   }
@@ -48978,7 +48978,7 @@ blockquote.quote-gray-dark h6 {
 
   .table td.bg-blue.btn:hover,
   .table th.bg-blue.btn:hover {
-    border-color: #0062cc;
+    border-color: #083b7a;
     color: #ececec;
   }
 
@@ -48990,7 +48990,7 @@ blockquote.quote-gray-dark h6 {
   .table th.bg-blue.btn:not(:disabled):not(.disabled).active,
   .table th.bg-blue.btn:active,
   .table th.bg-blue.btn.active {
-    background-color: #0062cc !important;
+    background-color: #083b7a !important;
     border-color: #005cbf;
     color: #fff;
   }
@@ -49257,7 +49257,7 @@ blockquote.quote-gray-dark h6 {
 
   .table td.bg-cyan.btn:hover,
   .table th.bg-cyan.btn:hover {
-    border-color: #117a8b;
+    border-color: #50a3cc;
     color: #ececec;
   }
 
@@ -49269,7 +49269,7 @@ blockquote.quote-gray-dark h6 {
   .table th.bg-cyan.btn:not(:disabled):not(.disabled).active,
   .table th.bg-cyan.btn:active,
   .table th.bg-cyan.btn.active {
-    background-color: #117a8b !important;
+    background-color: #50a3cc !important;
     border-color: #10707f;
     color: #fff;
   }
@@ -49401,7 +49401,7 @@ blockquote.quote-gray-dark h6 {
 
 .bg-gradient-primary.btn:hover {
   background: #083B7A linear-gradient(180deg, #267fde, #0069d9) repeat-x !important;
-  border-color: #0062cc;
+  border-color: #083b7a;
   color: #ececec;
 }
 
@@ -49409,7 +49409,7 @@ blockquote.quote-gray-dark h6 {
 .bg-gradient-primary.btn:not(:disabled):not(.disabled).active,
 .bg-gradient-primary.btn:active,
 .bg-gradient-primary.btn.active {
-  background: #083B7A linear-gradient(180deg, #267ad4, #0062cc) repeat-x !important;
+  background: #083B7A linear-gradient(180deg, #267ad4, #083b7a) repeat-x !important;
   border-color: #005cbf;
   color: #fff;
 }
@@ -49500,7 +49500,7 @@ blockquote.quote-gray-dark h6 {
 
 .bg-gradient-info.btn:hover {
   background: #50A3CC linear-gradient(180deg, #3697a6, #138496) repeat-x !important;
-  border-color: #117a8b;
+  border-color: #50a3cc;
   color: #ececec;
 }
 
@@ -49508,7 +49508,7 @@ blockquote.quote-gray-dark h6 {
 .bg-gradient-info.btn:not(:disabled):not(.disabled).active,
 .bg-gradient-info.btn:active,
 .bg-gradient-info.btn.active {
-  background: #50A3CC linear-gradient(180deg, #358e9c, #117a8b) repeat-x !important;
+  background: #50A3CC linear-gradient(180deg, #358e9c, #50a3cc) repeat-x !important;
   border-color: #10707f;
   color: #fff;
 }
@@ -49863,7 +49863,7 @@ blockquote.quote-gray-dark h6 {
 
 .bg-gradient-blue.btn:hover {
   background: #083B7A linear-gradient(180deg, #267fde, #0069d9) repeat-x !important;
-  border-color: #0062cc;
+  border-color: #083b7a;
   color: #ececec;
 }
 
@@ -49871,7 +49871,7 @@ blockquote.quote-gray-dark h6 {
 .bg-gradient-blue.btn:not(:disabled):not(.disabled).active,
 .bg-gradient-blue.btn:active,
 .bg-gradient-blue.btn.active {
-  background: #083B7A linear-gradient(180deg, #267ad4, #0062cc) repeat-x !important;
+  background: #083B7A linear-gradient(180deg, #267ad4, #083b7a) repeat-x !important;
   border-color: #005cbf;
   color: #fff;
 }
@@ -50160,7 +50160,7 @@ blockquote.quote-gray-dark h6 {
 
 .bg-gradient-cyan.btn:hover {
   background: #50A3CC linear-gradient(180deg, #3697a6, #138496) repeat-x !important;
-  border-color: #117a8b;
+  border-color: #50a3cc;
   color: #ececec;
 }
 
@@ -50168,7 +50168,7 @@ blockquote.quote-gray-dark h6 {
 .bg-gradient-cyan.btn:not(:disabled):not(.disabled).active,
 .bg-gradient-cyan.btn:active,
 .bg-gradient-cyan.btn.active {
-  background: #50A3CC linear-gradient(180deg, #358e9c, #117a8b) repeat-x !important;
+  background: #50A3CC linear-gradient(180deg, #358e9c, #50a3cc) repeat-x !important;
   border-color: #10707f;
   color: #fff;
 }

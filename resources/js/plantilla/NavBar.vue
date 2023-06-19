@@ -14,7 +14,9 @@
                     ></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <router-link :to="{ name: 'inicio' }" class="nav-link text-white"
+                    <router-link
+                        :to="{ name: 'inicio' }"
+                        class="nav-link text-white"
                         >Inicio</router-link
                     >
                 </li>
@@ -33,6 +35,51 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
+                <li
+                    class="nav-item dropdown"
+                    v-if="permisos.includes('notificacions.index')"
+                >
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-bell text-white text-md"></i>
+                        <span
+                            class="badge badge-warning navbar-badge"
+                            v-if="sin_ver > 0"
+                            v-text="sin_ver"
+                        ></span>
+                    </a>
+                    <div
+                        class="dropdown-menu dropdown-menu-lg dropdown-menu-right"
+                    >
+                        <span class="dropdown-item dropdown-header"
+                            ><span v-text="total_notificaciones"></span>
+                            Notificaciones</span
+                        >
+                        <div class="dropdown-divider"></div>
+                        <template v-for="(item, index) in listNotificacions">
+                            <router-link
+                                class="dropdown-item notificacion"
+                                :to="{
+                                    name: 'notificacions.show',
+                                    params: {
+                                        id: item.id,
+                                    },
+                                }"
+                            >
+                                <i class="fas fa-file mr-2"></i>
+                                <span class="desc_notificacion">{{
+                                    item.notificacion.notificacion
+                                }}</span>
+                                <span class="float-right text-muted text-sm">{{
+                                    item.notificacion.hace
+                                }}</span>
+                            </router-link>
+                            <div class="dropdown-divider"></div>
+                        </template>
+                        <!-- <a href="#" class="dropdown-item dropdown-footer"
+                            >See All Notifications</a
+                        > -->
+                    </div>
+                </li>
                 <li class="nav-item">
                     <a
                         class="nav-link text-white"
@@ -65,15 +112,34 @@ export default {
     data() {
         return {
             fullscreenLoading: false,
+            user: JSON.parse(localStorage.getItem("user")),
             permisos: localStorage.getItem("permisos"),
+            total_notificaciones: 0,
+            sin_ver: 0,
+            listNotificacions: [],
         };
     },
     mounted() {
         if (!this.permisos) {
             this.$router.push({ name: "login" });
         }
+        this.getNotificacionsUser();
+        let self = this;
+        if(this.user.tipo == 'AUXILIAR DE MANTENIMIENTO'||this.user.tipo == 'JEFE DE MANTENIMIENTO')
+        this.notificacionInterval = setInterval(() => {
+            self.getNotificacionsUser();
+        }, 2000);
     },
     methods: {
+        getNotificacionsUser() {
+            axios
+                .get("/admin/notificacions/user/" + this.user.id)
+                .then((response) => {
+                    this.listNotificacions = response.data.notificacions;
+                    this.total_notificaciones = response.data.total;
+                    this.sin_ver = response.data.sin_ver;
+                });
+        },
         logout() {
             this.fullscreenLoading = true;
             axios.post("/logout").then((res) => {

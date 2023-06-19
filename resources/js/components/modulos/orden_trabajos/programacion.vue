@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Ordenes de trabajo</h1>
+                        <h1>Ordenes de trabajo - Programación</h1>
                     </div>
                 </div>
             </div>
@@ -14,13 +14,28 @@
                 <div class="row">
                     <div class="col-md-3">
                         <router-link
+                            :to="{
+                                name: 'orden_trabajos.index',
+                            }"
                             v-if="permisos.includes('orden_trabajos.index')"
-                            :to="{ name: 'orden_trabajos.programacion' }"
-                            class="btn btn-primary btn-flat btn-block"
+                            class="btn btn-info btn-flat btn-block"
                         >
-                            <i class="fa fa-list-alt"></i>
-                            Programación
+                            <i class="fa fa-arrow-left"></i>
+                            Volver a Ordenes de trabajo
                         </router-link>
+                    </div>
+                    <div class="col-md-3">
+                        <button
+                            v-if="permisos.includes('orden_trabajos.create')"
+                            class="btn btn-primary btn-flat btn-block"
+                            @click="
+                                abreModal('nuevo');
+                                limpiaOrdenTrabajo();
+                            "
+                        >
+                            <i class="fa fa-plus"></i>
+                            Nuevo
+                        </button>
                     </div>
                     <div class="col-md-3">
                         <router-link
@@ -30,7 +45,7 @@
                             }"
                             class="btn btn-primary btn-flat btn-block"
                         >
-                            <i class="fa fa-list"></i>
+                            <i class="fas fa-tasks"></i>
                             Generar OT
                         </router-link>
                     </div>
@@ -336,7 +351,7 @@ export default {
                             this.filter = "";
                             Swal.fire({
                                 icon: "success",
-                                title: res.data.msj,
+                                title: res.data.message,
                                 showConfirmButton: false,
                                 timer: 1500,
                             });

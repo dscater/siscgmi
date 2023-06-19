@@ -16,4 +16,9 @@ class DetalleRepuesto extends Model
         "costo",
         "total",
     ];
+
+    public function repuesto()
+    {
+        return $this->belongsTo(Repuesto::class, 'repuesto_id');
+    }
 }

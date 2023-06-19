@@ -37,7 +37,12 @@ class Herramienta extends Model
         "foto",
     ];
 
-    protected $appends = ["url_foto"];
+    protected $appends = ["url_foto", "full_name"];
+
+    public function getFullNameAttribute()
+    {
+        return $this->codigo . ' | ' . $this->nombre;
+    }
 
     public function getUrlFotoAttribute()
     {

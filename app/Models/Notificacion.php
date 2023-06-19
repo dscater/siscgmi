@@ -10,6 +10,24 @@ class Notificacion extends Model
     use HasFactory;
 
     protected $fillable = [
-        "notificacion"
+        "notificacion",
+        "registro_id",
+        "tipo"
     ];
+
+    protected $appends = ["hace"];
+    public function getHaceAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
+    public function orden_generada()
+    {
+        return $this->belongsTo(OrdenGenerada::class, 'registro_id');
+    }
+
+    public function pedido_repuesto()
+    {
+        return $this->belongsTo(PedidoRepuesto::class, 'registro_id');
+    }
 }

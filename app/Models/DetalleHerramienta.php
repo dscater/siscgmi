@@ -14,5 +14,11 @@ class DetalleHerramienta extends Model
         "herramienta_id",
         "cantidad_solicitada",
         "costo",
+        "total",
     ];
+
+    public function herramienta()
+    {
+        return $this->belongsTo(Herramienta::class, 'herramienta_id');
+    }
 }

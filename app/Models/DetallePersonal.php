@@ -14,4 +14,9 @@ class DetallePersonal extends Model
         "personal_id",
         "costo",
     ];
+
+    public function personal()
+    {
+        return $this->belongsTo(Personal::class, 'personal_id');
+    }
 }

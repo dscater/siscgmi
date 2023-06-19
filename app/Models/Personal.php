@@ -20,6 +20,13 @@ class Personal extends Model
         "domicilio",
     ];
 
+    protected $appends = ["full_name"];
+
+    public function getFullNameAttribute()
+    {
+        return $this->razon_social . ' | ' . $this->nro_doc . ' | ' . $this->especialidad;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

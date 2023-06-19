@@ -251,6 +251,30 @@ export default new Router({
                 .default,
         },
 
+        {
+            path: "/orden_trabajos/programacion",
+            name: "orden_trabajos.programacion",
+            component: require("./components/modulos/orden_trabajos/programacion.vue")
+                .default,
+        },
+
+        {
+            path: "/orden_trabajos/generar_ots",
+            name: "orden_trabajos.generar_ots",
+            component: require("./components/modulos/orden_trabajos/generar_ots.vue")
+                .default,
+        },
+
+        // notificacions
+        {
+            path: "/notificacions/:id",
+            name: "notificacions.show",
+            component:
+                require("./components/modulos/notificacions/show.vue")
+                    .default,
+            props: true,
+        },
+
         // Reportes
         {
             path: "/reportes/usuarios",

@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\AnalisisBiController;
 use App\Http\Controllers\AreaController;
-use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\DetalleHerramientaController;
+use App\Http\Controllers\DetallePersonalController;
+use App\Http\Controllers\DetalleRepuestoController;
 use App\Http\Controllers\EntradaHerramientaController;
 use App\Http\Controllers\EntradaRepuestoController;
 use App\Http\Controllers\EquipoController;
@@ -12,24 +12,18 @@ use App\Http\Controllers\FamiliaController;
 use App\Http\Controllers\FrecuenciaController;
 use App\Http\Controllers\GamaMantenimientoController;
 use App\Http\Controllers\HerramientaController;
-use App\Http\Controllers\HistorialAccionController;
-use App\Http\Controllers\IngresoProductoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaquinariaController;
+use App\Http\Controllers\NotificacionUserController;
+use App\Http\Controllers\OrdenGeneradaController;
 use App\Http\Controllers\OrdenTrabajoController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\PlanMantenimientoController;
-use App\Http\Controllers\VentaController;
-use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RepuestoController;
-use App\Http\Controllers\SalidaProductoController;
 use App\Http\Controllers\SistemaController;
 use App\Http\Controllers\SubFamiliaController;
 use App\Http\Controllers\SubunidadController;
-use App\Http\Controllers\TipoIngresoController;
-use App\Http\Controllers\TipoSalidaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VariableControlController;
 use Illuminate\Support\Facades\Route;
@@ -141,10 +135,29 @@ Route::middleware(['auth'])->group(function () {
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 
-        // plan_mantenimiento
+        // orden_trabajos
+        Route::get("orden_trabajos/get/orden_trabajos/programados_fecha", [OrdenTrabajoController::class, 'programados_fecha']);
         Route::resource('orden_trabajos', OrdenTrabajoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
+
+        // orden_generadas
+        Route::get("orden_generadas/getByOrdenTrabajo/{orden_trabajo}", [OrdenGeneradaController::class, "getByOrdenTrabajo"]);
+        Route::post("orden_generadas/actualizaDocumentacion/{orden_generada}", [OrdenGeneradaController::class, "actualizaDocumentacion"]);
+        Route::post("orden_generadas/actualizaComentarios/{orden_generada}", [OrdenGeneradaController::class, "actualizaComentarios"]);
+
+        // detalle_repuestos
+        Route::post("detalle_repuestos/store/{orden_generada}", [DetalleRepuestoController::class, "store"]);
+
+        //detalle_herramientas
+        Route::post("detalle_herramientas/store/{orden_generada}", [DetalleHerramientaController::class, "store"]);
+
+        //detalle_personals
+        Route::post("detalle_personals/store/{orden_generada}", [DetallePersonalController::class, "store"]);
+
+        //notificacions
+        Route::get("notificacions/user/{user}", [NotificacionUserController::class, 'notificacions']);
+        Route::get("notificacions/{notificacion_user}", [NotificacionUserController::class, 'show']);
 
         // REPORTES
         Route::post('reportes/usuarios', [ReporteController::class, 'usuarios']);

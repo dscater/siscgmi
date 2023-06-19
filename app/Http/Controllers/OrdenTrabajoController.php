@@ -135,4 +135,20 @@ class OrdenTrabajoController extends Controller
             ], 500);
         }
     }
+
+    public function programados_fecha(Request $request)
+    {
+        $fecha_ini = $request->fecha_ini;
+        $fecha_fin = $request->fecha_fin;
+
+        $orden_trabajos = OrdenTrabajo::with(["subunidad.equipo", "gama.equipo", "orden_generada.detalle_repuestos", "orden_generada.detalle_herramientas", "orden_generada.detalle_personals"])
+            ->where("estado", "PROGRAMADO")->get();
+        if ($fecha_ini && $fecha_ini != "" && $fecha_fin && $fecha_fin != "") {
+            $orden_trabajos = OrdenTrabajo::with(["subunidad.equipo", "gama.equipo", "orden_generada.detalle_repuestos", "orden_generada.detalle_herramientas", "orden_generada.detalle_personals"])
+                ->whereBetween("fecha_programada", [$fecha_ini, $fecha_fin])
+                ->orWhere("estado", "PROGRAMADO")->get();
+        }
+
+        return response()->JSON($orden_trabajos);
+    }
 }

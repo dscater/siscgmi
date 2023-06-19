@@ -153,15 +153,24 @@ class UserController extends Controller
             'orden_trabajos.edit',
             'orden_trabajos.destroy',
 
+            'orden_generadas.index',
+            'orden_generadas.create',
+            'orden_generadas.edit',
+            'orden_generadas.destroy',
+
             'reportes.usuarios',
             'reportes.kardex_herramientas',
             'reportes.informacion_herramientas',
         ],
         "GERENTE" => [],
         "GERENTE DE PRODUCCIÓN" => [],
-        "JEFE DE MANTENIMIENTO" => [],
+        "JEFE DE MANTENIMIENTO" => [
+            'notificacions.index',
+        ],
         "SUPERVISOR DE COMPRAS" => [],
-        "AUXILIAR DE MANTENIMIENTO" => [],
+        "AUXILIAR DE MANTENIMIENTO" => [
+            'notificacions.index',
+        ],
         "AUXILIAR DE ALMACÉN" => [],
         "SERVICIOS" => [],
         "TERCEROS" => [],

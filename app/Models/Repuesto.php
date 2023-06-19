@@ -37,7 +37,12 @@ class Repuesto extends Model
         "num_identificacion",
     ];
 
-    protected $appends = ["detalle_equipo"];
+    protected $appends = ["full_name", "detalle_equipo"];
+
+    public function getFullNameAttribute()
+    {
+        return $this->codigo . ' | ' . $this->nombre;
+    }
 
     public function getDetalleEquipoAttribute()
     {

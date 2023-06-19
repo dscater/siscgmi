@@ -29,4 +29,9 @@ class OrdenTrabajo extends Model
     {
         return $this->belongsTo(GamaMantenimiento::class, 'gama_id');
     }
+
+    public function orden_generada()
+    {
+        return $this->hasOne(OrdenGenerada::class, 'orden_id');
+    }
 }

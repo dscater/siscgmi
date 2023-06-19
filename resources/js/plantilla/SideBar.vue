@@ -471,7 +471,6 @@
                         v-if="permisos.includes('orden_trabajos.index')"
                     >
                         <router-link
-                            exact
                             :to="{ name: 'orden_trabajos.index' }"
                             class="nav-link"
                             v-loading.fullscreen.lock="fullscreenLoading"

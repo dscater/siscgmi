@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 15-06-2023 a las 15:33:31
+-- Tiempo de generación: 19-06-2023 a las 23:22:46
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -85,9 +85,18 @@ CREATE TABLE `detalle_herramientas` (
   `herramienta_id` bigint UNSIGNED NOT NULL,
   `cantidad_solicitada` double NOT NULL,
   `costo` decimal(24,2) NOT NULL,
+  `total` decimal(24,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_herramientas`
+--
+
+INSERT INTO `detalle_herramientas` (`id`, `orden_generada_id`, `herramienta_id`, `cantidad_solicitada`, `costo`, `total`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 20, 1000.00, 20000.00, '2023-06-19 21:16:26', '2023-06-19 21:16:26'),
+(2, 2, 3, 10, 3000.00, 30000.00, '2023-06-19 23:16:03', '2023-06-19 23:16:03');
 
 -- --------------------------------------------------------
 
@@ -119,6 +128,15 @@ CREATE TABLE `detalle_personals` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `detalle_personals`
+--
+
+INSERT INTO `detalle_personals` (`id`, `orden_generada_id`, `personal_id`, `costo`, `created_at`, `updated_at`) VALUES
+(3, 1, 1, 50.00, '2023-06-19 21:55:15', '2023-06-19 21:55:15'),
+(4, 1, 3, 40.00, '2023-06-19 21:55:15', '2023-06-19 21:55:15'),
+(5, 2, 4, 60.00, '2023-06-19 22:06:45', '2023-06-19 22:06:45');
+
 -- --------------------------------------------------------
 
 --
@@ -135,6 +153,15 @@ CREATE TABLE `detalle_repuestos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_repuestos`
+--
+
+INSERT INTO `detalle_repuestos` (`id`, `orden_generada_id`, `repuesto_id`, `cantidad_requerida`, `costo`, `total`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 5, 560.00, 2800.00, '2023-06-19 21:14:52', '2023-06-19 21:14:52'),
+(2, 1, 3, 3, 900.00, 2700.00, '2023-06-19 21:14:52', '2023-06-19 21:14:52'),
+(3, 2, 1, 5, 560.00, 2800.00, '2023-06-19 23:16:15', '2023-06-19 23:16:15');
 
 -- --------------------------------------------------------
 
@@ -180,6 +207,15 @@ CREATE TABLE `entrada_repuestos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `entrada_repuestos`
+--
+
+INSERT INTO `entrada_repuestos` (`id`, `factura`, `repuesto_id`, `cantidad`, `precio`, `total`, `fecha`, `created_at`, `updated_at`) VALUES
+(4, '1000010', 1, 100, 35.00, 3500.00, '2023-06-19', '2023-06-19 18:08:05', '2023-06-19 18:08:05'),
+(5, '20000022', 2, 100, 50.00, 5000.00, '2023-06-19', '2023-06-19 18:08:20', '2023-06-19 18:08:20'),
+(6, '30003303', 3, 100, 50.00, 5000.00, '2023-06-19', '2023-06-19 18:08:36', '2023-06-19 18:08:36');
 
 -- --------------------------------------------------------
 
@@ -492,7 +528,25 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (122, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA ORDEN DE TRABAJO', 'created_at: 2023-06-15 11:23:35<br/>dias: 5<br/>estado: PROGRAMADO<br/>fecha_programada: 2023-06-15<br/>gama_id: 2<br/>id: 1<br/>prioridad: URGENTE<br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREVENTIVO<br/>updated_at: 2023-06-15 11:23:35<br/>', 'created_at: 2023-06-15 11:23:35<br/>dias: 7<br/>estado: PROGRAMADO<br/>fecha_programada: 2023-06-15<br/>gama_id: 2<br/>id: 1<br/>prioridad: MODERADA<br/>subunidad_id: 2<br/>tiempo: 17<br/>tipo_mantenimiento: PREVENTIVO<br/>updated_at: 2023-06-15 11:25:40<br/>', 'ORDENES DE TRABAJO', '2023-06-15', '11:25:40', '2023-06-15 15:25:40', '2023-06-15 15:25:40'),
 (123, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA ORDEN DE TRABAJO', 'created_at: 2023-06-15 11:23:35<br/>dias: 7<br/>estado: PROGRAMADO<br/>fecha_programada: 2023-06-15<br/>gama_id: 2<br/>id: 1<br/>prioridad: MODERADA<br/>subunidad_id: 2<br/>tiempo: 17<br/>tipo_mantenimiento: PREVENTIVO<br/>updated_at: 2023-06-15 11:25:40<br/>', NULL, 'ORDENES DE TRABAJO', '2023-06-15', '11:26:40', '2023-06-15 15:26:40', '2023-06-15 15:26:40'),
 (124, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA ORDEN DE TRABAJO', 'created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: PROGRAMADO<br/>fecha_programada: 2023-06-15<br/>gama_id: 2<br/>id: 2<br/>prioridad: URGENTE<br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-15 11:26:58<br/>', NULL, 'ORDENES DE TRABAJO', '2023-06-15', '11:26:58', '2023-06-15 15:26:58', '2023-06-15 15:26:58'),
-(125, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'acceso: 1<br/>ci: 1111<br/>ci_exp: LP<br/>correo: <br/>created_at: 2023-06-01 11:39:49<br/>dir: <br/>especialidad: <br/>fecha_registro: 2023-06-01<br/>fono: <br/>foto: default.png<br/>id: 2<br/>materno: MAMANI<br/>nombre: JUAN<br/>password: $2y$10$t1vtRZ48507H2YKWgrU02Olg8W6bhN8yV8PduODfUJeMSIXEzqF/e<br/>paterno: PERES<br/>tipo: GERENTE<br/>updated_at: 2023-06-01 11:39:49<br/>usuario: JPERES<br/>', 'acceso: 1<br/>ci: 1111<br/>ci_exp: LP<br/>correo: <br/>created_at: 2023-06-01 11:39:49<br/>dir: <br/>especialidad: <br/>fecha_registro: 2023-06-01<br/>fono: <br/>foto: default.png<br/>id: 2<br/>materno: MAMANI<br/>nombre: JUAN<br/>password: $2y$10$t1vtRZ48507H2YKWgrU02Olg8W6bhN8yV8PduODfUJeMSIXEzqF/e<br/>paterno: PERES<br/>tipo: GERENTE<br/>updated_at: 2023-06-15 11:32:28<br/>usuario: JPERES<br/>', 'USUARIOS', '2023-06-15', '11:32:28', '2023-06-15 15:32:28', '2023-06-15 15:32:28');
+(125, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'acceso: 1<br/>ci: 1111<br/>ci_exp: LP<br/>correo: <br/>created_at: 2023-06-01 11:39:49<br/>dir: <br/>especialidad: <br/>fecha_registro: 2023-06-01<br/>fono: <br/>foto: default.png<br/>id: 2<br/>materno: MAMANI<br/>nombre: JUAN<br/>password: $2y$10$t1vtRZ48507H2YKWgrU02Olg8W6bhN8yV8PduODfUJeMSIXEzqF/e<br/>paterno: PERES<br/>tipo: GERENTE<br/>updated_at: 2023-06-01 11:39:49<br/>usuario: JPERES<br/>', 'acceso: 1<br/>ci: 1111<br/>ci_exp: LP<br/>correo: <br/>created_at: 2023-06-01 11:39:49<br/>dir: <br/>especialidad: <br/>fecha_registro: 2023-06-01<br/>fono: <br/>foto: default.png<br/>id: 2<br/>materno: MAMANI<br/>nombre: JUAN<br/>password: $2y$10$t1vtRZ48507H2YKWgrU02Olg8W6bhN8yV8PduODfUJeMSIXEzqF/e<br/>paterno: PERES<br/>tipo: GERENTE<br/>updated_at: 2023-06-15 11:32:28<br/>usuario: JPERES<br/>', 'USUARIOS', '2023-06-15', '11:32:28', '2023-06-15 15:32:28', '2023-06-15 15:32:28'),
+(126, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA ORDEN DE TRABAJO', 'created_at: 2023-06-19 11:58:35<br/>dias: 10<br/>estado: PROGRAMADO<br/>fecha_programada: 2023-06-19<br/>gama_id: 2<br/>id: 3<br/>prioridad: MODERADA<br/>subunidad_id: 2<br/>tiempo: 17<br/>tipo_mantenimiento: LUBRICACIÓN<br/>updated_at: 2023-06-19 11:58:35<br/>', NULL, 'ORDENES DE TRABAJO', '2023-06-19', '11:58:35', '2023-06-19 15:58:35', '2023-06-19 15:58:35'),
+(127, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA ENTRADA DE REPUESTOS/INSUMOS', 'id: 4<br/>factura: 1000010<br/>repuesto_id: 1<br/>cantidad: 100<br/>precio: 35<br/>total: 3500.00<br/>fecha: 2023-06-19<br/>created_at: 2023-06-19 14:08:05<br/>updated_at: 2023-06-19 14:08:05<br/>', NULL, 'ENTRADA DE REPUESTOS/INSUMOS', '2023-06-19', '14:08:05', '2023-06-19 18:08:05', '2023-06-19 18:08:05'),
+(128, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA ENTRADA DE REPUESTOS/INSUMOS', 'id: 5<br/>factura: 20000022<br/>repuesto_id: 2<br/>cantidad: 100<br/>precio: 50<br/>total: 5000.00<br/>fecha: 2023-06-19<br/>created_at: 2023-06-19 14:08:20<br/>updated_at: 2023-06-19 14:08:20<br/>', NULL, 'ENTRADA DE REPUESTOS/INSUMOS', '2023-06-19', '14:08:20', '2023-06-19 18:08:20', '2023-06-19 18:08:20'),
+(129, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA ENTRADA DE REPUESTOS/INSUMOS', 'id: 6<br/>factura: 30003303<br/>repuesto_id: 3<br/>cantidad: 100<br/>precio: 50<br/>total: 5000.00<br/>fecha: 2023-06-19<br/>created_at: 2023-06-19 14:08:36<br/>updated_at: 2023-06-19 14:08:36<br/>', NULL, 'ENTRADA DE REPUESTOS/INSUMOS', '2023-06-19', '14:08:36', '2023-06-19 18:08:36', '2023-06-19 18:08:36'),
+(130, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PERSONAL', 'id: 3<br/>tipo_mo: SERVICIOS<br/>user_id: <br/>razon_social: SERVICE LTDA.<br/>nro_doc: 90812<br/>especialidad: ESPECIALIDAD #2<br/>correo: SERV@GMAIL.COM<br/>telefono: 2222<br/>domicilio: <br/>created_at: 2023-06-19 16:45:41<br/>updated_at: 2023-06-19 16:45:41<br/>', NULL, 'PERSONAL', '2023-06-19', '16:45:42', '2023-06-19 20:45:42', '2023-06-19 20:45:42'),
+(131, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PERSONAL', 'id: 4<br/>tipo_mo: TERCEROS<br/>user_id: <br/>razon_social: TERCEROS S.A.<br/>nro_doc: 89329<br/>especialidad: ESPC. #3<br/>correo: TERC@GMAIL.COM<br/>telefono: 66666<br/>domicilio: LOS OLIVOS<br/>created_at: 2023-06-19 16:46:07<br/>updated_at: 2023-06-19 16:46:07<br/>', NULL, 'PERSONAL', '2023-06-19', '16:46:07', '2023-06-19 20:46:07', '2023-06-19 20:46:07'),
+(132, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'id: 5<br/>usuario: JMARTINEZ<br/>nombre: JAVIER<br/>paterno: MARTINEZ<br/>materno: CARVAJAL<br/>ci: 4444<br/>ci_exp: LP<br/>especialidad: ESPECIALIDAD #4<br/>dir: LOS OLIVOS<br/>correo: <br/>fono: <br/>tipo: JEFE DE MANTENIMIENTO<br/>foto: default.png<br/>password: $2y$10$7x/LueWPTLqj7O3rmGeui.CHkOn0QYuylolsX/PX1aO6UNbHVbxIe<br/>acceso: 1<br/>fecha_registro: 2023-06-19<br/>created_at: 2023-06-19 17:13:00<br/>updated_at: 2023-06-19 17:13:00<br/>', NULL, 'USUARIOS', '2023-06-19', '17:13:00', '2023-06-19 21:13:00', '2023-06-19 21:13:00'),
+(133, 1, 'REGISTRO', 'EL USUARIO admin REGISTRO UN REPUESTO EN UNA GENERACIÓN DE OT', 'id: 1<br/>orden_generada_id: 1<br/>repuesto_id: 1<br/>cantidad_requerida: 5<br/>costo: 560.00<br/>total: 2800<br/>created_at: 2023-06-19 17:14:52<br/>updated_at: 2023-06-19 17:14:52<br/>', NULL, 'GENERACIÓN DE OT - REPUESTOS', '2023-06-19', '17:14:52', '2023-06-19 21:14:52', '2023-06-19 21:14:52'),
+(134, 1, 'REGISTRO', 'EL USUARIO admin REGISTRO UN REPUESTO EN UNA GENERACIÓN DE OT', 'id: 2<br/>orden_generada_id: 1<br/>repuesto_id: 3<br/>cantidad_requerida: 3<br/>costo: 900.00<br/>total: 2700<br/>created_at: 2023-06-19 17:14:52<br/>updated_at: 2023-06-19 17:14:52<br/>', NULL, 'GENERACIÓN DE OT - REPUESTOS', '2023-06-19', '17:14:52', '2023-06-19 21:14:52', '2023-06-19 21:14:52'),
+(135, 1, 'REGISTRO', 'EL USUARIO admin REGISTRO UN PERSONAL EN UNA GENERACIÓN DE OT', 'id: 1<br/>orden_generada_id: 1<br/>personal_id: 1<br/>costo: 40<br/>created_at: 2023-06-19 17:15:22<br/>updated_at: 2023-06-19 17:15:22<br/>', NULL, 'GENERACIÓN DE OT - PERSONAL', '2023-06-19', '17:15:22', '2023-06-19 21:15:22', '2023-06-19 21:15:22'),
+(136, 1, 'REGISTRO', 'EL USUARIO admin REGISTRO UN PERSONAL EN UNA GENERACIÓN DE OT', 'id: 2<br/>orden_generada_id: 1<br/>personal_id: 3<br/>costo: 50<br/>created_at: 2023-06-19 17:15:22<br/>updated_at: 2023-06-19 17:15:22<br/>', NULL, 'GENERACIÓN DE OT - PERSONAL', '2023-06-19', '17:15:22', '2023-06-19 21:15:22', '2023-06-19 21:15:22'),
+(137, 1, 'REGISTRO', 'EL USUARIO admin REGISTRO UNA HERRAMIENTA EN UNA GENERACIÓN DE OT', 'id: 1<br/>orden_generada_id: 1<br/>herramienta_id: 1<br/>cantidad_solicitada: 20<br/>costo: 1000.00<br/>total: 20000<br/>created_at: 2023-06-19 17:16:26<br/>updated_at: 2023-06-19 17:16:26<br/>', NULL, 'GENERACIÓN DE OT - HERRAMIENTAS', '2023-06-19', '17:16:26', '2023-06-19 21:16:26', '2023-06-19 21:16:26'),
+(140, 1, 'REGISTRO', 'EL USUARIO admin REGISTRO UN PERSONAL EN UNA GENERACIÓN DE OT', 'id: 3<br/>orden_generada_id: 1<br/>personal_id: 1<br/>costo: 50<br/>created_at: 2023-06-19 17:55:15<br/>updated_at: 2023-06-19 17:55:15<br/>', NULL, 'GENERACIÓN DE OT - PERSONAL', '2023-06-19', '17:55:15', '2023-06-19 21:55:15', '2023-06-19 21:55:15'),
+(141, 1, 'REGISTRO', 'EL USUARIO admin REGISTRO UN PERSONAL EN UNA GENERACIÓN DE OT', 'id: 4<br/>orden_generada_id: 1<br/>personal_id: 3<br/>costo: 40<br/>created_at: 2023-06-19 17:55:15<br/>updated_at: 2023-06-19 17:55:15<br/>', NULL, 'GENERACIÓN DE OT - PERSONAL', '2023-06-19', '17:55:15', '2023-06-19 21:55:15', '2023-06-19 21:55:15'),
+(142, 1, 'REGISTRO', 'EL USUARIO admin REGISTRO UN PERSONAL EN UNA GENERACIÓN DE OT', 'id: 5<br/>orden_generada_id: 2<br/>personal_id: 4<br/>costo: 60<br/>created_at: 2023-06-19 18:06:45<br/>updated_at: 2023-06-19 18:06:45<br/>', NULL, 'GENERACIÓN DE OT - PERSONAL', '2023-06-19', '18:06:45', '2023-06-19 22:06:45', '2023-06-19 22:06:45'),
+(143, 1, 'REGISTRO', 'EL USUARIO admin REGISTRO UNA HERRAMIENTA EN UNA GENERACIÓN DE OT', 'id: 2<br/>orden_generada_id: 2<br/>herramienta_id: 3<br/>cantidad_solicitada: 10<br/>costo: 3000.00<br/>total: 30000<br/>created_at: 2023-06-19 19:16:03<br/>updated_at: 2023-06-19 19:16:03<br/>', NULL, 'GENERACIÓN DE OT - HERRAMIENTAS', '2023-06-19', '19:16:03', '2023-06-19 23:16:03', '2023-06-19 23:16:03'),
+(144, 1, 'REGISTRO', 'EL USUARIO admin REGISTRO UN REPUESTO EN UNA GENERACIÓN DE OT', 'id: 3<br/>orden_generada_id: 2<br/>repuesto_id: 1<br/>cantidad_requerida: 5<br/>costo: 560.00<br/>total: 2800<br/>created_at: 2023-06-19 19:16:15<br/>updated_at: 2023-06-19 19:16:15<br/>', NULL, 'GENERACIÓN DE OT - REPUESTOS', '2023-06-19', '19:16:15', '2023-06-19 23:16:15', '2023-06-19 23:16:15'),
+(145, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA ORDEN DE TRABAJO', 'id: 2<br/>fecha_programada: 2023-06-15<br/>subunidad_id: 1<br/>gama_id: 2<br/>prioridad: URGENTE<br/>tiempo: 17<br/>dias: 7<br/>tipo_mantenimiento: PREDICTIVO<br/>estado: PROGRAMADO<br/>created_at: 2023-06-15 11:26:58<br/>updated_at: 2023-06-15 11:26:58<br/>', 'id: 2<br/>fecha_programada: 2023-06-15<br/>subunidad_id: 1<br/>gama_id: 2<br/>prioridad: URGENTE<br/>tiempo: 17<br/>dias: 7<br/>tipo_mantenimiento: PREDICTIVO<br/>estado: PROGRAMADO<br/>created_at: 2023-06-15 11:26:58<br/>updated_at: 2023-06-15 11:26:58<br/>', 'ORDENES DE TRABAJO', '2023-06-19', '19:20:51', '2023-06-19 23:20:51', '2023-06-19 23:20:51');
 
 -- --------------------------------------------------------
 
@@ -519,6 +573,15 @@ CREATE TABLE `kardex_repuestos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `kardex_repuestos`
+--
+
+INSERT INTO `kardex_repuestos` (`id`, `tipo_registro`, `registro_id`, `repuesto_id`, `detalle`, `precio`, `tipo_is`, `cantidad_ingreso`, `cantidad_salida`, `cantidad_saldo`, `cu`, `monto_ingreso`, `monto_salida`, `monto_saldo`, `fecha`, `created_at`, `updated_at`) VALUES
+(2, 'ENTRADA', 4, 1, 'VALOR INICIAL', 35.00, 'INGRESO', 100, NULL, 100, 560.00, 3500.00, NULL, 3500.00, '2023-06-19', '2023-06-19 18:08:05', '2023-06-19 18:08:05'),
+(3, 'ENTRADA', 5, 2, 'VALOR INICIAL', 50.00, 'INGRESO', 100, NULL, 100, 300.00, 5000.00, NULL, 5000.00, '2023-06-19', '2023-06-19 18:08:20', '2023-06-19 18:08:20'),
+(4, 'ENTRADA', 6, 3, 'VALOR INICIAL', 50.00, 'INGRESO', 100, NULL, 100, 900.00, 5000.00, NULL, 5000.00, '2023-06-19', '2023-06-19 18:08:36', '2023-06-19 18:08:36');
 
 -- --------------------------------------------------------
 
@@ -634,9 +697,19 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `notificacions` (
   `id` bigint UNSIGNED NOT NULL,
   `notificacion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `registro_id` bigint UNSIGNED NOT NULL,
+  `tipo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `notificacions`
+--
+
+INSERT INTO `notificacions` (`id`, `notificacion`, `registro_id`, `tipo`, `created_at`, `updated_at`) VALUES
+(3, 'ASIGNACIÓN DE ORDEN DE TRABAJO', 1, 'GENERACIÓN DE OT', '2023-06-19 21:55:15', '2023-06-19 21:55:15'),
+(4, 'ASIGNACIÓN DE ORDEN DE TRABAJO', 2, 'GENERACIÓN DE OT', '2023-06-19 22:06:45', '2023-06-19 22:06:45');
 
 -- --------------------------------------------------------
 
@@ -653,6 +726,15 @@ CREATE TABLE `notificacion_users` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `notificacion_users`
+--
+
+INSERT INTO `notificacion_users` (`id`, `notificacion_id`, `user_id`, `visto`, `created_at`, `updated_at`) VALUES
+(1, 3, 4, 0, '2023-06-19 21:55:15', '2023-06-19 21:55:15'),
+(2, 3, 5, 1, '2023-06-19 21:55:15', '2023-06-19 21:59:47'),
+(3, 4, 5, 1, '2023-06-19 22:06:45', '2023-06-19 22:09:24');
+
 -- --------------------------------------------------------
 
 --
@@ -662,12 +744,20 @@ CREATE TABLE `notificacion_users` (
 CREATE TABLE `orden_generadas` (
   `id` bigint UNSIGNED NOT NULL,
   `orden_id` bigint UNSIGNED NOT NULL,
-  `archivo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `archivo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `descripcion_documentacion` text COLLATE utf8mb4_unicode_ci,
   `comentario` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `orden_generadas`
+--
+
+INSERT INTO `orden_generadas` (`id`, `orden_id`, `archivo`, `descripcion_documentacion`, `comentario`, `created_at`, `updated_at`) VALUES
+(1, 2, 'og_11687216595.pdf', 'DESC', 'COMENTARIO DE PRUEBA MODIFICADO', '2023-06-19 16:27:02', '2023-06-19 23:16:35'),
+(2, 3, 'og_21687216587.pdf', NULL, NULL, '2023-06-19 16:29:30', '2023-06-19 23:16:27');
 
 -- --------------------------------------------------------
 
@@ -694,7 +784,8 @@ CREATE TABLE `orden_trabajos` (
 --
 
 INSERT INTO `orden_trabajos` (`id`, `fecha_programada`, `subunidad_id`, `gama_id`, `prioridad`, `tiempo`, `dias`, `tipo_mantenimiento`, `estado`, `created_at`, `updated_at`) VALUES
-(2, '2023-06-15', 1, 2, 'URGENTE', 17, 7, 'PREDICTIVO', 'PROGRAMADO', '2023-06-15 15:26:58', '2023-06-15 15:26:58');
+(2, '2023-06-15', 1, 2, 'URGENTE', 17, 7, 'PREDICTIVO', 'PROGRAMADO', '2023-06-15 15:26:58', '2023-06-15 15:26:58'),
+(3, '2023-06-19', 2, 2, 'MODERADA', 17, 10, 'LUBRICACIÓN', 'PROGRAMADO', '2023-06-19 15:58:35', '2023-06-19 15:58:35');
 
 -- --------------------------------------------------------
 
@@ -734,7 +825,9 @@ CREATE TABLE `personals` (
 --
 
 INSERT INTO `personals` (`id`, `tipo_mo`, `user_id`, `razon_social`, `nro_doc`, `especialidad`, `correo`, `telefono`, `domicilio`, `created_at`, `updated_at`) VALUES
-(1, 'USUARIOS', 4, 'RAZON S.A. MODIFICADO', '3333', 'ESPECIALIDAD', 'AGUSTIN@GMAIL.COM', '77777; 66666', 'LOS OLIVOS', '2023-06-12 20:38:44', '2023-06-12 20:44:02');
+(1, 'USUARIOS', 4, 'RAZON S.A. MODIFICADO', '3333', 'ESPECIALIDAD', 'AGUSTIN@GMAIL.COM', '77777; 66666', 'LOS OLIVOS', '2023-06-12 20:38:44', '2023-06-12 20:44:02'),
+(3, 'SERVICIOS', NULL, 'SERVICE LTDA.', '90812', 'ESPECIALIDAD #2', 'SERV@GMAIL.COM', '2222', NULL, '2023-06-19 20:45:41', '2023-06-19 20:45:41'),
+(4, 'TERCEROS', NULL, 'TERCEROS S.A.', '89329', 'ESPC. #3', 'TERC@GMAIL.COM', '66666', 'LOS OLIVOS', '2023-06-19 20:46:07', '2023-06-19 20:46:07');
 
 -- --------------------------------------------------------
 
@@ -856,9 +949,9 @@ CREATE TABLE `repuestos` (
 --
 
 INSERT INTO `repuestos` (`id`, `codigo`, `codificacion`, `nombre`, `descripcion`, `marca`, `modelo`, `serie`, `equipo_id`, `precio`, `stock_min`, `stock_max`, `stock_actual`, `unidad_medida`, `dir`, `fono`, `correo`, `almacen`, `fabricante`, `proveedor`, `terciarios`, `nombre_contacto`, `num_fono`, `correo_fabricante`, `dir_fabricante`, `num_identificacion`, `created_at`, `updated_at`) VALUES
-(1, 'R001', 'RC001POPE', 'REPUESTO #1', 'DESC. REPUESTO #1 MODIFICADO', 'MARCA 1', 'MODELO 1', 'SERIE 1', 1, 560.00, 10, 200, 0, 'UNIDADES', 'LOS OLIVOS', '222222', 'PROVEEDOR@GMAIL.COM', 'ALMACEN 1', 'FABRICANTE 1', 'PROVEEDOR 1', 'TERCIARIO 1', 'JUAN PERES', '7777777', 'FABRICANTE@GMAIL.COM', 'LOS OLIVOS #2', '433434', '2023-06-07 17:01:13', '2023-06-14 15:42:41'),
-(2, 'I001', 'I00012EIO', 'INSUMO #1', 'DESC. INSUMO #1', NULL, NULL, NULL, 2, 300.00, 5, 100, 0, NULL, NULL, NULL, NULL, 'ALMACEN 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-07 17:05:13', '2023-06-14 15:44:44'),
-(3, 'I003', 'I004IRR', 'REPUESTO #2', 'DESC. REP. #2', NULL, NULL, NULL, 2, 900.00, 4, 20, 0, NULL, NULL, NULL, NULL, 'ALMACEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-14 15:45:31', '2023-06-14 15:45:31');
+(1, 'R001', 'RC001POPE', 'REPUESTO #1', 'DESC. REPUESTO #1 MODIFICADO', 'MARCA 1', 'MODELO 1', 'SERIE 1', 1, 560.00, 10, 200, 100, 'UNIDADES', 'LOS OLIVOS', '222222', 'PROVEEDOR@GMAIL.COM', 'ALMACEN 1', 'FABRICANTE 1', 'PROVEEDOR 1', 'TERCIARIO 1', 'JUAN PERES', '7777777', 'FABRICANTE@GMAIL.COM', 'LOS OLIVOS #2', '433434', '2023-06-07 17:01:13', '2023-06-19 18:08:05'),
+(2, 'I001', 'I00012EIO', 'INSUMO #1', 'DESC. INSUMO #1', NULL, NULL, NULL, 2, 300.00, 5, 100, 100, NULL, NULL, NULL, NULL, 'ALMACEN 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-07 17:05:13', '2023-06-19 18:08:20'),
+(3, 'I003', 'I004IRR', 'REPUESTO #2', 'DESC. REP. #2', NULL, NULL, NULL, 2, 900.00, 4, 20, 100, NULL, NULL, NULL, NULL, 'ALMACEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-14 15:45:31', '2023-06-19 18:08:36');
 
 -- --------------------------------------------------------
 
@@ -966,7 +1059,8 @@ INSERT INTO `users` (`id`, `usuario`, `nombre`, `paterno`, `materno`, `ci`, `ci_
 (1, 'admin', 'admin', 'admin', NULL, '', '', NULL, '', NULL, '', 'ADMINISTRADOR', NULL, '$2y$10$RrCZZySOwPej2gMFWsrjMe6dLzfaL5Q88h4J75I1FesEBRNPwq1x.', 1, '2023-01-11', NULL, NULL),
 (2, 'JPERES', 'JUAN', 'PERES', 'MAMANI', '1111', 'LP', '', '', '', '', 'GERENTE', 'default.png', '$2y$10$t1vtRZ48507H2YKWgrU02Olg8W6bhN8yV8PduODfUJeMSIXEzqF/e', 1, '2023-06-01', '2023-06-01 15:39:49', '2023-06-15 15:32:28'),
 (3, 'JGONZALES', 'JOSE ALBERTO', 'GONZALES', 'CONDORI', '2222', 'CB', 'ESPECIALIDAD', 'LOS OLIVOS', 'jose@gmail.com', '222222; 777777', 'GERENTE DE PRODUCCIÓN', '1685634062_JGONZALES.jpg', '$2y$10$KHi883Cz5Us3yixbNjs7cuxIWYst68Dkp6xZpJprokMjSYVvQpQUK', 1, '2023-06-01', '2023-06-01 15:41:02', '2023-06-01 15:42:49'),
-(4, 'ACONDORI', 'AGUSTIN', 'CONDORI', 'CONDORI', '3333', 'LP', 'ESPECIALIDAD', 'LOS OLIVOS', 'agustin@gmail.com', '77777; 66666', 'AUXILIAR DE MANTENIMIENTO', 'default.png', '$2y$10$1597Bo.Ua1Erz4IpnwIwqOWr9okA.2QX9HAH8l6tHAwnjbanPmEu6', 1, '2023-06-12', '2023-06-12 20:31:19', '2023-06-12 20:37:16');
+(4, 'ACONDORI', 'AGUSTIN', 'CONDORI', 'CONDORI', '3333', 'LP', 'ESPECIALIDAD', 'LOS OLIVOS', 'agustin@gmail.com', '77777; 66666', 'AUXILIAR DE MANTENIMIENTO', 'default.png', '$2y$10$1597Bo.Ua1Erz4IpnwIwqOWr9okA.2QX9HAH8l6tHAwnjbanPmEu6', 1, '2023-06-12', '2023-06-12 20:31:19', '2023-06-12 20:37:16'),
+(5, 'JMARTINEZ', 'JAVIER', 'MARTINEZ', 'CARVAJAL', '4444', 'LP', 'ESPECIALIDAD #4', 'LOS OLIVOS', '', '', 'JEFE DE MANTENIMIENTO', 'default.png', '$2y$10$7x/LueWPTLqj7O3rmGeui.CHkOn0QYuylolsX/PX1aO6UNbHVbxIe', 1, '2023-06-19', '2023-06-19 21:13:00', '2023-06-19 21:13:00');
 
 -- --------------------------------------------------------
 
@@ -1248,7 +1342,7 @@ ALTER TABLE `configuracions`
 -- AUTO_INCREMENT de la tabla `detalle_herramientas`
 --
 ALTER TABLE `detalle_herramientas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_pedidos`
@@ -1260,13 +1354,13 @@ ALTER TABLE `detalle_pedidos`
 -- AUTO_INCREMENT de la tabla `detalle_personals`
 --
 ALTER TABLE `detalle_personals`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_repuestos`
 --
 ALTER TABLE `detalle_repuestos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `entrada_herramientas`
@@ -1278,7 +1372,7 @@ ALTER TABLE `entrada_herramientas`
 -- AUTO_INCREMENT de la tabla `entrada_repuestos`
 --
 ALTER TABLE `entrada_repuestos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `equipos`
@@ -1320,13 +1414,13 @@ ALTER TABLE `herramientas`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
 
 --
 -- AUTO_INCREMENT de la tabla `kardex_repuestos`
 --
 ALTER TABLE `kardex_repuestos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `maquinarias`
@@ -1344,25 +1438,25 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `notificacions`
 --
 ALTER TABLE `notificacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacion_users`
 --
 ALTER TABLE `notificacion_users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `orden_generadas`
 --
 ALTER TABLE `orden_generadas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `orden_trabajos`
 --
 ALTER TABLE `orden_trabajos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido_repuestos`
@@ -1374,7 +1468,7 @@ ALTER TABLE `pedido_repuestos`
 -- AUTO_INCREMENT de la tabla `personals`
 --
 ALTER TABLE `personals`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
@@ -1422,7 +1516,7 @@ ALTER TABLE `sub_familias`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `variable_controls`

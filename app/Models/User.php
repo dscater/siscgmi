@@ -61,8 +61,8 @@ class User extends Authenticatable
         return asset('imgs/users/default.png');
     }
 
-    public function caja_usuario()
+    public function notificacions_user()
     {
-        return $this->hasOne(CajaUsuario::class, 'user_id');
+        return $this->hasMany(NotificacionUser::class, 'user_id');
     }
 }
