@@ -213,59 +213,124 @@
                     </li>
                     <li
                         class="nav-item"
-                        v-if="permisos.includes('areas.index')"
+                        v-if="
+                            permisos.includes('areas.index') ||
+                            permisos.includes('sistemas.index') ||
+                            permisos.includes('equipos.index') ||
+                            permisos.includes('subunidads.index')
+                        "
+                        :class="[
+                            $route.name == 'areas.index' ||
+                            $route.name == 'sistemas.index' ||
+                            $route.name == 'equipos.index' ||
+                            $route.name == 'subunidads.index'
+                                ? 'menu-is-opening menu-open'
+                                : '',
+                        ]"
                     >
-                        <router-link
-                            exact
-                            :to="{ name: 'areas.index' }"
-                            class="nav-link"
-                            v-loading.fullscreen.lock="fullscreenLoading"
-                        >
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-list"></i>
-                            <p>Áreas</p>
-                        </router-link>
-                    </li>
-                    <li
-                        class="nav-item"
-                        v-if="permisos.includes('sistemas.index')"
-                    >
-                        <router-link
-                            exact
-                            :to="{ name: 'sistemas.index' }"
-                            class="nav-link"
-                            v-loading.fullscreen.lock="fullscreenLoading"
+                            <p>
+                                Jerarquía de Mantenimiento
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul
+                            class="nav nav-treeview"
+                            :style.display="[
+                                $route.name == 'areas.index' ||
+                                $route.name == 'equipos.index' ||
+                                $route.name == 'sistemas.index' ||
+                                $route.name == 'subunidads.index'
+                                    ? 'block'
+                                    : '',
+                            ]"
                         >
-                            <i class="nav-icon fas fa-list"></i>
-                            <p>Sistemas</p>
-                        </router-link>
-                    </li>
-                    <li
-                        class="nav-item"
-                        v-if="permisos.includes('equipos.index')"
-                    >
-                        <router-link
-                            exact
-                            :to="{ name: 'equipos.index' }"
-                            class="nav-link"
-                            v-loading.fullscreen.lock="fullscreenLoading"
-                        >
-                            <i class="nav-icon fas fa-list"></i>
-                            <p>Equipos</p>
-                        </router-link>
-                    </li>
-                    <li
-                        class="nav-item"
-                        v-if="permisos.includes('subunidads.index')"
-                    >
-                        <router-link
-                            exact
-                            :to="{ name: 'subunidads.index' }"
-                            class="nav-link"
-                            v-loading.fullscreen.lock="fullscreenLoading"
-                        >
-                            <i class="nav-icon fas fa-tags"></i>
-                            <p>Subunidades</p>
-                        </router-link>
+                            <li
+                                class="nav-item"
+                                v-if="permisos.includes('areas.index')"
+                            >
+                                <router-link
+                                    exact
+                                    :to="{ name: 'areas.index' }"
+                                    class="nav-link"
+                                    :class="[
+                                        $route.name == 'areas.index'
+                                            ? 'active'
+                                            : '',
+                                    ]"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    <i class="nav-icon fas fa-angle-right"></i>
+                                    <p>Áreas</p>
+                                </router-link>
+                            </li>
+                            <li
+                                class="nav-item"
+                                v-if="permisos.includes('sistemas.index')"
+                            >
+                                <router-link
+                                    exact
+                                    :to="{ name: 'sistemas.index' }"
+                                    class="nav-link"
+                                    :class="[
+                                        $route.name == 'sistemas.index'
+                                            ? 'active'
+                                            : '',
+                                    ]"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    <i class="nav-icon fas fa-angle-right"></i>
+                                    <p>Sistemas</p>
+                                </router-link>
+                            </li>
+                            <li
+                                class="nav-item"
+                                v-if="permisos.includes('equipos.index')"
+                            >
+                                <router-link
+                                    exact
+                                    :to="{ name: 'equipos.index' }"
+                                    class="nav-link"
+                                    :class="[
+                                        $route.name == 'equipos.index'
+                                            ? 'active'
+                                            : '',
+                                    ]"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    <i class="nav-icon fas fa-angle-right"></i>
+                                    <p>Equipos</p>
+                                </router-link>
+                            </li>
+                            <li
+                                class="nav-item"
+                                v-if="permisos.includes('subunidads.index')"
+                            >
+                                <router-link
+                                    exact
+                                    :to="{ name: 'subunidads.index' }"
+                                    class="nav-link"
+                                    :class="[
+                                        $route.name == 'subunidads.index'
+                                            ? 'active'
+                                            : '',
+                                    ]"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    <i class="nav-icon fas fa-angle-right"></i>
+                                    <p>Subunidades</p>
+                                </router-link>
+                            </li>
+                        </ul>
                     </li>
                     <li
                         class="nav-item"
