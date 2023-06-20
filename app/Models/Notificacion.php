@@ -30,4 +30,9 @@ class Notificacion extends Model
     {
         return $this->belongsTo(PedidoRepuesto::class, 'registro_id');
     }
+
+    public function notificacion_users()
+    {
+        return $this->hasMany(NotificacionUser::class, 'notificacion_id');
+    }
 }

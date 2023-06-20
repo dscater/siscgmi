@@ -82,7 +82,52 @@
                                         oNotificacion.tipo ==
                                         'PEDIDO DE REPUESTO'
                                     "
-                                ></div>
+                                >
+                                    <div class="col-md-12">
+                                        <p>
+                                            <strong>Código Pedido:</strong>
+                                            {{
+                                                oNotificacion.pedido_repuesto.id
+                                            }}
+                                        </p>
+                                        <p>
+                                            <strong>Código OT:</strong>
+                                            {{ oNotificacion.pedido_repuesto.orden_trabajo.id }}
+                                        </p>
+                                        <h4 class="text-md">LISTA DE REPUESTOS SOLICITADOS</h4>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Repuesto</th>
+                                                    <th>Cantidad requerida</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr
+                                                    v-for="(
+                                                        item, index
+                                                    ) in oNotificacion
+                                                        .pedido_repuesto
+                                                        .detalle_pedidos"
+                                                >
+                                                    <td>{{ index + 1 }}</td>
+                                                    <td>
+                                                        {{
+                                                            item.repuesto
+                                                                .full_name
+                                                        }}
+                                                    </td>
+                                                    <td>
+                                                        {{
+                                                            item.cantidad_requerida
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

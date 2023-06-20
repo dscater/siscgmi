@@ -11,27 +11,39 @@
         </section>
         <section class="content">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-3">
+                <div class="row pl-1 pr-1">
+                    <div class="col-md-2 pl-0 pr-0">
                         <router-link
                             v-if="permisos.includes('orden_trabajos.index')"
                             :to="{ name: 'orden_trabajos.programacion' }"
-                            class="btn btn-primary btn-flat btn-block"
+                            class="btn btn-primary btn-flat btn-block border-white"
                         >
                             <i class="fa fa-list-alt"></i>
                             Programación
                         </router-link>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2 pl-0 pr-0">
                         <router-link
                             v-if="permisos.includes('orden_generadas.index')"
                             :to="{
                                 name: 'orden_trabajos.generar_ots',
                             }"
-                            class="btn btn-primary btn-flat btn-block"
+                            class="btn btn-primary btn-flat btn-block border-white"
                         >
                             <i class="fa fa-list"></i>
                             Generar OT
+                        </router-link>
+                    </div>
+                    <div class="col-md-2 pl-0 pr-0">
+                        <router-link
+                            v-if="permisos.includes('pedido_repuestos.index')"
+                            :to="{
+                                name: 'orden_trabajos.pedido_repuestos',
+                            }"
+                            class="btn btn-primary btn-flat btn-block border-white"
+                        >
+                            <i class="fas fa-tasks"></i>
+                            Pedido de Repuestos
                         </router-link>
                     </div>
                 </div>

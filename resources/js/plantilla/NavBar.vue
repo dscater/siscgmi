@@ -125,10 +125,14 @@ export default {
         }
         this.getNotificacionsUser();
         let self = this;
-        if(this.user.tipo == 'AUXILIAR DE MANTENIMIENTO'||this.user.tipo == 'JEFE DE MANTENIMIENTO')
-        this.notificacionInterval = setInterval(() => {
-            self.getNotificacionsUser();
-        }, 2000);
+        if (
+            this.user.tipo == "AUXILIAR DE MANTENIMIENTO" ||
+            this.user.tipo == "JEFE DE MANTENIMIENTO" ||
+            this.user.tipo == "SUPERVISOR DE COMPRAS"
+        )
+            this.notificacionInterval = setInterval(() => {
+                self.getNotificacionsUser();
+            }, 2000);
     },
     methods: {
         getNotificacionsUser() {

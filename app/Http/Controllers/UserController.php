@@ -158,6 +158,11 @@ class UserController extends Controller
             'orden_generadas.edit',
             'orden_generadas.destroy',
 
+            'pedido_repuestos.index',
+            'pedido_repuestos.create',
+            'pedido_repuestos.edit',
+            'pedido_repuestos.destroy',
+
             'reportes.usuarios',
             'reportes.kardex_herramientas',
             'reportes.informacion_herramientas',
@@ -167,7 +172,9 @@ class UserController extends Controller
         "JEFE DE MANTENIMIENTO" => [
             'notificacions.index',
         ],
-        "SUPERVISOR DE COMPRAS" => [],
+        "SUPERVISOR DE COMPRAS" => [
+            'notificacions.index',
+        ],
         "AUXILIAR DE MANTENIMIENTO" => [
             'notificacions.index',
         ],

@@ -28,7 +28,7 @@ class NotificacionUserController extends Controller
             $notificacion = $notificacion->load(["orden_generada.orden.gama.equipo", "orden_generada.orden.subunidad"]);
         }
         if ($notificacion->tipo == 'PEDIDO DE REPUESTO') {
-            $notificacion = $notificacion->load("pedido_repuesto");
+            $notificacion = $notificacion->load(["pedido_repuesto.detalle_pedidos.repuesto", "pedido_repuesto.orden_trabajo"]);
         }
 
         $notificacion_user->visto = 1;

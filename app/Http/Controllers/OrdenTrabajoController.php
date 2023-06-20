@@ -107,6 +107,16 @@ class OrdenTrabajoController extends Controller
         ], 200);
     }
 
+    public function getWithOrdenGenerada(OrdenTrabajo $orden_trabajo)
+    {
+        return response()->JSON([
+            'sw' => true,
+            'orden_trabajo' => $orden_trabajo->load([
+                "orden_generada.detalle_repuestos.repuesto", "orden_generada.detalle_herramientas.herramienta", "orden_generada.detalle_personals.personal",
+            ])
+        ], 200);
+    }
+
     public function destroy(OrdenTrabajo $orden_trabajo)
     {
         DB::beginTransaction();

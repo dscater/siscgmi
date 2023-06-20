@@ -17,6 +17,7 @@ use App\Http\Controllers\MaquinariaController;
 use App\Http\Controllers\NotificacionUserController;
 use App\Http\Controllers\OrdenGeneradaController;
 use App\Http\Controllers\OrdenTrabajoController;
+use App\Http\Controllers\PedidoRepuestoController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\PlanMantenimientoController;
 use App\Http\Controllers\ReporteController;
@@ -136,6 +137,7 @@ Route::middleware(['auth'])->group(function () {
         ]);
 
         // orden_trabajos
+        Route::get("orden_trabajos/getWithOrdenGenerada/{orden_trabajo}", [OrdenTrabajoController::class, 'getWithOrdenGenerada']);
         Route::get("orden_trabajos/get/orden_trabajos/programados_fecha", [OrdenTrabajoController::class, 'programados_fecha']);
         Route::resource('orden_trabajos', OrdenTrabajoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
@@ -145,6 +147,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get("orden_generadas/getByOrdenTrabajo/{orden_trabajo}", [OrdenGeneradaController::class, "getByOrdenTrabajo"]);
         Route::post("orden_generadas/actualizaDocumentacion/{orden_generada}", [OrdenGeneradaController::class, "actualizaDocumentacion"]);
         Route::post("orden_generadas/actualizaComentarios/{orden_generada}", [OrdenGeneradaController::class, "actualizaComentarios"]);
+
+        // pedido_repuestos
+        Route::resource('pedido_repuestos', PedidoRepuestoController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
 
         // detalle_repuestos
         Route::post("detalle_repuestos/store/{orden_generada}", [DetalleRepuestoController::class, "store"]);

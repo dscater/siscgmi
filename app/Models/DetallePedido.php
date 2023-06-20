@@ -13,4 +13,9 @@ class DetallePedido extends Model
         "repuesto_id",
         "cantidad_requerida",
     ];
+
+    public function repuesto()
+    {
+        return $this->belongsTo(Repuesto::class, 'repuesto_id');
+    }
 }

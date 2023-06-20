@@ -258,10 +258,19 @@ export default new Router({
                 .default,
         },
 
+        // orden_generadas
         {
             path: "/orden_trabajos/generar_ots",
             name: "orden_trabajos.generar_ots",
             component: require("./components/modulos/orden_trabajos/generar_ots.vue")
+                .default,
+        },
+
+        // pedido_repuestos
+        {
+            path: "/orden_trabajos/pedido_repuestos",
+            name: "orden_trabajos.pedido_repuestos",
+            component: require("./components/modulos/orden_trabajos/pedido_repuestos.vue")
                 .default,
         },
 

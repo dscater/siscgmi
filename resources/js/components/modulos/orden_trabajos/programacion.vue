@@ -11,48 +11,68 @@
         </section>
         <section class="content">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-3">
+                <div class="row pl-1 pr-1">
+                    <div class="col-md-2 pl-0 pr-0">
                         <router-link
                             :to="{
                                 name: 'orden_trabajos.index',
                             }"
                             v-if="permisos.includes('orden_trabajos.index')"
-                            class="btn btn-info btn-flat btn-block"
+                            class="btn btn-info btn-flat btn-block border-white"
                         >
                             <i class="fa fa-arrow-left"></i>
-                            Volver a Ordenes de trabajo
+                            Ordenes de trabajo
                         </router-link>
                     </div>
-                    <div class="col-md-3">
-                        <button
-                            v-if="permisos.includes('orden_trabajos.create')"
-                            class="btn btn-primary btn-flat btn-block"
-                            @click="
-                                abreModal('nuevo');
-                                limpiaOrdenTrabajo();
-                            "
-                        >
-                            <i class="fa fa-plus"></i>
-                            Nuevo
-                        </button>
-                    </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2 pl-0 pr-0">
                         <router-link
                             v-if="permisos.includes('orden_generadas.index')"
                             :to="{
                                 name: 'orden_trabajos.generar_ots',
                             }"
-                            class="btn btn-primary btn-flat btn-block"
+                            class="btn btn-primary btn-flat btn-block border-white"
                         >
                             <i class="fas fa-tasks"></i>
                             Generar OT
+                        </router-link>
+                    </div>
+                    <div class="col-md-2 pl-0 pr-0">
+                        <router-link
+                            v-if="permisos.includes('pedido_repuestos.index')"
+                            :to="{
+                                name: 'orden_trabajos.pedido_repuestos',
+                            }"
+                            class="btn btn-primary btn-flat btn-block border-white"
+                        >
+                            <i class="fas fa-tasks"></i>
+                            Pedido de Repuestos
                         </router-link>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <button
+                                            v-if="
+                                                permisos.includes(
+                                                    'orden_trabajos.create'
+                                                )
+                                            "
+                                            class="btn btn-primary btn-flat btn-block border-white"
+                                            @click="
+                                                abreModal('nuevo');
+                                                limpiaOrdenTrabajo();
+                                            "
+                                        >
+                                            <i class="fa fa-plus"></i>
+                                            Nuevo
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card-body">
                                 <div class="row">
                                     <b-col lg="10" class="my-1">
