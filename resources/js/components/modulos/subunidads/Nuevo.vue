@@ -333,7 +333,7 @@ export default {
                 );
                 formdata.append(
                     "equipo_id",
-                    this.subunidad.sistema_id ? this.subunidad.sistema_id : ""
+                    this.subunidad.equipo_id ? this.subunidad.equipo_id : ""
                 );
                 formdata.append(
                     "codigo",
