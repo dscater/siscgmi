@@ -12,6 +12,9 @@ export default {
             console.log(this.$moment().format("YYYY-MM-DD"));
             return this.$moment().format("YYYY-MM-DD");
         },
+        getHoraActual() {
+            return this.$moment().format("HH:mm");
+        },
         getUsuariosTipo(tipo) {
             return new Promise((resolve, reject) => {
                 axios

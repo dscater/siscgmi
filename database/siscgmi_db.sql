@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 22-06-2023 a las 16:55:09
+-- Tiempo de generación: 22-06-2023 a las 21:51:35
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -172,7 +172,7 @@ CREATE TABLE `detalle_repuestos` (
 INSERT INTO `detalle_repuestos` (`id`, `orden_generada_id`, `repuesto_id`, `cantidad_requerida`, `costo`, `total`, `chekado`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 5, 560.00, 2800.00, 1, '2023-06-19 21:14:52', '2023-06-22 16:24:59'),
 (2, 1, 3, 3, 900.00, 2700.00, 1, '2023-06-19 21:14:52', '2023-06-22 16:25:45'),
-(3, 2, 1, 5, 560.00, 2800.00, 0, '2023-06-19 23:16:15', '2023-06-19 23:16:15');
+(3, 2, 1, 5, 560.00, 2800.00, 1, '2023-06-19 23:16:15', '2023-06-22 19:43:02');
 
 -- --------------------------------------------------------
 
@@ -600,7 +600,35 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (184, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA TAREA DE MANTENIMIENTO', 'id: 1<br/>gama_id: 2<br/>tarea: TAREA 1<br/>tiempo: 7<br/>chekado: 0<br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-13 12:42:43<br/>', 'id: 1<br/>gama_id: 2<br/>tarea: TAREA 1<br/>tiempo: 7<br/>chekado: 1<br/>created_at: 2023-06-13 12:37:24<br/>updated_at: 2023-06-22 12:53:52<br/>', 'GAMA DE MANTENIMIENTOS', '2023-06-22', '12:53:52', '2023-06-22 16:53:52', '2023-06-22 16:53:52'),
 (185, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA TAREA DE MANTENIMIENTO', 'id: 3<br/>gama_id: 2<br/>tarea: NUEVA TAREA 2<br/>tiempo: 10<br/>chekado: 0<br/>created_at: 2023-06-13 12:43:34<br/>updated_at: 2023-06-13 12:43:34<br/>', 'id: 3<br/>gama_id: 2<br/>tarea: NUEVA TAREA 2<br/>tiempo: 10<br/>chekado: 1<br/>created_at: 2023-06-13 12:43:34<br/>updated_at: 2023-06-22 12:53:54<br/>', 'GAMA DE MANTENIMIENTOS', '2023-06-22', '12:53:54', '2023-06-22 16:53:54', '2023-06-22 16:53:54'),
 (186, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PERSONAL DE UNA ORDEN GENERADA', 'id: 3<br/>orden_generada_id: 1<br/>personal_id: 1<br/>costo: 50.00<br/>chekado: 0<br/>created_at: 2023-06-19 17:55:15<br/>updated_at: 2023-06-19 17:55:15<br/>', 'id: 3<br/>orden_generada_id: 1<br/>personal_id: 1<br/>costo: 50.00<br/>chekado: 1<br/>created_at: 2023-06-19 17:55:15<br/>updated_at: 2023-06-22 12:54:03<br/>', 'ORDEN GENERADA', '2023-06-22', '12:54:03', '2023-06-22 16:54:03', '2023-06-22 16:54:03'),
-(187, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PERSONAL DE UNA ORDEN GENERADA', 'id: 4<br/>orden_generada_id: 1<br/>personal_id: 3<br/>costo: 40.00<br/>chekado: 0<br/>created_at: 2023-06-19 17:55:15<br/>updated_at: 2023-06-19 17:55:15<br/>', 'id: 4<br/>orden_generada_id: 1<br/>personal_id: 3<br/>costo: 40.00<br/>chekado: 1<br/>created_at: 2023-06-19 17:55:15<br/>updated_at: 2023-06-22 12:54:04<br/>', 'ORDEN GENERADA', '2023-06-22', '12:54:04', '2023-06-22 16:54:04', '2023-06-22 16:54:04');
+(187, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PERSONAL DE UNA ORDEN GENERADA', 'id: 4<br/>orden_generada_id: 1<br/>personal_id: 3<br/>costo: 40.00<br/>chekado: 0<br/>created_at: 2023-06-19 17:55:15<br/>updated_at: 2023-06-19 17:55:15<br/>', 'id: 4<br/>orden_generada_id: 1<br/>personal_id: 3<br/>costo: 40.00<br/>chekado: 1<br/>created_at: 2023-06-19 17:55:15<br/>updated_at: 2023-06-22 12:54:04<br/>', 'ORDEN GENERADA', '2023-06-22', '12:54:04', '2023-06-22 16:54:04', '2023-06-22 16:54:04'),
+(188, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN REPUESTO DE UNA ORDEN GENERADA', 'cantidad_requerida: 5<br/>chekado: 0<br/>costo: 560.00<br/>created_at: 2023-06-19 19:16:15<br/>id: 3<br/>orden_generada_id: 2<br/>repuesto_id: 1<br/>total: 2800.00<br/>updated_at: 2023-06-19 19:16:15<br/>', 'cantidad_requerida: 5<br/>chekado: 1<br/>costo: 560.00<br/>created_at: 2023-06-19 19:16:15<br/>id: 3<br/>orden_generada_id: 2<br/>repuesto_id: 1<br/>total: 2800.00<br/>updated_at: 2023-06-22 15:43:02<br/>', 'ORDEN GENERADA', '2023-06-22', '15:43:02', '2023-06-22 19:43:02', '2023-06-22 19:43:02'),
+(189, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PLAN DE MANTENIMIENTO', 'codificacion: PM001HHH3<br/>created_at: 2023-06-14 17:32:31<br/>dias: 10<br/>estado: PLANIFICADO<br/>fecha_final: 2023-05-31<br/>frecuencia_id: 1<br/>gama_id: 2<br/>id: 2<br/>pm: PM<br/>prioridad: URGENTE<br/>programacion: ÚLTIMA VEZ QUE SE PROGRAMÓ<br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREVENTIVO<br/>ultima_fecha_programada: 2023-05-01<br/>ultima_fecha_terminada: 2023-05-05<br/>updated_at: 2023-06-14 17:32:31<br/>variable_control_id: 1<br/>', 'codificacion: PM001HHH3<br/>created_at: 2023-06-14 17:32:31<br/>dias: 10<br/>estado: PLANIFICADO<br/>fecha_final: 2023-07-31<br/>frecuencia_id: 1<br/>gama_id: 2<br/>id: 2<br/>pm: PM<br/>prioridad: URGENTE<br/>programacion: ÚLTIMA VEZ QUE SE PROGRAMÓ<br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREVENTIVO<br/>ultima_fecha_programada: 2023-07-01<br/>ultima_fecha_terminada: 2023-07-31<br/>updated_at: 2023-06-22 16:36:33<br/>variable_control_id: 1<br/>', 'PLAN DE MANTENIMIENTO', '2023-06-22', '16:36:33', '2023-06-22 20:36:33', '2023-06-22 20:36:33'),
+(190, 1, 'MODIFICACIÓN', 'EL USUARIO admin ACTUALIZÓ EL ESTADO DE UNA ORDEN DE TRABAJO', 'comentario: <br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: PROGRAMADO<br/>fecha_programada: 2023-06-15<br/>gama_id: 2<br/>id: 2<br/>prioridad: URGENTE<br/>razon: <br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 16:33:58<br/>', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: INICIADO<br/>fecha_programada: 2023-06-15<br/>gama_id: 2<br/>id: 2<br/>prioridad: URGENTE<br/>razon: PRUEBA RAZON CAMBIO DE ESTADO #1<br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 16:59:38<br/>', 'ORDENES DE TRABAJO', '2023-06-22', '16:59:38', '2023-06-22 20:59:38', '2023-06-22 20:59:38'),
+(192, 1, 'MODIFICACIÓN', 'EL USUARIO admin ACTUALIZÓ EL ESTADO DE UNA ORDEN DE TRABAJO', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: PROGRAMADO<br/>fecha_programada: 2023-06-15<br/>gama_id: 2<br/>id: 2<br/>prioridad: URGENTE<br/>razon: PRUEBA RAZON CAMBIO DE ESTADO #1<br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 16:59:38<br/>', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: INICIADO<br/>fecha_programada: 2023-06-15<br/>gama_id: 2<br/>id: 2<br/>prioridad: URGENTE<br/>razon: PRUEBA #2 CAMBIO DE ESTADO<br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 17:05:05<br/>', 'ORDENES DE TRABAJO', '2023-06-22', '17:05:05', '2023-06-22 21:05:05', '2023-06-22 21:05:05'),
+(193, 1, 'MODIFICACIÓN', 'EL USUARIO admin ACTUALIZÓ EL ESTADO DE UNA ORDEN DE TRABAJO', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: PROGRAMADO<br/>fecha_inicio: <br/>fecha_programada: 2023-06-15<br/>fecha_termino: <br/>gama_id: 2<br/>hora_inicio: <br/>hora_termino: <br/>id: 2<br/>parada_maquina: <br/>prioridad: URGENTE<br/>razon: PRUEBA #2 CAMBIO DE ESTADO<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: <br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 17:05:05<br/>', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: INICIADO<br/>fecha_inicio: 2023-06-22<br/>fecha_programada: 2023-06-15<br/>fecha_termino: <br/>gama_id: 2<br/>hora_inicio: 17:41<br/>hora_termino: <br/>id: 2<br/>parada_maquina: <br/>prioridad: URGENTE<br/>razon: PRUEBA INICIO #1<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: <br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 17:41:37<br/>', 'ORDENES DE TRABAJO', '2023-06-22', '17:41:37', '2023-06-22 21:41:37', '2023-06-22 21:41:37');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial_fallas`
+--
+
+CREATE TABLE `historial_fallas` (
+  `id` bigint UNSIGNED NOT NULL,
+  `orden_id` bigint UNSIGNED NOT NULL,
+  `nro_codificacion` bigint NOT NULL,
+  `codificacion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo_falla` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion_falla` text COLLATE utf8mb4_unicode_ci,
+  `fecha_inicio` date NOT NULL,
+  `hora_inicio` time NOT NULL,
+  `fecha_termino` date NOT NULL,
+  `hora_termino` time NOT NULL,
+  `tiempo_ejecucion` double NOT NULL,
+  `equipo_id` bigint UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -637,7 +665,8 @@ INSERT INTO `kardex_repuestos` (`id`, `tipo_registro`, `registro_id`, `repuesto_
 (3, 'ENTRADA', 5, 2, 'VALOR INICIAL', 50.00, 'INGRESO', 100, NULL, 100, 300.00, 5000.00, NULL, 5000.00, '2023-06-19', '2023-06-19 18:08:20', '2023-06-19 18:08:20'),
 (4, 'ENTRADA', 6, 3, 'VALOR INICIAL', 50.00, 'INGRESO', 100, NULL, 100, 900.00, 5000.00, NULL, 5000.00, '2023-06-19', '2023-06-19 18:08:36', '2023-06-19 18:08:36'),
 (6, 'DETALLE REPUESTO', 1, 1, 'ASIGNACIÓN DE REPUESTO DESDE VISUALIZACIÓN DE OT', 560.00, 'EGRESO', NULL, 5, 95, 560.00, NULL, 2800.00, 700.00, '2023-06-22', '2023-06-22 16:24:59', '2023-06-22 16:24:59'),
-(7, 'DETALLE REPUESTO', 2, 3, 'ASIGNACIÓN DE REPUESTO DESDE VISUALIZACIÓN DE OT', 900.00, 'EGRESO', NULL, 3, 97, 900.00, NULL, 2700.00, 2300.00, '2023-06-22', '2023-06-22 16:25:45', '2023-06-22 16:25:45');
+(7, 'DETALLE REPUESTO', 2, 3, 'ASIGNACIÓN DE REPUESTO DESDE VISUALIZACIÓN DE OT', 900.00, 'EGRESO', NULL, 3, 97, 900.00, NULL, 2700.00, 2300.00, '2023-06-22', '2023-06-22 16:25:45', '2023-06-22 16:25:45'),
+(8, 'DETALLE REPUESTO', 3, 1, 'ASIGNACIÓN DE REPUESTO DESDE VISUALIZACIÓN DE OT', 560.00, 'EGRESO', NULL, 5, 90, 560.00, NULL, 2800.00, -2100.00, '2023-06-22', '2023-06-22 19:43:02', '2023-06-22 19:43:02');
 
 -- --------------------------------------------------------
 
@@ -742,7 +771,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (30, '2023_06_12_144656_create_notificacions_table', 4),
 (31, '2023_06_12_144706_create_notificacion_users_table', 4),
 (32, '2023_06_12_150032_create_programacions_table', 4),
-(33, '2023_06_12_152430_create_detalle_pedidos_table', 4);
+(33, '2023_06_12_152430_create_detalle_pedidos_table', 4),
+(34, '2023_06_22_172351_create_historial_fallas_table', 5);
 
 -- --------------------------------------------------------
 
@@ -766,7 +796,9 @@ CREATE TABLE `notificacions` (
 INSERT INTO `notificacions` (`id`, `notificacion`, `registro_id`, `tipo`, `created_at`, `updated_at`) VALUES
 (3, 'ASIGNACIÓN DE ORDEN DE TRABAJO', 1, 'GENERACIÓN DE OT', '2023-06-19 21:55:15', '2023-06-19 21:55:15'),
 (4, 'ASIGNACIÓN DE ORDEN DE TRABAJO', 2, 'GENERACIÓN DE OT', '2023-06-19 22:06:45', '2023-06-19 22:06:45'),
-(5, 'ORDEN DE PEDIDO DE REPUESTO', 3, 'PEDIDO DE REPUESTO', '2023-06-20 17:24:52', '2023-06-20 17:24:52');
+(5, 'ORDEN DE PEDIDO DE REPUESTO', 3, 'PEDIDO DE REPUESTO', '2023-06-20 17:24:52', '2023-06-20 17:24:52'),
+(7, 'CAMBIO DE ESTADO OT: 2', 2, 'CAMBIO DE ESTADO OT', '2023-06-22 21:05:05', '2023-06-22 21:05:05'),
+(8, 'CAMBIO DE ESTADO OT: 2', 2, 'CAMBIO DE ESTADO OT', '2023-06-22 21:41:37', '2023-06-22 21:41:37');
 
 -- --------------------------------------------------------
 
@@ -791,7 +823,9 @@ INSERT INTO `notificacion_users` (`id`, `notificacion_id`, `user_id`, `visto`, `
 (1, 3, 4, 0, '2023-06-19 21:55:15', '2023-06-19 21:55:15'),
 (2, 3, 5, 1, '2023-06-19 21:55:15', '2023-06-19 21:59:47'),
 (3, 4, 5, 1, '2023-06-19 22:06:45', '2023-06-19 22:09:24'),
-(4, 5, 6, 1, '2023-06-20 17:24:53', '2023-06-20 17:37:26');
+(4, 5, 6, 1, '2023-06-20 17:24:53', '2023-06-20 17:37:26'),
+(6, 7, 5, 1, '2023-06-22 21:05:05', '2023-06-22 21:05:12'),
+(7, 8, 5, 0, '2023-06-22 21:41:37', '2023-06-22 21:41:37');
 
 -- --------------------------------------------------------
 
@@ -832,7 +866,15 @@ CREATE TABLE `orden_trabajos` (
   `tiempo` double NOT NULL,
   `dias` double NOT NULL,
   `tipo_mantenimiento` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_inicio` date DEFAULT NULL,
+  `hora_inicio` time DEFAULT NULL,
+  `fecha_termino` date DEFAULT NULL,
+  `hora_termino` time DEFAULT NULL,
+  `tiempo_ejecucion` double DEFAULT NULL,
+  `parada_maquina` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `estado` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `razon` text COLLATE utf8mb4_unicode_ci,
+  `comentario` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -841,9 +883,9 @@ CREATE TABLE `orden_trabajos` (
 -- Volcado de datos para la tabla `orden_trabajos`
 --
 
-INSERT INTO `orden_trabajos` (`id`, `fecha_programada`, `subunidad_id`, `gama_id`, `prioridad`, `tiempo`, `dias`, `tipo_mantenimiento`, `estado`, `created_at`, `updated_at`) VALUES
-(2, '2023-06-15', 1, 2, 'URGENTE', 17, 7, 'PREDICTIVO', 'PROGRAMADO', '2023-06-15 15:26:58', '2023-06-15 15:26:58'),
-(3, '2023-06-19', 2, 2, 'MODERADA', 17, 10, 'LUBRICACIÓN', 'PROGRAMADO', '2023-06-19 15:58:35', '2023-06-19 15:58:35');
+INSERT INTO `orden_trabajos` (`id`, `fecha_programada`, `subunidad_id`, `gama_id`, `prioridad`, `tiempo`, `dias`, `tipo_mantenimiento`, `fecha_inicio`, `hora_inicio`, `fecha_termino`, `hora_termino`, `tiempo_ejecucion`, `parada_maquina`, `estado`, `razon`, `comentario`, `created_at`, `updated_at`) VALUES
+(2, '2023-06-15', 1, 2, 'URGENTE', 17, 7, 'PREDICTIVO', '2023-06-22', '17:41:00', NULL, NULL, NULL, NULL, 'INICIADO', 'PRUEBA INICIO #1', 'COMENTARIO', '2023-06-15 15:26:58', '2023-06-22 21:41:37'),
+(3, '2023-06-19', 2, 2, 'MODERADA', 17, 10, 'LUBRICACIÓN', NULL, NULL, NULL, NULL, NULL, NULL, 'PROGRAMADO', NULL, NULL, '2023-06-19 15:58:35', '2023-06-19 15:58:35');
 
 -- --------------------------------------------------------
 
@@ -944,7 +986,7 @@ CREATE TABLE `plan_mantenimientos` (
 --
 
 INSERT INTO `plan_mantenimientos` (`id`, `codificacion`, `subunidad_id`, `gama_id`, `pm`, `prioridad`, `tiempo`, `dias`, `tipo_mantenimiento`, `ultima_fecha_programada`, `ultima_fecha_terminada`, `programacion`, `fecha_final`, `variable_control_id`, `frecuencia_id`, `estado`, `created_at`, `updated_at`) VALUES
-(2, 'PM001HHH3', 1, 2, 'PM', 'URGENTE', 17, 10, 'PREVENTIVO', '2023-05-01', '2023-05-05', 'ÚLTIMA VEZ QUE SE PROGRAMÓ', '2023-05-31', 1, 1, 'PLANIFICADO', '2023-06-14 21:32:31', '2023-06-14 21:32:31');
+(2, 'PM001HHH3', 1, 2, 'PM', 'URGENTE', 17, 10, 'PREVENTIVO', '2023-07-01', '2023-07-31', 'ÚLTIMA VEZ QUE SE PROGRAMÓ', '2023-07-31', 1, 1, 'PLANIFICADO', '2023-06-14 21:32:31', '2023-06-22 20:36:33');
 
 -- --------------------------------------------------------
 
@@ -967,10 +1009,10 @@ CREATE TABLE `programacions` (
 --
 
 INSERT INTO `programacions` (`id`, `plan_mantenimiento_id`, `numero`, `dias`, `fecha`, `created_at`, `updated_at`) VALUES
-(13, 2, 1, 7, '2023-05-07', '2023-06-14 21:32:31', '2023-06-14 21:32:31'),
-(14, 2, 2, 7, '2023-05-14', '2023-06-14 21:32:31', '2023-06-14 21:32:31'),
-(15, 2, 3, 7, '2023-05-21', '2023-06-14 21:32:31', '2023-06-14 21:32:31'),
-(16, 2, 4, 7, '2023-05-28', '2023-06-14 21:32:31', '2023-06-14 21:32:31');
+(17, 2, 1, 7, '2023-07-07', '2023-06-22 20:36:33', '2023-06-22 20:36:33'),
+(18, 2, 2, 7, '2023-07-14', '2023-06-22 20:36:33', '2023-06-22 20:36:33'),
+(19, 2, 3, 7, '2023-07-21', '2023-06-22 20:36:33', '2023-06-22 20:36:33'),
+(20, 2, 4, 7, '2023-07-28', '2023-06-22 20:36:33', '2023-06-22 20:36:33');
 
 -- --------------------------------------------------------
 
@@ -1014,7 +1056,7 @@ CREATE TABLE `repuestos` (
 --
 
 INSERT INTO `repuestos` (`id`, `codigo`, `codificacion`, `nombre`, `descripcion`, `marca`, `modelo`, `serie`, `equipo_id`, `precio`, `stock_min`, `stock_max`, `stock_actual`, `unidad_medida`, `dir`, `fono`, `correo`, `almacen`, `fabricante`, `proveedor`, `terciarios`, `nombre_contacto`, `num_fono`, `correo_fabricante`, `dir_fabricante`, `num_identificacion`, `created_at`, `updated_at`) VALUES
-(1, 'R001', 'RC001POPE', 'REPUESTO #1', 'DESC. REPUESTO #1 MODIFICADO', 'MARCA 1', 'MODELO 1', 'SERIE 1', 1, 560.00, 10, 200, 95, 'UNIDADES', 'LOS OLIVOS', '222222', 'PROVEEDOR@GMAIL.COM', 'ALMACEN 1', 'FABRICANTE 1', 'PROVEEDOR 1', 'TERCIARIO 1', 'JUAN PERES', '7777777', 'FABRICANTE@GMAIL.COM', 'LOS OLIVOS #2', '433434', '2023-06-07 17:01:13', '2023-06-22 16:24:59'),
+(1, 'R001', 'RC001POPE', 'REPUESTO #1', 'DESC. REPUESTO #1 MODIFICADO', 'MARCA 1', 'MODELO 1', 'SERIE 1', 1, 560.00, 10, 200, 90, 'UNIDADES', 'LOS OLIVOS', '222222', 'PROVEEDOR@GMAIL.COM', 'ALMACEN 1', 'FABRICANTE 1', 'PROVEEDOR 1', 'TERCIARIO 1', 'JUAN PERES', '7777777', 'FABRICANTE@GMAIL.COM', 'LOS OLIVOS #2', '433434', '2023-06-07 17:01:13', '2023-06-22 19:43:02'),
 (2, 'I001', 'I00012EIO', 'INSUMO #1', 'DESC. INSUMO #1', NULL, NULL, NULL, 2, 300.00, 5, 100, 100, NULL, NULL, NULL, NULL, 'ALMACEN 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-07 17:05:13', '2023-06-19 18:08:20'),
 (3, 'I003', 'I004IRR', 'REPUESTO #2', 'DESC. REP. #2', NULL, NULL, NULL, 2, 900.00, 4, 20, 97, NULL, NULL, NULL, NULL, 'ALMACEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-14 15:45:31', '2023-06-22 16:25:45');
 
@@ -1268,6 +1310,12 @@ ALTER TABLE `historial_accions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `historial_fallas`
+--
+ALTER TABLE `historial_fallas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `kardex_repuestos`
 --
 ALTER TABLE `kardex_repuestos`
@@ -1485,13 +1533,19 @@ ALTER TABLE `herramientas`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+
+--
+-- AUTO_INCREMENT de la tabla `historial_fallas`
+--
+ALTER TABLE `historial_fallas`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `kardex_repuestos`
 --
 ALTER TABLE `kardex_repuestos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `maquinarias`
@@ -1503,19 +1557,19 @@ ALTER TABLE `maquinarias`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacions`
 --
 ALTER TABLE `notificacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacion_users`
 --
 ALTER TABLE `notificacion_users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `orden_generadas`
@@ -1557,7 +1611,7 @@ ALTER TABLE `plan_mantenimientos`
 -- AUTO_INCREMENT de la tabla `programacions`
 --
 ALTER TABLE `programacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `repuestos`

@@ -179,7 +179,8 @@
                                                 </td>
                                                 <td>
                                                     {{
-                                                        item.cantidad_requerida
+                                                        item.repuesto
+                                                            .cantidad_utilizada
                                                     }}
                                                 </td>
                                                 <td>
@@ -215,7 +216,7 @@
                                                                     : false
                                                             "
                                                             @change="
-                                                                cambiaEstado(
+                                                                cambiaEstadoDetalles(
                                                                     index,
                                                                     'detalle_repuestos',
                                                                     item
@@ -293,7 +294,7 @@
                                                                 item.chekado
                                                             "
                                                             @change="
-                                                                cambiaEstado(
+                                                                cambiaEstadoDetalles(
                                                                     index,
                                                                     'detalle_herramientas',
                                                                     item
@@ -358,7 +359,7 @@
                                                                 item.chekado
                                                             "
                                                             @change="
-                                                                cambiaEstado(
+                                                                cambiaEstadoDetalles(
                                                                     index,
                                                                     'gama_detalles',
                                                                     item
@@ -434,7 +435,7 @@
                                                                 item.chekado
                                                             "
                                                             @change="
-                                                                cambiaEstado(
+                                                                cambiaEstadoDetalles(
                                                                     index,
                                                                     'detalle_personals',
                                                                     item
@@ -499,18 +500,151 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="text-md">
+                                            <strong>ESTADO ACTUAL: </strong
+                                            >{{ oOrdenTrabajo.estado }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div
+                                    class="row"
+                                    v-if="oOrdenTrabajo?.estado != 'CANCELADO'"
+                                >
+                                    <div
+                                        class="col-md-4"
+                                        v-if="
+                                            oOrdenTrabajo?.estado ==
+                                            'PROGRAMADO'
+                                        "
+                                    >
+                                        <button
+                                            type="button"
+                                            @click="
+                                                actualizaEstadoOT(
+                                                    'INICIAR OT',
+                                                    'INICIADO'
+                                                )
+                                            "
+                                            class="btn btn-primary btn-block"
+                                        >
+                                            INICIAR OT
+                                        </button>
+                                    </div>
+                                    <div
+                                        class="col-md-4"
+                                        v-if="
+                                            oOrdenTrabajo?.estado == 'INICIADO'
+                                        "
+                                    >
+                                        <button
+                                            type="button"
+                                            @click="
+                                                actualizaEstadoOT(
+                                                    'TERMINAR OT',
+                                                    'TERMINADO'
+                                                )
+                                            "
+                                            class="btn btn-primary btn-block"
+                                        >
+                                            TERMINAR OT
+                                        </button>
+                                    </div>
+                                    <div
+                                        class="col-md-4"
+                                        v-if="
+                                            oOrdenTrabajo?.estado !=
+                                                'TERMINADO' &&
+                                            !oOrdenTrabajo?.estado?.includes(
+                                                'PENDIENTE'
+                                            )
+                                        "
+                                    >
+                                        <button
+                                            type="button"
+                                            @click="
+                                                actualizaEstadoOT(
+                                                    'CANCELAR OT',
+                                                    'CANCELADO'
+                                                )
+                                            "
+                                            class="btn btn-primary btn-block"
+                                        >
+                                            CANCELAR OT
+                                        </button>
+                                    </div>
+                                    <div
+                                        class="col-md-4"
+                                        v-if="
+                                            oOrdenTrabajo?.estado == 'PENDIENTE'
+                                        "
+                                    >
+                                        <button
+                                            type="button"
+                                            @click="
+                                                actualizaEstadoOT(
+                                                    'PENDIENTE TERMINADO',
+                                                    'PENDIENTE TERMINADO'
+                                                )
+                                            "
+                                            class="btn btn-primary btn-block"
+                                        >
+                                            PENDIENTE TERMINADO
+                                        </button>
+                                    </div>
+                                    <div
+                                        class="col-md-4"
+                                        v-if="
+                                            oOrdenTrabajo?.estado == 'PENDIENTE'
+                                        "
+                                    >
+                                        <button
+                                            type="button"
+                                            @click="
+                                                actualizaEstadoOT(
+                                                    'PENDIENTE CANCELADO',
+                                                    'PENDIENTE CANCELADO'
+                                                )
+                                            "
+                                            class="btn btn-primary btn-block"
+                                        >
+                                            PENDIENTE CANCELADO
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <CambioEstado
+            :muestra_modal="modal_cambio_estado"
+            :orden_trabajo="oOrdenTrabajo"
+            :nuevo_estado="nuevo_estado"
+            @close="modal_cambio_estado = false"
+            @envioModal="muestraNuevoEstado"
+        ></CambioEstado>
+        <TerminarOT
+            :muestra_modal="modal_terminar_ot"
+            :orden_trabajo="oOrdenTrabajo"
+            :nuevo_estado="nuevo_estado"
+            @close="modal_terminar_ot = false"
+            @envioModal="muestraNuevoEstado"
+        ></TerminarOT>
     </div>
 </template>
 
 <script>
+import CambioEstado from "./modal/CambioEstado.vue";
+import TerminarOT from "./modal/TerminarOT.vue";
 export default {
     props: ["id"],
+    components: {
+        CambioEstado,
+        TerminarOT,
+    },
     data() {
         return {
             permisos: localStorage.getItem("permisos"),
@@ -521,6 +655,9 @@ export default {
                 id: 0,
             },
             errors: [],
+            modal_cambio_estado: false,
+            modal_terminar_ot: false,
+            nuevo_estado: "",
         };
     },
     mounted() {
@@ -533,7 +670,7 @@ export default {
                 this.oOrdenTrabajo = response.data.orden_trabajo;
             });
         },
-        cambiaEstado(index, tabla, item) {
+        cambiaEstadoDetalles(index, tabla, item) {
             this.actualizaEstadoItem(index, tabla, true);
             axios
                 .post(`/admin/${tabla}/cambiaEstado/${item.id}`, {
@@ -591,6 +728,14 @@ export default {
                         }
                     }
                 });
+        },
+        actualizaEstadoOT(accion, estado) {
+            this.nuevo_estado = estado;
+            if (accion == "TERMINAR OT") {
+                this.modal_terminar_ot = true;
+            } else {
+                this.modal_cambio_estado = true;
+            }
         },
         actualizaEstadoItem(index, tabla, valor) {
             switch (tabla) {
@@ -682,6 +827,11 @@ export default {
                         nuevoItem;
                     break;
             }
+        },
+        muestraNuevoEstado(estado) {
+            this.modal_terminar_ot = false;
+            this.modal_cambio_estado = false;
+            this.oOrdenTrabajo.estado = estado;
         },
     },
 };

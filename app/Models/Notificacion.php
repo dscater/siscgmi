@@ -26,6 +26,11 @@ class Notificacion extends Model
         return $this->belongsTo(OrdenGenerada::class, 'registro_id');
     }
 
+    public function orden_trabajo()
+    {
+        return $this->belongsTo(OrdenTrabajo::class, 'registro_id');
+    }
+
     public function pedido_repuesto()
     {
         return $this->belongsTo(PedidoRepuesto::class, 'registro_id');

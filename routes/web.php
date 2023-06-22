@@ -141,6 +141,8 @@ Route::middleware(['auth'])->group(function () {
         ]);
 
         // orden_trabajos
+        Route::post("orden_trabajos/registraNuevoEstado/{orden_trabajo}", [OrdenTrabajoController::class, 'registraNuevoEstado']);
+        Route::post("orden_trabajos/registraTerminarOT/{orden_trabajo}", [OrdenTrabajoController::class, 'registraTerminarOT']);
         Route::get("orden_trabajos/getWithOrdenGenerada/{orden_trabajo}", [OrdenTrabajoController::class, 'getWithOrdenGenerada']);
         Route::get("orden_trabajos/get/orden_trabajos/programados_fecha", [OrdenTrabajoController::class, 'programados_fecha']);
         Route::resource('orden_trabajos', OrdenTrabajoController::class)->only([

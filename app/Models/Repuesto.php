@@ -37,7 +37,13 @@ class Repuesto extends Model
         "num_identificacion",
     ];
 
-    protected $appends = ["full_name", "detalle_equipo"];
+    protected $appends = ["full_name", "detalle_equipo", "cantidad_utilizada"];
+
+    public function getCantidadUtilizadaAttribute()
+    {
+        $cantidad_utilizada = DetalleRepuesto::where("repuesto_id", $this->id)->where("chekado", 1)->sum("cantidad_requerida");
+        return $cantidad_utilizada;
+    }
 
     public function getFullNameAttribute()
     {

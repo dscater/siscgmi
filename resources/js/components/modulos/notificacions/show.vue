@@ -92,9 +92,14 @@
                                         </p>
                                         <p>
                                             <strong>Código OT:</strong>
-                                            {{ oNotificacion.pedido_repuesto.orden_trabajo.id }}
+                                            {{
+                                                oNotificacion.pedido_repuesto
+                                                    .orden_trabajo.id
+                                            }}
                                         </p>
-                                        <h4 class="text-md">LISTA DE REPUESTOS SOLICITADOS</h4>
+                                        <h4 class="text-md">
+                                            LISTA DE REPUESTOS SOLICITADOS
+                                        </h4>
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
@@ -126,6 +131,44 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                                <div
+                                    class="row"
+                                    v-if="
+                                        oNotificacion.tipo ==
+                                        'CAMBIO DE ESTADO OT'
+                                    "
+                                >
+                                    <div class="col-md-12">
+                                        <p>
+                                            <strong>Código OT:</strong>
+                                            {{ oNotificacion.orden_trabajo.id }}
+                                        </p>
+                                        <p>
+                                            <strong>Estado actual:</strong>
+                                            {{
+                                                oNotificacion.orden_trabajo
+                                                    .estado
+                                            }}
+                                        </p>
+                                        <p>
+                                            <strong
+                                                >Razón de cambio de
+                                                estado:</strong
+                                            >
+                                            {{
+                                                oNotificacion.orden_trabajo
+                                                    .razon
+                                            }}
+                                        </p>
+                                        <p>
+                                            <strong>Comentario:</strong>
+                                            {{
+                                                oNotificacion.orden_trabajo
+                                                    .comentario
+                                            }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>

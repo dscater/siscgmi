@@ -31,6 +31,10 @@ class NotificacionUserController extends Controller
             $notificacion = $notificacion->load(["pedido_repuesto.detalle_pedidos.repuesto", "pedido_repuesto.orden_trabajo"]);
         }
 
+        if ($notificacion->tipo == 'CAMBIO DE ESTADO OT') {
+            $notificacion = $notificacion->load(["orden_trabajo"]);
+        }
+
         $notificacion_user->visto = 1;
         $notificacion_user->save();
         return response()->JSON([

@@ -17,7 +17,15 @@ class OrdenTrabajo extends Model
         "tiempo",
         "dias",
         "tipo_mantenimiento",
+        "fecha_inicio",
+        "hora_inicio",
+        "fecha_termino",
+        "hora_termino",
+        "tiempo_ejecucion",
+        "parada_maquina",
         "estado",
+        "razon",
+        "comentario",
     ];
 
     public function subunidad()
