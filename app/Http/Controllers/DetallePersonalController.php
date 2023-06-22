@@ -98,4 +98,37 @@ class DetallePersonalController extends Controller
             ], 500);
         }
     }
+
+    public function cambiaEstado(DetallePersonal $detalle_personal, Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $datos_original = HistorialAccion::getDetalleRegistro($detalle_personal, "detalle_personals");
+            $detalle_personal->update($request->all());
+
+            $datos_nuevo = HistorialAccion::getDetalleRegistro($detalle_personal, "detalle_personals");
+            HistorialAccion::create([
+                'user_id' => Auth::user()->id,
+                'accion' => 'MODIFICACIÓN',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UN PERSONAL DE UNA ORDEN GENERADA',
+                'datos_original' => $datos_original,
+                'datos_nuevo' => $datos_nuevo,
+                'modulo' => 'ORDEN GENERADA',
+                'fecha' => date('Y-m-d'),
+                'hora' => date('H:i:s')
+            ]);
+            DB::commit();
+            return response()->JSON([
+                "sw" => true,
+                "message" => "Registro actualizado",
+                "item" => $detalle_personal->load("personal")
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->JSON([
+                "sw" => false,
+                "message" => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

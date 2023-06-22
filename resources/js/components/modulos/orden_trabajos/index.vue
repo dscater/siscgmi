@@ -117,43 +117,17 @@
                                                         <b-button
                                                             size="sm"
                                                             pill
-                                                            variant="outline-warning"
+                                                            variant="outline-primary"
                                                             class="btn-flat btn-block"
-                                                            title="Editar registro"
+                                                            title="Visualizar registro"
                                                             @click="
-                                                                editarRegistro(
+                                                                visualizarOrdenTrabajo(
                                                                     row.item
                                                                 )
                                                             "
                                                         >
                                                             <i
-                                                                class="fa fa-edit"
-                                                            ></i>
-                                                        </b-button>
-                                                        <b-button
-                                                            size="sm"
-                                                            pill
-                                                            variant="outline-danger"
-                                                            class="btn-flat btn-block"
-                                                            title="Eliminar registro"
-                                                            @click="
-                                                                eliminaOrdenTrabajo(
-                                                                    row.item.id,
-                                                                    row.item
-                                                                        .id +
-                                                                        ' | ' +
-                                                                        row.item
-                                                                            .subunidad
-                                                                            .full_name +
-                                                                        ' | ' +
-                                                                        row.item
-                                                                            .gama
-                                                                            .full_name
-                                                                )
-                                                            "
-                                                        >
-                                                            <i
-                                                                class="fa fa-trash"
+                                                                class="fa fa-eye"
                                                             ></i>
                                                         </b-button>
                                                     </div>
@@ -288,25 +262,11 @@ export default {
     },
     methods: {
         // Seleccionar Opciones de Tabla
-        editarRegistro(item) {
-            this.oOrdenTrabajo.id = item.id;
-            this.oOrdenTrabajo.fecha_programada = item.fecha_programada
-                ? item.fecha_programada
-                : "";
-            this.oOrdenTrabajo.subunidad_id = item.subunidad_id
-                ? item.subunidad_id
-                : "";
-            this.oOrdenTrabajo.gama_id = item.gama_id ? item.gama_id : "";
-            this.oOrdenTrabajo.prioridad = item.prioridad ? item.prioridad : "";
-            this.oOrdenTrabajo.tiempo = item.tiempo ? item.tiempo : "";
-            this.oOrdenTrabajo.dias = item.dias ? item.dias : "";
-            this.oOrdenTrabajo.tipo_mantenimiento = item.tipo_mantenimiento
-                ? item.tipo_mantenimiento
-                : "";
-            this.oOrdenTrabajo.estado = item.estado ? item.estado : "";
-
-            this.modal_accion = "edit";
-            this.muestra_modal = true;
+        visualizarOrdenTrabajo(item) {
+            this.$router.push({
+                name: "orden_trabajos.show",
+                params: { id: item.id },
+            });
         },
 
         // Listar OrdenTrabajos

@@ -15,7 +15,20 @@ class DetalleHerramienta extends Model
         "cantidad_solicitada",
         "costo",
         "total",
+        "chekado"
     ];
+
+    protected $appends = ["enviando", "actualizado"];
+
+    public function getEnviandoAttribute()
+    {
+        return false;
+    }
+
+    public function getActualizadoAttribute()
+    {
+        return false;
+    }
 
     public function herramienta()
     {

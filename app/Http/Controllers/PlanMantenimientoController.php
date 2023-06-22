@@ -14,7 +14,7 @@ class PlanMantenimientoController extends Controller
     public $validacion = [
         "codificacion" => "required",
         "subunidad_id" => "required",
-        "gama_id" => "required",
+        'gama_id' => 'required|unique:plan_mantenimientos,gama_id',
         "pm" => "required",
         "prioridad" => "required",
         "tiempo" => "required",
@@ -27,6 +27,7 @@ class PlanMantenimientoController extends Controller
     public $mensajes = [
         "programacions.required" => "No se generó la programación respectiva",
         "programacions.min" => "Debe existir al menos :min generación",
+        'gama_id.unique' => 'La gama de mantenimiento ya cuenta con un plan de mantenimiento',
     ];
 
     public function index(Request $request)
@@ -74,6 +75,7 @@ class PlanMantenimientoController extends Controller
 
     public function update(Request $request, PlanMantenimiento $plan_mantenimiento)
     {
+        $this->validacion['gama_id'] = 'required|unique:plan_mantenimientos,gama_id,' . $plan_mantenimiento->id;
         $request->validate($this->validacion, $this->mensajes);
 
         DB::beginTransaction();

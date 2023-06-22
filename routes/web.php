@@ -10,6 +10,7 @@ use App\Http\Controllers\EntradaRepuestoController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\FamiliaController;
 use App\Http\Controllers\FrecuenciaController;
+use App\Http\Controllers\GamaDetallesController;
 use App\Http\Controllers\GamaMantenimientoController;
 use App\Http\Controllers\HerramientaController;
 use App\Http\Controllers\LoginController;
@@ -130,6 +131,9 @@ Route::middleware(['auth'])->group(function () {
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 
+        // gama_detalles
+        Route::post("gama_detalles/cambiaEstado/{gama_detalle}", [GamaDetallesController::class, "cambiaEstado"]);
+
         // plan_mantenimiento
         Route::get("plan_mantenimientos/getPlanProgramacion", [PlanMantenimientoController::class, 'getPlanProgramacion']);
         Route::resource('plan_mantenimientos', PlanMantenimientoController::class)->only([
@@ -154,12 +158,15 @@ Route::middleware(['auth'])->group(function () {
         ]);
 
         // detalle_repuestos
+        Route::post("detalle_repuestos/cambiaEstado/{detalle_repuesto}", [DetalleRepuestoController::class, "cambiaEstado"]);
         Route::post("detalle_repuestos/store/{orden_generada}", [DetalleRepuestoController::class, "store"]);
 
         //detalle_herramientas
+        Route::post("detalle_herramientas/cambiaEstado/{detalle_herramienta}", [DetalleHerramientaController::class, "cambiaEstado"]);
         Route::post("detalle_herramientas/store/{orden_generada}", [DetalleHerramientaController::class, "store"]);
 
         //detalle_personals
+        Route::post("detalle_personals/cambiaEstado/{detalle_personal}", [DetallePersonalController::class, "cambiaEstado"]);
         Route::post("detalle_personals/store/{orden_generada}", [DetallePersonalController::class, "store"]);
 
         //notificacions

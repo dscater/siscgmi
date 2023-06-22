@@ -250,37 +250,45 @@ export default new Router({
             component: require("./components/modulos/orden_trabajos/index.vue")
                 .default,
         },
-
         {
             path: "/orden_trabajos/programacion",
             name: "orden_trabajos.programacion",
-            component: require("./components/modulos/orden_trabajos/programacion.vue")
+            component:
+                require("./components/modulos/orden_trabajos/programacion.vue")
+                    .default,
+        },
+        {
+            path: "/orden_trabajos/show/:id",
+            name: "orden_trabajos.show",
+            component: require("./components/modulos/orden_trabajos/show.vue")
                 .default,
+            props: true,
         },
 
         // orden_generadas
         {
             path: "/orden_trabajos/generar_ots",
             name: "orden_trabajos.generar_ots",
-            component: require("./components/modulos/orden_trabajos/generar_ots.vue")
-                .default,
+            component:
+                require("./components/modulos/orden_trabajos/generar_ots.vue")
+                    .default,
         },
 
         // pedido_repuestos
         {
             path: "/orden_trabajos/pedido_repuestos",
             name: "orden_trabajos.pedido_repuestos",
-            component: require("./components/modulos/orden_trabajos/pedido_repuestos.vue")
-                .default,
+            component:
+                require("./components/modulos/orden_trabajos/pedido_repuestos.vue")
+                    .default,
         },
 
         // notificacions
         {
             path: "/notificacions/:id",
             name: "notificacions.show",
-            component:
-                require("./components/modulos/notificacions/show.vue")
-                    .default,
+            component: require("./components/modulos/notificacions/show.vue")
+                .default,
             props: true,
         },
 

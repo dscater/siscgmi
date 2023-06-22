@@ -15,7 +15,20 @@ class DetalleRepuesto extends Model
         "cantidad_requerida",
         "costo",
         "total",
+        "chekado"
     ];
+
+    protected $appends = ["enviando", "actualizado"];
+
+    public function getEnviandoAttribute()
+    {
+        return false;
+    }
+
+    public function getActualizadoAttribute()
+    {
+        return false;
+    }
 
     public function repuesto()
     {

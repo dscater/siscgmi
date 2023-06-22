@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DetalleRepuesto;
 use App\Models\HistorialAccion;
+use App\Models\KardexRepuesto;
 use App\Models\OrdenGenerada;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -72,6 +73,46 @@ class DetalleRepuestoController extends Controller
                 "orden_generada" => $orden_generada->load([
                     "detalle_repuestos.repuesto", "detalle_herramientas.herramienta", "detalle_personals.personal",
                 ])
+            ], 500);
+        }
+    }
+
+    public function cambiaEstado(DetalleRepuesto $detalle_repuesto, Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $datos_original = HistorialAccion::getDetalleRegistro($detalle_repuesto, "detalle_repuestos");
+            $detalle_repuesto->update($request->all());
+
+            if ($detalle_repuesto->chekado == 1) {
+                // registrar kardex egreso
+                KardexRepuesto::registroEgreso("DETALLE REPUESTO", $detalle_repuesto->id, $detalle_repuesto->repuesto, $detalle_repuesto->cantidad_requerida, $detalle_repuesto->costo, "ASIGNACIÓN DE REPUESTO DESDE VISUALIZACIÓN DE OT");
+            } else {
+                // registrar kardex ingreso
+                KardexRepuesto::registroIngreso("DETALLE REPUESTO", $detalle_repuesto->id, $detalle_repuesto->repuesto, $detalle_repuesto->cantidad_requerida, $detalle_repuesto->costo, "NEGAR ASIGNACIÓN DE REPUESTO DESDE VISUALIZACIÓN DE OT");
+            }
+            $datos_nuevo = HistorialAccion::getDetalleRegistro($detalle_repuesto, "detalle_repuestos");
+            HistorialAccion::create([
+                'user_id' => Auth::user()->id,
+                'accion' => 'MODIFICACIÓN',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UN REPUESTO DE UNA ORDEN GENERADA',
+                'datos_original' => $datos_original,
+                'datos_nuevo' => $datos_nuevo,
+                'modulo' => 'ORDEN GENERADA',
+                'fecha' => date('Y-m-d'),
+                'hora' => date('H:i:s')
+            ]);
+            DB::commit();
+            return response()->JSON([
+                "sw" => true,
+                "message" => "Registro actualizado",
+                "item" => $detalle_repuesto->load("repuesto")
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->JSON([
+                "sw" => false,
+                "message" => $e->getMessage(),
             ], 500);
         }
     }

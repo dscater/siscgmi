@@ -13,5 +13,18 @@ class GamaDetalles extends Model
         "gama_id",
         "tarea",
         "tiempo",
+        "chekado"
     ];
+
+    protected $appends = ["enviando", "actualizado"];
+
+    public function getEnviandoAttribute()
+    {
+        return false;
+    }
+
+    public function getActualizadoAttribute()
+    {
+        return false;
+    }
 }

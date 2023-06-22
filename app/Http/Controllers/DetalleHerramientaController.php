@@ -75,4 +75,37 @@ class DetalleHerramientaController extends Controller
             ], 500);
         }
     }
+
+    public function cambiaEstado(DetalleHerramienta $detalle_herramienta, Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $datos_original = HistorialAccion::getDetalleRegistro($detalle_herramienta, "detalle_herramientas");
+            $detalle_herramienta->update($request->all());
+
+            $datos_nuevo = HistorialAccion::getDetalleRegistro($detalle_herramienta, "detalle_herramientas");
+            HistorialAccion::create([
+                'user_id' => Auth::user()->id,
+                'accion' => 'MODIFICACIÓN',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UNA HERRAMIENTA DE UNA ORDEN GENERADA',
+                'datos_original' => $datos_original,
+                'datos_nuevo' => $datos_nuevo,
+                'modulo' => 'ORDEN GENERADA',
+                'fecha' => date('Y-m-d'),
+                'hora' => date('H:i:s')
+            ]);
+            DB::commit();
+            return response()->JSON([
+                "sw" => true,
+                "message" => "Registro actualizado",
+                "item" => $detalle_herramienta->load("herramienta")
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->JSON([
+                "sw" => false,
+                "message" => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

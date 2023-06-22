@@ -14,13 +14,14 @@ use Illuminate\Support\Facades\DB;
 class PedidoRepuestoController extends Controller
 {
     public $validacion = [
-        'orden_id' => 'required',
+        'orden_id' => 'required|unique:pedido_repuestos,orden_id',
         'detalle_repuestos' => 'required|array|min:1',
         'detalle_repuestos.*.cantidad_requerida' => 'required|numeric|min:1',
     ];
 
     public $mensajes = [
         "orden_id.required" => "Debes seleccionar una orden de trabajo",
+        "orden_id.unique" => "Ya se realizó el pedido de esta orden de trabajo",
         "detalle_repuestos.required" => "El registro que seleccionaste no cuenta con un listado de repuestos",
         "detalle_repuestos.min" => "La lista de repuestos debe ser al menos de :min",
         'detalle_repuestos.*.cantidad_requerida.required' => 'Debes indicar una cantidad requerida',
@@ -93,6 +94,7 @@ class PedidoRepuestoController extends Controller
 
     public function update(Request $request, PedidoRepuesto $pedido_repuesto)
     {
+        $this->validacion['orden_id'] = 'required|unique:pedido_repuestos,orden_id,' . $pedido_repuesto->id;
         $request->validate($this->validacion, $this->mensajes);
 
         DB::beginTransaction();

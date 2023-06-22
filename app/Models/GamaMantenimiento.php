@@ -42,4 +42,9 @@ class GamaMantenimiento extends Model
     {
         return $this->belongsTo(Equipo::class, 'equipo_id');
     }
+
+    public function plan_mantenimiento()
+    {
+        return $this->hasOne(PlanMantenimiento::class, 'gama_id');
+    }
 }

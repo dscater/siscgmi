@@ -103,7 +103,7 @@ class OrdenTrabajoController extends Controller
     {
         return response()->JSON([
             'sw' => true,
-            'orden_trabajo' => $orden_trabajo
+            'orden_trabajo' => $orden_trabajo->load(["gama.equipo", "gama.plan_mantenimiento", "gama.gama_detalles", "subunidad.equipo", "subunidad.area", "subunidad.sistema", "orden_generada.detalle_repuestos.repuesto", "orden_generada.detalle_herramientas.herramienta", "orden_generada.detalle_personals.personal"])
         ], 200);
     }
 

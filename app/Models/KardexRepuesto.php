@@ -161,22 +161,22 @@ class KardexRepuesto extends Model
                         $datos_actualizacion["monto_saldo"] = $monto;
                     }
                     break;
-                case 'SALIDA':
-                    $salida_repuesto = SalidaRepuesto::find($item->registro_id);
-                    $monto = (float)$salida_repuesto->cantidad * (float)$salida_repuesto->repuesto->precio;
+                case 'DETALLE REPUESTO':
+                    $detalle_repuesto = DetalleRepuesto::find($item->registro_id);
+                    $monto = (float)$detalle_repuesto->cantidad_requerida * (float)$detalle_repuesto->costo;
 
                     if ($anterior) {
-                        $datos_actualizacion["precio"] = $salida_repuesto->repuesto->precio;
-                        $datos_actualizacion["cantidad_salida"] =  $salida_repuesto->cantidad;
-                        $datos_actualizacion["cantidad_saldo"] = (float)$anterior->cantidad_saldo - (float)$salida_repuesto->cantidad;
-                        $datos_actualizacion["cu"] = $salida_repuesto->repuesto->precio;
+                        $datos_actualizacion["precio"] = $detalle_repuesto->costo;
+                        $datos_actualizacion["cantidad_salida"] =  $detalle_repuesto->cantidad_requerida;
+                        $datos_actualizacion["cantidad_saldo"] = (float)$anterior->cantidad_saldo - (float)$detalle_repuesto->cantidad_requerida;
+                        $datos_actualizacion["cu"] = $detalle_repuesto->costo;
                         $datos_actualizacion["monto_salida"] = $monto;
                         $datos_actualizacion["monto_saldo"] =  (float)$anterior->monto_saldo - $monto;
                     } else {
-                        $datos_actualizacion["precio"] = $salida_repuesto->repuesto->precio;
-                        $datos_actualizacion["cantidad_salida"] =  $salida_repuesto->cantidad;
-                        $datos_actualizacion["cantidad_saldo"] = (float)$salida_repuesto->cantidad * (-1);
-                        $datos_actualizacion["cu"] = $salida_repuesto->repuesto->precio;
+                        $datos_actualizacion["precio"] = $detalle_repuesto->costo;
+                        $datos_actualizacion["cantidad_salida"] =  $detalle_repuesto->cantidad_requerida;
+                        $datos_actualizacion["cantidad_saldo"] = (float)$detalle_repuesto->cantidad_requerida * (-1);
+                        $datos_actualizacion["cu"] = $detalle_repuesto->costo;
                         $datos_actualizacion["monto_salida"] = $monto;
                         $datos_actualizacion["monto_saldo"] = $monto * (-1);
                     }
