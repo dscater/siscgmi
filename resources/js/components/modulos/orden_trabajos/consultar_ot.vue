@@ -14,6 +14,18 @@
                 <div class="row pl-1 pr-1">
                     <div class="col-md-2 pl-0 pr-0">
                         <router-link
+                            :to="{
+                                name: 'orden_trabajos.index',
+                            }"
+                            v-if="permisos.includes('orden_trabajos.index')"
+                            class="btn btn-info btn-flat btn-block border-white"
+                        >
+                            <i class="fa fa-arrow-left"></i>
+                            Ordenes de trabajo
+                        </router-link>
+                    </div>
+                    <div class="col-md-2 pl-0 pr-0">
+                        <router-link
                             v-if="permisos.includes('orden_trabajos.index')"
                             :to="{ name: 'orden_trabajos.programacion' }"
                             class="btn btn-primary btn-flat btn-block border-white"
@@ -73,8 +85,14 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <VCanva :mostrando="muestra_canva" v-if="muestra_canva"></VCanva>
-                                <VTimeline :mostrando="muestra_timeline" v-if="muestra_timeline"></VTimeline>
+                                <VCanva
+                                    :mostrando="muestra_canva"
+                                    v-if="muestra_canva"
+                                ></VCanva>
+                                <VTimeline
+                                    :mostrando="muestra_timeline"
+                                    v-if="muestra_timeline"
+                                ></VTimeline>
                             </div>
                         </div>
                     </div>

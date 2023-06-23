@@ -271,6 +271,13 @@ export default new Router({
                 .default,
             props: true,
         },
+        {
+            path: "/orden_trabajos/consultar_ot/orden_trabajo/:id",
+            name: "orden_trabajos.orden_trabajo",
+            component: require("./components/modulos/orden_trabajos/orden_trabajo.vue")
+                .default,
+            props: true,
+        },
 
         // orden_generadas
         {

@@ -8,7 +8,13 @@
                 <div class="card-body bg-info">
                     <div class="row">
                         <div class="col-md-12" v-for="item in listPendientes">
-                            <a href="" class="card item">
+                            <router-link
+                                :to="{
+                                    name: 'orden_trabajos.orden_trabajo',
+                                    params: { id: item.id },
+                                }"
+                                class="card item"
+                            >
                                 <div class="card-body">
                                     <p class="mb-1">
                                         {{ item.tipo_mantenimiento }}
@@ -24,7 +30,7 @@
                                     </p>
                                     <p class="mb-1">{{ item.id }}</p>
                                 </div>
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -38,7 +44,13 @@
                 <div class="card-body bg-info">
                     <div class="row">
                         <div class="col-md-12" v-for="item in listIniciados">
-                            <a href="" class="card item">
+                            <router-link
+                                :to="{
+                                    name: 'orden_trabajos.orden_trabajo',
+                                    params: { id: item.id },
+                                }"
+                                class="card item"
+                            >
                                 <div class="card-body">
                                     <p class="mb-1">
                                         {{ item.tipo_mantenimiento }}
@@ -54,7 +66,7 @@
                                     </p>
                                     <p class="mb-1">{{ item.id }}</p>
                                 </div>
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -68,7 +80,13 @@
                 <div class="card-body bg-info">
                     <div class="row">
                         <div class="col-md-12" v-for="item in listProgramados">
-                            <a href="" class="card item">
+                            <router-link
+                                :to="{
+                                    name: 'orden_trabajos.orden_trabajo',
+                                    params: { id: item.id },
+                                }"
+                                class="card item"
+                            >
                                 <div class="card-body">
                                     <p class="mb-1">
                                         {{ item.tipo_mantenimiento }}
@@ -84,7 +102,7 @@
                                     </p>
                                     <p class="mb-1">{{ item.id }}</p>
                                 </div>
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -98,7 +116,13 @@
                 <div class="card-body bg-info">
                     <div class="row">
                         <div class="col-md-12" v-for="item in listCancelados">
-                            <a href="" class="card item">
+                            <router-link
+                                :to="{
+                                    name: 'orden_trabajos.orden_trabajo',
+                                    params: { id: item.id },
+                                }"
+                                class="card item"
+                            >
                                 <div class="card-body">
                                     <p class="mb-1">
                                         {{ item.tipo_mantenimiento }}
@@ -114,7 +138,7 @@
                                     </p>
                                     <p class="mb-1">{{ item.id }}</p>
                                 </div>
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -128,7 +152,13 @@
                 <div class="card-body bg-info">
                     <div class="row">
                         <div class="col-md-12" v-for="item in listTerminados">
-                            <a href="" class="card item">
+                            <router-link
+                                :to="{
+                                    name: 'orden_trabajos.orden_trabajo',
+                                    params: { id: item.id },
+                                }"
+                                class="card item"
+                            >
                                 <div class="card-body">
                                     <p class="mb-1">
                                         {{ item.tipo_mantenimiento }}
@@ -144,7 +174,7 @@
                                     </p>
                                     <p class="mb-1">{{ item.id }}</p>
                                 </div>
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                 </div>
