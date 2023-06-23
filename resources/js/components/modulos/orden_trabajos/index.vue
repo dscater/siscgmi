@@ -24,6 +24,18 @@
                     </div>
                     <div class="col-md-2 pl-0 pr-0">
                         <router-link
+                            v-if="permisos.includes('orden_generadas.consultar_ot')"
+                            :to="{
+                                name: 'orden_trabajos.consultar_ot',
+                            }"
+                            class="btn btn-primary btn-flat btn-block border-white"
+                        >
+                            <i class="fa fa-list"></i>
+                            Consultar OT's
+                        </router-link>
+                    </div>
+                    <div class="col-md-2 pl-0 pr-0">
+                        <router-link
                             v-if="permisos.includes('orden_generadas.index')"
                             :to="{
                                 name: 'orden_trabajos.generar_ots',

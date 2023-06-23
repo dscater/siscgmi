@@ -152,6 +152,7 @@ class UserController extends Controller
             'orden_trabajos.create',
             'orden_trabajos.edit',
             'orden_trabajos.destroy',
+            "orden_generadas.consultar_ot",
 
             'orden_generadas.index',
             'orden_generadas.create',

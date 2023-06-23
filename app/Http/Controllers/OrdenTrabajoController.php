@@ -31,6 +31,23 @@ class OrdenTrabajoController extends Controller
         return response()->JSON(['orden_trabajos' => $orden_trabajos, 'total' => count($orden_trabajos)], 200);
     }
 
+    public function lista_clasificados()
+    {
+        $pendientes = OrdenTrabajo::with(["gama.equipo"])->where("estado", "PENDIENTE")->get();
+        $iniciados = OrdenTrabajo::with(["gama.equipo"])->where("estado", "INICIADO")->get();
+        $programados = OrdenTrabajo::with(["gama.equipo"])->where("estado", "PROGRAMADO")->get();
+        $cancelados = OrdenTrabajo::with(["gama.equipo"])->whereIn("estado", ["CANCELADO", "PENDIENTE CANCELADO"])->get();
+        $terminados = OrdenTrabajo::with(["gama.equipo"])->whereIn("estado", ["TERMINADO", "PENDIENTE TERMINADO"])->get();
+
+        return response()->JSON([
+            "pendientes" => $pendientes,
+            "iniciados" => $iniciados,
+            "programados" => $programados,
+            "cancelados" => $cancelados,
+            "terminados" => $terminados,
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate($this->validacion, $this->mensajes);
