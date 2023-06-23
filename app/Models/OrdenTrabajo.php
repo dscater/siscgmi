@@ -42,4 +42,9 @@ class OrdenTrabajo extends Model
     {
         return $this->hasOne(OrdenGenerada::class, 'orden_id');
     }
+
+    public function historial_fallas()
+    {
+        return $this->hasMany(HistorialFalla::class, "orden_id");
+    }
 }

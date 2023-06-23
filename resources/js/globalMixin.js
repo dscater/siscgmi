@@ -9,7 +9,6 @@ export default {
             return "";
         },
         getFeachaActual() {
-            console.log(this.$moment().format("YYYY-MM-DD"));
             return this.$moment().format("YYYY-MM-DD");
         },
         getHoraActual() {

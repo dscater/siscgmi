@@ -33,4 +33,9 @@ class Equipo extends Model
     {
         return $this->codigo . " | " . $this->nombre;
     }
+
+    public function historial_fallas()
+    {
+        return $this->hasMany(HistorialFalla::class, "equipo_id");
+    }
 }

@@ -22,4 +22,25 @@ class HistorialFalla extends Model
         "tiempo_ejecucion",
         "equipo_id",
     ];
+
+    public static function ultimoNumero()
+    {
+        $ultimo_numero = 1;
+        $last = HistorialFalla::orderBy("created_at", "asc")->get()->last();
+        if ($last) {
+            $ultimo_numero = (int)$last->nro_codificacion + 1;
+        }
+
+        return $ultimo_numero;
+    }
+
+    public function equipo()
+    {
+        return $this->belongsTo(Equipo::class, 'equipo_id');
+    }
+
+    public function orden_trabajo()
+    {
+        return $this->belongsTo(OrdenTrabajo::class, 'orden_id');
+    }
 }

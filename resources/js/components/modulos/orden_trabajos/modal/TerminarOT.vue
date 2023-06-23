@@ -36,11 +36,12 @@
                             >{{ fecha }} {{ hora }}
                         </p>
                         <p class="col-md-12">
-                            <strong>Tiempo estimado: </strong
+                            <strong>Tiempo estimado (minutos): </strong
                             >{{ orden_trabajo.gama?.tiempo_total }}
                         </p>
                         <p class="col-md-12">
-                            <strong>Tiempo de ejecución: </strong> 0
+                            <strong>Tiempo de ejecución (horas): </strong>
+                            <span v-text="form.tiempo_ejecucion"></span>
                         </p>
                     </div>
                     <form v-if="form">
@@ -48,16 +49,16 @@
                             <div class="form-group col-md-12">
                                 <label
                                     :class="{
-                                        'text-danger': errors.parada,
+                                        'text-danger': errors.parada_maquina,
                                     }"
                                     >Parada de máquina*</label
                                 >
                                 <el-select
                                     class="w-100"
                                     :class="{
-                                        'is-invalid': errors.parada,
+                                        'is-invalid': errors.parada_maquina,
                                     }"
-                                    v-model="form.parada"
+                                    v-model="form.parada_maquina"
                                 >
                                     <el-option
                                         v-for="(item, index) in ['SI', 'NO']"
@@ -68,8 +69,60 @@
                                 </el-select>
                                 <span
                                     class="error invalid-feedback"
-                                    v-if="errors.parada"
-                                    v-text="errors.parada[0]"
+                                    v-if="errors.parada_maquina"
+                                    v-text="errors.parada_maquina[0]"
+                                ></span>
+                            </div>
+                        </div>
+                        <div class="row" v-if="form.parada_maquina == 'SI'">
+                            <div class="form-group col-md-12">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.tipo_falla,
+                                    }"
+                                    >Tipo de falla*</label
+                                >
+                                <el-select
+                                    class="w-100"
+                                    :class="{
+                                        'is-invalid': errors.tipo_falla,
+                                    }"
+                                    v-model="form.tipo_falla"
+                                    filterable
+                                >
+                                    <el-option
+                                        v-for="(item, index) in listFallas"
+                                        :key="index"
+                                        :value="item"
+                                        :label="item"
+                                    ></el-option>
+                                </el-select>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.tipo_falla"
+                                    v-text="errors.tipo_falla[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.descripcion_falla,
+                                    }"
+                                    >Descripción de falla</label
+                                >
+                                <el-input
+                                    type="textarea"
+                                    autosize
+                                    :class="{
+                                        'is-invalid': errors.descripcion_falla,
+                                    }"
+                                    v-model="form.descripcion_falla"
+                                >
+                                </el-input>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.descripcion_falla"
+                                    v-text="errors.descripcion_falla[0]"
                                 ></span>
                             </div>
                         </div>
@@ -184,6 +237,10 @@ export default {
         muestra_modal: function (newVal, oldVal) {
             this.errors = [];
             if (newVal) {
+                this.fecha = this.getFeachaActual();
+                this.hora = this.getHoraActual();
+                let self = this;
+                setTimeout(self.getTiempoEjecucion, 500);
                 this.bModal = true;
             } else {
                 this.bModal = false;
@@ -207,8 +264,22 @@ export default {
             bModal: this.muestra_modal,
             enviando: false,
             errors: [],
+            listFallas: [
+                "MECÁNICA",
+                "ELÉCTRICA",
+                "HIDRÁULICA",
+                "NEUMÁTICA",
+                "OPERATIVA",
+                "LUBRICACIÓN",
+                "DESGASTE",
+                "CALIBRACIÓN",
+                "SUMINISTRO",
+                "SEGURIDAD",
+                "SOFTWARE",
+            ],
             form: {
-                parada: "",
+                parada_maquina: "",
+                tiempo_ejecucion: 0,
                 tipo_falla: "",
                 descripcion_falla: "",
                 razon: "",
@@ -221,10 +292,21 @@ export default {
     },
     mounted() {
         this.bModal = this.muestra_modal;
-        this.fecha = this.getFeachaActual();
-        this.hora = this.getHoraActual();
     },
     methods: {
+        getTiempoEjecucion() {
+            axios
+                .get("/admin/orden_trabajos/getTiempoEjecucion", {
+                    params: {
+                        fecha_ini: `${this.orden_trabajo.fecha_inicio} ${this.orden_trabajo.hora_inicio}`,
+                        fecha_fin: `${this.fecha} ${this.hora}`,
+                    },
+                })
+                .then((response) => {
+                    console.log(response.data);
+                    this.form.tiempo_ejecucion = response.data.h;
+                });
+        },
         setRegistroModal() {
             this.enviando = true;
             try {
@@ -244,11 +326,30 @@ export default {
                 if (this.form.estado && this.form.estado.trim() != "") {
                     formdata.append("estado", this.form.estado);
                 }
+
                 formdata.append("fecha_termino", this.fecha);
                 formdata.append("hora_termino", this.hora);
 
+                if (this.form.tiempo_ejecucion) {
+                    formdata.append(
+                        "tiempo_ejecucion",
+                        this.form.tiempo_ejecucion
+                    );
+                }
+                if (this.form.parada_maquina && this.form.parada_maquina.trim() != "") {
+                    formdata.append("parada_maquina", this.form.parada_maquina);
+                }
+                if(this.form.parada_maquina == 'SI'){
+                    if (this.form.tipo_falla && this.form.tipo_falla.trim() != "") {
+                        formdata.append("tipo_falla", this.form.tipo_falla);
+                    }
+                    if (this.form.descripcion_falla && this.form.descripcion_falla.trim() != "") {
+                        formdata.append("descripcion_falla", this.form.descripcion_falla);
+                    }
+                }
+
                 let url =
-                    "/admin/orden_trabajos/registraNuevoEstado/" +
+                    "/admin/orden_trabajos/registraTerminarOT/" +
                     this.orden_trabajo.id;
                 axios
                     .post(url, formdata, config)

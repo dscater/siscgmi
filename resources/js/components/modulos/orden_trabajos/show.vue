@@ -200,6 +200,10 @@
                                                         class="icheck-primary d-inline"
                                                     >
                                                         <input
+                                                            :disabled="
+                                                                oOrdenTrabajo.estado ==
+                                                                'TERMINADO'
+                                                            "
                                                             type="checkbox"
                                                             :true-value="1"
                                                             :false-value="0"
@@ -209,11 +213,6 @@
                                                             "
                                                             v-model="
                                                                 item.chekado
-                                                            "
-                                                            :disabled="
-                                                                item.disabled
-                                                                    ? true
-                                                                    : false
                                                             "
                                                             @change="
                                                                 cambiaEstadoDetalles(
@@ -283,6 +282,10 @@
                                                         class="icheck-primary d-inline"
                                                     >
                                                         <input
+                                                            :disabled="
+                                                                oOrdenTrabajo.estado ==
+                                                                'TERMINADO'
+                                                            "
                                                             type="checkbox"
                                                             :true-value="1"
                                                             :false-value="0"
@@ -348,6 +351,10 @@
                                                         class="icheck-primary d-inline"
                                                     >
                                                         <input
+                                                            :disabled="
+                                                                oOrdenTrabajo.estado ==
+                                                                'TERMINADO'
+                                                            "
                                                             type="checkbox"
                                                             :true-value="1"
                                                             :false-value="0"
@@ -424,6 +431,10 @@
                                                         class="icheck-primary d-inline"
                                                     >
                                                         <input
+                                                            :disabled="
+                                                                oOrdenTrabajo.estado ==
+                                                                'TERMINADO'
+                                                            "
                                                             type="checkbox"
                                                             :true-value="1"
                                                             :false-value="0"

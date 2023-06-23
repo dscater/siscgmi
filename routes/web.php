@@ -141,6 +141,7 @@ Route::middleware(['auth'])->group(function () {
         ]);
 
         // orden_trabajos
+        Route::get("orden_trabajos/getTiempoEjecucion", [OrdenTrabajoController::class, 'getTiempoEjecucion']);
         Route::post("orden_trabajos/registraNuevoEstado/{orden_trabajo}", [OrdenTrabajoController::class, 'registraNuevoEstado']);
         Route::post("orden_trabajos/registraTerminarOT/{orden_trabajo}", [OrdenTrabajoController::class, 'registraTerminarOT']);
         Route::get("orden_trabajos/getWithOrdenGenerada/{orden_trabajo}", [OrdenTrabajoController::class, 'getWithOrdenGenerada']);

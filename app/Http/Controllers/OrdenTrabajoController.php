@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\HistorialAccion;
+use App\Models\HistorialFalla;
 use App\Models\Notificacion;
 use App\Models\OrdenTrabajo;
 use App\Models\User;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -224,10 +226,55 @@ class OrdenTrabajoController extends Controller
     }
     public function registraTerminarOT(OrdenTrabajo $orden_trabajo, Request $request)
     {
+        if ($request->parada_maquina == 'SI') {
+            $request->validate([
+                "parada_maquina" => "required",
+                "tiempo_ejecucion" => "required",
+                "estado" => "required",
+                "razon" => "required|min:4",
+                "tipo_falla" => "required",
+            ]);
+        } else {
+            $request->validate([
+                "parada_maquina" => "required",
+                "tiempo_ejecucion" => "required",
+                "estado" => "required",
+                "razon" => "required|min:4",
+            ]);
+        }
+
         DB::beginTransaction();
         try {
             $datos_original = HistorialAccion::getDetalleRegistro($orden_trabajo, "orden_trabajos");
-            $orden_trabajo->update(array_map("mb_strtoupper", $request->only(["estado", "comentario", "razon", "fecha_termino", "hora_termino"])));
+            $orden_trabajo->update(array_map("mb_strtoupper", $request->only(["estado", "comentario", "razon", "fecha_termino", "hora_termino", "tiempo_ejecucion", "parada_maquina"])));
+
+            if ($orden_trabajo->parada_maquina == 'SI') {
+                // registrar falla
+                $nro_codificacion = HistorialFalla::ultimoNumero();
+                $txt_nro = $nro_codificacion;
+                if ($nro_codificacion < 10) {
+                    $txt_nro = "000" . $nro_codificacion;
+                } elseif ($nro_codificacion < 100) {
+                    $txt_nro = "00" . $nro_codificacion;
+                } elseif ($nro_codificacion < 1000) {
+                    $txt_nro = "0" . $nro_codificacion;
+                }
+                $codificacion = "DM-" . $txt_nro . "-HIS-FM";
+                $equipo = $orden_trabajo->gama->equipo;
+                $equipo->historial_fallas()->create([
+                    "orden_id" => $orden_trabajo->id,
+                    "nro_codificacion" => $nro_codificacion,
+                    "codificacion" => $codificacion,
+                    "tipo_falla" => $request->tipo_falla,
+                    "descripcion_falla" => mb_strtoupper($request->descripcion_falla),
+                    "fecha_inicio" => $orden_trabajo->fecha_inicio,
+                    "hora_inicio" => $orden_trabajo->hora_inicio,
+                    "fecha_termino" => $orden_trabajo->fecha_termino,
+                    "hora_termino" => $orden_trabajo->hora_termino,
+                    "tiempo_ejecucion" => $orden_trabajo->tiempo_ejecucion,
+                ]);
+            }
+
             $datos_nuevo = HistorialAccion::getDetalleRegistro($orden_trabajo, "orden_trabajos");
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
@@ -251,5 +298,15 @@ class OrdenTrabajoController extends Controller
                 'message' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function getTiempoEjecucion(Request $request)
+    {
+        $fecha_ini = new DateTime($request->fecha_ini);
+        $fecha_fin = new DateTime($request->fecha_fin);
+
+        $diff = $fecha_ini->diff($fecha_fin);
+
+        return response()->JSON($diff);
     }
 }
