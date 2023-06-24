@@ -141,6 +141,8 @@ Route::middleware(['auth'])->group(function () {
         ]);
 
         // orden_trabajos
+        Route::get("orden_trabajos/getByAnioSemana", [OrdenTrabajoController::class, 'getByAnioSemana']);
+        Route::get("orden_trabajos/getByAnioMes", [OrdenTrabajoController::class, 'getByAnioMes']);
         Route::get("orden_trabajos/lista_clasificados", [OrdenTrabajoController::class, 'lista_clasificados']);
         Route::get("orden_trabajos/getTiempoEjecucion", [OrdenTrabajoController::class, 'getTiempoEjecucion']);
         Route::post("orden_trabajos/registraNuevoEstado/{orden_trabajo}", [OrdenTrabajoController::class, 'registraNuevoEstado']);

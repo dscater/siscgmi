@@ -38,7 +38,11 @@
                     </div>
                     <div class="col-md-2 pl-0 pr-0">
                         <router-link
-                            v-if="permisos.includes('orden_generadas.consultar_ot')"
+                            v-if="
+                                permisos.includes(
+                                    'orden_generadas.consultar_ot'
+                                )
+                            "
                             :to="{
                                 name: 'orden_trabajos.consultar_ot',
                             }"
@@ -189,7 +193,7 @@
                                             <span
                                                 v-if="
                                                     item.orden_generada
-                                                        .url_archivo
+                                                        ?.url_archivo
                                                 "
                                                 ><i class="fa fa-check"></i
                                             ></span>
@@ -215,7 +219,7 @@
                                             Comentarios/Notas
                                             <span
                                                 v-if="
-                                                    item.orden_generada.comentario?.trim()
+                                                    item.orden_generada?.comentario?.trim()
                                                 "
                                                 ><i class="fa fa-check"></i
                                             ></span>

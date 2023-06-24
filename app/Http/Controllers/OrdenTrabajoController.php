@@ -48,6 +48,23 @@ class OrdenTrabajoController extends Controller
         ]);
     }
 
+    public function getByAnioSemana(Request $request)
+    {
+        $anio = $request->anio;
+        $semana = $request->semana;
+    }
+    public function getByAnioMes(Request $request)
+    {
+        $anio = $request->anio;
+        $mes = $request->mes;
+        $registros = OrdenTrabajo::with(["gama.equipo"])->where("fecha_programada", "LIKE", "%$anio-$mes%")->get();
+
+        return response()->JSON([
+            "sw" => true,
+            "registros" => $registros
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate($this->validacion, $this->mensajes);
