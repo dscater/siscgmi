@@ -398,4 +398,9 @@ class OrdenTrabajoController extends Controller
 
         return response()->JSON($diff);
     }
+
+    public function getAniosOt()
+    {
+        return response()->JSON(OrdenTrabajo::getAniosOT());
+    }
 }

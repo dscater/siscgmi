@@ -64,4 +64,18 @@ class OrdenTrabajo extends Model
 
         return $fechas;
     }
+
+    public static function getAniosOT()
+    {
+        $fecha_minimo = OrdenTrabajo::min("fecha_programada");
+        $fecha_maximo = OrdenTrabajo::max("fecha_programada");
+        $anio_minimo = (int)date("Y", strtotime($fecha_minimo));
+        $anio_maximo = (int)date("Y", strtotime($fecha_maximo));
+
+        $anios = [];
+        for ($i = $anio_minimo; $i <= $anio_maximo; $i++) {
+            $anios[] = $i;
+        }
+        return $anios;
+    }
 }

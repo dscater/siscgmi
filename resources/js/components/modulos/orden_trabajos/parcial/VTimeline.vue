@@ -88,14 +88,28 @@ export default {
             semana: "",
             datos: [],
             nro_filtro: 0,
-            listAnios: ["2023"],
+            listAnios: [this.$moment().format("YYYY")],
         };
+    },
+    mounted() {
+        this.getAnios();
     },
     methods: {
         muestraFiltro(val) {
             this.mes = "";
             this.semana = "";
             this.nro_filtro = val;
+        },
+        getAnios() {
+            axios
+                .get("/admin/orden_trabajos/getAniosOt")
+                .then((response) => {
+                    this.listAnios = response.data;
+                })
+                .catch((error) => {
+                    this.listAnios = [$moment().format("YYYY")];
+                    F;
+                });
         },
     },
 };

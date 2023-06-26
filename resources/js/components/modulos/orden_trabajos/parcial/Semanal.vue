@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row" v-if="muestra_registros">
-                <div class="col-md-12">
+                <div class="col-md-12" style="overflow: auto">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -50,7 +50,30 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-12"></div>
+                <div class="col-md-12" style="overflow: auto">
+                    <table class="table table-bordred">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Equipo</th>
+                                <th>Estado</th>
+                                <th>Fecha</th>
+                                <th>Prioridad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in registros">
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.gama.descripcion }}</td>
+                                <td>{{ item.gama.equipo.nombre }}</td>
+                                <td>{{ item.estado }}</td>
+                                <td>{{ item.fecha_programada }}</td>
+                                <td>{{ item.prioridad }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -87,24 +110,28 @@ export default {
     },
     methods: {
         getOrdenTrabajosAnioSemana() {
-            axios
-                .get("/admin/orden_trabajos/getByAnioSemana", {
-                    params: {
-                        anio: this.anio,
-                        semana: this.semana,
-                    },
-                })
-                .then((response) => {
-                    this.dias = response.data.dias;
-                    this.fechas = response.data.fechas;
-                    this.dias_txt = response.data.dias_txt;
-                    this.registros_dias = response.data.registros_dias;
-                    this.registros = response.data.registros;
-                    this.muestra_registros = true;
-                })
-                .catch((error) => {
-                    this.muestra_registros = false;
-                });
+            if (this.anio != "" && this.semana != "") {
+                axios
+                    .get("/admin/orden_trabajos/getByAnioSemana", {
+                        params: {
+                            anio: this.anio,
+                            semana: this.semana,
+                        },
+                    })
+                    .then((response) => {
+                        this.dias = response.data.dias;
+                        this.fechas = response.data.fechas;
+                        this.dias_txt = response.data.dias_txt;
+                        this.registros_dias = response.data.registros_dias;
+                        this.registros = response.data.registros;
+                        this.muestra_registros = true;
+                    })
+                    .catch((error) => {
+                        this.muestra_registros = false;
+                    });
+            } else {
+                this.muestra_registros = false;
+            }
         },
         verificaDia(id, dia) {
             console.log(this.registros_dias[dia]);
