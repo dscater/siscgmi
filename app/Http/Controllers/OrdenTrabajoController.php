@@ -52,6 +52,27 @@ class OrdenTrabajoController extends Controller
     {
         $anio = $request->anio;
         $semana = $request->semana;
+        $fechas = OrdenTrabajo::obtenerFechasSemana($semana, $anio);
+
+        $dias = [];
+        $dias_txt = ["D", "L", "M", "M", "J", "V", "S"];
+        $registros_dias = [];
+        foreach ($fechas as $fecha) {
+            $dia = date("w", strtotime($fecha));
+            $dias[] = $dia;
+            $registros_dias[$dia] = OrdenTrabajo::with(["gama.equipo"])->where("fecha_programada", $fecha)->get();
+        }
+        $registros = OrdenTrabajo::with(["gama.equipo"])->whereIn("fecha_programada", $fechas)->get();
+
+
+        return response()->JSON([
+            "sw" => true,
+            "dias" => $dias,
+            "fechas" => $fechas,
+            "dias_txt" => $dias_txt,
+            "registros_dias" => $registros_dias,
+            "registros" => $registros,
+        ]);
     }
     public function getByAnioMes(Request $request)
     {

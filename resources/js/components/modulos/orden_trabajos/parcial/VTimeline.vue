@@ -58,13 +58,17 @@
                 </div>
                 <div class="form-group col-md-4" v-if="nro_filtro == 2">
                     <label>Semana</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" v-model="semana" />
                 </div>
             </div>
             <Calendario
                 :anio_mes="[anio, mes]"
                 v-if="nro_filtro == 1"
             ></Calendario>
+            <Semanal
+                :anio_semana="[anio, semana]"
+                v-if="nro_filtro == 2"
+            ></Semanal>
         </div>
     </div>
 </template>
@@ -89,6 +93,8 @@ export default {
     },
     methods: {
         muestraFiltro(val) {
+            this.mes = "";
+            this.semana = "";
             this.nro_filtro = val;
         },
     },
