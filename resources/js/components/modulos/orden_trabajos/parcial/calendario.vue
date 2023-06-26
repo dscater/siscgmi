@@ -67,6 +67,7 @@ export default {
                 },
                 eventContent: this.customizeEventContent,
                 eventAllow: this.eventAllow,
+                scrollTime: this.getFeachaActual(),
             };
         },
     },
@@ -115,8 +116,40 @@ export default {
         },
         eventDrop(info) {
             // Event handler for when an event is dropped
-            console.log("Event dropped:", info.event.title);
-            console.log("New start date:", info.event.start);
+            // let fecha_anterior = this.$moment(info.oldEvent.start, "YYY-MM-DD").format("YYYY-MM-DD");
+            let fecha_nueva = this.$moment(info.event.start, "YYY-MM-DD");
+            let fecha_actual = this.$moment();
+            if (!fecha_nueva.isBefore(fecha_actual)) {
+                axios
+                    .post(
+                        "/admin/orden_trabajos/actualiza_fecha/" +
+                            info.event.id,
+                        {
+                            _method: "put",
+                            fecha_programada: fecha_nueva.format("YYYY-MM-DD"),
+                        }
+                    )
+                    .then((response) => {
+                        Swal.fire({
+                            icon: "success",
+                            title: response.data.msj,
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                    });
+            } else {
+                // Reposicionar el evento a su fecha original
+                info.revert(); // Esta línea revertirá el evento a su posición original
+                this.$refs.calendar.getApi().refetchEvents(); // Esta línea recargará los eventos en el calendario
+                Swal.fire({
+                    icon: "error",
+                    title: "No es posible reasignar un evento hacia una fecha pasada",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                // Prevenir el scroll
+                info.jsEvent.preventDefault();
+            }
         },
         eventAllow(dropInfo, draggedEvent) {
             const estado = draggedEvent.extendedProps.estado;

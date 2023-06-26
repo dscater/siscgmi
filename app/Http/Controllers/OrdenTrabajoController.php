@@ -137,6 +137,40 @@ class OrdenTrabajoController extends Controller
         }
     }
 
+    public function actualiza_fecha(Request $request, OrdenTrabajo $orden_trabajo)
+    {
+        DB::beginTransaction();
+        try {
+            $datos_original = HistorialAccion::getDetalleRegistro($orden_trabajo, "orden_trabajos");
+            $orden_trabajo->update(array_map('mb_strtoupper', $request->all()));
+
+            $datos_nuevo = HistorialAccion::getDetalleRegistro($orden_trabajo, "orden_trabajos");
+            HistorialAccion::create([
+                'user_id' => Auth::user()->id,
+                'accion' => 'MODIFICACIÓN',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ LA FECHA DE PROGRAMACIÓN DE UNA ORDEN DE TRABAJO',
+                'datos_original' => $datos_original,
+                'datos_nuevo' => $datos_nuevo,
+                'modulo' => 'ORDENES DE TRABAJO',
+                'fecha' => date('Y-m-d'),
+                'hora' => date('H:i:s')
+            ]);
+
+            DB::commit();
+            return response()->JSON([
+                'sw' => true,
+                'orden_trabajo' => $orden_trabajo,
+                'msj' => 'El registro se actualizó de forma correcta'
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->JSON([
+                'sw' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
     public function show(OrdenTrabajo $orden_trabajo)
     {
         // verifica fecha limite
