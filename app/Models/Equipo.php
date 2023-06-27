@@ -38,4 +38,9 @@ class Equipo extends Model
     {
         return $this->hasMany(HistorialFalla::class, "equipo_id");
     }
+
+    public function historial_tiempos()
+    {
+        return $this->hasMany(HistorialTiempo::class, "equipo_id");
+    }
 }

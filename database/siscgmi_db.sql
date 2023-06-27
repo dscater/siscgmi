@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 22-06-2023 a las 21:51:35
+-- Tiempo de generación: 27-06-2023 a las 17:04:44
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -177,6 +177,90 @@ INSERT INTO `detalle_repuestos` (`id`, `orden_generada_id`, `repuesto_id`, `cant
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `detalle_tiempos`
+--
+
+CREATE TABLE `detalle_tiempos` (
+  `id` bigint UNSIGNED NOT NULL,
+  `historial_tiempo_id` bigint UNSIGNED NOT NULL,
+  `fecha` date NOT NULL,
+  `tiempo` int NOT NULL,
+  `comentario` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_tiempos`
+--
+
+INSERT INTO `detalle_tiempos` (`id`, `historial_tiempo_id`, `fecha`, `tiempo`, `comentario`, `created_at`, `updated_at`) VALUES
+(1, 1, '2023-05-01', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(2, 1, '2023-05-02', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(3, 1, '2023-05-03', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(4, 1, '2023-05-04', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(5, 1, '2023-05-05', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(6, 1, '2023-05-06', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(7, 1, '2023-05-07', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(8, 1, '2023-05-08', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(9, 1, '2023-05-09', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(10, 1, '2023-05-10', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(11, 1, '2023-05-11', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(12, 1, '2023-05-12', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(13, 1, '2023-05-13', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(14, 1, '2023-05-14', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(15, 1, '2023-05-15', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(16, 1, '2023-05-16', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(17, 1, '2023-05-17', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(18, 1, '2023-05-18', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(19, 1, '2023-05-19', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(20, 1, '2023-05-20', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(21, 1, '2023-05-21', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(22, 1, '2023-05-22', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(23, 1, '2023-05-23', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(24, 1, '2023-05-24', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(25, 1, '2023-05-25', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(26, 1, '2023-05-26', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(27, 1, '2023-05-27', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(28, 1, '2023-05-28', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(29, 1, '2023-05-29', 0, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(30, 1, '2023-05-30', 390, '', '2023-06-27 16:36:32', '2023-06-27 16:50:21'),
+(31, 1, '2023-05-31', 0, 'COMENTARIO DE PRUEBA HISTORIAL', '2023-06-27 16:36:32', '2023-06-27 17:01:46'),
+(32, 8, '2023-05-01', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(33, 8, '2023-05-02', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(34, 8, '2023-05-03', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(35, 8, '2023-05-04', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(36, 8, '2023-05-05', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(37, 8, '2023-05-06', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(38, 8, '2023-05-07', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(39, 8, '2023-05-08', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(40, 8, '2023-05-09', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(41, 8, '2023-05-10', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(42, 8, '2023-05-11', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(43, 8, '2023-05-12', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(44, 8, '2023-05-13', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(45, 8, '2023-05-14', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(46, 8, '2023-05-15', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(47, 8, '2023-05-16', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(48, 8, '2023-05-17', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(49, 8, '2023-05-18', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(50, 8, '2023-05-19', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(51, 8, '2023-05-20', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(52, 8, '2023-05-21', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(53, 8, '2023-05-22', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(54, 8, '2023-05-23', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(55, 8, '2023-05-24', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(56, 8, '2023-05-25', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(57, 8, '2023-05-26', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(58, 8, '2023-05-27', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(59, 8, '2023-05-28', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(60, 8, '2023-05-29', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(61, 8, '2023-05-30', 390, 'COMENTAIO PRUEBA', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(62, 8, '2023-05-31', 390, '', '2023-06-27 16:57:33', '2023-06-27 16:57:33');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `entrada_herramientas`
 --
 
@@ -320,7 +404,10 @@ CREATE TABLE `gama_detalles` (
 
 INSERT INTO `gama_detalles` (`id`, `gama_id`, `tarea`, `tiempo`, `chekado`, `created_at`, `updated_at`) VALUES
 (1, 2, 'TAREA 1', 7, 1, '2023-06-13 16:37:24', '2023-06-22 16:53:52'),
-(3, 2, 'NUEVA TAREA 2', 10, 1, '2023-06-13 16:43:34', '2023-06-22 16:53:54');
+(3, 2, 'NUEVA TAREA 2', 10, 1, '2023-06-13 16:43:34', '2023-06-22 16:53:54'),
+(4, 3, 'TAREA 1', 120, 0, '2023-06-23 16:49:17', '2023-06-23 16:49:17'),
+(5, 3, 'TAREA 2', 120, 0, '2023-06-23 16:49:17', '2023-06-23 16:49:17'),
+(6, 3, 'TAREA 3', 120, 0, '2023-06-23 16:49:17', '2023-06-23 16:49:17');
 
 -- --------------------------------------------------------
 
@@ -344,7 +431,8 @@ CREATE TABLE `gama_mantenimientos` (
 --
 
 INSERT INTO `gama_mantenimientos` (`id`, `codigo`, `codificacion`, `subfamilia_id`, `equipo_id`, `descripcion`, `created_at`, `updated_at`) VALUES
-(2, 'GM001', 'GM001HH8', 1, 1, '', '2023-06-13 16:37:24', '2023-06-14 16:05:09');
+(2, 'GM001', 'GM001HH8', 1, 1, '', '2023-06-13 16:37:24', '2023-06-14 16:05:09'),
+(3, 'GM002', 'MNH002JJ', 1, 4, 'GAMA #2', '2023-06-23 16:49:17', '2023-06-23 16:49:17');
 
 -- --------------------------------------------------------
 
@@ -605,7 +693,28 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (189, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PLAN DE MANTENIMIENTO', 'codificacion: PM001HHH3<br/>created_at: 2023-06-14 17:32:31<br/>dias: 10<br/>estado: PLANIFICADO<br/>fecha_final: 2023-05-31<br/>frecuencia_id: 1<br/>gama_id: 2<br/>id: 2<br/>pm: PM<br/>prioridad: URGENTE<br/>programacion: ÚLTIMA VEZ QUE SE PROGRAMÓ<br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREVENTIVO<br/>ultima_fecha_programada: 2023-05-01<br/>ultima_fecha_terminada: 2023-05-05<br/>updated_at: 2023-06-14 17:32:31<br/>variable_control_id: 1<br/>', 'codificacion: PM001HHH3<br/>created_at: 2023-06-14 17:32:31<br/>dias: 10<br/>estado: PLANIFICADO<br/>fecha_final: 2023-07-31<br/>frecuencia_id: 1<br/>gama_id: 2<br/>id: 2<br/>pm: PM<br/>prioridad: URGENTE<br/>programacion: ÚLTIMA VEZ QUE SE PROGRAMÓ<br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREVENTIVO<br/>ultima_fecha_programada: 2023-07-01<br/>ultima_fecha_terminada: 2023-07-31<br/>updated_at: 2023-06-22 16:36:33<br/>variable_control_id: 1<br/>', 'PLAN DE MANTENIMIENTO', '2023-06-22', '16:36:33', '2023-06-22 20:36:33', '2023-06-22 20:36:33'),
 (190, 1, 'MODIFICACIÓN', 'EL USUARIO admin ACTUALIZÓ EL ESTADO DE UNA ORDEN DE TRABAJO', 'comentario: <br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: PROGRAMADO<br/>fecha_programada: 2023-06-15<br/>gama_id: 2<br/>id: 2<br/>prioridad: URGENTE<br/>razon: <br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 16:33:58<br/>', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: INICIADO<br/>fecha_programada: 2023-06-15<br/>gama_id: 2<br/>id: 2<br/>prioridad: URGENTE<br/>razon: PRUEBA RAZON CAMBIO DE ESTADO #1<br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 16:59:38<br/>', 'ORDENES DE TRABAJO', '2023-06-22', '16:59:38', '2023-06-22 20:59:38', '2023-06-22 20:59:38'),
 (192, 1, 'MODIFICACIÓN', 'EL USUARIO admin ACTUALIZÓ EL ESTADO DE UNA ORDEN DE TRABAJO', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: PROGRAMADO<br/>fecha_programada: 2023-06-15<br/>gama_id: 2<br/>id: 2<br/>prioridad: URGENTE<br/>razon: PRUEBA RAZON CAMBIO DE ESTADO #1<br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 16:59:38<br/>', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: INICIADO<br/>fecha_programada: 2023-06-15<br/>gama_id: 2<br/>id: 2<br/>prioridad: URGENTE<br/>razon: PRUEBA #2 CAMBIO DE ESTADO<br/>subunidad_id: 1<br/>tiempo: 17<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 17:05:05<br/>', 'ORDENES DE TRABAJO', '2023-06-22', '17:05:05', '2023-06-22 21:05:05', '2023-06-22 21:05:05'),
-(193, 1, 'MODIFICACIÓN', 'EL USUARIO admin ACTUALIZÓ EL ESTADO DE UNA ORDEN DE TRABAJO', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: PROGRAMADO<br/>fecha_inicio: <br/>fecha_programada: 2023-06-15<br/>fecha_termino: <br/>gama_id: 2<br/>hora_inicio: <br/>hora_termino: <br/>id: 2<br/>parada_maquina: <br/>prioridad: URGENTE<br/>razon: PRUEBA #2 CAMBIO DE ESTADO<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: <br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 17:05:05<br/>', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: INICIADO<br/>fecha_inicio: 2023-06-22<br/>fecha_programada: 2023-06-15<br/>fecha_termino: <br/>gama_id: 2<br/>hora_inicio: 17:41<br/>hora_termino: <br/>id: 2<br/>parada_maquina: <br/>prioridad: URGENTE<br/>razon: PRUEBA INICIO #1<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: <br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 17:41:37<br/>', 'ORDENES DE TRABAJO', '2023-06-22', '17:41:37', '2023-06-22 21:41:37', '2023-06-22 21:41:37');
+(193, 1, 'MODIFICACIÓN', 'EL USUARIO admin ACTUALIZÓ EL ESTADO DE UNA ORDEN DE TRABAJO', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: PROGRAMADO<br/>fecha_inicio: <br/>fecha_programada: 2023-06-15<br/>fecha_termino: <br/>gama_id: 2<br/>hora_inicio: <br/>hora_termino: <br/>id: 2<br/>parada_maquina: <br/>prioridad: URGENTE<br/>razon: PRUEBA #2 CAMBIO DE ESTADO<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: <br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 17:05:05<br/>', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: INICIADO<br/>fecha_inicio: 2023-06-22<br/>fecha_programada: 2023-06-15<br/>fecha_termino: <br/>gama_id: 2<br/>hora_inicio: 17:41<br/>hora_termino: <br/>id: 2<br/>parada_maquina: <br/>prioridad: URGENTE<br/>razon: PRUEBA INICIO #1<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: <br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 17:41:37<br/>', 'ORDENES DE TRABAJO', '2023-06-22', '17:41:37', '2023-06-22 21:41:37', '2023-06-22 21:41:37'),
+(194, 1, 'MODIFICACIÓN', 'EL USUARIO admin TERMINÓ UNA ORDEN DE TRABAJO', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: INICIADO<br/>fecha_inicio: 2023-06-22<br/>fecha_programada: 2023-06-15<br/>fecha_termino: <br/>gama_id: 2<br/>hora_inicio: 17:41:00<br/>hora_termino: <br/>id: 2<br/>parada_maquina: <br/>prioridad: URGENTE<br/>razon: PRUEBA INICIO #1<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: <br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-22 17:41:37<br/>', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: TERMINADO<br/>fecha_inicio: 2023-06-22<br/>fecha_programada: 2023-06-15<br/>fecha_termino: 2023-06-23<br/>gama_id: 2<br/>hora_inicio: 17:41:00<br/>hora_termino: 12:28<br/>id: 2<br/>parada_maquina: SI<br/>prioridad: URGENTE<br/>razon: PRUEBA TERMINO OT<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: 18<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-23 12:29:40<br/>', 'ORDENES DE TRABAJO', '2023-06-23', '12:29:40', '2023-06-23 16:29:40', '2023-06-23 16:29:40'),
+(195, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN REPUESTOS/INSUMO', 'codificacion: MNH002JJ<br/>codigo: GM002<br/>created_at: 2023-06-23 12:49:17<br/>descripcion: GAMA #2<br/>equipo_id: 4<br/>id: 3<br/>subfamilia_id: 1<br/>updated_at: 2023-06-23 12:49:17<br/>', NULL, 'REPUESTOS/INSUMOS', '2023-06-23', '12:49:17', '2023-06-23 16:49:17', '2023-06-23 16:49:17'),
+(196, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PLAN DE MANTENIMIENTO', 'codificacion: PM0002UU<br/>created_at: 2023-06-23 12:50:09<br/>dias: 3<br/>estado: PLANIFICADO<br/>fecha_final: 2023-07-31<br/>frecuencia_id: 1<br/>gama_id: 3<br/>id: 3<br/>pm: PM<br/>prioridad: MODERADO<br/>programacion: ÚLTIMA VEZ QUE SE TERMINÓ<br/>subunidad_id: 2<br/>tiempo: 360<br/>tipo_mantenimiento: PREVENTIVO<br/>ultima_fecha_programada: 2023-07-01<br/>ultima_fecha_terminada: 2023-07-05<br/>updated_at: 2023-06-23 12:50:09<br/>variable_control_id: 1<br/>', NULL, 'PLAN DE MANTENIMIENTO', '2023-06-23', '12:50:09', '2023-06-23 16:50:09', '2023-06-23 16:50:09'),
+(197, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA ORDEN DE TRABAJO', 'comentario: <br/>created_at: 2023-06-23 12:50:32<br/>dias: 3<br/>estado: PROGRAMADO<br/>fecha_inicio: <br/>fecha_programada: 2023-06-23<br/>fecha_termino: <br/>gama_id: 3<br/>hora_inicio: <br/>hora_termino: <br/>id: 4<br/>parada_maquina: <br/>prioridad: MODERADA<br/>razon: <br/>subunidad_id: 4<br/>tiempo: 360<br/>tiempo_ejecucion: <br/>tipo_mantenimiento: PREVENTIVO<br/>updated_at: 2023-06-23 12:50:32<br/>', NULL, 'ORDENES DE TRABAJO', '2023-06-23', '12:50:32', '2023-06-23 16:50:32', '2023-06-23 16:50:32'),
+(198, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ LA FECHA DE PROGRAMACIÓN DE UNA ORDEN DE TRABAJO', 'id: 4<br/>fecha_programada: 2023-06-23<br/>subunidad_id: 4<br/>gama_id: 3<br/>prioridad: MODERADA<br/>tiempo: 360<br/>dias: 3<br/>tipo_mantenimiento: PREVENTIVO<br/>fecha_inicio: <br/>hora_inicio: <br/>fecha_termino: <br/>hora_termino: <br/>tiempo_ejecucion: <br/>parada_maquina: <br/>estado: PROGRAMADO<br/>razon: <br/>comentario: <br/>created_at: 2023-06-23 12:50:32<br/>updated_at: 2023-06-23 12:50:32<br/>', 'id: 4<br/>fecha_programada: 2023-06-22<br/>subunidad_id: 4<br/>gama_id: 3<br/>prioridad: MODERADA<br/>tiempo: 360<br/>dias: 3<br/>tipo_mantenimiento: PREVENTIVO<br/>fecha_inicio: <br/>hora_inicio: <br/>fecha_termino: <br/>hora_termino: <br/>tiempo_ejecucion: <br/>parada_maquina: <br/>estado: PROGRAMADO<br/>razon: <br/>comentario: <br/>created_at: 2023-06-23 12:50:32<br/>updated_at: 2023-06-26 13:01:26<br/>', 'ORDENES DE TRABAJO', '2023-06-26', '13:01:26', '2023-06-26 17:01:26', '2023-06-26 17:01:26'),
+(199, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ LA FECHA DE PROGRAMACIÓN DE UNA ORDEN DE TRABAJO', 'id: 4<br/>fecha_programada: 2023-06-22<br/>subunidad_id: 4<br/>gama_id: 3<br/>prioridad: MODERADA<br/>tiempo: 360<br/>dias: 3<br/>tipo_mantenimiento: PREVENTIVO<br/>fecha_inicio: <br/>hora_inicio: <br/>fecha_termino: <br/>hora_termino: <br/>tiempo_ejecucion: <br/>parada_maquina: <br/>estado: PROGRAMADO<br/>razon: <br/>comentario: <br/>created_at: 2023-06-23 12:50:32<br/>updated_at: 2023-06-26 13:01:26<br/>', 'id: 4<br/>fecha_programada: 2023-06-30<br/>subunidad_id: 4<br/>gama_id: 3<br/>prioridad: MODERADA<br/>tiempo: 360<br/>dias: 3<br/>tipo_mantenimiento: PREVENTIVO<br/>fecha_inicio: <br/>hora_inicio: <br/>fecha_termino: <br/>hora_termino: <br/>tiempo_ejecucion: <br/>parada_maquina: <br/>estado: PROGRAMADO<br/>razon: <br/>comentario: <br/>created_at: 2023-06-23 12:50:32<br/>updated_at: 2023-06-26 13:15:13<br/>', 'ORDENES DE TRABAJO', '2023-06-26', '13:15:13', '2023-06-26 17:15:13', '2023-06-26 17:15:13'),
+(200, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PEDIDO DE REPUESTO', 'id: 5<br/>orden_id: 3<br/>created_at: 2023-06-27 11:32:47<br/>updated_at: 2023-06-27 11:32:47<br/>', NULL, 'PEDIDO DE REPUESTOS', '2023-06-27', '11:32:47', '2023-06-27 15:32:47', '2023-06-27 15:32:47'),
+(201, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN PEDIDO DE REPUESTO', 'id: 5<br/>orden_id: 3<br/>created_at: 2023-06-27 11:32:47<br/>updated_at: 2023-06-27 11:32:47<br/>', NULL, 'PEDIDO DE REPUESTOS', '2023-06-27', '11:32:54', '2023-06-27 15:32:54', '2023-06-27 15:32:54'),
+(202, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11348<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:36:32<br/>', NULL, 'HISTORIAL DE TIEMPOS', '2023-06-27', '12:36:32', '2023-06-27 16:36:32', '2023-06-27 16:36:32'),
+(203, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11348<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:36:32<br/>', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'HISTORIAL DE TIEMPOS', '2023-06-27', '12:42:00', '2023-06-27 16:42:00', '2023-06-27 16:42:00'),
+(204, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'HISTORIAL DE TIEMPOS', '2023-06-27', '12:45:31', '2023-06-27 16:45:31', '2023-06-27 16:45:31'),
+(205, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'HISTORIAL DE TIEMPOS', '2023-06-27', '12:48:13', '2023-06-27 16:48:13', '2023-06-27 16:48:13'),
+(206, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'HISTORIAL DE TIEMPOS', '2023-06-27', '12:49:33', '2023-06-27 16:49:33', '2023-06-27 16:49:33'),
+(207, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'HISTORIAL DE TIEMPOS', '2023-06-27', '12:49:37', '2023-06-27 16:49:37', '2023-06-27 16:49:37'),
+(208, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'HISTORIAL DE TIEMPOS', '2023-06-27', '12:50:21', '2023-06-27 16:50:21', '2023-06-27 16:50:21'),
+(209, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'HISTORIAL DE TIEMPOS', '2023-06-27', '12:51:32', '2023-06-27 16:51:32', '2023-06-27 16:51:32'),
+(210, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'HISTORIAL DE TIEMPOS', '2023-06-27', '12:51:55', '2023-06-27 16:51:55', '2023-06-27 16:51:55'),
+(211, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN HISTORIAL DE TIEMPO', 'id: 8<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 2<br/>codificacion: HT0002MM<br/>total_tiempo: 12090<br/>created_at: 2023-06-27 12:57:33<br/>updated_at: 2023-06-27 12:57:33<br/>', NULL, 'HISTORIAL DE TIEMPOS', '2023-06-27', '12:57:33', '2023-06-27 16:57:33', '2023-06-27 16:57:33'),
+(212, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'HISTORIAL DE TIEMPOS', '2023-06-27', '13:00:35', '2023-06-27 17:00:35', '2023-06-27 17:00:35'),
+(213, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'HISTORIAL DE TIEMPOS', '2023-06-27', '13:01:34', '2023-06-27 17:01:34', '2023-06-27 17:01:34'),
+(214, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'HISTORIAL DE TIEMPOS', '2023-06-27', '13:01:46', '2023-06-27 17:01:46', '2023-06-27 17:01:46');
 
 -- --------------------------------------------------------
 
@@ -629,6 +738,38 @@ CREATE TABLE `historial_fallas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `historial_fallas`
+--
+
+INSERT INTO `historial_fallas` (`id`, `orden_id`, `nro_codificacion`, `codificacion`, `tipo_falla`, `descripcion_falla`, `fecha_inicio`, `hora_inicio`, `fecha_termino`, `hora_termino`, `tiempo_ejecucion`, `equipo_id`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, 'DM-0001-HIS-FM', 'MECÁNICA', 'prueba termino ot por falla', '2023-06-22', '17:41:00', '2023-06-23', '12:28:00', 18, 1, '2023-06-23 16:29:40', '2023-06-23 16:29:40');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial_tiempos`
+--
+
+CREATE TABLE `historial_tiempos` (
+  `id` bigint UNSIGNED NOT NULL,
+  `anio` int NOT NULL,
+  `mes` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `equipo_id` bigint UNSIGNED NOT NULL,
+  `codificacion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total_tiempo` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `historial_tiempos`
+--
+
+INSERT INTO `historial_tiempos` (`id`, `anio`, `mes`, `equipo_id`, `codificacion`, `total_tiempo`, `created_at`, `updated_at`) VALUES
+(1, 2023, '05', 1, 'HT0001MM', 11310, '2023-06-27 16:36:32', '2023-06-27 16:42:00'),
+(8, 2023, '05', 2, 'HT0002MM', 12090, '2023-06-27 16:57:33', '2023-06-27 16:57:33');
 
 -- --------------------------------------------------------
 
@@ -772,7 +913,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (31, '2023_06_12_144706_create_notificacion_users_table', 4),
 (32, '2023_06_12_150032_create_programacions_table', 4),
 (33, '2023_06_12_152430_create_detalle_pedidos_table', 4),
-(34, '2023_06_22_172351_create_historial_fallas_table', 5);
+(34, '2023_06_22_172351_create_historial_fallas_table', 5),
+(35, '2023_06_27_111215_create_historial_tiempos_table', 6),
+(36, '2023_06_27_111349_create_detalle_tiempos_table', 7);
 
 -- --------------------------------------------------------
 
@@ -884,8 +1027,9 @@ CREATE TABLE `orden_trabajos` (
 --
 
 INSERT INTO `orden_trabajos` (`id`, `fecha_programada`, `subunidad_id`, `gama_id`, `prioridad`, `tiempo`, `dias`, `tipo_mantenimiento`, `fecha_inicio`, `hora_inicio`, `fecha_termino`, `hora_termino`, `tiempo_ejecucion`, `parada_maquina`, `estado`, `razon`, `comentario`, `created_at`, `updated_at`) VALUES
-(2, '2023-06-15', 1, 2, 'URGENTE', 17, 7, 'PREDICTIVO', '2023-06-22', '17:41:00', NULL, NULL, NULL, NULL, 'INICIADO', 'PRUEBA INICIO #1', 'COMENTARIO', '2023-06-15 15:26:58', '2023-06-22 21:41:37'),
-(3, '2023-06-19', 2, 2, 'MODERADA', 17, 10, 'LUBRICACIÓN', NULL, NULL, NULL, NULL, NULL, NULL, 'PROGRAMADO', NULL, NULL, '2023-06-19 15:58:35', '2023-06-19 15:58:35');
+(2, '2023-06-15', 1, 2, 'URGENTE', 17, 7, 'PREDICTIVO', '2023-06-22', '17:41:00', '2023-06-23', '12:28:00', 18, 'SI', 'TERMINADO', 'PRUEBA TERMINO OT', 'COMENTARIO', '2023-06-15 15:26:58', '2023-06-23 16:29:40'),
+(3, '2023-06-19', 2, 2, 'MODERADA', 17, 10, 'LUBRICACIÓN', NULL, NULL, NULL, NULL, NULL, NULL, 'PROGRAMADO', NULL, NULL, '2023-06-19 15:58:35', '2023-06-19 15:58:35'),
+(4, '2023-06-30', 4, 3, 'MODERADA', 360, 3, 'PREVENTIVO', NULL, NULL, NULL, NULL, NULL, NULL, 'PROGRAMADO', NULL, NULL, '2023-06-23 16:50:32', '2023-06-26 17:15:13');
 
 -- --------------------------------------------------------
 
@@ -986,7 +1130,8 @@ CREATE TABLE `plan_mantenimientos` (
 --
 
 INSERT INTO `plan_mantenimientos` (`id`, `codificacion`, `subunidad_id`, `gama_id`, `pm`, `prioridad`, `tiempo`, `dias`, `tipo_mantenimiento`, `ultima_fecha_programada`, `ultima_fecha_terminada`, `programacion`, `fecha_final`, `variable_control_id`, `frecuencia_id`, `estado`, `created_at`, `updated_at`) VALUES
-(2, 'PM001HHH3', 1, 2, 'PM', 'URGENTE', 17, 10, 'PREVENTIVO', '2023-07-01', '2023-07-31', 'ÚLTIMA VEZ QUE SE PROGRAMÓ', '2023-07-31', 1, 1, 'PLANIFICADO', '2023-06-14 21:32:31', '2023-06-22 20:36:33');
+(2, 'PM001HHH3', 1, 2, 'PM', 'URGENTE', 17, 10, 'PREVENTIVO', '2023-07-01', '2023-07-31', 'ÚLTIMA VEZ QUE SE PROGRAMÓ', '2023-07-31', 1, 1, 'PLANIFICADO', '2023-06-14 21:32:31', '2023-06-22 20:36:33'),
+(3, 'PM0002UU', 2, 3, 'PM', 'MODERADO', 360, 3, 'PREVENTIVO', '2023-07-01', '2023-07-05', 'ÚLTIMA VEZ QUE SE TERMINÓ', '2023-07-31', 1, 1, 'PLANIFICADO', '2023-06-23 16:50:09', '2023-06-23 16:50:09');
 
 -- --------------------------------------------------------
 
@@ -1012,7 +1157,10 @@ INSERT INTO `programacions` (`id`, `plan_mantenimiento_id`, `numero`, `dias`, `f
 (17, 2, 1, 7, '2023-07-07', '2023-06-22 20:36:33', '2023-06-22 20:36:33'),
 (18, 2, 2, 7, '2023-07-14', '2023-06-22 20:36:33', '2023-06-22 20:36:33'),
 (19, 2, 3, 7, '2023-07-21', '2023-06-22 20:36:33', '2023-06-22 20:36:33'),
-(20, 2, 4, 7, '2023-07-28', '2023-06-22 20:36:33', '2023-06-22 20:36:33');
+(20, 2, 4, 7, '2023-07-28', '2023-06-22 20:36:33', '2023-06-22 20:36:33'),
+(21, 3, 1, 7, '2023-07-11', '2023-06-23 16:50:09', '2023-06-23 16:50:09'),
+(22, 3, 2, 7, '2023-07-18', '2023-06-23 16:50:09', '2023-06-23 16:50:09'),
+(23, 3, 3, 7, '2023-07-25', '2023-06-23 16:50:09', '2023-06-23 16:50:09');
 
 -- --------------------------------------------------------
 
@@ -1247,6 +1395,13 @@ ALTER TABLE `detalle_repuestos`
   ADD KEY `detalle_repuestos_repuesto_id_foreign` (`repuesto_id`);
 
 --
+-- Indices de la tabla `detalle_tiempos`
+--
+ALTER TABLE `detalle_tiempos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `detalle_tiempos_historial_tiempo_id_foreign` (`historial_tiempo_id`);
+
+--
 -- Indices de la tabla `entrada_herramientas`
 --
 ALTER TABLE `entrada_herramientas`
@@ -1314,6 +1469,13 @@ ALTER TABLE `historial_accions`
 --
 ALTER TABLE `historial_fallas`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `historial_tiempos`
+--
+ALTER TABLE `historial_tiempos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `historial_tiempos_equipo_id_foreign` (`equipo_id`);
 
 --
 -- Indices de la tabla `kardex_repuestos`
@@ -1467,7 +1629,7 @@ ALTER TABLE `detalle_herramientas`
 -- AUTO_INCREMENT de la tabla `detalle_pedidos`
 --
 ALTER TABLE `detalle_pedidos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_personals`
@@ -1480,6 +1642,12 @@ ALTER TABLE `detalle_personals`
 --
 ALTER TABLE `detalle_repuestos`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_tiempos`
+--
+ALTER TABLE `detalle_tiempos`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT de la tabla `entrada_herramientas`
@@ -1515,13 +1683,13 @@ ALTER TABLE `frecuencias`
 -- AUTO_INCREMENT de la tabla `gama_detalles`
 --
 ALTER TABLE `gama_detalles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `gama_mantenimientos`
 --
 ALTER TABLE `gama_mantenimientos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `herramientas`
@@ -1533,13 +1701,19 @@ ALTER TABLE `herramientas`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_fallas`
 --
 ALTER TABLE `historial_fallas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `historial_tiempos`
+--
+ALTER TABLE `historial_tiempos`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `kardex_repuestos`
@@ -1557,19 +1731,19 @@ ALTER TABLE `maquinarias`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacions`
 --
 ALTER TABLE `notificacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacion_users`
 --
 ALTER TABLE `notificacion_users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `orden_generadas`
@@ -1581,13 +1755,13 @@ ALTER TABLE `orden_generadas`
 -- AUTO_INCREMENT de la tabla `orden_trabajos`
 --
 ALTER TABLE `orden_trabajos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido_repuestos`
 --
 ALTER TABLE `pedido_repuestos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `personals`
@@ -1605,13 +1779,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `plan_mantenimientos`
 --
 ALTER TABLE `plan_mantenimientos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `programacions`
 --
 ALTER TABLE `programacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `repuestos`
@@ -1682,6 +1856,12 @@ ALTER TABLE `detalle_repuestos`
   ADD CONSTRAINT `detalle_repuestos_repuesto_id_foreign` FOREIGN KEY (`repuesto_id`) REFERENCES `repuestos` (`id`);
 
 --
+-- Filtros para la tabla `detalle_tiempos`
+--
+ALTER TABLE `detalle_tiempos`
+  ADD CONSTRAINT `detalle_tiempos_historial_tiempo_id_foreign` FOREIGN KEY (`historial_tiempo_id`) REFERENCES `historial_tiempos` (`id`);
+
+--
 -- Filtros para la tabla `equipos`
 --
 ALTER TABLE `equipos`
@@ -1699,6 +1879,12 @@ ALTER TABLE `gama_detalles`
 --
 ALTER TABLE `gama_mantenimientos`
   ADD CONSTRAINT `gama_mantenimientos_equipo_id_foreign` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`);
+
+--
+-- Filtros para la tabla `historial_tiempos`
+--
+ALTER TABLE `historial_tiempos`
+  ADD CONSTRAINT `historial_tiempos_equipo_id_foreign` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`);
 
 --
 -- Filtros para la tabla `notificacion_users`

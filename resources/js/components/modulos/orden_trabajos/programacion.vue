@@ -48,18 +48,6 @@
                             Generar OT
                         </router-link>
                     </div>
-                    <div class="col-md-2 pl-0 pr-0">
-                        <router-link
-                            v-if="permisos.includes('pedido_repuestos.index')"
-                            :to="{
-                                name: 'orden_trabajos.pedido_repuestos',
-                            }"
-                            class="btn btn-primary btn-flat btn-block border-white"
-                        >
-                            <i class="fas fa-tasks"></i>
-                            Pedido de Repuestos
-                        </router-link>
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">

@@ -267,15 +267,17 @@ export default new Router({
         {
             path: "/orden_trabajos/consultar_ot",
             name: "orden_trabajos.consultar_ot",
-            component: require("./components/modulos/orden_trabajos/consultar_ot.vue")
-                .default,
+            component:
+                require("./components/modulos/orden_trabajos/consultar_ot.vue")
+                    .default,
             props: true,
         },
         {
             path: "/orden_trabajos/consultar_ot/orden_trabajo/:id",
             name: "orden_trabajos.orden_trabajo",
-            component: require("./components/modulos/orden_trabajos/orden_trabajo.vue")
-                .default,
+            component:
+                require("./components/modulos/orden_trabajos/orden_trabajo.vue")
+                    .default,
             props: true,
         },
 
@@ -290,10 +292,10 @@ export default new Router({
 
         // pedido_repuestos
         {
-            path: "/orden_trabajos/pedido_repuestos",
-            name: "orden_trabajos.pedido_repuestos",
+            path: "/pedido_repuestos",
+            name: "pedido_repuestos.index",
             component:
-                require("./components/modulos/orden_trabajos/pedido_repuestos.vue")
+                require("./components/modulos/pedido_repuestos/index.vue")
                     .default,
         },
 
@@ -304,6 +306,15 @@ export default new Router({
             component: require("./components/modulos/notificacions/show.vue")
                 .default,
             props: true,
+        },
+
+        // historial_tiempos
+        {
+            path: "/historial_tiempos",
+            name: "historial_tiempos.index",
+            component:
+                require("./components/modulos/historial_tiempos/index.vue")
+                    .default,
         },
 
         // Reportes

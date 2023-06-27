@@ -97,6 +97,8 @@
                             permisos.includes('entrada_herramientas.index') ||
                             permisos.includes('repuestos.index') ||
                             permisos.includes('entrada_repuestos.index') ||
+                            permisos.includes('pedido_repuestos.index') ||
+                            permisos.includes('historial_tiempos.index') ||
                             permisos.includes('personals.index')
                         "
                     >
@@ -542,6 +544,34 @@
                         >
                             <i class="nav-icon fas fa-file-archive"></i>
                             <p>Ordenes de trabajo</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('pedido_repuestos.index')"
+                    >
+                        <router-link
+                            exact
+                            :to="{ name: 'pedido_repuestos.index' }"
+                            class="nav-link"
+                            v-loading.fullscreen.lock="fullscreenLoading"
+                        >
+                            <i class="nav-icon fas fa-tasks"></i>
+                            <p>Pedido de Repuestos</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('historial_tiempos.index')"
+                    >
+                        <router-link
+                            exact
+                            :to="{ name: 'historial_tiempos.index' }"
+                            class="nav-link"
+                            v-loading.fullscreen.lock="fullscreenLoading"
+                        >
+                            <i class="nav-icon fas fa-clipboard-list"></i>
+                            <p>Historial de Tiempo Disponible</p>
                         </router-link>
                     </li>
                     <li

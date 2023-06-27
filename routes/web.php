@@ -13,6 +13,7 @@ use App\Http\Controllers\FrecuenciaController;
 use App\Http\Controllers\GamaDetallesController;
 use App\Http\Controllers\GamaMantenimientoController;
 use App\Http\Controllers\HerramientaController;
+use App\Http\Controllers\HistorialTiempoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaquinariaController;
 use App\Http\Controllers\NotificacionUserController;
@@ -180,6 +181,12 @@ Route::middleware(['auth'])->group(function () {
         //notificacions
         Route::get("notificacions/user/{user}", [NotificacionUserController::class, 'notificacions']);
         Route::get("notificacions/{notificacion_user}", [NotificacionUserController::class, 'show']);
+
+        // historial_tiempos
+        Route::get("historial_tiempos/verifica_registro", [HistorialTiempoController::class, 'verifica_registro']);
+        Route::resource('historial_tiempos', HistorialTiempoController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
 
         // REPORTES
         Route::post('reportes/usuarios', [ReporteController::class, 'usuarios']);

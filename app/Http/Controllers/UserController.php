@@ -164,6 +164,11 @@ class UserController extends Controller
             'pedido_repuestos.edit',
             'pedido_repuestos.destroy',
 
+            'historial_tiempos.index',
+            'historial_tiempos.create',
+            'historial_tiempos.edit',
+            'historial_tiempos.destroy',
+
             'reportes.usuarios',
             'reportes.kardex_herramientas',
             'reportes.informacion_herramientas',
