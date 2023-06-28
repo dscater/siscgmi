@@ -99,6 +99,7 @@
                             permisos.includes('entrada_repuestos.index') ||
                             permisos.includes('pedido_repuestos.index') ||
                             permisos.includes('historial_tiempos.index') ||
+                            permisos.includes('indicadors.index') ||
                             permisos.includes('personals.index')
                         "
                     >
@@ -572,6 +573,20 @@
                         >
                             <i class="nav-icon fas fa-clipboard-list"></i>
                             <p>Historial de Tiempo Disponible</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('indicadors.index')"
+                    >
+                        <router-link
+                            exact
+                            :to="{ name: 'indicadors.index' }"
+                            class="nav-link"
+                            v-loading.fullscreen.lock="fullscreenLoading"
+                        >
+                            <i class="nav-icon fas fa-chart-bar"></i>
+                            <p>Indicadores</p>
                         </router-link>
                     </li>
                     <li

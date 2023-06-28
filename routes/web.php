@@ -14,6 +14,7 @@ use App\Http\Controllers\GamaDetallesController;
 use App\Http\Controllers\GamaMantenimientoController;
 use App\Http\Controllers\HerramientaController;
 use App\Http\Controllers\HistorialTiempoController;
+use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaquinariaController;
 use App\Http\Controllers\NotificacionUserController;
@@ -187,6 +188,12 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('historial_tiempos', HistorialTiempoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
+
+        // indicadors
+        Route::get('indicadors/getNro', [IndicadorController::class, 'getNro']);
+        Route::get('indicadors/getMTFB', [IndicadorController::class, 'getMTFB']);
+        Route::get('indicadors/getMTTR', [IndicadorController::class, 'getMTTR']);
+        Route::get('indicadors/getDisponibilidad', [IndicadorController::class, 'getDisponibilidad']);
 
         // REPORTES
         Route::post('reportes/usuarios', [ReporteController::class, 'usuarios']);

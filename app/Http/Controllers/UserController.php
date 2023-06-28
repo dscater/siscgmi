@@ -169,6 +169,8 @@ class UserController extends Controller
             'historial_tiempos.edit',
             'historial_tiempos.destroy',
 
+            'indicadors.index',
+
             'reportes.usuarios',
             'reportes.kardex_herramientas',
             'reportes.informacion_herramientas',

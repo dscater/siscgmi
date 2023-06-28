@@ -37,10 +37,15 @@ class HistorialTiempoController extends Controller
 
         $existe = HistorialTiempo::where("anio", $anio)->where("mes", $mes)->where("equipo_id", $equipo_id)->get()->first();
 
+        $total_anterior = HistorialTIempo::where("equipo_id", $equipo_id)
+            ->where("anio", "<=", $anio)
+            ->where("mes", "<", $mes)->sum("total_tiempo");
+
         if ($existe) {
             return response()->JSON([
                 "existe" => true,
                 "historial_tiempo" => $existe->load("detalle_tiempos"),
+                "total_anterior" => $total_anterior,
             ]);
         }
 
@@ -48,6 +53,7 @@ class HistorialTiempoController extends Controller
         return response()->JSON([
             "existe" => false,
             "detalle_tiempos" => $detalle_tiempos,
+            "total_anterior" => $total_anterior,
         ]);
     }
 

@@ -317,6 +317,14 @@ export default new Router({
                     .default,
         },
 
+        // indicadors
+        {
+            path: "/indicadors",
+            name: "indicadors.index",
+            component: require("./components/modulos/indicadors/index.vue")
+                .default,
+        },
+
         // Reportes
         {
             path: "/reportes/usuarios",

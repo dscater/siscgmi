@@ -56,15 +56,15 @@
                                             <option value="">
                                                 Seleccione...
                                             </option>
-                                            <option value="01">ENERO</option>
-                                            <option value="02">FEBRERO</option>
-                                            <option value="03">MARZO</option>
-                                            <option value="04">ABRIL</option>
-                                            <option value="05">MAYO</option>
-                                            <option value="06">JUNIO</option>
-                                            <option value="07">JULIO</option>
-                                            <option value="08">AGOSTO</option>
-                                            <option value="09">
+                                            <option value="1">ENERO</option>
+                                            <option value="2">FEBRERO</option>
+                                            <option value="3">MARZO</option>
+                                            <option value="4">ABRIL</option>
+                                            <option value="5">MAYO</option>
+                                            <option value="6">JUNIO</option>
+                                            <option value="7">JULIO</option>
+                                            <option value="8">AGOSTO</option>
+                                            <option value="9">
                                                 SEPTIEMBRE
                                             </option>
                                             <option value="10">OCTUBRE</option>
@@ -232,6 +232,7 @@ export default {
             existe_registro: false,
             enviando: false,
             errors: [],
+            total_anterior: 0,
         };
     },
     computed: {
@@ -296,7 +297,9 @@ export default {
                             this.existe_registro = false;
                             this.oHistorialTiempo.detalle_tiempos =
                                 response.data.detalle_tiempos;
+                            this.oHistorialTiempo.codificacion = "";
                         }
+                        this.total_anterior = response.data.total_anterior;
                         this.obtenerTotal();
                     });
             } else {
@@ -318,7 +321,6 @@ export default {
                 })
                 .catch((error) => {
                     this.listAnios = [$moment().format("YYYY")];
-                    F;
                 });
         },
         setRegistro() {
@@ -424,6 +426,9 @@ export default {
                 0
             );
             this.oHistorialTiempo.total_tiempo = total;
+            this.oHistorialTiempo.total_tiempo += parseFloat(
+                this.total_anterior
+            );
         },
     },
 };
