@@ -325,6 +325,30 @@ export default new Router({
                 .default,
         },
 
+        // modelo_deterministicos
+        {
+            path: "/modelo_deterministicos",
+            name: "modelo_deterministicos.index",
+            component:
+                require("./components/modulos/modelo_deterministicos/index.vue")
+                    .default,
+        },
+        {
+            path: "/modelo_deterministicos/create",
+            name: "modelo_deterministicos.create",
+            component:
+                require("./components/modulos/modelo_deterministicos/create.vue")
+                    .default,
+        },
+        {
+            path: "/modelo_deterministicos/:id",
+            name: "modelo_deterministicos.edit",
+            component:
+                require("./components/modulos/modelo_deterministicos/edit.vue")
+                    .default,
+            props: true,
+        },
+
         // Reportes
         {
             path: "/reportes/usuarios",

@@ -17,6 +17,7 @@ use App\Http\Controllers\HistorialTiempoController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaquinariaController;
+use App\Http\Controllers\ModeloDeterministicoController;
 use App\Http\Controllers\NotificacionUserController;
 use App\Http\Controllers\OrdenGeneradaController;
 use App\Http\Controllers\OrdenTrabajoController;
@@ -194,6 +195,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('indicadors/getMTFB', [IndicadorController::class, 'getMTFB']);
         Route::get('indicadors/getMTTR', [IndicadorController::class, 'getMTTR']);
         Route::get('indicadors/getDisponibilidad', [IndicadorController::class, 'getDisponibilidad']);
+
+        // modelo_deterministicos
+        Route::resource('modelo_deterministicos', ModeloDeterministicoController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
 
         // REPORTES
         Route::post('reportes/usuarios', [ReporteController::class, 'usuarios']);

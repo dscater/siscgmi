@@ -100,6 +100,7 @@
                             permisos.includes('pedido_repuestos.index') ||
                             permisos.includes('historial_tiempos.index') ||
                             permisos.includes('indicadors.index') ||
+                            permisos.includes('modelo_deterministicos.index') ||
                             permisos.includes('personals.index')
                         "
                     >
@@ -587,6 +588,20 @@
                         >
                             <i class="nav-icon fas fa-chart-bar"></i>
                             <p>Indicadores</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('modelo_deterministicos.index')"
+                    >
+                        <router-link
+                            exact
+                            :to="{ name: 'modelo_deterministicos.index' }"
+                            class="nav-link"
+                            v-loading.fullscreen.lock="fullscreenLoading"
+                        >
+                            <i class="nav-icon fas fa-square-root-alt"></i>
+                            <p>Modelo Deterministico</p>
                         </router-link>
                     </li>
                     <li

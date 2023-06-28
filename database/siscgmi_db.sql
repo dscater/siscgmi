@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 28-06-2023 a las 16:54:20
+-- Tiempo de generación: 28-06-2023 a las 21:11:34
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -938,7 +938,56 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (34, '2023_06_22_172351_create_historial_fallas_table', 5),
 (35, '2023_06_27_111215_create_historial_tiempos_table', 6),
 (36, '2023_06_27_111349_create_detalle_tiempos_table', 7),
-(37, '2023_06_28_114825_create_indicadors_table', 8);
+(37, '2023_06_28_114825_create_indicadors_table', 8),
+(38, '2023_06_28_161015_create_modelo_deterministicos_table', 9);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modelo_deterministicos`
+--
+
+CREATE TABLE `modelo_deterministicos` (
+  `id` bigint UNSIGNED NOT NULL,
+  `codigo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion` text COLLATE utf8mb4_unicode_ci,
+  `repuesto_id` bigint UNSIGNED NOT NULL,
+  `sm` decimal(24,2) DEFAULT NULL,
+  `it` decimal(24,2) DEFAULT NULL,
+  `cpo` decimal(24,2) DEFAULT NULL,
+  `ct_ordenar` decimal(24,2) DEFAULT NULL,
+  `c_ins` decimal(24,2) DEFAULT NULL,
+  `c_em` decimal(24,2) DEFAULT NULL,
+  `c_ordenar` decimal(24,2) DEFAULT NULL,
+  `precio_compra` decimal(24,2) DEFAULT NULL,
+  `ct_adqui` decimal(24,2) DEFAULT NULL,
+  `c_impor` decimal(24,2) DEFAULT NULL,
+  `c_alma_ext` decimal(24,2) DEFAULT NULL,
+  `oc_adqui` decimal(24,2) DEFAULT NULL,
+  `c_adqui` decimal(24,2) DEFAULT NULL,
+  `c_alqui` decimal(24,2) DEFAULT NULL,
+  `area_ocupada` double(24,2) DEFAULT NULL,
+  `c_espa` decimal(24,2) DEFAULT NULL,
+  `vp_rep` decimal(24,2) DEFAULT NULL,
+  `cantp_rep` double(24,2) DEFAULT NULL,
+  `costop_rep` decimal(24,2) DEFAULT NULL,
+  `tasa_ia` decimal(24,2) DEFAULT NULL,
+  `costo_capital` decimal(24,2) DEFAULT NULL,
+  `ct_almacenamiento` decimal(24,2) DEFAULT NULL,
+  `c_depreciacion` decimal(24,2) DEFAULT NULL,
+  `c_gi` decimal(24,2) DEFAULT NULL,
+  `oc_mantenimiento` decimal(24,2) DEFAULT NULL,
+  `c_mantenimiento` decimal(24,2) DEFAULT NULL,
+  `leadtime` decimal(24,2) DEFAULT NULL,
+  `procesamiento_pedido` double(24,2) DEFAULT NULL,
+  `fabricacion_productos` double(24,2) DEFAULT NULL,
+  `tiempo_transito` double(24,2) DEFAULT NULL,
+  `inspeccion_control` double(24,2) DEFAULT NULL,
+  `unidad` double(24,2) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1525,6 +1574,13 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `modelo_deterministicos`
+--
+ALTER TABLE `modelo_deterministicos`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `modelo_deterministicos_codigo_unique` (`codigo`);
+
+--
 -- Indices de la tabla `notificacions`
 --
 ALTER TABLE `notificacions`
@@ -1766,7 +1822,13 @@ ALTER TABLE `maquinarias`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT de la tabla `modelo_deterministicos`
+--
+ALTER TABLE `modelo_deterministicos`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacions`

@@ -171,6 +171,11 @@ class UserController extends Controller
 
             'indicadors.index',
 
+            'modelo_deterministicos.index',
+            'modelo_deterministicos.create',
+            'modelo_deterministicos.edit',
+            'modelo_deterministicos.destroy',
+
             'reportes.usuarios',
             'reportes.kardex_herramientas',
             'reportes.informacion_herramientas',
