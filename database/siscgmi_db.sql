@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 28-06-2023 a las 21:11:34
+-- Tiempo de generación: 29-06-2023 a las 20:15:05
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -715,7 +715,10 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (213, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'HISTORIAL DE TIEMPOS', '2023-06-27', '13:01:34', '2023-06-27 17:01:34', '2023-06-27 17:01:34'),
 (214, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE TIEMPO', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'id: 1<br/>anio: 2023<br/>mes: 05<br/>equipo_id: 1<br/>codificacion: HT0001MM<br/>total_tiempo: 11310<br/>created_at: 2023-06-27 12:36:32<br/>updated_at: 2023-06-27 12:42:00<br/>', 'HISTORIAL DE TIEMPOS', '2023-06-27', '13:01:46', '2023-06-27 17:01:46', '2023-06-27 17:01:46'),
 (215, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN HISTORIAL DE TIEMPO', 'anio: 2023<br/>codificacion: HD0001PP<br/>created_at: 2023-06-28 11:38:08<br/>equipo_id: 1<br/>id: 1<br/>mes: 1<br/>total_tiempo: 12090<br/>updated_at: 2023-06-28 11:38:08<br/>', NULL, 'HISTORIAL DE TIEMPOS', '2023-06-28', '11:38:08', '2023-06-28 15:38:08', '2023-06-28 15:38:08'),
-(216, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN HISTORIAL DE TIEMPO', 'anio: 2023<br/>codificacion: TD00002<br/>created_at: 2023-06-28 11:39:12<br/>equipo_id: 1<br/>id: 2<br/>mes: 4<br/>total_tiempo: 23010<br/>updated_at: 2023-06-28 11:39:12<br/>', NULL, 'HISTORIAL DE TIEMPOS', '2023-06-28', '11:39:13', '2023-06-28 15:39:13', '2023-06-28 15:39:13');
+(216, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN HISTORIAL DE TIEMPO', 'anio: 2023<br/>codificacion: TD00002<br/>created_at: 2023-06-28 11:39:12<br/>equipo_id: 1<br/>id: 2<br/>mes: 4<br/>total_tiempo: 23010<br/>updated_at: 2023-06-28 11:39:12<br/>', NULL, 'HISTORIAL DE TIEMPOS', '2023-06-28', '11:39:13', '2023-06-28 15:39:13', '2023-06-28 15:39:13'),
+(217, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ LA FECHA DE PROGRAMACIÓN DE UNA ORDEN DE TRABAJO', 'id: 4<br/>fecha_programada: 2023-06-30<br/>hora_programada: 00:00:00<br/>subunidad_id: 4<br/>gama_id: 3<br/>prioridad: MODERADA<br/>tiempo: 360<br/>dias: 3<br/>tipo_mantenimiento: PREVENTIVO<br/>fecha_inicio: <br/>hora_inicio: <br/>fecha_termino: <br/>hora_termino: <br/>tiempo_ejecucion: <br/>parada_maquina: <br/>estado: PROGRAMADO<br/>razon: <br/>comentario: <br/>created_at: 2023-06-23 12:50:32<br/>updated_at: 2023-06-26 13:15:13<br/>', 'id: 4<br/>fecha_programada: 2023-07-03<br/>hora_programada: 08:00<br/>subunidad_id: 4<br/>gama_id: 3<br/>prioridad: MODERADA<br/>tiempo: 360<br/>dias: 3<br/>tipo_mantenimiento: PREVENTIVO<br/>fecha_inicio: <br/>hora_inicio: <br/>fecha_termino: <br/>hora_termino: <br/>tiempo_ejecucion: <br/>parada_maquina: <br/>estado: PROGRAMADO<br/>razon: <br/>comentario: <br/>created_at: 2023-06-23 12:50:32<br/>updated_at: 2023-06-29 15:41:57<br/>', 'ORDENES DE TRABAJO', '2023-06-29', '15:41:57', '2023-06-29 19:41:57', '2023-06-29 19:41:57'),
+(218, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ LA FECHA DE PROGRAMACIÓN DE UNA ORDEN DE TRABAJO', 'id: 4<br/>fecha_programada: 2023-07-03<br/>hora_programada: 08:00:00<br/>subunidad_id: 4<br/>gama_id: 3<br/>prioridad: MODERADA<br/>tiempo: 360<br/>dias: 3<br/>tipo_mantenimiento: PREVENTIVO<br/>fecha_inicio: <br/>hora_inicio: <br/>fecha_termino: <br/>hora_termino: <br/>tiempo_ejecucion: <br/>parada_maquina: <br/>estado: PROGRAMADO<br/>razon: <br/>comentario: <br/>created_at: 2023-06-23 12:50:32<br/>updated_at: 2023-06-29 15:41:57<br/>', 'id: 4<br/>fecha_programada: 2023-07-04<br/>hora_programada: 10:00<br/>subunidad_id: 4<br/>gama_id: 3<br/>prioridad: MODERADA<br/>tiempo: 360<br/>dias: 3<br/>tipo_mantenimiento: PREVENTIVO<br/>fecha_inicio: <br/>hora_inicio: <br/>fecha_termino: <br/>hora_termino: <br/>tiempo_ejecucion: <br/>parada_maquina: <br/>estado: PROGRAMADO<br/>razon: <br/>comentario: <br/>created_at: 2023-06-23 12:50:32<br/>updated_at: 2023-06-29 15:43:44<br/>', 'ORDENES DE TRABAJO', '2023-06-29', '15:43:44', '2023-06-29 19:43:44', '2023-06-29 19:43:44'),
+(219, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ LA FECHA DE PROGRAMACIÓN DE UNA ORDEN DE TRABAJO', 'id: 4<br/>fecha_programada: 2023-07-04<br/>hora_programada: 10:00:00<br/>subunidad_id: 4<br/>gama_id: 3<br/>prioridad: MODERADA<br/>tiempo: 360<br/>dias: 3<br/>tipo_mantenimiento: PREVENTIVO<br/>fecha_inicio: <br/>hora_inicio: <br/>fecha_termino: <br/>hora_termino: <br/>tiempo_ejecucion: <br/>parada_maquina: <br/>estado: PROGRAMADO<br/>razon: <br/>comentario: <br/>created_at: 2023-06-23 12:50:32<br/>updated_at: 2023-06-29 15:43:44<br/>', 'id: 4<br/>fecha_programada: 2023-07-04<br/>hora_programada: 09:00<br/>subunidad_id: 4<br/>gama_id: 3<br/>prioridad: MODERADA<br/>tiempo: 360<br/>dias: 3<br/>tipo_mantenimiento: PREVENTIVO<br/>fecha_inicio: <br/>hora_inicio: <br/>fecha_termino: <br/>hora_termino: <br/>tiempo_ejecucion: <br/>parada_maquina: <br/>estado: PROGRAMADO<br/>razon: <br/>comentario: <br/>created_at: 2023-06-23 12:50:32<br/>updated_at: 2023-06-29 15:51:51<br/>', 'ORDENES DE TRABAJO', '2023-06-29', '15:51:51', '2023-06-29 19:51:51', '2023-06-29 19:51:51');
 
 -- --------------------------------------------------------
 
@@ -1075,6 +1078,7 @@ INSERT INTO `orden_generadas` (`id`, `orden_id`, `archivo`, `descripcion_documen
 CREATE TABLE `orden_trabajos` (
   `id` bigint UNSIGNED NOT NULL,
   `fecha_programada` date NOT NULL,
+  `hora_programada` time NOT NULL,
   `subunidad_id` bigint UNSIGNED NOT NULL,
   `gama_id` bigint UNSIGNED NOT NULL,
   `prioridad` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1098,10 +1102,10 @@ CREATE TABLE `orden_trabajos` (
 -- Volcado de datos para la tabla `orden_trabajos`
 --
 
-INSERT INTO `orden_trabajos` (`id`, `fecha_programada`, `subunidad_id`, `gama_id`, `prioridad`, `tiempo`, `dias`, `tipo_mantenimiento`, `fecha_inicio`, `hora_inicio`, `fecha_termino`, `hora_termino`, `tiempo_ejecucion`, `parada_maquina`, `estado`, `razon`, `comentario`, `created_at`, `updated_at`) VALUES
-(2, '2023-06-15', 1, 2, 'URGENTE', 17, 7, 'PREDICTIVO', '2023-06-22', '17:41:00', '2023-06-23', '12:28:00', 18, 'SI', 'TERMINADO', 'PRUEBA TERMINO OT', 'COMENTARIO', '2023-06-15 15:26:58', '2023-06-23 16:29:40'),
-(3, '2023-06-19', 2, 2, 'MODERADA', 17, 10, 'LUBRICACIÓN', NULL, NULL, NULL, NULL, NULL, NULL, 'PROGRAMADO', NULL, NULL, '2023-06-19 15:58:35', '2023-06-19 15:58:35'),
-(4, '2023-06-30', 4, 3, 'MODERADA', 360, 3, 'PREVENTIVO', NULL, NULL, NULL, NULL, NULL, NULL, 'PROGRAMADO', NULL, NULL, '2023-06-23 16:50:32', '2023-06-26 17:15:13');
+INSERT INTO `orden_trabajos` (`id`, `fecha_programada`, `hora_programada`, `subunidad_id`, `gama_id`, `prioridad`, `tiempo`, `dias`, `tipo_mantenimiento`, `fecha_inicio`, `hora_inicio`, `fecha_termino`, `hora_termino`, `tiempo_ejecucion`, `parada_maquina`, `estado`, `razon`, `comentario`, `created_at`, `updated_at`) VALUES
+(2, '2023-06-15', '08:00:00', 1, 2, 'URGENTE', 17, 7, 'PREDICTIVO', '2023-06-22', '17:41:00', '2023-06-23', '12:28:00', 18, 'SI', 'TERMINADO', 'PRUEBA TERMINO OT', 'COMENTARIO', '2023-06-15 15:26:58', '2023-06-23 16:29:40'),
+(3, '2023-06-19', '08:00:00', 2, 2, 'MODERADA', 17, 10, 'LUBRICACIÓN', NULL, NULL, NULL, NULL, NULL, NULL, 'PROGRAMADO', NULL, NULL, '2023-06-19 15:58:35', '2023-06-19 15:58:35'),
+(4, '2023-07-04', '09:00:00', 4, 3, 'MODERADA', 360, 3, 'PREVENTIVO', NULL, NULL, NULL, NULL, NULL, NULL, 'PROGRAMADO', NULL, NULL, '2023-06-23 16:50:32', '2023-06-29 19:51:51');
 
 -- --------------------------------------------------------
 
@@ -1786,7 +1790,7 @@ ALTER TABLE `herramientas`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=220;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_fallas`

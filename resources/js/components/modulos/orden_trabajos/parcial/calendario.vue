@@ -8,9 +8,17 @@
                 v-show="muestra_calendario"
             />
         </div>
+        <ActualizaFechaOT
+            :muestra_modal="muestra_modal"
+            :accion="modal_accion"
+            :orden_trabajo="oOrdenTrabajo"
+            @close="muestra_modal = false"
+            @envioModal="actualizaFechaProgramada"
+        ></ActualizaFechaOT>
     </div>
 </template>
 <script>
+import ActualizaFechaOT from "../modal/ActualizaFechaOT.vue";
 import FullCalendar from "@fullcalendar/vue";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -19,7 +27,8 @@ import esLocale from "@fullcalendar/core/locales/es";
 export default {
     props: ["anio_mes"],
     components: {
-        FullCalendar, // make the <FullCalendar> tag available
+        ActualizaFechaOT,
+        FullCalendar,
     },
     watch: {
         anio_mes(newVal) {
@@ -50,7 +59,8 @@ export default {
                 events: this.listRegistros,
                 initialDate: null, // Set the default start date of the calendar (YYYY-MM-DD)
                 editable: true, // Enable event dragging and resizing
-                eventDrop: this.eventDrop,
+                // eventDrop: this.eventDrop,
+                eventClick: this.handleEventClick,
                 locale: esLocale,
                 headerToolbar: {
                     start: "", // Dejar en blanco para ocultar los botones de navegación
@@ -66,8 +76,21 @@ export default {
                     },
                 },
                 eventContent: this.customizeEventContent,
+                eventClassNames: this.getEventClassNames,
                 eventAllow: this.eventAllow,
                 scrollTime: this.getFeachaActual(),
+            };
+        },
+        getEventClassNames() {
+            return (info) => {
+                const classNames = [];
+                const estado = info.event.extendedProps.estado;
+                if (estado === "PROGRAMADO") {
+                    classNames.push("event-programado");
+                } else {
+                    classNames.push("event-otro");
+                }
+                return classNames;
             };
         },
     },
@@ -78,6 +101,12 @@ export default {
             anio: this.anio_mes[0],
             mes: this.anio_mes[1],
             listRegistros: [],
+            oOrdenTrabajo: {
+                fecha_programada: "",
+                hora_programada: "",
+            },
+            muestra_modal: false,
+            modal_accion: "edit",
         };
     },
     mounted() {},
@@ -96,16 +125,17 @@ export default {
                         return {
                             id: registro.id, // Título del evento
                             title: registro.id, // Título del evento
-                            start: registro.fecha_programada, // Fecha de inicio del evento
+                            start: registro.fecha_hora, // Fecha de inicio del evento
                             descripcion: registro.gama.descripcion,
+                            fecha: registro.fecha_programada,
+                            hora: registro.hora_programada,
                             estado: registro.estado,
                             prioridad: registro.prioridad,
+                            orden_trabajo: registro,
                             backgroundColor:
                                 registro.estado == "PROGRAMADO"
                                     ? "#3788d8"
                                     : "#1f2d3d",
-                            isDraggable:
-                                registro.estado == "PROGRAMADO" ? true : false,
                         };
                     });
 
@@ -114,43 +144,17 @@ export default {
                     calendar.addEventSource(this.listRegistros); // Agrega los nuevos eventos
                 });
         },
-        eventDrop(info) {
-            // Event handler for when an event is dropped
-            // let fecha_anterior = this.$moment(info.oldEvent.start, "YYY-MM-DD").format("YYYY-MM-DD");
-            let fecha_nueva = this.$moment(info.event.start, "YYY-MM-DD");
-            let fecha_actual = this.$moment();
-            if (!fecha_nueva.isBefore(fecha_actual)) {
-                axios
-                    .post(
-                        "/admin/orden_trabajos/actualiza_fecha/" +
-                            info.event.id,
-                        {
-                            _method: "put",
-                            fecha_programada: fecha_nueva.format("YYYY-MM-DD"),
-                        }
-                    )
-                    .then((response) => {
-                        Swal.fire({
-                            icon: "success",
-                            title: response.data.msj,
-                            showConfirmButton: false,
-                            timer: 1500,
-                        });
-                    });
-            } else {
-                // Reposicionar el evento a su fecha original
-                info.revert(); // Esta línea revertirá el evento a su posición original
-                this.$refs.calendar.getApi().refetchEvents(); // Esta línea recargará los eventos en el calendario
-                Swal.fire({
-                    icon: "error",
-                    title: "No es posible reasignar un evento hacia una fecha pasada",
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-                // Prevenir el scroll
-                info.jsEvent.preventDefault();
-            }
+        handleEventClick(info) {
+            // Aquí puedes realizar las acciones que deseas al hacer clic en un evento
+            this.muestra_modal = true;
+            this.oOrdenTrabajo = info.event.extendedProps.orden_trabajo;
         },
+        actualizaFechaProgramada() {
+            this.getOrdenTrabajosAnioMes();
+            this.$refs.calendar.getApi().refetchEvents(); // Esta línea recargará los eventos en el calendario
+            this.muestra_modal = false;
+        },
+        eventDrop(info) {},
         eventAllow(dropInfo, draggedEvent) {
             const estado = draggedEvent.extendedProps.estado;
             // Permitir arrastrar si el estado es "PROGRAMADO", de lo contrario, no permitirlo
@@ -182,5 +186,18 @@ export default {
 <style>
 .full-calendar-container .fc-toolbar-title {
     text-transform: uppercase;
+}
+
+.fc-event.event-programado,
+.fc-event.event-programado:hover {
+    background-color: #3788d8;
+    color: white;
+}
+
+/* Ejemplo de estilos para el estado "OTRO ESTADO" */
+.fc-event,
+.fc-event:hover {
+    background-color: #1f2d3d;
+    color: white;
 }
 </style>

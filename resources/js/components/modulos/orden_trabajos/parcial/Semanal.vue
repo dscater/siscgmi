@@ -68,7 +68,7 @@
                                 <td>{{ item.gama.descripcion }}</td>
                                 <td>{{ item.gama.equipo.nombre }}</td>
                                 <td>{{ item.estado }}</td>
-                                <td>{{ item.fecha_programada }}</td>
+                                <td>{{ item.fecha_hora }}</td>
                                 <td>{{ item.prioridad }}</td>
                             </tr>
                         </tbody>

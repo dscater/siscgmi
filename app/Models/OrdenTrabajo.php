@@ -12,6 +12,7 @@ class OrdenTrabajo extends Model
 
     protected $fillable = [
         "fecha_programada",
+        "hora_programada",
         "subunidad_id",
         "gama_id",
         "prioridad",
@@ -28,6 +29,13 @@ class OrdenTrabajo extends Model
         "razon",
         "comentario",
     ];
+
+    protected $appends = ["fecha_hora"];
+
+    public function getFechaHoraAttribute()
+    {
+        return date("Y-m-d H:i", strtotime($this->fecha_programada . ' ' . $this->hora_programada));
+    }
 
     public function subunidad()
     {

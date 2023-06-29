@@ -195,7 +195,7 @@ export default {
             fields: [
                 { key: "id", label: "Código", sortable: true },
                 {
-                    key: "fecha_programada",
+                    key: "fecha_hora",
                     label: "Fecha Programada",
                     sortable: true,
                 },
