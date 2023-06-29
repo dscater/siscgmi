@@ -130,8 +130,14 @@
                                 'is-invalid': errors.sm,
                             }"
                             v-model="oModeloDeterministico.sm"
-                            @change="calculaCPO"
-                            @keyup="calculaCPO"
+                            @change="
+                                calculaCPO();
+                                calculaCGI();
+                            "
+                            @keyup="
+                                calculaCPO();
+                                calculaCGI();
+                            "
                         />
                         <span
                             class="error invalid-feedback"
@@ -153,8 +159,14 @@
                                 'is-invalid': errors.it,
                             }"
                             v-model="oModeloDeterministico.it"
-                            @change="calculaCPO"
-                            @keyup="calculaCPO"
+                            @change="
+                                calculaCPO();
+                                calculaCGI();
+                            "
+                            @keyup="
+                                calculaCPO();
+                                calculaCGI();
+                            "
                         />
                         <span
                             class="error invalid-feedback"
@@ -179,6 +191,7 @@
                             v-model="oModeloDeterministico.cpo"
                             clearable
                             readonly
+                            @change="calculaCostoOrdenar"
                         />
                         <span
                             class="error invalid-feedback"
@@ -201,6 +214,8 @@
                             }"
                             v-model="oModeloDeterministico.ct_ordenar"
                             clearable
+                            @change="calculaCostoOrdenar"
+                            @keyup="calculaCostoOrdenar"
                         />
                         <span
                             class="error invalid-feedback"
@@ -223,6 +238,8 @@
                             }"
                             v-model="oModeloDeterministico.c_ins"
                             clearable
+                            @change="calculaCostoOrdenar"
+                            @keyup="calculaCostoOrdenar"
                         />
                         <span
                             class="error invalid-feedback"
@@ -245,6 +262,8 @@
                             }"
                             v-model="oModeloDeterministico.c_em"
                             clearable
+                            @change="calculaCostoOrdenar"
+                            @keyup="calculaCostoOrdenar"
                         />
                         <span
                             class="error invalid-feedback"
@@ -296,7 +315,8 @@
                                 'is-invalid': errors.precio_compra,
                             }"
                             v-model="oModeloDeterministico.precio_compra"
-                            clearable
+                            @change="calculaCostoAdquisicion"
+                            @keyup="calculaCostoAdquisicion"
                         />
                         <span
                             class="error invalid-feedback"
@@ -318,7 +338,8 @@
                                 'is-invalid': errors.ct_adqui,
                             }"
                             v-model="oModeloDeterministico.ct_adqui"
-                            clearable
+                            @change="calculaCostoAdquisicion"
+                            @keyup="calculaCostoAdquisicion"
                         />
                         <span
                             class="error invalid-feedback"
@@ -340,7 +361,8 @@
                                 'is-invalid': errors.c_impor,
                             }"
                             v-model="oModeloDeterministico.c_impor"
-                            clearable
+                            @change="calculaCostoAdquisicion"
+                            @keyup="calculaCostoAdquisicion"
                         />
                         <span
                             class="error invalid-feedback"
@@ -362,7 +384,8 @@
                                 'is-invalid': errors.c_alma_ext,
                             }"
                             v-model="oModeloDeterministico.c_alma_ext"
-                            clearable
+                            @change="calculaCostoAdquisicion"
+                            @keyup="calculaCostoAdquisicion"
                         />
                         <span
                             class="error invalid-feedback"
@@ -384,7 +407,8 @@
                                 'is-invalid': errors.oc_adqui,
                             }"
                             v-model="oModeloDeterministico.oc_adqui"
-                            clearable
+                            @change="calculaCostoAdquisicion"
+                            @keyup="calculaCostoAdquisicion"
                         />
                         <span
                             class="error invalid-feedback"
@@ -436,7 +460,14 @@
                                 'is-invalid': errors.c_alqui,
                             }"
                             v-model="oModeloDeterministico.c_alqui"
-                            clearable
+                            @change="
+                                calculaCostoEspacio();
+                                calculaCostoTotalMantenimiento();
+                            "
+                            @keyup="
+                                calculaCostoEspacio();
+                                calculaCostoTotalMantenimiento();
+                            "
                         />
                         <span
                             class="error invalid-feedback"
@@ -458,7 +489,14 @@
                                 'is-invalid': errors.area_ocupada,
                             }"
                             v-model="oModeloDeterministico.area_ocupada"
-                            clearable
+                            @change="
+                                calculaCostoEspacio();
+                                calculaCostoTotalMantenimiento();
+                            "
+                            @keyup="
+                                calculaCostoEspacio();
+                                calculaCostoTotalMantenimiento();
+                            "
                         />
                         <span
                             class="error invalid-feedback"
@@ -471,7 +509,7 @@
                             :class="{
                                 'text-danger': errors.c_espa,
                             }"
-                            >Costo del Espacio</label
+                            >Costo del Espacio <i>(automático)</i></label
                         >
                         <input
                             type="number"
@@ -480,7 +518,8 @@
                                 'is-invalid': errors.c_espa,
                             }"
                             v-model="oModeloDeterministico.c_espa"
-                            clearable
+                            readonly
+                            @change="calculaCostoTotalMantenimiento"
                         />
                         <span
                             class="error invalid-feedback"
@@ -546,7 +585,8 @@
                                 'is-invalid': errors.costop_rep,
                             }"
                             v-model="oModeloDeterministico.costop_rep"
-                            clearable
+                            @change="calculaCostoCapital"
+                            @keyup="calculaCostoCapital"
                         />
                         <span
                             class="error invalid-feedback"
@@ -559,8 +599,11 @@
                             :class="{
                                 'text-danger': errors.tasa_ia,
                             }"
-                            >Tasa de Interés Anual</label
-                        >
+                            >Tasa de Interés Anual:
+                            <span
+                                v-text="oModeloDeterministico.tasa_ia_calculado"
+                            ></span
+                        ></label>
                         <input
                             type="number"
                             class="form-control"
@@ -568,7 +611,14 @@
                                 'is-invalid': errors.tasa_ia,
                             }"
                             v-model="oModeloDeterministico.tasa_ia"
-                            clearable
+                            @change="
+                                calculaTasaIA();
+                                calculaCostoTotalMantenimiento();
+                            "
+                            @keyup="
+                                calculaTasaIA();
+                                calculaCostoTotalMantenimiento();
+                            "
                         />
                         <span
                             class="error invalid-feedback"
@@ -581,7 +631,7 @@
                             :class="{
                                 'text-danger': errors.costo_capital,
                             }"
-                            >Costo de Capital</label
+                            >Costo de Capital <i>(automático)</i></label
                         >
                         <input
                             type="number"
@@ -590,7 +640,8 @@
                                 'is-invalid': errors.costo_capital,
                             }"
                             v-model="oModeloDeterministico.costo_capital"
-                            clearable
+                            readonly
+                            @change="calculaCostoTotalMantenimiento"
                         />
                         <span
                             class="error invalid-feedback"
@@ -603,7 +654,8 @@
                             :class="{
                                 'text-danger': errors.ct_almacenamiento,
                             }"
-                            >Costo Total de Almacenamiento</label
+                            >Costo Total de Almacenamiento
+                            <i>(automático)</i></label
                         >
                         <input
                             type="number"
@@ -612,7 +664,8 @@
                                 'is-invalid': errors.ct_almacenamiento,
                             }"
                             v-model="oModeloDeterministico.ct_almacenamiento"
-                            clearable
+                            readonly
+                            @change="calculaCostoMantenimiento"
                         />
                         <span
                             class="error invalid-feedback"
@@ -625,7 +678,7 @@
                             :class="{
                                 'text-danger': errors.c_depreciacion,
                             }"
-                            >Costo de Depreciación</label
+                            >Costo de Depreciación <i>(automático)</i></label
                         >
                         <input
                             type="number"
@@ -634,7 +687,8 @@
                                 'is-invalid': errors.c_depreciacion,
                             }"
                             v-model="oModeloDeterministico.c_depreciacion"
-                            clearable
+                            @change="calculaCostoMantenimiento"
+                            readonly
                         />
                         <span
                             class="error invalid-feedback"
@@ -657,7 +711,8 @@
                                 'is-invalid': errors.cgi,
                             }"
                             v-model="oModeloDeterministico.cgi"
-                            clearable
+                            readonly
+                            @change="calculaCostoMantenimiento"
                         />
                         <span
                             class="error invalid-feedback"
@@ -679,7 +734,8 @@
                                 'is-invalid': errors.oc_mantenimiento,
                             }"
                             v-model="oModeloDeterministico.oc_mantenimiento"
-                            clearable
+                            @change="calculaCostoMantenimiento"
+                            @keyup="calculaCostoMantenimiento"
                         />
                         <span
                             class="error invalid-feedback"
@@ -707,28 +763,6 @@
                             class="error invalid-feedback"
                             v-if="errors.c_mantenimiento"
                             v-text="errors.c_mantenimiento[0]"
-                        ></span>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label
-                            :class="{
-                                'text-danger': errors.leadtime,
-                            }"
-                            >LEAD TIME <i>(automático)</i></label
-                        >
-                        <input
-                            type="number"
-                            class="form-control"
-                            :class="{
-                                'is-invalid': errors.leadtime,
-                            }"
-                            v-model="oModeloDeterministico.leadtime"
-                            readonly
-                        />
-                        <span
-                            class="error invalid-feedback"
-                            v-if="errors.leadtime"
-                            v-text="errors.leadtime[0]"
                         ></span>
                     </div>
                     <div class="form-group col-md-4">
@@ -843,6 +877,28 @@
                             v-text="errors.unidad[0]"
                         ></span>
                     </div>
+                    <div class="form-group col-md-4">
+                        <label
+                            :class="{
+                                'text-danger': errors.leadtime,
+                            }"
+                            >LEAD TIME <i>(automático)</i></label
+                        >
+                        <input
+                            type="number"
+                            class="form-control"
+                            :class="{
+                                'is-invalid': errors.leadtime,
+                            }"
+                            v-model="oModeloDeterministico.leadtime"
+                            readonly
+                        />
+                        <span
+                            class="error invalid-feedback"
+                            v-if="errors.leadtime"
+                            v-text="errors.leadtime[0]"
+                        ></span>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
@@ -949,6 +1005,7 @@ export default {
     mounted() {
         this.bModal = this.muestra_modal;
         this.getRepuestos();
+        this.getPromedioRepuestos();
     },
     methods: {
         getRepuestos() {
@@ -956,7 +1013,6 @@ export default {
                 this.listRepuestos = response.data.repuestos;
             });
         },
-
         calculaCPO() {
             try {
                 this.oModeloDeterministico.cpo =
@@ -971,19 +1027,136 @@ export default {
                 this.oModeloDeterministico.cpo = "";
             }
         },
+        calculaCGI() {
+            try {
+                this.oModeloDeterministico.cgi =
+                    parseFloat(this.oModeloDeterministico.sm) *
+                    (parseFloat(this.oModeloDeterministico.it) / 2160);
+                this.oModeloDeterministico.cgi = parseFloat(
+                    this.oModeloDeterministico.cgi
+                ).toFixed(2);
+            } catch (e) {
+                console.log("Error al calcular CPO");
+                console.log(e);
+                this.oModeloDeterministico.cgi = "";
+            }
+        },
         calculaCostoOrdenar() {
             try {
-                this.oModeloDeterministico.sm;
-                this.oModeloDeterministico.it;
-                this.oModeloDeterministico.cpo;
-                this.oModeloDeterministico.ct_ordenar;
-                this.oModeloDeterministico.c_ins;
-                this.oModeloDeterministico.c_em;
+                this.oModeloDeterministico.c_ordenar =
+                    parseFloat(this.oModeloDeterministico.cpo) +
+                    parseFloat(this.oModeloDeterministico.ct_ordenar) +
+                    parseFloat(this.oModeloDeterministico.c_ins) +
+                    parseFloat(this.oModeloDeterministico.c_em);
+                this.oModeloDeterministico.c_ordenar = parseFloat(
+                    this.oModeloDeterministico.c_ordenar
+                ).toFixed(2);
             } catch (e) {
                 this.oModeloDeterministico.c_ordenar = "";
             }
         },
-
+        calculaCostoAdquisicion() {
+            try {
+                this.oModeloDeterministico.c_adqui =
+                    parseFloat(this.oModeloDeterministico.precio_compra) +
+                    parseFloat(this.oModeloDeterministico.ct_adqui) +
+                    parseFloat(this.oModeloDeterministico.c_impor) +
+                    parseFloat(this.oModeloDeterministico.c_alma_ext) +
+                    parseFloat(this.oModeloDeterministico.oc_adqui);
+                this.oModeloDeterministico.c_adqui = parseFloat(
+                    this.oModeloDeterministico.c_adqui
+                ).toFixed(2);
+            } catch (e) {
+                this.oModeloDeterministico.c_adqui = "";
+            }
+        },
+        calculaCostoEspacio() {
+            try {
+                this.oModeloDeterministico.c_espa =
+                    parseFloat(this.oModeloDeterministico.c_alqui) *
+                    parseFloat(this.oModeloDeterministico.area_ocupada);
+                this.oModeloDeterministico.c_espa = parseFloat(
+                    this.oModeloDeterministico.c_espa
+                );
+            } catch (e) {
+                this.oModeloDeterministico.c_mantenimiento = "";
+            }
+        },
+        calculaTasaIA() {
+            try {
+                this.oModeloDeterministico.tasa_ia_calculado = parseFloat(
+                    parseFloat(this.oModeloDeterministico.tasa_ia) / 400
+                ).toFixed(2);
+                this.calculaCostoCapital();
+            } catch (e) {
+                this.oModeloDeterministico.tasa_ia_calculado = 0;
+            }
+        },
+        calculaCostoCapital() {
+            try {
+                this.oModeloDeterministico.costo_capital =
+                    parseFloat(this.oModeloDeterministico.costop_rep) *
+                    parseFloat(this.oModeloDeterministico.tasa_ia_calculado);
+                this.oModeloDeterministico.costo_capital = parseFloat(
+                    this.oModeloDeterministico.costo_capital
+                ).toFixed(2);
+            } catch (e) {
+                this.oModeloDeterministico.costo_capital = "";
+            }
+        },
+        calculaCostoMantenimiento() {
+            try {
+                this.oModeloDeterministico.c_mantenimiento =
+                    parseFloat(this.oModeloDeterministico.ct_almacenamiento) +
+                    parseFloat(this.oModeloDeterministico.c_depreciacion) +
+                    parseFloat(this.oModeloDeterministico.c_gi) +
+                    parseFloat(this.oModeloDeterministico.oc_mantenimiento);
+                this.oModeloDeterministico.c_mantenimiento = parseFloat(
+                    this.oModeloDeterministico.c_mantenimiento
+                ).toFixed(2);
+            } catch (e) {
+                this.oModeloDeterministico.c_mantenimiento = "";
+            }
+        },
+        calculaCostoTotalMantenimiento() {
+            console.log("AAAAAAAAAAAAAa");
+            try {
+                console.log(
+                    this.oModeloDeterministico.c_espa,
+                    this.oModeloDeterministico.costo_capital
+                );
+                this.oModeloDeterministico.ct_almacenamiento =
+                    parseFloat(this.oModeloDeterministico.c_espa) +
+                    parseFloat(this.oModeloDeterministico.costo_capital);
+                this.oModeloDeterministico.ct_almacenamiento = parseFloat(
+                    this.oModeloDeterministico.ct_almacenamiento
+                ).toFixed(2);
+            } catch (e) {
+                this.oModeloDeterministico.ct_almacenamiento = "";
+            }
+        },
+        getPromedioRepuestos() {
+            // if (this.oModeloDeterministico.repuesto_id != "") {
+            axios
+                .get("/admin/modelo_deterministicos/getPromedioRepuestos", {
+                    params: {
+                        repuesto_id: this.oModeloDeterministico.repuesto_id,
+                    },
+                })
+                .then((response) => {
+                    this.oModeloDeterministico.vp_rep =
+                        response.data.valor_promedio;
+                    this.oModeloDeterministico.cantp_rep =
+                        response.data.cantidad_promedio;
+                    this.oModeloDeterministico.costop_rep =
+                        response.data.costo_promedio;
+                });
+            // } else {
+            // this.oModeloDeterministico.vp_rep = "";
+            // this.oModeloDeterministico.cantp_rep = "";
+            // this.oModeloDeterministico.costop_rep = "";
+            // }
+        },
         setRegistro() {
             this.enviando = true;
             try {

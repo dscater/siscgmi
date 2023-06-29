@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EntradaRepuesto;
 use App\Models\HistorialAccion;
 use App\Models\ModeloDeterministico;
+use App\Models\Repuesto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -130,5 +132,23 @@ class ModeloDeterministicoController extends Controller
                 'message' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function getPromedioRepuestos(Request $request)
+    {
+        $repuesto_id = $request->repuesto_id;
+        // $repuestos = Repuesto::select("id")->where("repuesto_id", $repuesto_id)->get();
+        $repuestos = Repuesto::select("id")->get();
+        $suma_total = Repuesto::sum("precio");
+        $valor_promedio = number_format((float)$suma_total / (float)count($repuestos), 2, '.', '');
+        $suma_cantidad = EntradaRepuesto::sum("cantidad");
+        $cantidad_promedio = number_format((float)$suma_cantidad / (float)count($repuestos), 2, '.', '');
+
+        $costo_promedio = number_format((float)$valor_promedio / (float)$cantidad_promedio, 2, '.', '');
+        return response()->JSON([
+            "valor_promedio" => $valor_promedio,
+            "cantidad_promedio" => $cantidad_promedio,
+            "costo_promedio" => $costo_promedio,
+        ]);
     }
 }

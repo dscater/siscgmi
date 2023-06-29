@@ -197,6 +197,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('indicadors/getDisponibilidad', [IndicadorController::class, 'getDisponibilidad']);
 
         // modelo_deterministicos
+        Route::get('modelo_deterministicos/getPromedioRepuestos', [ModeloDeterministicoController::class, 'getPromedioRepuestos']);
         Route::resource('modelo_deterministicos', ModeloDeterministicoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);

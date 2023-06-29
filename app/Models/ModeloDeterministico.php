@@ -16,12 +16,25 @@ class ModeloDeterministico extends Model
         "c_impor", "c_alma_ext", "oc_adqui", "c_adqui",
         "c_alqui", "area_ocupada", "c_espa",
         "vp_rep", "cantp_rep", "costop_rep",
-        "tasa_ia", "costo_capital", "ct_almacenamiento",
+        "tasa_ia","tasa_ia_calculado", "costo_capital", "ct_almacenamiento",
         "c_depreciacion", "c_gi", "oc_mantenimiento",
         "c_mantenimiento", "leadtime", "procesamiento_pedido",
         "fabricacion_productos", "tiempo_transito", "inspeccion_control",
         "unidad",
     ];
+
+    protected $appends = ["tasa_calculada"];
+
+    public function getTasaCalculadaAttribute()
+    {
+        try {
+            if ($this->tasa_ia && $this->tasa_ia != "") {
+                return number_format((float)$this->tasa_ia / 400, 2, '.', '');
+            }
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
 
     public function repuesto()
     {
