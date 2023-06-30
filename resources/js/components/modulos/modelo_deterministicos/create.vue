@@ -79,10 +79,11 @@ export default {
                 c_mantenimiento: "",
                 leadtime: "",
                 procesamiento_pedido: "",
+                procesamiento_pedido_calculado: "",
                 fabricacion_productos: "",
                 tiempo_transito: "",
                 inspeccion_control: "",
-                unidad: "",
+                unidad: 12,
             },
         };
     },

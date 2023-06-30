@@ -102,157 +102,290 @@
                                                 <template #row-details="row">
                                                     <b-card>
                                                         <h4 class="text-sm">
-                                                            DATOS DE DEPENDENCIA
+                                                            COSTO POR ORDENDAR
                                                         </h4>
                                                         <ul>
                                                             <li>
-                                                                Equipo:
+                                                                Salario Mensual:
+                                                                <span>{{
+                                                                    row.item.sm
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Inversión de
+                                                                Tiempo/Hora:
+                                                                <span>{{
+                                                                    row.item.it
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Costo de
+                                                                Procesamiento de
+                                                                la Orden:
+                                                                <span>{{
+                                                                    row.item.cpo
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Costo de
+                                                                Transporte por
+                                                                Ordenar:
                                                                 <span>{{
                                                                     row.item
-                                                                        .detalle_equipo
+                                                                        .ct_ordenar
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Costo de
+                                                                Inspección:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .c_ins
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Costo de
+                                                                Empaquetado:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .c_em
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Costo por
+                                                                Ordenar:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .c_ordenar
                                                                 }}</span>
                                                             </li>
                                                         </ul>
                                                         <h4 class="text-sm">
-                                                            DATOS DE INVENTARIO
+                                                            COSTO POR
+                                                            ADQUISICIÓN
                                                         </h4>
                                                         <ul>
                                                             <li>
-                                                                Precio:
+                                                                Precio de
+                                                                Compra:
                                                                 <span>{{
                                                                     row.item
-                                                                        .precio
+                                                                        .precio_compra
                                                                 }}</span>
                                                             </li>
                                                             <li>
-                                                                Stock Actual:
+                                                                Costos de
+                                                                Transporte por
+                                                                Adquisición:
                                                                 <span>{{
                                                                     row.item
-                                                                        .stock_actual
+                                                                        .ct_adqui
                                                                 }}</span>
                                                             </li>
                                                             <li>
-                                                                Stock Mínimo:
+                                                                Costos de
+                                                                Importación:
                                                                 <span>{{
                                                                     row.item
-                                                                        .stock_min
+                                                                        .c_impor
                                                                 }}</span>
                                                             </li>
                                                             <li>
-                                                                Stock Máximo:
+                                                                Costos de
+                                                                Almacenamiento
+                                                                Externo:
                                                                 <span>{{
                                                                     row.item
-                                                                        .stock_max
+                                                                        .c_alma_ext
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Otros Costos por
+                                                                Adquisición:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .oc_adqui
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Costo por
+                                                                Adquisición:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .c_adqui
+                                                                }}</span>
+                                                            </li>
+                                                        </ul>
+                                                        <h4 class="text-sm">
+                                                            COSTOS DE
+                                                            MANTENIMIENTO
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                Costo de
+                                                                Alquiler de
+                                                                Espacio:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .c_alqui
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Área Ocupada:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .area_ocupada
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Costo del
+                                                                Espacio:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .c_espa
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Valor Promedio
+                                                                de Repuestos:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .vp_rep
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Cantidad
+                                                                Promedio de
+                                                                Repuestos:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .cantp_rep
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Costo Promedio
+                                                                de Repuestos:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .costop_rep
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Tasa de Interés
+                                                                Anual:
+                                                                <span
+                                                                    >{{
+                                                                        row.item
+                                                                            .tasa_ia
+                                                                    }}
+                                                                    -
+                                                                    {{
+                                                                        row.item
+                                                                            .tasa_ia_calculado
+                                                                    }}</span
+                                                                >
+                                                            </li>
+                                                            <li>
+                                                                Costo de
+                                                                Capital:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .costo_capital
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Costo Total de
+                                                                Almacenamiento:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .ct_almacenamiento
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Costo de
+                                                                Depreciación:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .c_depreciacion
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Costo de Gestión
+                                                                de Inventario:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .c_gi
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Otros Costos de
+                                                                Mantenimiento:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .oc_mantenimiento
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Costo de
+                                                                Mantenimiento:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .c_mantenimiento
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Procesamiento
+                                                                del Periodo en
+                                                                Horas:
+                                                                <span
+                                                                    >{{
+                                                                        row.item
+                                                                            .procesamiento_pedido
+                                                                    }}
+                                                                    -
+                                                                    {{
+                                                                        row.item
+                                                                            .procesamiento_pedido_calculado
+                                                                    }}</span
+                                                                >
+                                                            </li>
+                                                            <li>
+                                                                Fabricación
+                                                                Producción Días:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .fabricacion_productos
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Tiempo de
+                                                                Transito Días:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .tiempo_transito
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                Inspección y
+                                                                Control Días:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .inspeccion_control
+                                                                }}</span>
+                                                            </li>
+                                                            <li>
+                                                                LEAD TIME:
+                                                                <span>{{
+                                                                    row.item
+                                                                        .leadtime
                                                                 }}</span>
                                                             </li>
                                                             <li>
                                                                 Unidad de
-                                                                medida:
+                                                                Tiempo:
                                                                 <span>{{
                                                                     row.item
-                                                                        .unidad_medida
-                                                                }}</span>
-                                                            </li>
-                                                        </ul>
-                                                        <h4 class="text-sm">
-                                                            DATOS DE PROVEEDOR
-                                                        </h4>
-                                                        <ul>
-                                                            <li>
-                                                                Dirección:
-                                                                <span>{{
-                                                                    row.item.dir
-                                                                }}</span>
-                                                            </li>
-                                                            <li>
-                                                                Teléfono:
-                                                                <span>{{
-                                                                    row.item
-                                                                        .fono
-                                                                }}</span>
-                                                            </li>
-                                                            <li>
-                                                                Correo
-                                                                electrónico:
-                                                                <span>{{
-                                                                    row.item
-                                                                        .correo
-                                                                }}</span>
-                                                            </li>
-                                                        </ul>
-                                                        <h4 class="text-sm">
-                                                            DATOS DE UBICACIÓN
-                                                        </h4>
-                                                        <ul>
-                                                            <li>
-                                                                Almacén:
-                                                                <span>{{
-                                                                    row.item
-                                                                        .almacen
-                                                                }}</span>
-                                                            </li>
-                                                        </ul>
-                                                        <h4 class="text-sm">
-                                                            DATOS DE TERCEROS
-                                                        </h4>
-                                                        <ul>
-                                                            <li>
-                                                                Fabricante:
-                                                                <span>{{
-                                                                    row.item
-                                                                        .fabricante
-                                                                }}</span>
-                                                            </li>
-                                                            <li>
-                                                                Proveedor:
-                                                                <span>{{
-                                                                    row.item
-                                                                        .proveedor
-                                                                }}</span>
-                                                            </li>
-                                                            <li>
-                                                                Terciarios:
-                                                                <span>{{
-                                                                    row.item
-                                                                        .terciarios
-                                                                }}</span>
-                                                            </li>
-                                                            <li>
-                                                                Nombre Contacto:
-                                                                <span>{{
-                                                                    row.item
-                                                                        .nombre_contacto
-                                                                }}</span>
-                                                            </li>
-                                                            <li>
-                                                                Número de
-                                                                teléfono:
-                                                                <span>{{
-                                                                    row.item
-                                                                        .num_fono
-                                                                }}</span>
-                                                            </li>
-                                                            <li>
-                                                                Correo
-                                                                electrónico:
-                                                                <span>{{
-                                                                    row.item
-                                                                        .correo_fabricante
-                                                                }}</span>
-                                                            </li>
-                                                            <li>
-                                                                Dirección:
-                                                                <span>{{
-                                                                    row.item
-                                                                        .dir_fabricante
-                                                                }}</span>
-                                                            </li>
-                                                            <li>
-                                                                Número de
-                                                                identificación:
-                                                                <span>{{
-                                                                    row.item
-                                                                        .num_identificacion
+                                                                        .unidad
                                                                 }}</span>
                                                             </li>
                                                         </ul>
@@ -295,10 +428,7 @@
                                                                     .codigo +
                                                                     ' | ' +
                                                                     row.item
-                                                                        .nombre +
-                                                                    '<br>' +
-                                                                    row.item
-                                                                        .descripcion
+                                                                        .nombre
                                                             )
                                                         "
                                                     >
@@ -352,10 +482,7 @@
                                                                         .codigo +
                                                                         ' | ' +
                                                                         row.item
-                                                                            .nombre +
-                                                                        '<br>' +
-                                                                        row.item
-                                                                            .descripcion
+                                                                            .nombre
                                                                 )
                                                             "
                                                         >
@@ -416,13 +543,13 @@ export default {
             showOverlay: false,
             fields: [
                 { key: "codigo", label: "Código", sortable: true },
-                { key: "codificacion", label: "Codificación", sortable: true },
                 { key: "nombre", label: "Nombre", sortable: true },
                 { key: "descripcion", label: "Descripción", sortable: true },
-                { key: "marca", label: "Marca", sortable: true },
-                { key: "modelo", label: "Modelo", sortable: true },
-                { key: "serie", label: "Serie", sortable: true },
-                { key: "stock_actual", label: "Stock Actual", sortable: true },
+                {
+                    key: "repuesto.full_name",
+                    label: "Repuesto",
+                    sortable: true,
+                },
                 { key: "detalles", label: "Detalles", sortable: true },
                 { key: "accion", label: "Acción" },
             ],
@@ -484,7 +611,7 @@ export default {
             console.log(descripcion);
             Swal.fire({
                 title: "¿Quierés eliminar este registro?",
-                html: `<strong>${descripcion}</strong><br><h4>Esto también eliminara los registros de entradas y no se podrá deshacer</h4>`,
+                html: `<strong>${descripcion}</strong><br>`,
                 showCancelButton: true,
                 confirmButtonColor: "#149FDA",
                 confirmButtonText: "Si, eliminar",

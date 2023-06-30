@@ -13,15 +13,16 @@ use Illuminate\Support\Facades\DB;
 class ModeloDeterministicoController extends Controller
 {
     public $validacion = [
-        'codigo' => 'required|min:2|max:2|unique:modelo_deterministicos,codigo',
+        'codigo' => 'required|min:2|unique:modelo_deterministicos,codigo',
         'nombre' => 'required|min:2',
+        'repuesto_id' => 'required',
     ];
 
     public $mensajes = [];
 
     public function index(Request $request)
     {
-        $modelo_deterministicos = ModeloDeterministico::all();
+        $modelo_deterministicos = ModeloDeterministico::with("repuesto")->get();
         return response()->JSON(['modelo_deterministicos' => $modelo_deterministicos, 'total' => count($modelo_deterministicos)], 200);
     }
 
@@ -38,9 +39,9 @@ class ModeloDeterministicoController extends Controller
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'CREACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' REGISTRO UN AREA',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' REGISTRO UN MODELO DETERMINISTICO',
                 'datos_original' => $datos_original,
-                'modulo' => 'AREAS',
+                'modulo' => 'MODELOS DETERMINISTICOS',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
@@ -62,7 +63,7 @@ class ModeloDeterministicoController extends Controller
 
     public function update(Request $request, ModeloDeterministico $modelo_deterministico)
     {
-        $this->validacion['codigo'] = 'required|min:2|max:2|unique:modelo_deterministicos,codigo,' . $modelo_deterministico->id;
+        $this->validacion['codigo'] = 'required|min:2|unique:modelo_deterministicos,codigo,' . $modelo_deterministico->id;
         $request->validate($this->validacion, $this->mensajes);
 
         DB::beginTransaction();
@@ -74,10 +75,10 @@ class ModeloDeterministicoController extends Controller
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'MODIFICACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UN AREA',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ UN MODELO DETERMINISTICO',
                 'datos_original' => $datos_original,
                 'datos_nuevo' => $datos_nuevo,
-                'modulo' => 'AREAS',
+                'modulo' => 'MODELOS DETERMINISTICOS',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
@@ -114,9 +115,9 @@ class ModeloDeterministicoController extends Controller
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'ELIMINACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' ELIMINÓ UN AREA',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' ELIMINÓ UN MODELO DETERMINISTICO',
                 'datos_original' => $datos_original,
-                'modulo' => 'AREAS',
+                'modulo' => 'MODELOS DETERMINISTICOS',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);

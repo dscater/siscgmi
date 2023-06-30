@@ -21,7 +21,9 @@
                                 <div class="row">
                                     <Formulario
                                         :accion="'edit'"
-                                        :modelo_deterministico="oModeloDeterministico"
+                                        :modelo_deterministico="
+                                            oModeloDeterministico
+                                        "
                                     ></Formulario>
                                 </div>
                             </div>
@@ -49,29 +51,42 @@ export default {
             oModeloDeterministico: {
                 id: 0,
                 codigo: "",
-                codificacion: "",
                 nombre: "",
                 descripcion: "",
-                marca: "",
-                modelo: "",
-                serie: "",
-                equipo_id: "",
-                precio: "",
-                stock_min: "",
-                stock_max: "",
-                unidad_medida: "",
-                dir: "",
-                fono: "",
-                correo: "",
-                almacen: "",
-                fabricante: "",
-                proveedor: "",
-                terciarios: "",
-                nombre_contacto: "",
-                num_fono: "",
-                correo_fabricante: "",
-                dir_fabricante: "",
-                num_identificacion: "",
+                repuesto_id: "",
+                sm: "",
+                it: "",
+                cpo: "",
+                ct_ordenar: "",
+                c_ins: "",
+                c_em: "",
+                c_ordenar: "",
+                precio_compra: "",
+                ct_adqui: "",
+                c_impor: "",
+                c_alma_ext: "",
+                oc_adqui: "",
+                c_adqui: "",
+                c_alqui: "",
+                area_ocupada: "",
+                c_espa: "",
+                vp_rep: "",
+                cantp_rep: "",
+                costop_rep: "",
+                tasa_ia: "",
+                costo_capital: "",
+                ct_almacenamiento: "",
+                c_depreciacion: "",
+                c_gi: "",
+                oc_mantenimiento: "",
+                c_mantenimiento: "",
+                leadtime: "",
+                procesamiento_pedido: "",
+                procesamiento_pedido_calculado: "",
+                fabricacion_productos: "",
+                tiempo_transito: "",
+                inspeccion_control: "",
+                unidad: 12,
             },
         };
     },
@@ -81,9 +96,12 @@ export default {
     },
     methods: {
         getModeloDeterministico() {
-            axios("/admin/modelo_deterministicos/" + this.id).then((response) => {
-                this.oModeloDeterministico = response.data.modelo_deterministico;
-            });
+            axios("/admin/modelo_deterministicos/" + this.id).then(
+                (response) => {
+                    this.oModeloDeterministico =
+                        response.data.modelo_deterministico;
+                }
+            );
         },
     },
 };

@@ -87,6 +87,7 @@
                             v-model="oModeloDeterministico.repuesto_id"
                             filterable
                             placeholder="Repuesto/Equipo de protección"
+                            @change="getRepuesto()"
                         >
                             <el-option
                                 v-for="item in listRepuestos"
@@ -315,8 +316,14 @@
                                 'is-invalid': errors.precio_compra,
                             }"
                             v-model="oModeloDeterministico.precio_compra"
-                            @change="calculaCostoAdquisicion"
-                            @keyup="calculaCostoAdquisicion"
+                            @change="
+                                calculaCostoAdquisicion();
+                                calculaCostoDepreciacion();
+                            "
+                            @keyup="
+                                calculaCostoAdquisicion();
+                                calculaCostoDepreciacion();
+                            "
                         />
                         <span
                             class="error invalid-feedback"
@@ -699,7 +706,7 @@
                     <div class="form-group col-md-4">
                         <label
                             :class="{
-                                'text-danger': errors.cgi,
+                                'text-danger': errors.c_gi,
                             }"
                             >Costo de Gestión de Inventario
                             <i>(automático)</i></label
@@ -708,16 +715,16 @@
                             type="number"
                             class="form-control"
                             :class="{
-                                'is-invalid': errors.cgi,
+                                'is-invalid': errors.c_gi,
                             }"
-                            v-model="oModeloDeterministico.cgi"
+                            v-model="oModeloDeterministico.c_gi"
                             readonly
                             @change="calculaCostoMantenimiento"
                         />
                         <span
                             class="error invalid-feedback"
-                            v-if="errors.cgi"
-                            v-text="errors.cgi[0]"
+                            v-if="errors.c_gi"
+                            v-text="errors.c_gi[0]"
                         ></span>
                     </div>
                     <div class="form-group col-md-4">
@@ -770,8 +777,13 @@
                             :class="{
                                 'text-danger': errors.procesamiento_pedido,
                             }"
-                            >Procesamiento del Periodo en Horas</label
-                        >
+                            >Procesamiento del Periodo en Horas:
+                            <span
+                                v-text="
+                                    oModeloDeterministico.procesamiento_pedido_calculado
+                                "
+                            ></span
+                        ></label>
                         <input
                             type="number"
                             class="form-control"
@@ -779,7 +791,8 @@
                                 'is-invalid': errors.procesamiento_pedido,
                             }"
                             v-model="oModeloDeterministico.procesamiento_pedido"
-                            clearable
+                            @keyup="calculaProcesamientoPedido"
+                            @change="calculaProcesamientoPedido"
                         />
                         <span
                             class="error invalid-feedback"
@@ -803,7 +816,8 @@
                             v-model="
                                 oModeloDeterministico.fabricacion_productos
                             "
-                            clearable
+                            @change="calculaLeadtime"
+                            @keyup="calculaLeadtime"
                         />
                         <span
                             class="error invalid-feedback"
@@ -825,7 +839,8 @@
                                 'is-invalid': errors.tiempo_transito,
                             }"
                             v-model="oModeloDeterministico.tiempo_transito"
-                            clearable
+                            @change="calculaLeadtime"
+                            @keyup="calculaLeadtime"
                         />
                         <span
                             class="error invalid-feedback"
@@ -847,7 +862,8 @@
                                 'is-invalid': errors.inspeccion_control,
                             }"
                             v-model="oModeloDeterministico.inspeccion_control"
-                            clearable
+                            @change="calculaLeadtime"
+                            @keyup="calculaLeadtime"
                         />
                         <span
                             class="error invalid-feedback"
@@ -869,7 +885,6 @@
                                 'is-invalid': errors.unidad,
                             }"
                             v-model="oModeloDeterministico.unidad"
-                            clearable
                         />
                         <span
                             class="error invalid-feedback"
@@ -963,10 +978,11 @@ export default {
                 c_mantenimiento: "",
                 leadtime: "",
                 procesamiento_pedido: "",
+                procesamiento_pedido_calculado: "",
                 fabricacion_productos: "",
                 tiempo_transito: "",
                 inspeccion_control: "",
-                unidad: "",
+                unidad: 12,
             },
         },
     },
@@ -998,6 +1014,7 @@ export default {
             bModal: this.muestra_modal,
             enviando: false,
             errors: [],
+            oRepuesto: null,
             oModeloDeterministico: this.modelo_deterministico,
             listRepuestos: [],
         };
@@ -1008,6 +1025,22 @@ export default {
         this.getPromedioRepuestos();
     },
     methods: {
+        getRepuesto() {
+            if (this.oModeloDeterministico.repuesto_id != "") {
+                axios
+                    .get(
+                        "/admin/repuestos/" +
+                            this.oModeloDeterministico.repuesto_id
+                    )
+                    .then((response) => {
+                        this.oRepuesto = response.data.repuesto;
+                        console.log(this.oRepuesto);
+                        this.calculaCostoDepreciacion();
+                    });
+            } else {
+                this.oRepuesto = null;
+            }
+        },
         getRepuestos() {
             axios.get("/admin/repuestos").then((response) => {
                 this.listRepuestos = response.data.repuestos;
@@ -1029,16 +1062,17 @@ export default {
         },
         calculaCGI() {
             try {
-                this.oModeloDeterministico.cgi =
+                this.oModeloDeterministico.c_gi =
                     parseFloat(this.oModeloDeterministico.sm) *
                     (parseFloat(this.oModeloDeterministico.it) / 2160);
-                this.oModeloDeterministico.cgi = parseFloat(
-                    this.oModeloDeterministico.cgi
+                this.oModeloDeterministico.c_gi = parseFloat(
+                    this.oModeloDeterministico.c_gi
                 ).toFixed(2);
+                this.calculaCostoMantenimiento();
             } catch (e) {
-                console.log("Error al calcular CPO");
+                console.log("Error al calcular CGI");
                 console.log(e);
-                this.oModeloDeterministico.cgi = "";
+                this.oModeloDeterministico.c_gi = "";
             }
         },
         calculaCostoOrdenar() {
@@ -1084,16 +1118,36 @@ export default {
         },
         calculaTasaIA() {
             try {
+                if (
+                    this.oModeloDeterministico.tasa_ia == "" ||
+                    isNaN(this.oModeloDeterministico.tasa_ia)
+                ) {
+                    throw new Error(
+                        "El valor de tasa_ia no es un número válido"
+                    );
+                }
                 this.oModeloDeterministico.tasa_ia_calculado = parseFloat(
                     parseFloat(this.oModeloDeterministico.tasa_ia) / 400
                 ).toFixed(2);
                 this.calculaCostoCapital();
             } catch (e) {
-                this.oModeloDeterministico.tasa_ia_calculado = 0;
+                this.oModeloDeterministico.tasa_ia_calculado = "";
+                this.oModeloDeterministico.costo_capital = "";
             }
         },
         calculaCostoCapital() {
             try {
+                if (
+                    this.oModeloDeterministico.costop_rep == "" ||
+                    isNaN(parseFloat(this.oModeloDeterministico.costop_rep)) ||
+                    this.oModeloDeterministico.tasa_ia_calculado == "" ||
+                    isNaN(
+                        parseFloat(this.oModeloDeterministico.tasa_ia_calculado)
+                    )
+                ) {
+                    throw new Error("El valor obtenido es no númerico");
+                }
+
                 this.oModeloDeterministico.costo_capital =
                     parseFloat(this.oModeloDeterministico.costop_rep) *
                     parseFloat(this.oModeloDeterministico.tasa_ia_calculado);
@@ -1119,20 +1173,109 @@ export default {
             }
         },
         calculaCostoTotalMantenimiento() {
-            console.log("AAAAAAAAAAAAAa");
             try {
-                console.log(
-                    this.oModeloDeterministico.c_espa,
-                    this.oModeloDeterministico.costo_capital
-                );
                 this.oModeloDeterministico.ct_almacenamiento =
                     parseFloat(this.oModeloDeterministico.c_espa) +
                     parseFloat(this.oModeloDeterministico.costo_capital);
                 this.oModeloDeterministico.ct_almacenamiento = parseFloat(
                     this.oModeloDeterministico.ct_almacenamiento
                 ).toFixed(2);
+                this.calculaCostoMantenimiento();
             } catch (e) {
                 this.oModeloDeterministico.ct_almacenamiento = "";
+            }
+        },
+        calculaCostoDepreciacion() {
+            try {
+                if (
+                    this.oModeloDeterministico.precio_compra == "" ||
+                    isNaN(parseFloat(this.oModeloDeterministico.precio_compra))
+                ) {
+                    throw new Error("El valor obtenido es no númerico");
+                }
+                this.oModeloDeterministico.c_depreciacion =
+                    parseFloat(this.oModeloDeterministico.precio_compra) / 32;
+                this.oModeloDeterministico.c_depreciacion = parseFloat(
+                    this.oModeloDeterministico.c_depreciacion
+                ).toFixed(2);
+                this.calculaCostoMantenimiento();
+            } catch (e) {
+                this.oModeloDeterministico.c_depreciacion = "";
+            }
+        },
+        calculaProcesamientoPedido() {
+            try {
+                if (
+                    this.oModeloDeterministico.procesamiento_pedido == "" ||
+                    isNaN(
+                        parseFloat(
+                            this.oModeloDeterministico.procesamiento_pedido
+                        )
+                    )
+                ) {
+                    this.oModeloDeterministico.procesamiento_pedido_calculado =
+                        "";
+                } else {
+                    this.oModeloDeterministico.procesamiento_pedido_calculado =
+                        parseFloat(
+                            parseFloat(
+                                this.oModeloDeterministico.procesamiento_pedido
+                            ) / 24
+                        ).toFixed(2);
+                    this.calculaLeadtime();
+                }
+                this.$forceUpdate();
+            } catch (e) {
+                console.log(e);
+                this.oModeloDeterministico.procesamiento_pedido_calculado = "";
+            }
+        },
+        calculaLeadtime() {
+            try {
+                if (
+                    this.oModeloDeterministico.procesamiento_pedido_calculado ==
+                        "" ||
+                    isNaN(
+                        parseFloat(
+                            this.oModeloDeterministico
+                                .procesamiento_pedido_calculado
+                        )
+                    ) ||
+                    this.oModeloDeterministico.fabricacion_productos == "" ||
+                    isNaN(
+                        parseFloat(
+                            this.oModeloDeterministico.fabricacion_productos
+                        )
+                    ) ||
+                    this.oModeloDeterministico.tiempo_transito == "" ||
+                    isNaN(
+                        parseFloat(this.oModeloDeterministico.tiempo_transito)
+                    ) ||
+                    this.oModeloDeterministico.inspeccion_control == "" ||
+                    isNaN(
+                        parseFloat(
+                            this.oModeloDeterministico.inspeccion_control
+                        )
+                    )
+                ) {
+                    this.oModeloDeterministico.leadtime = "";
+                } else {
+                    this.oModeloDeterministico.leadtime =
+                        parseFloat(
+                            this.oModeloDeterministico
+                                .procesamiento_pedido_calculado
+                        ) +
+                        parseFloat(
+                            this.oModeloDeterministico.fabricacion_productos
+                        ) +
+                        parseFloat(this.oModeloDeterministico.tiempo_transito) +
+                        parseFloat(
+                            this.oModeloDeterministico.inspeccion_control
+                        );
+                }
+            } catch (e) {
+                console.log(e);
+                this.oModeloDeterministico.leadtime = "";
             }
         },
         getPromedioRepuestos() {
@@ -1168,6 +1311,12 @@ export default {
                         "/admin/modelo_deterministicos/" +
                         this.oModeloDeterministico.id;
                     this.oModeloDeterministico["_method"] = "PUT";
+                }
+
+                for (const prop in this.oModeloDeterministico) {
+                    if (this.oModeloDeterministico[prop] === "") {
+                        delete this.oModeloDeterministico[prop];
+                    }
                 }
                 axios
                     .post(url, this.oModeloDeterministico)
@@ -1256,29 +1405,6 @@ export default {
         },
         limpiaModeloDeterministico() {
             this.errors = [];
-            this.oModeloDeterministico.codigo = "";
-            this.oModeloDeterministico.codificacion = "";
-            this.oModeloDeterministico.nombre = "";
-            this.oModeloDeterministico.descripcion = "";
-            this.oModeloDeterministico.marca = "";
-            this.oModeloDeterministico.modelo = "";
-            this.oModeloDeterministico.serie = "";
-            this.oModeloDeterministico.equipo_id = "";
-            this.oModeloDeterministico.precio = "";
-            this.oModeloDeterministico.stock_min = "";
-            this.oModeloDeterministico.stock_max = "";
-            this.oModeloDeterministico.unidad_medida = "";
-            this.oModeloDeterministico.dir = "";
-            this.oModeloDeterministico.fono = "";
-            this.oModeloDeterministico.correo = "";
-            this.oModeloDeterministico.almacen = "";
-            this.oModeloDeterministico.fabricante = "";
-            this.oModeloDeterministico.proveedor = "";
-            this.oModeloDeterministico.terciarios = "";
-            this.oModeloDeterministico.nombre_contacto = "";
-            this.oModeloDeterministico.num_fono = "";
-            this.oModeloDeterministico.correo_fabricante = "";
-            this.oModeloDeterministico.dir_fabricante = "";
             this.oModeloDeterministico.num_identificacion = "";
         },
     },
