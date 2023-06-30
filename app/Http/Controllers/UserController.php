@@ -176,6 +176,9 @@ class UserController extends Controller
             'modelo_deterministicos.edit',
             'modelo_deterministicos.destroy',
 
+            'modelo_deterministicos.parametros',
+            'modelo_deterministicos.modelo_repuestos',
+
             'reportes.usuarios',
             'reportes.kardex_herramientas',
             'reportes.informacion_herramientas',

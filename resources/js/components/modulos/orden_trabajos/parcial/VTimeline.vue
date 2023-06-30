@@ -108,7 +108,6 @@ export default {
                 })
                 .catch((error) => {
                     this.listAnios = [$moment().format("YYYY")];
-                    F;
                 });
         },
     },

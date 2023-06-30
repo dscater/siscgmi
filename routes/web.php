@@ -204,6 +204,19 @@ Route::middleware(['auth'])->group(function () {
 
         // REPORTES
         Route::post('reportes/usuarios', [ReporteController::class, 'usuarios']);
+        Route::post('reportes/kardex_herramientas', [ReporteController::class, 'kardex_herramientas']);
+        Route::post('reportes/informacion_herramientas', [ReporteController::class, 'informacion_herramientas']);
+        Route::post('reportes/inform_solicitudes', [ReporteController::class, 'inform_solicitudes']);
+        Route::post('reportes/kardex_repuestos', [ReporteController::class, 'kardex_repuestos']);
+        Route::post('reportes/entrada_salida_repuestos', [ReporteController::class, 'entrada_salida_repuestos']);
+        Route::post('reportes/plan_mantenimiento', [ReporteController::class, 'plan_mantenimiento']);
+        Route::post('reportes/maestro_plan_mantenimiento', [ReporteController::class, 'maestro_plan_mantenimiento']);
+        Route::post('reportes/historial_fallas', [ReporteController::class, 'historial_fallas']);
+        Route::post('reportes/seguimiento_costos', [ReporteController::class, 'seguimiento_costos']);
+        Route::post('reportes/informe_general', [ReporteController::class, 'informe_general']);
+        Route::post('reportes/informe_ot_correctivas', [ReporteController::class, 'informe_ot_correctivas']);
+        Route::post('reportes/resumen_ots', [ReporteController::class, 'resumen_ots']);
+        Route::post('reportes/grafico_ots', [ReporteController::class, 'grafico_ots']);
     });
 });
 

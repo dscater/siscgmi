@@ -348,6 +348,20 @@ export default new Router({
                     .default,
             props: true,
         },
+        {
+            path: "/modelo_deterministicos/generar/parametros",
+            name: "modelo_deterministicos.parametros",
+            component:
+                require("./components/modulos/modelo_deterministicos/parametros.vue")
+                    .default,
+        },
+        {
+            path: "/modelo_deterministicos/generar/modelo_repuestos",
+            name: "modelo_deterministicos.modelo_repuestos",
+            component:
+                require("./components/modulos/modelo_deterministicos/modelo_repuestos.vue")
+                    .default,
+        },
 
         // Reportes
         {

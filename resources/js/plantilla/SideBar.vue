@@ -595,7 +595,6 @@
                         v-if="permisos.includes('modelo_deterministicos.index')"
                     >
                         <router-link
-                            exact
                             :to="{ name: 'modelo_deterministicos.index' }"
                             class="nav-link"
                             v-loading.fullscreen.lock="fullscreenLoading"
