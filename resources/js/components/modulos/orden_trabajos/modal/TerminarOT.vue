@@ -125,6 +125,64 @@
                                     v-text="errors.descripcion_falla[0]"
                                 ></span>
                             </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.fecha_falla,
+                                    }"
+                                    >Fecha de falla*</label
+                                >
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    :class="{
+                                        'is-invalid': errors.fecha_falla,
+                                    }"
+                                    v-model="form.fecha_falla"
+                                    @change="getTiempoFalla"
+                                    @keyup="getTiempoFalla"
+                                />
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.fecha_falla"
+                                    v-text="errors.fecha_falla[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.hora_falla,
+                                    }"
+                                    >Hora de falla*</label
+                                >
+                                <input
+                                    type="time"
+                                    class="form-control"
+                                    :class="{
+                                        'is-invalid': errors.hora_falla,
+                                    }"
+                                    v-model="form.hora_falla"
+                                    @change="getTiempoFalla"
+                                    @keyup="getTiempoFalla"
+                                />
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.hora_falla"
+                                    v-text="errors.hora_falla[0]"
+                                ></span>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <p class="mb-1">
+                                    <strong>Tiempo falla (minutos):</strong>
+                                    <span v-text="form.tiempo_falla"></span>
+                                </p>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.tiempo_falla"
+                                    v-text="errors.tiempo_falla[0]"
+                                ></span>
+                            </div>
                         </div>
                         <hr class="col-md-12 pl-0" />
                         <div class="row">
@@ -284,6 +342,9 @@ export default {
                 descripcion_falla: "",
                 razon: "",
                 comentario: "",
+                fecha_falla: "",
+                hora_falla: "",
+                tiempo_falla: "",
                 estado: this.nuevo_estado,
             },
             fecha: "",
@@ -304,8 +365,30 @@ export default {
                 })
                 .then((response) => {
                     console.log(response.data);
-                    this.form.tiempo_ejecucion = response.data.h;
+                    this.form.tiempo_ejecucion = response.data.horas;
                 });
+        },
+        getTiempoFalla() {
+            if (
+                this.fecha != "" &&
+                this.hora != "" &&
+                this.form.fecha_falla != "" &&
+                this.form.hora_falla
+            ) {
+                axios
+                    .get("/admin/orden_trabajos/getTiempoEjecucion", {
+                        params: {
+                            fecha_ini: `${this.fecha} ${this.hora}`,
+                            fecha_fin: `${this.form.fecha_falla} ${this.form.hora_falla}`,
+                        },
+                    })
+                    .then((response) => {
+                        console.log(response.data);
+                        this.form.tiempo_falla = response.data.minutos;
+                    });
+            } else {
+                this.form.tiempo_falla = "";
+            }
         },
         setRegistroModal() {
             this.enviando = true;
@@ -326,6 +409,18 @@ export default {
                 if (this.form.estado && this.form.estado.trim() != "") {
                     formdata.append("estado", this.form.estado);
                 }
+                if (
+                    this.form.fecha_falla &&
+                    this.form.fecha_falla.trim() != ""
+                ) {
+                    formdata.append("fecha_falla", this.form.fecha_falla);
+                }
+                if (this.form.hora_falla && this.form.hora_falla.trim() != "") {
+                    formdata.append("hora_falla", this.form.hora_falla);
+                }
+                if (this.form.tiempo_falla) {
+                    formdata.append("tiempo_falla", this.form.tiempo_falla);
+                }
 
                 formdata.append("fecha_termino", this.fecha);
                 formdata.append("hora_termino", this.hora);
@@ -336,15 +431,27 @@ export default {
                         this.form.tiempo_ejecucion
                     );
                 }
-                if (this.form.parada_maquina && this.form.parada_maquina.trim() != "") {
+                if (
+                    this.form.parada_maquina &&
+                    this.form.parada_maquina.trim() != ""
+                ) {
                     formdata.append("parada_maquina", this.form.parada_maquina);
                 }
-                if(this.form.parada_maquina == 'SI'){
-                    if (this.form.tipo_falla && this.form.tipo_falla.trim() != "") {
+                if (this.form.parada_maquina == "SI") {
+                    if (
+                        this.form.tipo_falla &&
+                        this.form.tipo_falla.trim() != ""
+                    ) {
                         formdata.append("tipo_falla", this.form.tipo_falla);
                     }
-                    if (this.form.descripcion_falla && this.form.descripcion_falla.trim() != "") {
-                        formdata.append("descripcion_falla", this.form.descripcion_falla);
+                    if (
+                        this.form.descripcion_falla &&
+                        this.form.descripcion_falla.trim() != ""
+                    ) {
+                        formdata.append(
+                            "descripcion_falla",
+                            this.form.descripcion_falla
+                        );
                     }
                 }
 

@@ -539,8 +539,13 @@
                             :class="{
                                 'text-danger': errors.vp_rep,
                             }"
-                            >Valor Promedio de Repuestos</label
-                        >
+                            >Valor Promedio de Repuestos
+                            <button
+                                class="btn btn-default btn-xs"
+                                @click.prevent="getPromedioRepuestos"
+                            >
+                                <i class="fa fa-redo"></i></button
+                        ></label>
                         <input
                             type="number"
                             class="form-control"
@@ -996,6 +1001,9 @@ export default {
             }
         },
         modelo_deterministico(newVal) {
+            if (this.accion == "nuevo") {
+                this.getPromedioRepuestos();
+            }
             this.oModeloDeterministico = newVal;
         },
     },
@@ -1279,26 +1287,27 @@ export default {
             }
         },
         getPromedioRepuestos() {
-            // if (this.oModeloDeterministico.repuesto_id != "") {
-            axios
-                .get("/admin/modelo_deterministicos/getPromedioRepuestos", {
-                    params: {
-                        repuesto_id: this.oModeloDeterministico.repuesto_id,
-                    },
-                })
-                .then((response) => {
-                    this.oModeloDeterministico.vp_rep =
-                        response.data.valor_promedio;
-                    this.oModeloDeterministico.cantp_rep =
-                        response.data.cantidad_promedio;
-                    this.oModeloDeterministico.costop_rep =
-                        response.data.costo_promedio;
-                });
-            // } else {
-            // this.oModeloDeterministico.vp_rep = "";
-            // this.oModeloDeterministico.cantp_rep = "";
-            // this.oModeloDeterministico.costop_rep = "";
-            // }
+            if (this.oModeloDeterministico.repuesto_id != "") {
+                axios
+                    .get("/admin/modelo_deterministicos/getPromedioRepuestos", {
+                        params: {
+                            repuesto_id: this.oModeloDeterministico.repuesto_id,
+                        },
+                    })
+                    .then((response) => {
+                        this.oModeloDeterministico.vp_rep =
+                            response.data.valor_promedio;
+                        this.oModeloDeterministico.cantp_rep =
+                            response.data.cantidad_promedio;
+                        this.oModeloDeterministico.costop_rep =
+                            response.data.costo_promedio;
+                        this.calculaCostoCapital();
+                    });
+            } else {
+                this.oModeloDeterministico.vp_rep = "";
+                this.oModeloDeterministico.cantp_rep = "";
+                this.oModeloDeterministico.costop_rep = "";
+            }
         },
         setRegistro() {
             this.enviando = true;

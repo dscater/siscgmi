@@ -20,6 +20,9 @@ class HistorialFalla extends Model
         "fecha_termino",
         "hora_termino",
         "tiempo_ejecucion",
+        "fecha_falla",
+        "hora_falla",
+        "tiempo_falla",
         "equipo_id",
     ];
 

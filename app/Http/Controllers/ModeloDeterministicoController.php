@@ -138,18 +138,29 @@ class ModeloDeterministicoController extends Controller
     public function getPromedioRepuestos(Request $request)
     {
         $repuesto_id = $request->repuesto_id;
-        // $repuestos = Repuesto::select("id")->where("repuesto_id", $repuesto_id)->get();
-        $repuestos = Repuesto::select("id")->get();
-        $suma_total = Repuesto::sum("precio");
-        $valor_promedio = number_format((float)$suma_total / (float)count($repuestos), 2, '.', '');
-        $suma_cantidad = EntradaRepuesto::sum("cantidad");
-        $cantidad_promedio = number_format((float)$suma_cantidad / (float)count($repuestos), 2, '.', '');
+        $repuesto = Repuesto::find($repuesto_id);
+        $suma_total = $repuesto->stock_actual * $repuesto->precio;
+        $cantidad_total = $repuesto->stock_actual;
+        $cantidad_repuestos = count(Repuesto::select("id")->get());
 
+        $valor_promedio = number_format((float)$suma_total / (float)$cantidad_repuestos, 2, '.', '');
+        $cantidad_promedio = number_format((float)$cantidad_total / (float)$cantidad_repuestos, 2, '.', '');
         $costo_promedio = number_format((float)$valor_promedio / (float)$cantidad_promedio, 2, '.', '');
         return response()->JSON([
             "valor_promedio" => $valor_promedio,
             "cantidad_promedio" => $cantidad_promedio,
             "costo_promedio" => $costo_promedio,
+        ]);
+    }
+
+    public function getModelos(Repuesto $repuesto)
+    {
+        $modelo_deterministico = $repuesto->modelo_deterministico;
+        $modelo_repuesto = $repuesto->modelo_repuesto;
+
+        return response()->JSON([
+            "modelo_deterministico" => $modelo_deterministico,
+            "modelo_repuesto" => $modelo_repuesto,
         ]);
     }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 30-06-2023 a las 17:38:11
+-- Tiempo de generación: 03-07-2023 a las 18:53:45
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -726,7 +726,13 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (224, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN MODELO DETERMINISTICO', 'area_ocupada: 20<br/>c_adqui: 8000.00<br/>c_alma_ext: 1000.00<br/>c_alqui: 500.00<br/>c_depreciacion: 156.25<br/>c_em: 400.00<br/>c_espa: 10000.00<br/>c_gi: 166.67<br/>c_impor: 1000.00<br/>c_ins: 300.00<br/>c_mantenimiento: 10628.79<br/>c_ordenar: 2066.67<br/>cantp_rep: 100<br/>codigo: MD001PP<br/>costo_capital: 5.87<br/>costop_rep: 5.87<br/>cpo: 166.67<br/>created_at: 2023-06-30 13:15:41<br/>ct_adqui: 1000.00<br/>ct_almacenamiento: 10005.87<br/>ct_ordenar: 1200.00<br/>descripcion: DESC. MODELO DET. #1<br/>fabricacion_productos: 30<br/>id: 1<br/>inspeccion_control: 30<br/>it: 60.00<br/>leadtime: 82.00<br/>nombre: MODELO DETERMINISTICO #1<br/>oc_adqui: 0.00<br/>oc_mantenimiento: 300.00<br/>precio_compra: 5000.00<br/>procesamiento_pedido: 48<br/>procesamiento_pedido_calculado: 2.00<br/>repuesto_id: 1<br/>sm: 6000.00<br/>tasa_ia: 400.00<br/>tasa_ia_calculado: 1.00<br/>tiempo_transito: 20<br/>unidad: 12<br/>updated_at: 2023-06-30 13:33:34<br/>vp_rep: 586.67<br/>', 'area_ocupada: 20<br/>c_adqui: 8000.00<br/>c_alma_ext: 1000.00<br/>c_alqui: 500.00<br/>c_depreciacion: 156.25<br/>c_em: 400.00<br/>c_espa: 10000.00<br/>c_gi: 166.67<br/>c_impor: 1000.00<br/>c_ins: 300.00<br/>c_mantenimiento: 10628.79<br/>c_ordenar: 2066.67<br/>cantp_rep: 100.00<br/>codigo: MD001PP<br/>costo_capital: 5.87<br/>costop_rep: 5.87<br/>cpo: 166.67<br/>created_at: 2023-06-30 13:15:41<br/>ct_adqui: 1000.00<br/>ct_almacenamiento: 10005.87<br/>ct_ordenar: 1200.00<br/>descripcion: DESC. MODELO DET. #1<br/>fabricacion_productos: 30<br/>id: 1<br/>inspeccion_control: 30<br/>it: 60.00<br/>leadtime: 82.00<br/>nombre: MODELO DETERMINISTICO #1<br/>oc_adqui: 0.00<br/>oc_mantenimiento: 300.00<br/>precio_compra: 5000.00<br/>procesamiento_pedido: 48<br/>procesamiento_pedido_calculado: 2.00<br/>repuesto_id: 1<br/>sm: 6000.00<br/>tasa_ia: 400.00<br/>tasa_ia_calculado: 1.00<br/>tiempo_transito: 20<br/>unidad: 12<br/>updated_at: 2023-06-30 13:33:40<br/>vp_rep: 586.67<br/>', 'MODELOS DETERMINISTICOS', '2023-06-30', '13:33:40', '2023-06-30 17:33:40', '2023-06-30 17:33:40'),
 (225, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN MODELO DETERMINISTICO', 'area_ocupada: <br/>c_adqui: <br/>c_alma_ext: <br/>c_alqui: <br/>c_depreciacion: <br/>c_em: <br/>c_espa: <br/>c_gi: <br/>c_impor: <br/>c_ins: <br/>c_mantenimiento: <br/>c_ordenar: <br/>cantp_rep: 100.00<br/>codigo: MD002<br/>costo_capital: <br/>costop_rep: 5.87<br/>cpo: <br/>created_at: 2023-06-30 13:36:26<br/>ct_adqui: <br/>ct_almacenamiento: <br/>ct_ordenar: <br/>descripcion: <br/>fabricacion_productos: <br/>id: 2<br/>inspeccion_control: <br/>it: <br/>leadtime: <br/>nombre: MODELO #2<br/>oc_adqui: <br/>oc_mantenimiento: <br/>precio_compra: <br/>procesamiento_pedido: <br/>procesamiento_pedido_calculado: <br/>repuesto_id: 2<br/>sm: <br/>tasa_ia: <br/>tasa_ia_calculado: <br/>tiempo_transito: <br/>unidad: 12<br/>updated_at: 2023-06-30 13:36:26<br/>vp_rep: 586.67<br/>', NULL, 'MODELOS DETERMINISTICOS', '2023-06-30', '13:36:26', '2023-06-30 17:36:26', '2023-06-30 17:36:26');
 INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `datos_original`, `datos_nuevo`, `modulo`, `fecha`, `hora`, `created_at`, `updated_at`) VALUES
-(226, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN MODELO DETERMINISTICO', 'area_ocupada: <br/>c_adqui: <br/>c_alma_ext: <br/>c_alqui: <br/>c_depreciacion: <br/>c_em: <br/>c_espa: <br/>c_gi: <br/>c_impor: <br/>c_ins: <br/>c_mantenimiento: <br/>c_ordenar: <br/>cantp_rep: 100<br/>codigo: MD002<br/>costo_capital: <br/>costop_rep: 5.87<br/>cpo: <br/>created_at: 2023-06-30 13:36:26<br/>ct_adqui: <br/>ct_almacenamiento: <br/>ct_ordenar: <br/>descripcion: <br/>fabricacion_productos: <br/>id: 2<br/>inspeccion_control: <br/>it: <br/>leadtime: <br/>nombre: MODELO #2<br/>oc_adqui: <br/>oc_mantenimiento: <br/>precio_compra: <br/>procesamiento_pedido: <br/>procesamiento_pedido_calculado: <br/>repuesto_id: 2<br/>sm: <br/>tasa_ia: <br/>tasa_ia_calculado: <br/>tiempo_transito: <br/>unidad: 12<br/>updated_at: 2023-06-30 13:36:26<br/>vp_rep: 586.67<br/>', NULL, 'MODELOS DETERMINISTICOS', '2023-06-30', '13:37:56', '2023-06-30 17:37:56', '2023-06-30 17:37:56');
+(226, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN MODELO DETERMINISTICO', 'area_ocupada: <br/>c_adqui: <br/>c_alma_ext: <br/>c_alqui: <br/>c_depreciacion: <br/>c_em: <br/>c_espa: <br/>c_gi: <br/>c_impor: <br/>c_ins: <br/>c_mantenimiento: <br/>c_ordenar: <br/>cantp_rep: 100<br/>codigo: MD002<br/>costo_capital: <br/>costop_rep: 5.87<br/>cpo: <br/>created_at: 2023-06-30 13:36:26<br/>ct_adqui: <br/>ct_almacenamiento: <br/>ct_ordenar: <br/>descripcion: <br/>fabricacion_productos: <br/>id: 2<br/>inspeccion_control: <br/>it: <br/>leadtime: <br/>nombre: MODELO #2<br/>oc_adqui: <br/>oc_mantenimiento: <br/>precio_compra: <br/>procesamiento_pedido: <br/>procesamiento_pedido_calculado: <br/>repuesto_id: 2<br/>sm: <br/>tasa_ia: <br/>tasa_ia_calculado: <br/>tiempo_transito: <br/>unidad: 12<br/>updated_at: 2023-06-30 13:36:26<br/>vp_rep: 586.67<br/>', NULL, 'MODELOS DETERMINISTICOS', '2023-06-30', '13:37:56', '2023-06-30 17:37:56', '2023-06-30 17:37:56'),
+(227, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA ORDEN DE TRABAJO', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: TERMINADO<br/>fecha_inicio: 2023-06-22<br/>fecha_programada: 2023-06-15<br/>fecha_termino: 2023-06-23<br/>gama_id: 2<br/>hora_inicio: 17:41:00<br/>hora_programada: 08:00:00<br/>hora_termino: 12:28:00<br/>id: 2<br/>parada_maquina: SI<br/>prioridad: URGENTE<br/>razon: PRUEBA TERMINO OT<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: 18<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-06-23 12:29:40<br/>', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: TERMINADO<br/>fecha_inicio: 2023-06-22<br/>fecha_programada: 2023-07-03<br/>fecha_termino: 2023-06-23<br/>gama_id: 2<br/>hora_inicio: 17:41:00<br/>hora_programada: 08:00:00<br/>hora_termino: 12:28:00<br/>id: 2<br/>parada_maquina: SI<br/>prioridad: URGENTE<br/>razon: PRUEBA TERMINO OT<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: 18<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-07-03 10:21:21<br/>', 'ORDENES DE TRABAJO', '2023-07-03', '10:21:21', '2023-07-03 14:21:21', '2023-07-03 14:21:21'),
+(228, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA ORDEN DE TRABAJO', 'comentario: <br/>created_at: 2023-06-19 11:58:35<br/>dias: 10<br/>estado: PROGRAMADO<br/>fecha_inicio: <br/>fecha_programada: 2023-06-19<br/>fecha_termino: <br/>gama_id: 2<br/>hora_inicio: <br/>hora_programada: 08:00:00<br/>hora_termino: <br/>id: 3<br/>parada_maquina: <br/>prioridad: MODERADA<br/>razon: <br/>subunidad_id: 2<br/>tiempo: 17<br/>tiempo_ejecucion: <br/>tipo_mantenimiento: LUBRICACIÓN<br/>updated_at: 2023-06-19 11:58:35<br/>', 'comentario: <br/>created_at: 2023-06-19 11:58:35<br/>dias: 10<br/>estado: PROGRAMADO<br/>fecha_inicio: <br/>fecha_programada: 2023-07-01<br/>fecha_termino: <br/>gama_id: 2<br/>hora_inicio: <br/>hora_programada: 08:00:00<br/>hora_termino: <br/>id: 3<br/>parada_maquina: <br/>prioridad: MODERADA<br/>razon: <br/>subunidad_id: 2<br/>tiempo: 17<br/>tiempo_ejecucion: <br/>tipo_mantenimiento: LUBRICACIÓN<br/>updated_at: 2023-07-03 10:21:40<br/>', 'ORDENES DE TRABAJO', '2023-07-03', '10:21:40', '2023-07-03 14:21:40', '2023-07-03 14:21:40'),
+(229, 1, 'MODIFICACIÓN', 'EL USUARIO admin ACTUALIZÓ EL ESTADO DE UNA ORDEN DE TRABAJO', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: PROGRAMADO<br/>fecha_inicio: 2023-06-22<br/>fecha_programada: 2023-07-03<br/>fecha_termino: 2023-06-23<br/>gama_id: 2<br/>hora_inicio: 17:41:00<br/>hora_programada: 08:00:00<br/>hora_termino: 12:28:00<br/>id: 2<br/>parada_maquina: SI<br/>prioridad: URGENTE<br/>razon: PRUEBA TERMINO OT<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: 18<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-07-03 10:21:21<br/>', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: INICIADO<br/>fecha_inicio: 2023-07-03<br/>fecha_programada: 2023-07-03<br/>fecha_termino: 2023-06-23<br/>gama_id: 2<br/>hora_inicio: 10:22<br/>hora_programada: 08:00:00<br/>hora_termino: 12:28:00<br/>id: 2<br/>parada_maquina: SI<br/>prioridad: URGENTE<br/>razon: PRUEBA INICIO #1<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: 18<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-07-03 10:22:55<br/>', 'ORDENES DE TRABAJO', '2023-07-03', '10:22:55', '2023-07-03 14:22:55', '2023-07-03 14:22:55'),
+(230, 1, 'MODIFICACIÓN', 'EL USUARIO admin TERMINÓ UNA ORDEN DE TRABAJO', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: INICIADO<br/>fecha_inicio: 2023-07-03<br/>fecha_programada: 2023-07-03<br/>fecha_termino: 2023-06-23<br/>gama_id: 2<br/>hora_inicio: 08:22:00<br/>hora_programada: 08:00:00<br/>hora_termino: 12:28:00<br/>id: 2<br/>parada_maquina: SI<br/>prioridad: URGENTE<br/>razon: PRUEBA INICIO #1<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: 18<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-07-03 10:22:55<br/>', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: TERMINADO<br/>fecha_inicio: 2023-07-03<br/>fecha_programada: 2023-07-03<br/>fecha_termino: 2023-07-03<br/>gama_id: 2<br/>hora_inicio: 08:22:00<br/>hora_programada: 08:00:00<br/>hora_termino: 10:44<br/>id: 2<br/>parada_maquina: SI<br/>prioridad: URGENTE<br/>razon: PRUEBA TERMINO DE OT + FALLA<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: 2<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-07-03 10:46:06<br/>', 'ORDENES DE TRABAJO', '2023-07-03', '10:46:06', '2023-07-03 14:46:06', '2023-07-03 14:46:06'),
+(231, 1, 'MODIFICACIÓN', 'EL USUARIO admin TERMINÓ UNA ORDEN DE TRABAJO', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: INICIADO<br/>fecha_inicio: 2023-07-03<br/>fecha_programada: 2023-07-03<br/>fecha_termino: 2023-07-03<br/>gama_id: 2<br/>hora_inicio: 08:22:00<br/>hora_programada: 08:00:00<br/>hora_termino: 10:44:00<br/>id: 2<br/>parada_maquina: SI<br/>prioridad: URGENTE<br/>razon: PRUEBA TERMINO DE OT + FALLA<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: 2<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-07-03 10:46:06<br/>', 'comentario: COMENTARIO<br/>created_at: 2023-06-15 11:26:58<br/>dias: 7<br/>estado: TERMINADO<br/>fecha_inicio: 2023-07-03<br/>fecha_programada: 2023-07-03<br/>fecha_termino: 2023-07-03<br/>gama_id: 2<br/>hora_inicio: 08:22:00<br/>hora_programada: 08:00:00<br/>hora_termino: 10:47<br/>id: 2<br/>parada_maquina: SI<br/>prioridad: URGENTE<br/>razon: PRUEBA TERMINO DE OT + TIEMPO DE FALL<br/>subunidad_id: 1<br/>tiempo: 17<br/>tiempo_ejecucion: 2<br/>tipo_mantenimiento: PREDICTIVO<br/>updated_at: 2023-07-03 10:47:54<br/>', 'ORDENES DE TRABAJO', '2023-07-03', '10:47:54', '2023-07-03 14:47:54', '2023-07-03 14:47:54'),
+(232, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN MODELO DETERMINISTICO', 'area_ocupada: 20<br/>c_adqui: 8000.00<br/>c_alma_ext: 1000.00<br/>c_alqui: 500.00<br/>c_depreciacion: 156.25<br/>c_em: 400.00<br/>c_espa: 10000.00<br/>c_gi: 166.67<br/>c_impor: 1000.00<br/>c_ins: 300.00<br/>c_mantenimiento: 10628.79<br/>c_ordenar: 2066.67<br/>cantp_rep: 100<br/>codigo: MD001PP<br/>costo_capital: 5.87<br/>costop_rep: 5.87<br/>cpo: 166.67<br/>created_at: 2023-06-30 13:15:41<br/>ct_adqui: 1000.00<br/>ct_almacenamiento: 10005.87<br/>ct_ordenar: 1200.00<br/>descripcion: DESC. MODELO DET. #1<br/>fabricacion_productos: 30<br/>id: 1<br/>inspeccion_control: 30<br/>it: 60.00<br/>leadtime: 82.00<br/>nombre: MODELO DETERMINISTICO #1<br/>oc_adqui: 0.00<br/>oc_mantenimiento: 300.00<br/>precio_compra: 5000.00<br/>procesamiento_pedido: 48<br/>procesamiento_pedido_calculado: 2.00<br/>repuesto_id: 1<br/>sm: 6000.00<br/>tasa_ia: 400.00<br/>tasa_ia_calculado: 1.00<br/>tiempo_transito: 20<br/>unidad: 12<br/>updated_at: 2023-06-30 13:33:40<br/>vp_rep: 586.67<br/>', 'area_ocupada: 20<br/>c_adqui: 8000.00<br/>c_alma_ext: 1000.00<br/>c_alqui: 500.00<br/>c_depreciacion: 156.25<br/>c_em: 400.00<br/>c_espa: 10000.00<br/>c_gi: 166.67<br/>c_impor: 1000.00<br/>c_ins: 300.00<br/>c_mantenimiento: 11042.92<br/>c_ordenar: 2066.67<br/>cantp_rep: 30.00<br/>codigo: MD001PP<br/>costo_capital: 420.00<br/>costop_rep: 560.00<br/>cpo: 166.67<br/>created_at: 2023-06-30 13:15:41<br/>ct_adqui: 1000.00<br/>ct_almacenamiento: 10420.00<br/>ct_ordenar: 1200.00<br/>descripcion: DESC. MODELO DET. #1<br/>fabricacion_productos: 30<br/>id: 1<br/>inspeccion_control: 30<br/>it: 60.00<br/>leadtime: 82.00<br/>nombre: MODELO DETERMINISTICO #1<br/>oc_adqui: 0.00<br/>oc_mantenimiento: 300.00<br/>precio_compra: 5000.00<br/>procesamiento_pedido: 48<br/>procesamiento_pedido_calculado: 2.00<br/>repuesto_id: 1<br/>sm: 6000.00<br/>tasa_ia: 300<br/>tasa_ia_calculado: 0.75<br/>tiempo_transito: 20<br/>unidad: 12<br/>updated_at: 2023-07-03 12:44:23<br/>vp_rep: 16800.00<br/>', 'MODELOS DETERMINISTICOS', '2023-07-03', '12:44:23', '2023-07-03 16:44:23', '2023-07-03 16:44:23');
 
 -- --------------------------------------------------------
 
@@ -746,6 +752,9 @@ CREATE TABLE `historial_fallas` (
   `fecha_termino` date NOT NULL,
   `hora_termino` time NOT NULL,
   `tiempo_ejecucion` double NOT NULL,
+  `fecha_falla` date DEFAULT NULL,
+  `hora_falla` time DEFAULT NULL,
+  `tiempo_falla` double DEFAULT NULL,
   `equipo_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -755,8 +764,8 @@ CREATE TABLE `historial_fallas` (
 -- Volcado de datos para la tabla `historial_fallas`
 --
 
-INSERT INTO `historial_fallas` (`id`, `orden_id`, `nro_codificacion`, `codificacion`, `tipo_falla`, `descripcion_falla`, `fecha_inicio`, `hora_inicio`, `fecha_termino`, `hora_termino`, `tiempo_ejecucion`, `equipo_id`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, 'DM-0001-HIS-FM', 'MECÁNICA', 'prueba termino ot por falla', '2023-06-22', '17:41:00', '2023-06-23', '12:28:00', 18, 1, '2023-06-23 16:29:40', '2023-06-23 16:29:40');
+INSERT INTO `historial_fallas` (`id`, `orden_id`, `nro_codificacion`, `codificacion`, `tipo_falla`, `descripcion_falla`, `fecha_inicio`, `hora_inicio`, `fecha_termino`, `hora_termino`, `tiempo_ejecucion`, `fecha_falla`, `hora_falla`, `tiempo_falla`, `equipo_id`, `created_at`, `updated_at`) VALUES
+(2, 2, 2, 'DM-0002-HIS-FM', 'MECÁNICA', '', '2023-07-03', '08:22:00', '2023-07-03', '10:47:00', 2, '2023-07-03', '10:15:00', 32, 1, '2023-07-03 14:47:54', '2023-07-03 14:47:54');
 
 -- --------------------------------------------------------
 
@@ -802,7 +811,7 @@ CREATE TABLE `indicadors` (
 --
 
 INSERT INTO `indicadors` (`id`, `nro`, `tipo`, `created_at`, `updated_at`) VALUES
-(1, 3, 'MTBF', '2023-06-28 16:50:00', '2023-06-28 16:53:59');
+(1, 1, 'MTBF', '2023-06-28 16:50:00', '2023-07-03 15:39:49');
 
 -- --------------------------------------------------------
 
@@ -950,7 +959,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (35, '2023_06_27_111215_create_historial_tiempos_table', 6),
 (36, '2023_06_27_111349_create_detalle_tiempos_table', 7),
 (37, '2023_06_28_114825_create_indicadors_table', 8),
-(38, '2023_06_28_161015_create_modelo_deterministicos_table', 9);
+(38, '2023_06_28_161015_create_modelo_deterministicos_table', 9),
+(39, '2023_07_03_124648_create_modelo_repuestos_table', 10);
 
 -- --------------------------------------------------------
 
@@ -1007,7 +1017,32 @@ CREATE TABLE `modelo_deterministicos` (
 --
 
 INSERT INTO `modelo_deterministicos` (`id`, `codigo`, `nombre`, `descripcion`, `repuesto_id`, `sm`, `it`, `cpo`, `ct_ordenar`, `c_ins`, `c_em`, `c_ordenar`, `precio_compra`, `ct_adqui`, `c_impor`, `c_alma_ext`, `oc_adqui`, `c_adqui`, `c_alqui`, `area_ocupada`, `c_espa`, `vp_rep`, `cantp_rep`, `costop_rep`, `tasa_ia`, `tasa_ia_calculado`, `costo_capital`, `ct_almacenamiento`, `c_depreciacion`, `c_gi`, `oc_mantenimiento`, `c_mantenimiento`, `leadtime`, `procesamiento_pedido`, `procesamiento_pedido_calculado`, `fabricacion_productos`, `tiempo_transito`, `inspeccion_control`, `unidad`, `created_at`, `updated_at`) VALUES
-(1, 'MD001PP', 'MODELO DETERMINISTICO #1', 'DESC. MODELO DET. #1', 1, 6000.00, 60.00, 166.67, 1200.00, 300.00, 400.00, 2066.67, 5000.00, 1000.00, 1000.00, 1000.00, 0.00, 8000.00, 500.00, 20.00, 10000.00, 586.67, 100.00, 5.87, 400.00, 1.00, 5.87, 10005.87, 156.25, 166.67, 300.00, 10628.79, 82.00, 48.00, 2.00, 30.00, 20.00, 30.00, 12.00, '2023-06-30 17:15:41', '2023-06-30 17:33:40');
+(1, 'MD001PP', 'MODELO DETERMINISTICO #1', 'DESC. MODELO DET. #1', 1, 6000.00, 60.00, 166.67, 1200.00, 300.00, 400.00, 2066.67, 5000.00, 1000.00, 1000.00, 1000.00, 0.00, 8000.00, 500.00, 20.00, 10000.00, 16800.00, 30.00, 560.00, 300.00, 0.75, 420.00, 10420.00, 156.25, 166.67, 300.00, 11042.92, 82.00, 48.00, 2.00, 30.00, 20.00, 30.00, 12.00, '2023-06-30 17:15:41', '2023-07-03 16:44:23');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modelo_repuestos`
+--
+
+CREATE TABLE `modelo_repuestos` (
+  `id` bigint UNSIGNED NOT NULL,
+  `repuesto_id` bigint UNSIGNED NOT NULL,
+  `anio_ini` int NOT NULL,
+  `trimestre_ini` int NOT NULL,
+  `anio_fin` int NOT NULL,
+  `trimestre_fin` int NOT NULL,
+  `demanda` double NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `modelo_repuestos`
+--
+
+INSERT INTO `modelo_repuestos` (`id`, `repuesto_id`, `anio_ini`, `trimestre_ini`, `anio_fin`, `trimestre_fin`, `demanda`, `created_at`, `updated_at`) VALUES
+(1, 1, 2023, 1, 2023, 3, 15.33, '2023-07-03 17:40:14', '2023-07-03 18:07:02');
 
 -- --------------------------------------------------------
 
@@ -1033,7 +1068,8 @@ INSERT INTO `notificacions` (`id`, `notificacion`, `registro_id`, `tipo`, `creat
 (4, 'ASIGNACIÓN DE ORDEN DE TRABAJO', 2, 'GENERACIÓN DE OT', '2023-06-19 22:06:45', '2023-06-19 22:06:45'),
 (5, 'ORDEN DE PEDIDO DE REPUESTO', 3, 'PEDIDO DE REPUESTO', '2023-06-20 17:24:52', '2023-06-20 17:24:52'),
 (7, 'CAMBIO DE ESTADO OT: 2', 2, 'CAMBIO DE ESTADO OT', '2023-06-22 21:05:05', '2023-06-22 21:05:05'),
-(8, 'CAMBIO DE ESTADO OT: 2', 2, 'CAMBIO DE ESTADO OT', '2023-06-22 21:41:37', '2023-06-22 21:41:37');
+(8, 'CAMBIO DE ESTADO OT: 2', 2, 'CAMBIO DE ESTADO OT', '2023-06-22 21:41:37', '2023-06-22 21:41:37'),
+(10, 'CAMBIO DE ESTADO OT: 2', 2, 'CAMBIO DE ESTADO OT', '2023-07-03 14:22:55', '2023-07-03 14:22:55');
 
 -- --------------------------------------------------------
 
@@ -1060,7 +1096,8 @@ INSERT INTO `notificacion_users` (`id`, `notificacion_id`, `user_id`, `visto`, `
 (3, 4, 5, 1, '2023-06-19 22:06:45', '2023-06-19 22:09:24'),
 (4, 5, 6, 1, '2023-06-20 17:24:53', '2023-06-20 17:37:26'),
 (6, 7, 5, 1, '2023-06-22 21:05:05', '2023-06-22 21:05:12'),
-(7, 8, 5, 0, '2023-06-22 21:41:37', '2023-06-22 21:41:37');
+(7, 8, 5, 0, '2023-06-22 21:41:37', '2023-06-22 21:41:37'),
+(9, 10, 5, 0, '2023-07-03 14:22:55', '2023-07-03 14:22:55');
 
 -- --------------------------------------------------------
 
@@ -1120,8 +1157,8 @@ CREATE TABLE `orden_trabajos` (
 --
 
 INSERT INTO `orden_trabajos` (`id`, `fecha_programada`, `hora_programada`, `subunidad_id`, `gama_id`, `prioridad`, `tiempo`, `dias`, `tipo_mantenimiento`, `fecha_inicio`, `hora_inicio`, `fecha_termino`, `hora_termino`, `tiempo_ejecucion`, `parada_maquina`, `estado`, `razon`, `comentario`, `created_at`, `updated_at`) VALUES
-(2, '2023-06-15', '08:00:00', 1, 2, 'URGENTE', 17, 7, 'PREDICTIVO', '2023-06-22', '17:41:00', '2023-06-23', '12:28:00', 18, 'SI', 'TERMINADO', 'PRUEBA TERMINO OT', 'COMENTARIO', '2023-06-15 15:26:58', '2023-06-23 16:29:40'),
-(3, '2023-06-19', '08:00:00', 2, 2, 'MODERADA', 17, 10, 'LUBRICACIÓN', NULL, NULL, NULL, NULL, NULL, NULL, 'PROGRAMADO', NULL, NULL, '2023-06-19 15:58:35', '2023-06-19 15:58:35'),
+(2, '2023-07-03', '08:00:00', 1, 2, 'URGENTE', 17, 7, 'PREDICTIVO', '2023-07-03', '08:22:00', '2023-07-03', '10:47:00', 2, 'SI', 'TERMINADO', 'PRUEBA TERMINO DE OT + TIEMPO DE FALL', 'COMENTARIO', '2023-06-15 15:26:58', '2023-07-03 14:47:54'),
+(3, '2023-07-01', '08:00:00', 2, 2, 'MODERADA', 17, 10, 'LUBRICACIÓN', NULL, NULL, NULL, NULL, NULL, NULL, 'PROGRAMADO', NULL, NULL, '2023-06-19 15:58:35', '2023-07-03 14:21:40'),
 (4, '2023-07-04', '09:00:00', 4, 3, 'MODERADA', 360, 3, 'PREVENTIVO', NULL, NULL, NULL, NULL, NULL, NULL, 'PROGRAMADO', NULL, NULL, '2023-06-23 16:50:32', '2023-06-29 19:51:51');
 
 -- --------------------------------------------------------
@@ -1602,6 +1639,12 @@ ALTER TABLE `modelo_deterministicos`
   ADD UNIQUE KEY `modelo_deterministicos_codigo_unique` (`codigo`);
 
 --
+-- Indices de la tabla `modelo_repuestos`
+--
+ALTER TABLE `modelo_repuestos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `notificacions`
 --
 ALTER TABLE `notificacions`
@@ -1807,13 +1850,13 @@ ALTER TABLE `herramientas`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_fallas`
 --
 ALTER TABLE `historial_fallas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_tiempos`
@@ -1843,7 +1886,7 @@ ALTER TABLE `maquinarias`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `modelo_deterministicos`
@@ -1852,16 +1895,22 @@ ALTER TABLE `modelo_deterministicos`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `modelo_repuestos`
+--
+ALTER TABLE `modelo_repuestos`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `notificacions`
 --
 ALTER TABLE `notificacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `notificacion_users`
 --
 ALTER TABLE `notificacion_users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `orden_generadas`

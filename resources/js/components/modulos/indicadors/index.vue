@@ -147,24 +147,24 @@
                                     </div>
                                 </div>
                                 <Mtbf
-                                    v-show="muestra_mtbf"
+                                    v-if="muestra_mtbf"
                                     :anio="parseInt(oIndicador.anio)"
                                     :mes="parseInt(oIndicador.mes)"
                                     :equipo_id="'' + oIndicador.equipo_id"
                                     :muestra="muestra_mtbf"
                                 ></Mtbf>
                                 <Mttr
-                                    v-show="muestra_mttr"
-                                    :anio="oIndicador.anio"
-                                    :mes="oIndicador.mes"
-                                    :equipo_id="oIndicador.equipo_id"
+                                    v-if="muestra_mttr"
+                                    :anio="parseInt(oIndicador.anio)"
+                                    :mes="parseInt(oIndicador.mes)"
+                                    :equipo_id="'' + oIndicador.equipo_id"
                                     :muestra="muestra_mttr"
                                 ></Mttr>
                                 <Disponibilidad
-                                    v-show="muestra_disponibilidad"
-                                    :anio="oIndicador.anio"
-                                    :mes="oIndicador.mes"
-                                    :equipo_id="oIndicador.equipo_id"
+                                    v-if="muestra_disponibilidad"
+                                    :anio="parseInt(oIndicador.anio)"
+                                    :mes="parseInt(oIndicador.mes)"
+                                    :equipo_id="'' + oIndicador.equipo_id"
                                     :muestra="muestra_disponibilidad"
                                 ></Disponibilidad>
                             </div>

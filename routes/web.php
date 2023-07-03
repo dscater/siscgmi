@@ -18,6 +18,7 @@ use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaquinariaController;
 use App\Http\Controllers\ModeloDeterministicoController;
+use App\Http\Controllers\ModeloRepuestoController;
 use App\Http\Controllers\NotificacionUserController;
 use App\Http\Controllers\OrdenGeneradaController;
 use App\Http\Controllers\OrdenTrabajoController;
@@ -197,10 +198,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('indicadors/getDisponibilidad', [IndicadorController::class, 'getDisponibilidad']);
 
         // modelo_deterministicos
+        Route::get('modelo_deterministicos/getModelos/{repuesto}', [ModeloDeterministicoController::class, 'getModelos']);
         Route::get('modelo_deterministicos/getPromedioRepuestos', [ModeloDeterministicoController::class, 'getPromedioRepuestos']);
         Route::resource('modelo_deterministicos', ModeloDeterministicoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
+
+        // modelo_repuestos
+        Route::get('modelo_repuestos/getModeloRepuesto', [ModeloRepuestoController::class, 'getModeloRepuesto']);
 
         // REPORTES
         Route::post('reportes/usuarios', [ReporteController::class, 'usuarios']);

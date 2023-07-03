@@ -104,80 +104,44 @@ class ReporteController extends Controller
         return $pdf->stream('kardex.pdf');
     }
 
-    public function ventas(Request $request)
+    public function kardex_herramientas(Request $request)
     {
-        $filtro = $request->filtro;
-        $producto_id = $request->producto_id;
-        $fecha_ini = $request->fecha_ini;
-        $fecha_fin = $request->fecha_fin;
-
-        if ($filtro == 'Producto') {
-            $request->validate([
-                'producto_id' => 'required',
-            ]);
-        }
-        if ($filtro == 'Rango de fechas') {
-            $request->validate([
-                'fecha_ini' => 'required|date',
-                'fecha_fin' => 'required|date',
-            ]);
-        }
-
-        $ventas = Venta::all();
-        if ($filtro != 'todos') {
-            if ($filtro == 'Producto') {
-                $ventas = Venta::select("ventas.*")
-                    ->join("detalle_ventas", "detalle_ventas.venta_id", "=", "ventas.id")
-                    ->where("detalle_ventas.producto_id", $producto_id)
-                    ->get();
-            }
-            if ($filtro == 'Rango de fechas') {
-                $ventas = Venta::whereBetween("fecha_registro", [$fecha_ini, $fecha_fin])->get();
-            }
-        }
-        $pdf = PDF::loadView('reportes.ventas', compact('ventas'))->setPaper('legal', 'portrait');
-
-        // ENUMERAR LAS PÁGINAS
-        $pdf->setOption('footer-right', '[page]');
-
-        return $pdf->download('ventas.pdf');
     }
-
-    public function stock_productos(Request $request)
+    public function informacion_herramientas(Request $request)
     {
-        $filtro =  $request->filtro;
-        $producto =  $request->producto;
-
-        if ($filtro != 'TODOS') {
-            $request->validate(['producto' => 'required']);
-        }
-
-        $registros = Producto::orderBy("productos.nombre")->get();
-        if ($filtro != 'TODOS') {
-            $registros = Producto::where("id", $producto)->orderBy("productos.nombre")->get();
-        }
-
-
-        $pdf = PDF::loadView('reportes.stock_productos', compact('registros'))->setPaper('legal', 'portrait');
-
-        // ENUMERAR LAS PÁGINAS
-        $pdf->setOption('footer-right', '[page]');
-        return $pdf->download('stock_productos.pdf');
     }
-
-    public function historial_accion(Request $request)
+    public function inform_solicitudes(Request $request)
     {
-        $historial_accions = HistorialAccion::orderBy("created_at", "desc")->get();
-
-        if (isset($request->fecha_ini) && isset($request->fecha_fin)) {
-            $historial_accions = HistorialAccion::with("user")->whereBetween("fecha", [$request->fecha_ini, $request->fecha_fin])->orderBy("created_at", "desc")->get();
-        }
-
-        $pdf = PDF::loadView('reportes.historial_accion', compact('historial_accions'))->setPaper('legal', 'portrait');
-
-        // ENUMERAR LAS PÁGINAS
-        $pdf->setOption('footer-right', '[page]');
-        return $pdf->download('historial_accions.pdf');
+    }
+    public function kardex_repuestos(Request $request)
+    {
+    }
+    public function entrada_salida_repuestos(Request $request)
+    {
+    }
+    public function plan_mantenimiento(Request $request)
+    {
+    }
+    public function maestro_plan_mantenimiento(Request $request)
+    {
+    }
+    public function historial_fallas(Request $request)
+    {
+    }
+    public function seguimiento_costos(Request $request)
+    {
+    }
+    public function informe_general(Request $request)
+    {
+    }
+    public function informe_ot_correctivas(Request $request)
+    {
+    }
+    public function resumen_ots(Request $request)
+    {
+    }
+    public function grafico_ots(Request $request)
+    {
     }
 
 
@@ -216,49 +180,6 @@ class ReporteController extends Controller
                     ->join("ventas", "ventas.id", "=", "detalle_ventas.venta_id")
                     ->where("ventas.estado", "CANCELADO")
                     ->sum("subtotal");
-            }
-            $data[] = [$producto->nombre, $cantidad ? (float)$cantidad : 0];
-        }
-
-        $fecha = date("d/m/Y");
-        return response()->JSON([
-            "sw" => true,
-            "datos" => $data,
-            "fecha" => $fecha
-        ]);
-    }
-
-    public function grafico_orden(Request $request)
-    {
-        $fecha_ini =  $request->fecha_ini;
-        $fecha_fin =  $request->fecha_fin;
-        $filtro =  $request->filtro;
-        $producto_id =  $request->producto_id;
-
-        if ($filtro == 'Producto') {
-            $productos = Producto::select("productos.*")
-                ->where("id", $producto_id)
-                ->get();
-        } else {
-            $productos = Producto::select("productos.*")
-                ->whereExists(function ($query) {
-                    $query->select(DB::raw(1))
-                        ->from('detalle_ventas')
-                        ->whereRaw('productos.id = detalle_ventas.producto_id');
-                })
-                ->get();
-        }
-        $data = [];
-        foreach ($productos as $producto) {
-            $cantidad = 0;
-            if ($filtro == 'Rango de fechas') {
-                $cantidad = count(DetalleOrden::select("detalle_ventas")
-                    ->join("ventas", "ventas.id", "=", "detalle_ventas.venta_id")
-                    ->where("detalle_ventas.producto_id", $producto->id)
-                    ->whereBetween("fecha_registro", [$fecha_ini, $fecha_fin])
-                    ->get());
-            } else {
-                $cantidad = count(DetalleOrden::where("producto_id", $producto->id)->get());
             }
             $data[] = [$producto->nombre, $cantidad ? (float)$cantidad : 0];
         }

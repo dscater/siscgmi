@@ -14,19 +14,11 @@
                 <div class="row pl-1 pr-1">
                     <div class="col-md-4 pl-0 pr-0">
                         <router-link
-                            v-if="permisos.includes('modelo_deterministicos.parametros')"
-                            :to="{
-                                name: 'modelo_deterministicos.parametros',
-                            }"
-                            class="btn btn-primary btn-flat btn-block border-white"
-                        >
-                            <i class="fa fa-list-alt"></i>
-                            Cálculo de Parámetros
-                        </router-link>
-                    </div>
-                    <div class="col-md-4 pl-0 pr-0">
-                        <router-link
-                            v-if="permisos.includes('modelo_deterministicos.modelo_repuestos')"
+                            v-if="
+                                permisos.includes(
+                                    'modelo_deterministicos.modelo_repuestos'
+                                )
+                            "
                             :to="{
                                 name: 'modelo_deterministicos.modelo_repuestos',
                             }"
@@ -34,6 +26,22 @@
                         >
                             <i class="fa fa-list-alt"></i>
                             Modelo Deterministico de Repuestos
+                        </router-link>
+                    </div>
+                    <div class="col-md-4 pl-0 pr-0">
+                        <router-link
+                            v-if="
+                                permisos.includes(
+                                    'modelo_deterministicos.parametros'
+                                )
+                            "
+                            :to="{
+                                name: 'modelo_deterministicos.parametros',
+                            }"
+                            class="btn btn-primary btn-flat btn-block border-white"
+                        >
+                            <i class="fa fa-list-alt"></i>
+                            Cálculo de Parámetros
                         </router-link>
                     </div>
                 </div>

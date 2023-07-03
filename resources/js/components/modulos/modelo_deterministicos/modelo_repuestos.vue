@@ -50,6 +50,45 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label
+                                            :class="{
+                                                'text-danger':
+                                                    errors.repuesto_id,
+                                            }"
+                                            >Seleccionar Repuesto*</label
+                                        >
+
+                                        <el-select
+                                            class="w-100"
+                                            :class="{
+                                                'is-invalid':
+                                                    errors.repuesto_id,
+                                            }"
+                                            v-model="datos.repuesto_id"
+                                            filterable
+                                            placeholder="Repuesto/Equipo de protección"
+                                        >
+                                            <el-option
+                                                v-for="item in listRepuestos"
+                                                :key="item.id"
+                                                :value="item.id"
+                                                :label="
+                                                    item.codigo +
+                                                    ' | ' +
+                                                    item.nombre +
+                                                    ' | ' +
+                                                    item.descripcion
+                                                "
+                                            >
+                                            </el-option>
+                                        </el-select>
+                                        <span
+                                            class="error invalid-feedback"
+                                            v-if="errors.repuesto_id"
+                                            v-text="errors.repuesto_id[0]"
+                                        ></span>
+                                    </div>
                                     <div class="form-group col-md-3">
                                         <label>Año Inicio</label>
                                         <select
@@ -78,7 +117,7 @@
                                             name=""
                                             id=""
                                             class="form-control"
-                                            v-model="datos.tirmestre_ini"
+                                            v-model="datos.trimestre_ini"
                                         >
                                             <option value="">
                                                 Seleccione...
@@ -139,6 +178,38 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <h4>Resultado:</h4>
+                                        <p v-if="oModeloRepuesto">
+                                            <strong
+                                                >Demanda pronosticada:
+                                            </strong>
+                                            <span
+                                                v-text="oModeloRepuesto.demanda"
+                                            ></span>
+                                        </p>
+                                        <p v-else>
+                                            <i
+                                                >Aún no se genero ningún
+                                                cálculo</i
+                                            >
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button
+                                            class="btn btn-primary btn-block"
+                                            @click.prevent="getModeloRepuesto"
+                                        >
+                                            <i
+                                                class="fa fa-square-root-alt"
+                                            ></i>
+                                            GENERAR
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -157,18 +228,23 @@ export default {
                 fullscreen: this.fullscreenLoading,
             }),
             datos: {
+                repuesto_id: "",
                 anio_ini: "",
-                tirmestre_ini: "",
+                trimestre_ini: "",
                 anio_fin: "",
                 trimestre_fin: "",
             },
             listAnios: [this.$moment().format("YYYY")],
             listTrimestres: [1, 2, 3, 4],
+            listRepuestos: [],
+            errors: [],
+            oModeloRepuesto: null,
         };
     },
     mounted() {
         this.loadingWindow.close();
         this.getAnios();
+        this.getRepuestos();
     },
     methods: {
         getAnios() {
@@ -180,6 +256,24 @@ export default {
                 .catch((error) => {
                     this.listAnios = [$moment().format("YYYY")];
                 });
+        },
+        getRepuestos() {
+            axios.get("/admin/repuestos").then((response) => {
+                this.listRepuestos = response.data.repuestos;
+            });
+        },
+        getModeloRepuesto() {
+            if (this.datos.repuesto_id != "") {
+                axios
+                    .get("/admin/modelo_repuestos/getModeloRepuesto", {
+                        params: this.datos,
+                    })
+                    .then((response) => {
+                        this.oModeloRepuesto = response.data.modelo_repuesto;
+                    });
+            } else {
+                this.oModeloRepuesto = null;
+            }
         },
     },
 };

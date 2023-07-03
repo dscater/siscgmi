@@ -149,10 +149,10 @@ export default {
 
                             series: [
                                 {
-                                    name: "Ingresos",
+                                    name: "MTBF",
                                     colorByPoint: true,
                                     // data: response.data.datos,
-                                    data: [],
+                                    data: response.data.datos,
                                     dataLabels: {
                                         rotation: 0,
                                         color: "#000000",

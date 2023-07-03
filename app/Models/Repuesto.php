@@ -78,4 +78,15 @@ class Repuesto extends Model
         $repuesto->save();
         return true;
     }
+
+
+    public function modelo_deterministico()
+    {
+        return $this->hasOne(ModeloDeterministico::class, 'repuesto_id');
+    }
+
+    public function modelo_repuesto()
+    {
+        return $this->hasOne(ModeloRepuesto::class, 'repuesto_id');
+    }
 }

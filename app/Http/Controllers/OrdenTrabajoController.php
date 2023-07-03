@@ -319,6 +319,9 @@ class OrdenTrabajoController extends Controller
             $request->validate([
                 "parada_maquina" => "required",
                 "tiempo_ejecucion" => "required",
+                "fecha_falla" => "required",
+                "hora_falla" => "required",
+                "tiempo_falla" => "required",
                 "estado" => "required",
                 "razon" => "required|min:4",
                 "tipo_falla" => "required",
@@ -361,6 +364,9 @@ class OrdenTrabajoController extends Controller
                     "fecha_termino" => $orden_trabajo->fecha_termino,
                     "hora_termino" => $orden_trabajo->hora_termino,
                     "tiempo_ejecucion" => $orden_trabajo->tiempo_ejecucion,
+                    "fecha_falla" => $request->fecha_falla,
+                    "hora_falla" => $request->hora_falla,
+                    "tiempo_falla" => $request->tiempo_falla,
                 ]);
             }
 
@@ -391,12 +397,18 @@ class OrdenTrabajoController extends Controller
 
     public function getTiempoEjecucion(Request $request)
     {
-        $fecha_ini = new DateTime($request->fecha_ini);
-        $fecha_fin = new DateTime($request->fecha_fin);
+        $fechaInicio = new DateTime($request->fecha_ini);
+        $fechaFin = new DateTime($request->fecha_fin);
 
-        $diff = $fecha_ini->diff($fecha_fin);
+        $diferencia = $fechaInicio->diff($fechaFin);
 
-        return response()->JSON($diff);
+        $dias = $diferencia->days;
+        $horas = $dias * 24 + $diferencia->h;
+        $minutos = $horas * 60 + $diferencia->i;
+
+        $resultado = ["dias" => $dias, "horas" => $horas, "minutos" => $minutos];
+
+        return response()->JSON($resultado);
     }
 
     public function getAniosOt()
