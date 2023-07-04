@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetalleOrden;
+use App\Models\Herramienta;
 use App\Models\HistorialAccion;
 use App\Models\KardexProducto;
 use App\Models\Producto;
@@ -39,7 +40,53 @@ class ReporteController extends Controller
         return $pdf->download('Usuarios.pdf');
     }
 
-    public function kardex(Request $request)
+    public function kardex_herramientas(Request $request)
+    {
+        $herramientas = Herramienta::all();
+
+        $pdf = PDF::loadView('reportes.kardex_herramientas', compact('herramientas'))->setPaper('letter', 'portrait');
+
+        // ENUMERAR LAS PÁGINAS USANDO CANVAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 130, 123, "{PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
+
+        return $pdf->download('kardex_herramientas.pdf');
+    }
+    public function informacion_herramientas(Request $request)
+    {
+        $filtro = $request->filtro;
+        $herramienta_id = $request->herramienta_id;
+
+        $herramientas = Herramienta::all();
+        if ($filtro != "Todos") {
+            $request->validate([
+                "herramienta_id" => "required"
+            ], [
+                "herramienta_id.required" => "Debe seleccionar una herramienta"
+            ]);
+            $herramientas = Herramienta::where("id", $herramienta_id)->get();
+        }
+
+        $pdf = PDF::loadView('reportes.informacion_herramientas', compact('herramientas'))->setPaper('letter', 'portrait');
+
+        // ENUMERAR LAS PÁGINAS USANDO CANVAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
+
+        return $pdf->download('informacion_herramientas.pdf');
+    }
+    public function inform_solicitudes(Request $request)
+    {
+    }
+    public function kardex_repuestos(Request $request)
     {
         $filtro = $request->filtro;
         $producto_id = $request->producto_id;
@@ -102,19 +149,6 @@ class ReporteController extends Controller
         $pdf->setOption('footer-right', '[page]');
 
         return $pdf->stream('kardex.pdf');
-    }
-
-    public function kardex_herramientas(Request $request)
-    {
-    }
-    public function informacion_herramientas(Request $request)
-    {
-    }
-    public function inform_solicitudes(Request $request)
-    {
-    }
-    public function kardex_repuestos(Request $request)
-    {
     }
     public function entrada_salida_repuestos(Request $request)
     {

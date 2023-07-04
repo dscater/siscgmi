@@ -638,7 +638,18 @@
                             permisos.includes('reportes.kardex_herramientas') ||
                             permisos.includes(
                                 'reportes.informacion_herramientas'
-                            )
+                            ) ||
+                            permisos.includes('reportes.inform_solicitudes') ||
+                            permisos.includes('reportes.kardex_repuestos') ||
+                            permisos.includes('reportes.entrada_salida_repuestos') ||
+                            permisos.includes('reportes.plan_mantenimiento') ||
+                            permisos.includes('reportes.maestro_plan_mantenimiento') ||
+                            permisos.includes('reportes.historial_fallas') ||
+                            permisos.includes('reportes.seguimiento_costos') ||
+                            permisos.includes('reportes.informe_general') ||
+                            permisos.includes('reportes.informe_ot_correctivas') ||
+                            permisos.includes('reportes.resumen_ots') ||
+                            permisos.includes('reportes.grafico_ots')
                         "
                     >
                         REPORTES
@@ -655,7 +666,7 @@
                             <p>Lista de Usuarios</p>
                         </router-link>
                     </li>
-                    <!-- <li
+                    <li
                         class="nav-item"
                         v-if="permisos.includes('reportes.kardex_herramientas')"
                     >
@@ -684,7 +695,7 @@
                             <i class="fas fa-file-pdf nav-icon"></i>
                             <p>Información de herramientas</p>
                         </router-link>
-                    </li> -->
+                    </li>
                     <li class="nav-header bg-navy">OTRAS OPCIONES</li>
                     <li
                         class="nav-item"

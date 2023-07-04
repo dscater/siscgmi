@@ -387,6 +387,94 @@ export default new Router({
                     .default,
             props: true,
         },
+        {
+            path: "/reportes/inform_solicitudes",
+            name: "reportes.inform_solicitudes",
+            component:
+                require("./components/modulos/reportes/inform_solicitudes.vue")
+                    .default,
+            props: true,
+        },
+        {
+            path: "/reportes/kardex_repuestos",
+            name: "reportes.kardex_repuestos",
+            component:
+                require("./components/modulos/reportes/kardex_repuestos.vue")
+                    .default,
+            props: true,
+        },
+        {
+            path: "/reportes/entrada_salida_repuestos",
+            name: "reportes.entrada_salida_repuestos",
+            component:
+                require("./components/modulos/reportes/entrada_salida_repuestos.vue")
+                    .default,
+            props: true,
+        },
+        {
+            path: "/reportes/plan_mantenimiento",
+            name: "reportes.plan_mantenimiento",
+            component:
+                require("./components/modulos/reportes/plan_mantenimiento.vue")
+                    .default,
+            props: true,
+        },
+        {
+            path: "/reportes/maestro_plan_mantenimiento",
+            name: "reportes.maestro_plan_mantenimiento",
+            component:
+                require("./components/modulos/reportes/maestro_plan_mantenimiento.vue")
+                    .default,
+            props: true,
+        },
+        {
+            path: "/reportes/historial_fallas",
+            name: "reportes.historial_fallas",
+            component:
+                require("./components/modulos/reportes/historial_fallas.vue")
+                    .default,
+            props: true,
+        },
+        {
+            path: "/reportes/seguimiento_costos",
+            name: "reportes.seguimiento_costos",
+            component:
+                require("./components/modulos/reportes/seguimiento_costos.vue")
+                    .default,
+            props: true,
+        },
+        {
+            path: "/reportes/informe_general",
+            name: "reportes.informe_general",
+            component:
+                require("./components/modulos/reportes/informe_general.vue")
+                    .default,
+            props: true,
+        },
+        {
+            path: "/reportes/informe_ot_correctivas",
+            name: "reportes.informe_ot_correctivas",
+            component:
+                require("./components/modulos/reportes/informe_ot_correctivas.vue")
+                    .default,
+            props: true,
+        },
+        {
+            path: "/reportes/resumen_ots",
+            name: "reportes.resumen_ots",
+            component:
+                require("./components/modulos/reportes/resumen_ots.vue")
+                    .default,
+            props: true,
+        },
+        {
+            path: "/reportes/grafico_ots",
+            name: "reportes.grafico_ots",
+            component:
+                require("./components/modulos/reportes/grafico_ots.vue")
+                    .default,
+            props: true,
+        },
 
         // PÁGINA NO ENCONTRADA
         {

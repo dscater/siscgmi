@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Reportes - Kardex de productos</h1>
+                        <h1>Reportes - Información de Herramientas</h1>
                     </div>
                 </div>
             </div>
@@ -54,49 +54,48 @@
                                                 class="form-group col-md-12"
                                                 v-if="
                                                     oReporte.filtro ==
-                                                    'Producto'
+                                                    'Herramienta'
                                                 "
                                             >
                                                 <label
                                                     :class="{
                                                         'text-danger':
-                                                            errors.producto_id,
+                                                            errors.herramienta_id,
                                                     }"
                                                     >Seleccionar
-                                                    Producto*</label
+                                                    Herramienta/Equipo de
+                                                    protección*</label
                                                 >
 
                                                 <el-select
                                                     class="w-100"
                                                     :class="{
                                                         'is-invalid':
-                                                            errors.producto_id,
+                                                            errors.herramienta_id,
                                                     }"
                                                     v-model="
-                                                        oReporte.producto_id
+                                                        oReporte.herramienta_id
                                                     "
                                                     filterable
-                                                    remote
-                                                    reserve-keyword
-                                                    placeholder="Buscar producto"
-                                                    :remote-method="
-                                                        buscarProducto
-                                                    "
-                                                    :loading="loading_buscador"
+                                                    placeholder="Herramienta/Equipo de protección"
                                                 >
                                                     <el-option
-                                                        v-for="item in aux_lista_productos"
+                                                        v-for="item in listHerramientas"
                                                         :key="item.id"
-                                                        :label="item.nombre"
                                                         :value="item.id"
+                                                        :label="
+                                                            item.codigo +
+                                                            ' | ' +
+                                                            item.nombre
+                                                        "
                                                     >
                                                     </el-option>
                                                 </el-select>
                                                 <span
                                                     class="error invalid-feedback"
-                                                    v-if="errors.producto_id"
+                                                    v-if="errors.herramienta_id"
                                                     v-text="
-                                                        errors.producto_id[0]
+                                                        errors.herramienta_id[0]
                                                     "
                                                 ></span>
                                             </div>
@@ -187,52 +186,27 @@ export default {
             errors: [],
             oReporte: {
                 filtro: "Todos",
-                producto_id: "",
+                herramienta_id: "",
                 fecha_ini: "",
                 fecha_fin: "",
             },
             aFechas: [],
             enviando: false,
             textoBtn: "Generar Reporte",
-            listFiltro: ["Todos", "Producto", "Rango de fechas"],
-            listProductos: [],
-            aux_lista_productos: [],
-            loading_buscador: false,
+            listFiltro: ["Todos", "Herramienta"],
+            listHerramientas: [],
             errors: [],
-            sw_busqueda: "todos",
         };
     },
     mounted() {
         this.loadingWindow.close();
+        this.getHerramientas();
     },
     methods: {
-        buscarProducto(query) {
-            this.aux_lista_productos = [];
-            this.loading_buscador = true;
-            clearTimeout(this.timeOutProductos);
-            let self = this;
-            this.timeOutProductos = setTimeout(() => {
-                self.getProductosQuery(query);
-            }, 1000);
-        },
-        getProductosQuery(query) {
-            if (query !== "") {
-                axios
-                    .get("/admin/productos/buscar_producto", {
-                        params: {
-                            value: query,
-                            sw_busqueda: this.sw_busqueda,
-                        },
-                    })
-                    .then((response) => {
-                        this.loading_buscador = false;
-                        this.listProductos;
-                        this.aux_lista_productos = response.data;
-                    });
-            } else {
-                this.loading_buscador = false;
-                this.aux_lista_productos = [];
-            }
+        getHerramientas() {
+            axios.get("/admin/herramientas").then((response) => {
+                this.listHerramientas = response.data.herramientas;
+            });
         },
         limpiarFormulario() {
             this.oReporte.filtro = "Todos";
@@ -243,7 +217,7 @@ export default {
                 responseType: "blob",
             };
             axios
-                .post("/admin/reportes/kardex", this.oReporte, config)
+                .post("/admin/reportes/informacion_herramientas", this.oReporte, config)
                 .then((res) => {
                     this.errors = [];
                     this.enviando = false;
