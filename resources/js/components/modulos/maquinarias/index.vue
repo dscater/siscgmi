@@ -376,6 +376,20 @@
                                                     <b-button
                                                         size="sm"
                                                         pill
+                                                        variant="outline-primary"
+                                                        class="btn-flat"
+                                                        title="Imprimir"
+                                                        @click="
+                                                            generarPdf(row.item)
+                                                        "
+                                                    >
+                                                        <i
+                                                            class="fa fa-file-pdf"
+                                                        ></i>
+                                                    </b-button>
+                                                    <b-button
+                                                        size="sm"
+                                                        pill
                                                         variant="outline-danger"
                                                         class="btn-flat"
                                                         title="Eliminar registro"
@@ -411,6 +425,22 @@
                                                     <div
                                                         class="row justify-content-between"
                                                     >
+                                                        <b-button
+                                                            size="sm"
+                                                            pill
+                                                            variant="outline-primary"
+                                                            class="btn-flat btn-block"
+                                                            title="Imprimir"
+                                                            @click="
+                                                                generarPdf(
+                                                                    row.item
+                                                                )
+                                                            "
+                                                        >
+                                                            <i
+                                                                class="fa fa-file-pdf"
+                                                            ></i>
+                                                        </b-button>
                                                         <b-button
                                                             size="sm"
                                                             pill
@@ -544,6 +574,50 @@ export default {
                     id: item.id,
                 },
             });
+        },
+        generarPdf(item) {
+            let config = {
+                responseType: "blob",
+            };
+            axios
+                .post("/admin/maquinarias/pdf/" + item.id, null, config)
+                .then((res) => {
+                    let pdfBlob = new Blob([res.data], {
+                        type: "application/pdf",
+                    });
+                    let urlReporte = URL.createObjectURL(pdfBlob);
+                    window.open(urlReporte);
+                })
+                .catch(async (error) => {
+                    let responseObj = await error.response.data.text();
+                    responseObj = JSON.parse(responseObj);
+                    if (error.response) {
+                        if (
+                            error.response.status === 420 ||
+                            error.response.status === 419 ||
+                            error.response.status === 401
+                        ) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                html: responseObj.message,
+                                showConfirmButton: false,
+                                timer: 2000,
+                            });
+                            window.location = "/";
+                        }
+
+                        if (error.response.status === 500) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                html: responseObj.message,
+                                showConfirmButton: false,
+                                timer: 2000,
+                            });
+                        }
+                    }
+                });
         },
 
         // Listar Maquinarias

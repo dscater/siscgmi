@@ -182,7 +182,7 @@ class UserController extends Controller
             'reportes.usuarios',
             'reportes.kardex_herramientas',
             'reportes.informacion_herramientas',
-            "reportes.inform_solicitudes",
+            "reportes.informe_solicitudes",
             "reportes.kardex_repuestos",
             "reportes.entrada_salida_repuestos",
             "reportes.plan_mantenimiento",

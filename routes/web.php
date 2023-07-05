@@ -79,6 +79,7 @@ Route::middleware(['auth'])->group(function () {
         ]);
 
         // maquinarias
+        Route::post('maquinarias/pdf/{maquinaria}', [MaquinariaController::class, "pdf"]);
         Route::resource('maquinarias', MaquinariaController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
@@ -211,7 +212,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('reportes/usuarios', [ReporteController::class, 'usuarios']);
         Route::post('reportes/kardex_herramientas', [ReporteController::class, 'kardex_herramientas']);
         Route::post('reportes/informacion_herramientas', [ReporteController::class, 'informacion_herramientas']);
-        Route::post('reportes/inform_solicitudes', [ReporteController::class, 'inform_solicitudes']);
+        Route::post('reportes/informe_solicitudes', [ReporteController::class, 'informe_solicitudes']);
         Route::post('reportes/kardex_repuestos', [ReporteController::class, 'kardex_repuestos']);
         Route::post('reportes/entrada_salida_repuestos', [ReporteController::class, 'entrada_salida_repuestos']);
         Route::post('reportes/plan_mantenimiento', [ReporteController::class, 'plan_mantenimiento']);

@@ -388,10 +388,10 @@ export default new Router({
             props: true,
         },
         {
-            path: "/reportes/inform_solicitudes",
-            name: "reportes.inform_solicitudes",
+            path: "/reportes/informe_solicitudes",
+            name: "reportes.informe_solicitudes",
             component:
-                require("./components/modulos/reportes/inform_solicitudes.vue")
+                require("./components/modulos/reportes/informe_solicitudes.vue")
                     .default,
             props: true,
         },

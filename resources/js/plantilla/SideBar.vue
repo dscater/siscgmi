@@ -639,7 +639,7 @@
                             permisos.includes(
                                 'reportes.informacion_herramientas'
                             ) ||
-                            permisos.includes('reportes.inform_solicitudes') ||
+                            permisos.includes('reportes.informe_solicitudes') ||
                             permisos.includes('reportes.kardex_repuestos') ||
                             permisos.includes('reportes.entrada_salida_repuestos') ||
                             permisos.includes('reportes.plan_mantenimiento') ||
@@ -696,6 +696,55 @@
                             <p>Información de herramientas</p>
                         </router-link>
                     </li>
+                    <li
+                        class="nav-item"
+                        v-if="
+                            permisos.includes(
+                                'reportes.informe_solicitudes'
+                            )
+                        "
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.informe_solicitudes' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Solicitudes de Herramientas</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="
+                            permisos.includes(
+                                'reportes.kardex_repuestos'
+                            )
+                        "
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.kardex_repuestos' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Kardex de Repuestos</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="
+                            permisos.includes(
+                                'reportes.entrada_salida_repuestos'
+                            )
+                        "
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.entrada_salida_repuestos' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Kardex de Entradas y Salidas de Repuestos</p>
+                        </router-link>
+                    </li>
+                    
                     <li class="nav-header bg-navy">OTRAS OPCIONES</li>
                     <li
                         class="nav-item"
