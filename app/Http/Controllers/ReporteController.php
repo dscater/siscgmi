@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetalleOrden;
+use App\Models\Equipo;
 use App\Models\Herramienta;
+use App\Models\HistorialFalla;
 use App\Models\KardexRepuesto;
 use App\Models\OrdenTrabajo;
+use App\Models\PlanMantenimiento;
 use App\Models\Producto;
 use App\Models\Repuesto;
 use App\Models\User;
@@ -174,7 +177,12 @@ class ReporteController extends Controller
         $pdf = PDF::loadView('reportes.kardex_repuestos', compact('repuestos', 'array_kardex', 'array_saldo_anterior'))->setPaper('letter', 'portrait');
 
         // ENUMERAR LAS PÁGINAS
-        $pdf->setOption('footer-right', '[page]');
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
 
         return $pdf->stream('kardex_repuestos.pdf');
     }
@@ -237,18 +245,165 @@ class ReporteController extends Controller
         $pdf = PDF::loadView('reportes.entrada_salida_repuestos', compact('repuestos', 'array_kardex', 'array_saldo_anterior'))->setPaper('letter', 'portrait');
 
         // ENUMERAR LAS PÁGINAS
-        $pdf->setOption('footer-right', '[page]');
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
 
         return $pdf->stream('entrada_salida_repuestos.pdf');
     }
+
     public function plan_mantenimiento(Request $request)
     {
+        $filtro = $request->filtro;
+        $estado = $request->estado;
+
+        $plan_mantenimientos = PlanMantenimiento::all();
+        if ($filtro != "todos") {
+            $request->validate([
+                "estado" => "required"
+            ]);
+            $plan_mantenimientos = PlanMantenimiento::where("estado", $estado)->get();
+        }
+
+        $pdf = PDF::loadView('reportes.plan_mantenimiento', compact("plan_mantenimientos"))->setPaper('letter', 'portrait');
+
+        // ENUMERAR LAS PÁGINAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
+
+        return $pdf->stream('plan_mantenimiento.pdf');
     }
     public function maestro_plan_mantenimiento(Request $request)
     {
+        $filtro = $request->filtro;
+        $equipo = $request->equipo;
+        $anio = $request->anio;
+        $mes = $request->mes;
+        $registros = [];
+
+        if ($filtro != "todos") {
+            if ($filtro == "equipo") {
+                $request->validate([
+                    "equipo" => "required"
+                ]);
+                $anios = OrdenTrabajo::getAniosOT();
+                $meses = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+                $registros = [];
+                $index_dias_mes = [];
+                foreach ($anios as $anio) {
+                    foreach ($meses as $mes) {
+                        $dias_mes = OrdenTrabajo::obtenerDiasMes($anio, $mes);
+                        $index_dias_mes[$anio][$mes] = $dias_mes;
+                        foreach ($dias_mes as $dm) {
+                            $registros[$anio][$mes][$dm] = [];
+                            $fecha = $anio . '-' . $mes . '-' . ($dm < 10 ? '0' . $dm : $dm);
+                            $ots = OrdenTrabajo::select("orden_trabajos.id", "orden_trabajos.estado")
+                                ->join("gama_mantenimientos", "gama_mantenimientos.id", "=", "orden_trabajos.gama_id")
+                                ->where("gama_mantenimientos.equipo_id", $equipo)
+                                ->where("fecha_programada", $fecha)->get();
+                            if (count($ots) > 0) {
+                                $registros[$anio][$mes][$dm] = $ots;
+                            }
+                        }
+                    }
+                }
+            }
+            if ($filtro == "anio_mes") {
+                $request->validate([
+                    "anio" => "required",
+                    "mes" => "required"
+                ]);
+                $anios = [$anio];
+                $meses = [$mes];
+                $registros = [];
+                $index_dias_mes = [];
+                foreach ($anios as $anio) {
+                    foreach ($meses as $mes) {
+                        $dias_mes = OrdenTrabajo::obtenerDiasMes($anio, $mes);
+                        $index_dias_mes[$anio][$mes] = $dias_mes;
+                        foreach ($dias_mes as $dm) {
+                            $registros[$anio][$mes][$dm] = [];
+                            $fecha = $anio . '-' . $mes . '-' . ($dm < 10 ? '0' . $dm : $dm);
+                            $ots = OrdenTrabajo::select("id", "estado")
+                                ->where("fecha_programada", $fecha)->get();
+                            if (count($ots) > 0) {
+                                $registros[$anio][$mes][$dm] = $ots;
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            $anios = OrdenTrabajo::getAniosOT();
+            $meses = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+            $registros = [];
+            $index_dias_mes = [];
+            foreach ($anios as $anio) {
+                foreach ($meses as $mes) {
+                    $dias_mes = OrdenTrabajo::obtenerDiasMes($anio, $mes);
+                    $index_dias_mes[$anio][$mes] = $dias_mes;
+                    foreach ($dias_mes as $dm) {
+                        $registros[$anio][$mes][$dm] = [];
+                        $fecha = $anio . '-' . $mes . '-' . ($dm < 10 ? '0' . $dm : $dm);
+                        $ots = OrdenTrabajo::select("id", "estado")->where("fecha_programada", $fecha)->get();
+                        if (count($ots) > 0) {
+                            $registros[$anio][$mes][$dm] = $ots;
+                        }
+                    }
+                }
+            }
+        }
+
+        $pdf = PDF::loadView('reportes.maestro_plan_mantenimiento', compact("anios", "meses", "index_dias_mes", "registros"))->setPaper('legal', 'landscape');
+
+        // ENUMERAR LAS PÁGINAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
+
+        return $pdf->stream('maestro_plan_mantenimiento.pdf');
     }
     public function historial_fallas(Request $request)
     {
+        $filtro = $request->filtro;
+        $equipo = $request->equipo;
+        $anio = $request->anio;
+        $mes = $request->mes;
+        $registros = [];
+
+        $historial_fallas = HistorialFalla::orderBy("fecha_falla", "asc")->get();
+        if ($filtro != "todos") {
+            if ($filtro == "equipo") {
+                $historial_fallas = HistorialFalla::orderBy("fecha_falla", "asc")
+                    ->where("equipo_id", $equipo)->get();
+            }
+            if ($filtro == "anio_mes") {
+                $historial_fallas = HistorialFalla::orderBy("fecha_falla", "asc")
+                    ->where("fecha_falla", "LIKE", "$anio-$mes%")->get();
+            }
+        }
+
+        $pdf = PDF::loadView('reportes.historial_fallas', compact("historial_fallas"))->setPaper('letter', 'portrait');
+
+        // ENUMERAR LAS PÁGINAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
+
+        return $pdf->stream('historial_fallas.pdf');
     }
     public function seguimiento_costos(Request $request)
     {

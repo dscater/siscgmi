@@ -140,6 +140,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post("gama_detalles/cambiaEstado/{gama_detalle}", [GamaDetallesController::class, "cambiaEstado"]);
 
         // plan_mantenimiento
+        Route::post("plan_mantenimientos/cambiaEstado/{plan_mantenimiento}", [PlanMantenimientoController::class, 'cambiaEstado']);
         Route::get("plan_mantenimientos/getPlanProgramacion", [PlanMantenimientoController::class, 'getPlanProgramacion']);
         Route::resource('plan_mantenimientos', PlanMantenimientoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'

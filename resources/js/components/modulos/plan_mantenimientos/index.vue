@@ -83,6 +83,75 @@
                                                 empty-filtered-text="Sin resultados"
                                                 :filter="filter"
                                             >
+                                                <template
+                                                    #cell(actualiza_estado)="row"
+                                                >
+                                                    <div>
+                                                        <div class="row">
+                                                            <div
+                                                                class="col-md-12"
+                                                            >
+                                                                <button
+                                                                    class="btn btn-primary d-block w-full btn-flat btn-xs"
+                                                                    v-if="
+                                                                        row.item
+                                                                            .estado ==
+                                                                        'PLANIFICADO'
+                                                                    "
+                                                                    @click="
+                                                                        actualizaEstado(
+                                                                            row
+                                                                                .item
+                                                                                .id,
+                                                                            'PROGRAMADO'
+                                                                        )
+                                                                    "
+                                                                >
+                                                                    Programado
+                                                                </button>
+                                                                <button
+                                                                    class="btn btn-warning d-block w-full btn-flat mt-1 btn-xs"
+                                                                    v-if="
+                                                                        row.item
+                                                                            .estado ==
+                                                                            'PROGRAMADO' ||
+                                                                        row.item
+                                                                            .estado ==
+                                                                            'CANCELADO'
+                                                                    "
+                                                                    @click="
+                                                                        actualizaEstado(
+                                                                            row
+                                                                                .item
+                                                                                .id,
+                                                                            'PENDIENTE'
+                                                                        )
+                                                                    "
+                                                                >
+                                                                    Pendiente
+                                                                </button>
+                                                                <button
+                                                                    v-if="
+                                                                        row.item
+                                                                            .estado !=
+                                                                        'CANCELADO'
+                                                                    "
+                                                                    class="btn btn-danger d-block w-full btn-flat mt-1 btn-xs"
+                                                                    @click="
+                                                                        actualizaEstado(
+                                                                            row
+                                                                                .item
+                                                                                .id,
+                                                                            'CANCELADO'
+                                                                        )
+                                                                    "
+                                                                >
+                                                                    Cancelado
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </template>
                                                 <template #cell(detalles)="row">
                                                     <b-button
                                                         size="sm"
@@ -409,6 +478,11 @@ export default {
                     label: "Estado",
                     sortable: true,
                 },
+                {
+                    key: "actualiza_estado",
+                    label: "Actualizar Estado",
+                    sortable: true,
+                },
                 { key: "detalles", label: "Detalles", sortable: true },
                 { key: "accion", label: "Acción" },
             ],
@@ -465,6 +539,58 @@ export default {
                     this.listRegistros = res.data.plan_mantenimientos;
                     this.totalRows = res.data.total;
                 });
+        },
+        actualizaEstado(id, estado) {
+            Swal.fire({
+                title: "Cambiar el estado del registro " + id + " a:",
+                html: `<strong class="text-md">${estado}</strong>`,
+                showCancelButton: true,
+                confirmButtonColor: "#149FDA",
+                confirmButtonText: "Si, cambiar",
+                cancelButtonText: "No, cancelar",
+                denyButtonText: `No, cancelar`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    axios
+                        .post("/admin/plan_mantenimientos/cambiaEstado/" + id, {
+                            estado: estado,
+                        })
+                        .then((res) => {
+                            this.getPlanMantenimientos();
+                            this.filter = "";
+                            Swal.fire({
+                                icon: "success",
+                                title: res.data.msj,
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        })
+                        .catch((error) => {
+                            if (error.response) {
+                                if (error.response.status === 422) {
+                                    this.errors = error.response.data.errors;
+                                }
+                                if (
+                                    error.response.status === 420 ||
+                                    error.response.status === 419 ||
+                                    error.response.status === 401
+                                ) {
+                                    window.location = "/";
+                                }
+                                if (error.response.status === 500) {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Error",
+                                        html: error.response.data.message,
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                    });
+                                }
+                            }
+                        });
+                }
+            });
         },
         eliminaPlanMantenimiento(id, descripcion) {
             Swal.fire({

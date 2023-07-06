@@ -172,4 +172,16 @@ class PlanMantenimientoController extends Controller
         }
         return response()->JSON($programacions);
     }
+
+    public function cambiaEstado(PlanMantenimiento $plan_mantenimiento, Request $request)
+    {
+        $plan_mantenimiento->update([
+            "estado" => $request->estado
+        ]);
+
+        return response()->JSON([
+            "sw" => true,
+            "msj" => "Estado actualizado correctamente"
+        ]);
+    }
 }

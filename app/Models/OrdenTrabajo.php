@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use DateInterval;
+use DatePeriod;
 use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -71,6 +73,23 @@ class OrdenTrabajo extends Model
         }
 
         return $fechas;
+    }
+
+    public static function obtenerDiasMes($año, $mes)
+    {
+        $primerDia = new DateTime("$año-$mes-01");
+        $ultimoDia = new DateTime("$año-$mes-01");
+        $ultimoDia->modify('last day of this month');
+
+        $dias = array();
+        $intervalo = new DateInterval('P1D');
+        $periodo = new DatePeriod($primerDia, $intervalo, $ultimoDia);
+
+        foreach ($periodo as $fecha) {
+            $dias[] = (int)$fecha->format('d');
+        }
+
+        return $dias;
     }
 
     public static function getAniosOT()

@@ -641,13 +641,19 @@
                             ) ||
                             permisos.includes('reportes.informe_solicitudes') ||
                             permisos.includes('reportes.kardex_repuestos') ||
-                            permisos.includes('reportes.entrada_salida_repuestos') ||
+                            permisos.includes(
+                                'reportes.entrada_salida_repuestos'
+                            ) ||
                             permisos.includes('reportes.plan_mantenimiento') ||
-                            permisos.includes('reportes.maestro_plan_mantenimiento') ||
+                            permisos.includes(
+                                'reportes.maestro_plan_mantenimiento'
+                            ) ||
                             permisos.includes('reportes.historial_fallas') ||
                             permisos.includes('reportes.seguimiento_costos') ||
                             permisos.includes('reportes.informe_general') ||
-                            permisos.includes('reportes.informe_ot_correctivas') ||
+                            permisos.includes(
+                                'reportes.informe_ot_correctivas'
+                            ) ||
                             permisos.includes('reportes.resumen_ots') ||
                             permisos.includes('reportes.grafico_ots')
                         "
@@ -698,11 +704,7 @@
                     </li>
                     <li
                         class="nav-item"
-                        v-if="
-                            permisos.includes(
-                                'reportes.informe_solicitudes'
-                            )
-                        "
+                        v-if="permisos.includes('reportes.informe_solicitudes')"
                     >
                         <router-link
                             :to="{ name: 'reportes.informe_solicitudes' }"
@@ -714,11 +716,7 @@
                     </li>
                     <li
                         class="nav-item"
-                        v-if="
-                            permisos.includes(
-                                'reportes.kardex_repuestos'
-                            )
-                        "
+                        v-if="permisos.includes('reportes.kardex_repuestos')"
                     >
                         <router-link
                             :to="{ name: 'reportes.kardex_repuestos' }"
@@ -744,7 +742,49 @@
                             <p>Kardex de Entradas y Salidas de Repuestos</p>
                         </router-link>
                     </li>
-                    
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('reportes.plan_mantenimiento')"
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.plan_mantenimiento' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Plan de Mantenimiento</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="
+                            permisos.includes(
+                                'reportes.maestro_plan_mantenimiento'
+                            )
+                        "
+                    >
+                        <router-link
+                            :to="{
+                                name: 'reportes.maestro_plan_mantenimiento',
+                            }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Maestro Plan de Mantenimiento</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('reportes.historial_fallas')"
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.historial_fallas' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Historial de Tiempo de Fallas</p>
+                        </router-link>
+                    </li>
+
                     <li class="nav-header bg-navy">OTRAS OPCIONES</li>
                     <li
                         class="nav-item"
