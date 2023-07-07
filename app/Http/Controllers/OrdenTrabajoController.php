@@ -11,6 +11,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OrdenTrabajoController extends Controller
 {
@@ -197,7 +198,7 @@ class OrdenTrabajoController extends Controller
         // verifica fecha limite
         $fecha_fin = $orden_trabajo->gama->plan_mantenimiento->fecha_final;
         if (date("Y-m-d") > date("Y-m-d", strtotime($fecha_fin))) {
-            if ($orden_trabajo->estado == 'PROGRAMADO' && $orden_trabajo->estado != 'CANCELADO') {
+            if ($orden_trabajo->estado != 'CANCELADO' && $orden_trabajo->estado == 'PROGRAMADO') {
                 $orden_trabajo->update(["estado" => "PENDIENTE"]);
             }
         }

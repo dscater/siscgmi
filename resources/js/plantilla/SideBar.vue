@@ -784,6 +784,69 @@
                             <p>Historial de Tiempo de Fallas</p>
                         </router-link>
                     </li>
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('reportes.seguimiento_costos')"
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.seguimiento_costos' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Seguimiento de Costos</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('reportes.informe_general')"
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.informe_general' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Informe General de Mantenimiento</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="
+                            permisos.includes('reportes.informe_ot_correctivas')
+                        "
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.informe_ot_correctivas' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Informe Ordenes de Trabajo Correctivas</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('reportes.resumen_ots')"
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.resumen_ots' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Resumen de Ordenes de Trabajo</p>
+                        </router-link>
+                    </li>
+
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('reportes.grafico_ots')"
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.grafico_ots' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-chart-pie nav-icon"></i>
+                            <p>Gráfico de Ordenes de Trabajo</p>
+                        </router-link>
+                    </li>
 
                     <li class="nav-header bg-navy">OTRAS OPCIONES</li>
                     <li

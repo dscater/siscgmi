@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\DetalleOrden;
 use App\Models\Equipo;
+use App\Models\GamaMantenimiento;
 use App\Models\Herramienta;
 use App\Models\HistorialFalla;
 use App\Models\KardexRepuesto;
 use App\Models\OrdenTrabajo;
+use App\Models\Personal;
 use App\Models\PlanMantenimiento;
 use App\Models\Producto;
 use App\Models\Repuesto;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use PDF;
 
 class ReporteController extends Controller
@@ -319,6 +322,9 @@ class ReporteController extends Controller
                 $request->validate([
                     "anio" => "required",
                     "mes" => "required"
+                ], [
+                    "anio.required" => "Debes seleccionar un año",
+                    "mes.required" => "Debes seleccionar un mes",
                 ]);
                 $anios = [$anio];
                 $meses = [$mes];
@@ -379,7 +385,6 @@ class ReporteController extends Controller
         $equipo = $request->equipo;
         $anio = $request->anio;
         $mes = $request->mes;
-        $registros = [];
 
         $historial_fallas = HistorialFalla::orderBy("fecha_falla", "asc")->get();
         if ($filtro != "todos") {
@@ -407,15 +412,291 @@ class ReporteController extends Controller
     }
     public function seguimiento_costos(Request $request)
     {
+        $filtro = $request->filtro;
+        $equipo = $request->equipo;
+        $anio = $request->anio;
+        $mes = $request->mes;
+        $tipo_mantenimiento = $request->tipo_mantenimiento;
+
+        $orden_trabajos = OrdenTrabajo::select("orden_trabajos.*");
+
+        if ($filtro == 'equipo') {
+            $orden_trabajos->join("gama_mantenimientos", "gama_mantenimientos.id", "=", "orden_trabajos.gama_id")
+                ->where("gama_mantenimientos.equipo_id", $equipo);
+        }
+
+        if ($filtro == 'anio_mes') {
+            $orden_trabajos->where("orden_trabajos.fecha_programada", "LIKE", "$anio-$mes%");
+        }
+
+        if ($filtro == 'tipo_mantenimiento') {
+            $orden_trabajos->where("orden_trabajos.tipo_mantenimiento", $tipo_mantenimiento);
+        }
+
+        $orden_trabajos = $orden_trabajos->where("orden_trabajos.estado", "TERMINADO")->get();
+
+        $pdf = PDF::loadView('reportes.seguimiento_costos', compact("orden_trabajos"))->setPaper('letter', 'portrait');
+
+        // ENUMERAR LAS PÁGINAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
+
+        return $pdf->stream('seguimiento_costos.pdf');
     }
     public function informe_general(Request $request)
     {
+        $filtro = $request->filtro;
+        $equipo = $request->equipo;
+        $anio = $request->anio;
+        $mes = $request->mes;
+        $tipo_mantenimiento = $request->tipo_mantenimiento;
+
+        $registros = [];
+        $equipos = Equipo::all();
+        if ($filtro == 'equipo') {
+            $equipos = Equipo::where("id", $equipo)->get();
+        }
+
+        foreach ($equipos as $equipo) {
+
+            if ($filtro != "todos" && $filtro != "equipo") {
+                if ($filtro == "anio_mes") {
+                    $registros[$equipo->id]["mantenimientos"] = OrdenTrabajo::select("orden_trabajos.*")
+                        ->join("gama_mantenimientos", "gama_mantenimientos.id", "=", "orden_trabajos.gama_id")
+                        ->where("gama_mantenimientos.equipo_id", $equipo->id)
+                        ->where("orden_trabajos.fecha_programada", "LIKE", "$anio-$mes%")
+                        ->get();
+
+                    $registros[$equipo->id]["fallas"] = count(HistorialFalla::where("equipo_id", $equipo->id)
+                        ->where("fecha_falla", "LIKE", "$anio-$mes%")->get());
+                }
+                if ($filtro == "tipo_mantenimiento") {
+                    $registros[$equipo->id]["mantenimientos"] = OrdenTrabajo::select("orden_trabajos.*")
+                        ->join("gama_mantenimientos", "gama_mantenimientos.id", "=", "orden_trabajos.gama_id")
+                        ->where("gama_mantenimientos.equipo_id", $equipo->id)
+                        ->where("orden_trabajos.tipo_mantenimiento", $tipo_mantenimiento)
+                        ->get();
+
+                    $registros[$equipo->id]["fallas"] = count(HistorialFalla::select("historial_fallas.id")
+                        ->join("orden_trabajos", "orden_trabajos.id", "=", "historial_fallas.orden_id")
+                        ->where("historial_fallas.equipo_id", $equipo->id)
+                        ->where("orden_trabajos.tipo_mantenimiento", $tipo_mantenimiento)
+                        ->get());
+                }
+            } else {
+                $registros[$equipo->id]["mantenimientos"] = OrdenTrabajo::select("orden_trabajos.*")
+                    ->join("gama_mantenimientos", "gama_mantenimientos.id", "=", "orden_trabajos.gama_id")
+                    ->where("gama_mantenimientos.equipo_id", $equipo->id)->get();
+
+                $registros[$equipo->id]["fallas"] = count(HistorialFalla::where("equipo_id", $equipo->id)->get());
+            }
+        }
+
+        $pdf = PDF::loadView('reportes.informe_general', compact("equipos", "registros"))->setPaper('letter', 'portrait');
+
+        // ENUMERAR LAS PÁGINAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
+
+        return $pdf->stream('informe_general.pdf');
     }
     public function informe_ot_correctivas(Request $request)
     {
+        $filtro = $request->filtro;
+        $equipo = $request->equipo;
+        $ot = $request->ot;
+
+        $orden_trabajos = OrdenTrabajo::all();
+        if ($filtro == "equipo") {
+            $request->validate([
+                "equipo" => "required",
+            ]);
+            $orden_trabajos = OrdenTrabajo::select("orden_trabajos.*")
+                ->join("gama_mantenimientos", "gama_mantenimientos.id", "=", "orden_trabajos.gama_id")
+                ->where("gama_mantenimientos.equipo_id", $equipo)
+                ->where("orden_trabajos.tipo_mantenimiento", "CORRECTIVO")
+                ->get();
+        }
+
+        if ($filtro == "equipo") {
+            $request->validate([
+                "equipo" => "required",
+            ]);
+            $orden_trabajos = OrdenTrabajo::where("id", $ot)
+                ->get();
+        }
+
+        $pdf = PDF::loadView('reportes.informe_ot_correctivas', compact("orden_trabajos"))->setPaper('letter', 'portrait');
+
+        // ENUMERAR LAS PÁGINAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
+
+        return $pdf->stream('informe_ot_correctivas.pdf');
     }
     public function resumen_ots(Request $request)
     {
+        $filtro = $request->filtro;
+        $anio = $request->anio;
+        $mes = $request->mes;
+
+        $registros = [];
+        $registros_anio_mes = [];
+        $registros_personal = [];
+
+        $orden_trabajos = OrdenTrabajo::all();
+        $meses = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+        $anios = OrdenTrabajo::getAniosOT();
+        $tipo_mantenimientos = [
+            "PR" => "PREVENTIVO",
+            "CO" => "CORRECTIVO",
+            "PRE" => "PREDICTIVO",
+            "IN" => "INSPECCIÓN",
+            "LU" => "LUBRICACIÓN",
+        ];
+        if ($filtro != "todos") {
+            $request->validate([
+                "anio" => "required",
+                "mes" => "required",
+            ], [
+                "anio.required" => "Debes seleccionar un año",
+                "mes.required" => "Debes seleccionar un mes",
+            ]);
+            $anios = [$anio];
+            $meses = [$mes];
+        }
+
+        // DESDE TIPOS MANTENIMIENTO
+        foreach ($tipo_mantenimientos as $tm) {
+            foreach ($anios as $anio) {
+                foreach ($meses as $mes) {
+                    $realizadas = OrdenTrabajo::where("fecha_programada", "LIKE", "$anio-$mes%")
+                        ->where("tipo_mantenimiento", $tm)
+                        ->whereIn("estado", ["TERMINADO", "PENDIENTE TERMINADO"])
+                        ->get();
+                    $pendientes = OrdenTrabajo::where("fecha_programada", "LIKE", "$anio-$mes%")
+                        ->where("tipo_mantenimiento", $tm)
+                        ->whereIn("estado", ["PENDIENTE"])
+                        ->get();
+
+                    $estimado_total_realizadas = OrdenTrabajo::where("fecha_programada", "LIKE", "$anio-$mes%")
+                        ->where("tipo_mantenimiento", $tm)
+                        ->whereIn("estado", ["TERMINADO", "PENDIENTE TERMINADO"])
+                        ->sum("tiempo");
+                    $ejecutado_total_realizadas = OrdenTrabajo::where("fecha_programada", "LIKE", "$anio-$mes%")
+                        ->where("tipo_mantenimiento", $tm)
+                        ->whereIn("estado", ["TERMINADO", "PENDIENTE TERMINADO"])
+                        ->sum("tiempo_ejecucion");
+                    $estimado_total_pendientes = OrdenTrabajo::where("fecha_programada", "LIKE", "$anio-$mes%")
+                        ->where("tipo_mantenimiento", $tm)
+                        ->whereIn("estado", ["PENDIENTE"])
+                        ->sum("tiempo");
+                    $ejecutado_total_pendientes = OrdenTrabajo::where("fecha_programada", "LIKE", "$anio-$mes%")
+                        ->where("tipo_mantenimiento", $tm)
+                        ->whereIn("estado", ["PENDIENTE"])
+                        ->sum("tiempo_ejecucion");
+
+                    $count_realizadas = count($realizadas);
+                    $count_pendientes = count($pendientes);
+                    $filas = $count_realizadas > $count_pendientes ? $count_realizadas : $count_pendientes;
+                    $registros[$tm][$anio][$mes] = [
+                        "filas" => $filas,
+                        "realizadas" => $realizadas,
+                        "estimado_total_realizadas" => $estimado_total_realizadas,
+                        "ejecutado_total_realizadas" => $ejecutado_total_realizadas,
+                        "pendientes" => $pendientes,
+                        "estimado_total_pendientes" => $estimado_total_pendientes,
+                        "ejecutado_total_pendientes" => $ejecutado_total_pendientes,
+                    ];
+                }
+            }
+        }
+
+        // DESDE ANIO Y MES
+        foreach ($anios as $anio) {
+            foreach ($meses as $mes) {
+                foreach ($tipo_mantenimientos as $tm) {
+                    $total = count(OrdenTrabajo::where("fecha_programada", "LIKE", "$anio-$mes%")
+                        ->where("tipo_mantenimiento", $tm)
+                        ->get());
+                    $total_horas = OrdenTrabajo::where("fecha_programada", "LIKE", "$anio-$mes%")
+                        ->where("tipo_mantenimiento", $tm)
+                        ->sum("tiempo_ejecucion");
+                    $registros_anio_mes[$anio][$mes][$tm] = [
+                        "total" => $total,
+                        "total_horas" => $total_horas,
+                    ];
+                }
+            }
+        }
+
+        // POR PERSONAL
+        $personals = Personal::all();
+        foreach ($personals as $personal) {
+            $registros_personal[$personal->id] = [
+                "horas_ejecutadas" => 0,
+                "tipos" => [],
+            ];
+            if ($filtro == "todos") {
+                $total_horas = OrdenTrabajo::select("orden_trabajos.*")
+                    ->join("orden_generadas", "orden_generadas.orden_id", "=", "orden_trabajos.id")
+                    ->join("detalle_personals", "detalle_personals.orden_generada_id", "=", "orden_generadas.id")
+                    ->where("detalle_personals.personal_id", $personal->id)
+                    ->sum("tiempo_ejecucion");
+            } else {
+                $total_horas = OrdenTrabajo::select("orden_trabajos.*")
+                    ->join("orden_generadas", "orden_generadas.orden_id", "=", "orden_trabajos.id")
+                    ->join("detalle_personals", "detalle_personals.orden_generada_id", "=", "orden_generadas.id")
+                    ->where("detalle_personals.personal_id", $personal->id)
+                    ->where("orden_trabajos.fecha_programada", "LIKE", "$anio-$mes%")
+                    ->sum("tiempo_ejecucion");
+            }
+            $registros_personal[$personal->id]["horas_ejecutadas"] = $total_horas;
+            foreach ($tipo_mantenimientos as $tm) {
+                if ($filtro == "todos") {
+                    $total_horas = OrdenTrabajo::select("orden_trabajos.*")
+                        ->join("orden_generadas", "orden_generadas.orden_id", "=", "orden_trabajos.id")
+                        ->join("detalle_personals", "detalle_personals.orden_generada_id", "=", "orden_generadas.id")
+                        ->where("orden_trabajos.tipo_mantenimiento", $tm)
+                        ->where("detalle_personals.personal_id", $personal->id)
+                        ->sum("orden_trabajos.tiempo_ejecucion");
+                } else {
+                    $total_horas = OrdenTrabajo::select("orden_trabajos.*")
+                        ->join("orden_generadas", "orden_generadas.orden_id", "=", "orden_trabajos.id")
+                        ->join("detalle_personals", "detalle_personals.orden_generada_id", "=", "orden_generadas.id")
+                        ->where("orden_trabajos.tipo_mantenimiento", $tm)
+                        ->where("detalle_personals.personal_id", $personal->id)
+                        ->where("orden_trabajos.fecha_programada", "LIKE", "$anio-$mes%")
+                        ->sum("orden_trabajos.tiempo_ejecucion");
+                }
+                $registros_personal[$personal->id]["tipos"][$tm] = $total_horas;
+            }
+        }
+
+
+        $pdf = PDF::loadView('reportes.resumen_ots', compact("tipo_mantenimientos", "anios", "meses", "registros", "registros_anio_mes", "personals", "registros_personal"))->setPaper('letter', 'portrait');
+
+        // ENUMERAR LAS PÁGINAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
+
+        return $pdf->stream('resumen_ots.pdf');
     }
     public function grafico_ots(Request $request)
     {
