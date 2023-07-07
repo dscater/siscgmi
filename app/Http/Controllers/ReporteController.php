@@ -700,46 +700,34 @@ class ReporteController extends Controller
     }
     public function grafico_ots(Request $request)
     {
-    }
-
-
-    public function grafico_ingresos(Request $request)
-    {
-        $fecha_ini =  $request->fecha_ini;
-        $fecha_fin =  $request->fecha_fin;
-        $filtro =  $request->filtro;
-        $producto_id =  $request->producto_id;
-
-        if ($filtro == 'Producto') {
-            $productos = Producto::select("productos.*")
-                ->where("id", $producto_id)
-                ->get();
-        } else {
-            $productos = Producto::select("productos.*")
-                ->whereExists(function ($query) {
-                    $query->select(DB::raw(1))
-                        ->from('detalle_ventas')
-                        ->whereRaw('productos.id = detalle_ventas.producto_id');
-                })
-                ->get();
+        $filtro = $request->filtro;
+        $anio = $request->anio;
+        $mes = $request->mes;
+        if ($filtro != "todos") {
+            $request->validate([
+                "anio" => "required",
+                "mes" => "required",
+            ], [
+                "anio.required" => "Debes seleccionar un año",
+                "mes.required" => "Debes seleccionar un mes",
+            ]);
         }
+
+        $tipo_mantenimientos = [
+            "PR" => "PREVENTIVO",
+            "CO" => "CORRECTIVO",
+            "PRE" => "PREDICTIVO",
+            "IN" => "INSPECCIÓN",
+            "LU" => "LUBRICACIÓN",
+        ];
         $data = [];
-        foreach ($productos as $producto) {
-            $cantidad = 0;
-            if ($filtro == 'Rango de fechas') {
-                $cantidad = DetalleOrden::select("detalle_ventas")
-                    ->join("ventas", "ventas.id", "=", "detalle_ventas.venta_id")
-                    ->where("ventas.estado", "CANCELADO")
-                    ->where("detalle_ventas.producto_id", $producto->id)
-                    ->whereBetween("fecha_registro", [$fecha_ini, $fecha_fin])
-                    ->sum("detalle_ventas.subtotal");
-            } else {
-                $cantidad = DetalleOrden::where("producto_id", $producto->id)
-                    ->join("ventas", "ventas.id", "=", "detalle_ventas.venta_id")
-                    ->where("ventas.estado", "CANCELADO")
-                    ->sum("subtotal");
+        foreach ($tipo_mantenimientos as $tm) {
+            $orden_trabajos = count(OrdenTrabajo::where("tipo_mantenimiento", $tm)->get());
+            if ($filtro == 'anio_mes') {
+                $orden_trabajos = count(OrdenTrabajo::where("tipo_mantenimiento", $tm)
+                    ->where("fecha_programada", "LIKE", "$anio-$mes%")->get());
             }
-            $data[] = [$producto->nombre, $cantidad ? (float)$cantidad : 0];
+            $data[] = ["name" => $tm, "y" => (int)$orden_trabajos];
         }
 
         $fecha = date("d/m/Y");

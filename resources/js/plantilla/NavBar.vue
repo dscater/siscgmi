@@ -55,29 +55,38 @@
                             Notificaciones</span
                         >
                         <div class="dropdown-divider"></div>
-                        <template v-for="(item, index) in listNotificacions">
-                            <router-link
-                                class="dropdown-item notificacion"
-                                :to="{
-                                    name: 'notificacions.show',
-                                    params: {
-                                        id: item.id,
-                                    },
-                                }"
+                        <div class="contenedor_notificacions">
+                            <template
+                                v-for="(item, index) in listNotificacions"
                             >
-                                <i class="fas fa-file mr-2"></i>
-                                <span class="desc_notificacion">{{
-                                    item.notificacion.notificacion
-                                }}</span>
-                                <span class="float-right text-muted text-sm">{{
-                                    item.notificacion.hace
-                                }}</span>
-                            </router-link>
-                            <div class="dropdown-divider"></div>
-                        </template>
-                        <!-- <a href="#" class="dropdown-item dropdown-footer"
-                            >See All Notifications</a
-                        > -->
+                                <router-link
+                                    class="dropdown-item notificacion"
+                                    :to="{
+                                        name: 'notificacions.show',
+                                        params: {
+                                            id: item.id,
+                                        },
+                                    }"
+                                >
+                                    <i class="fas fa-file mr-2"></i>
+                                    <span class="desc_notificacion">{{
+                                        item.notificacion.notificacion
+                                    }}</span>
+                                    <span
+                                        class="float-right text-muted text-sm"
+                                        >{{ item.notificacion.hace }}</span
+                                    >
+                                </router-link>
+                                <div class="dropdown-divider"></div>
+                            </template>
+                        </div>
+                        <router-link
+                            :to="{
+                                name: 'notificacions.index',
+                            }"
+                            class="dropdown-item dropdown-footer"
+                            >Ver todas las notificaciones</router-link
+                        >
                     </div>
                 </li>
                 <li class="nav-item">
@@ -158,4 +167,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.contenedor_notificacions {
+    width: 100%;
+    max-height: 40vh;
+    overflow: auto;
+}
+</style>

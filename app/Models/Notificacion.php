@@ -15,7 +15,13 @@ class Notificacion extends Model
         "tipo"
     ];
 
-    protected $appends = ["hace"];
+    protected $appends = ["fecha_hace", "hace"];
+    public function getFechaHaceAttribute()
+    {
+        $fecha_hora = date("d/m/Y H:i", strtotime($this->created_at)) . "<br>";
+        $hace = $this->created_at->diffForHumans();
+        return $fecha_hora . $hace;
+    }
     public function getHaceAttribute()
     {
         return $this->created_at->diffForHumans();

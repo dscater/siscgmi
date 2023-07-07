@@ -52,7 +52,8 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-3"
+                                    v-if="permisos.includes('orden_generadas.consultar_ot_canva')">
                                         <button
                                             type="button"
                                             class="btn btn-primary btn-block"
@@ -61,7 +62,8 @@
                                             Vista Canva
                                         </button>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3"
+                                    v-if="permisos.includes('orden_generadas.consultar_ot_timeline')">
                                         <button
                                             type="button"
                                             class="btn btn-primary btn-block"

@@ -301,6 +301,13 @@ export default new Router({
 
         // notificacions
         {
+            path: "/notificacions",
+            name: "notificacions.index",
+            component: require("./components/modulos/notificacions/index.vue")
+                .default,
+            props: true,
+        },
+        {
             path: "/notificacions/:id",
             name: "notificacions.show",
             component: require("./components/modulos/notificacions/show.vue")

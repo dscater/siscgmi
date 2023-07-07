@@ -58,7 +58,7 @@ export default {
                 weekends: true,
                 events: this.listRegistros,
                 initialDate: null, // Set the default start date of the calendar (YYYY-MM-DD)
-                editable: true, // Enable event dragging and resizing
+                // editable: true, // Enable event dragging and resizing
                 // eventDrop: this.eventDrop,
                 eventClick: this.handleEventClick,
                 locale: esLocale,

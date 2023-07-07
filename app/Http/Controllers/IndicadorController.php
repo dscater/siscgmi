@@ -63,10 +63,20 @@ class IndicadorController extends Controller
         // armar fecha_filtro
         $fecha_filtro = $anio . "-" . ($mes < 10 ? '0' . $mes : $mes);
         $registro_final = HistorialFalla::where("fecha_falla", "LIKE", "$fecha_filtro%")->get()->last();
-        Log::debug($fecha_filtro);
-        $registro_inicial = HistorialFalla::where("fecha_falla", "<=", $registro_final->fecha_falla)->get()->first();
-
-        $anios_meses = IndicadorController::obtenerAnioMesesEntreFechas($registro_inicial->fecha_falla, $registro_final->fecha_falla);
+        if ($registro_final) {
+            $fecha_final = $registro_final->fecha_falla;
+            // Log::debug($fecha_filtro);
+            // Log::debug("final: " . $registro_final->fecha_falla);
+        } else {
+            $ultimo_dia = IndicadorController::obtenerUltimoDiaMes($fecha_filtro);
+            $fecha_final = $ultimo_dia;
+        }
+        // numero de fallas
+        $numero_fallas = 0;
+        $registro_inicial = HistorialFalla::where("fecha_falla", "<=", $fecha_final)->get()->first();
+        Log::debug("inicial: " . $registro_inicial->fecha_falla);
+        $anios_meses = IndicadorController::obtenerAnioMesesEntreFechas($registro_inicial->fecha_falla, $fecha_final);
+        Log::debug("anios_meses: " . implode(" - ", $anios_meses));
 
         foreach ($anios_meses as $am) {
             $anio = date("Y", strtotime($am));
@@ -99,8 +109,6 @@ class IndicadorController extends Controller
                 ->sum("tiempo_falla");
             $tiempo_muerto_total += $tiempo_muerto;
 
-            // numero de fallas
-            $numero_fallas = 0;
             $numero_fallas = count(HistorialFalla::where("fecha_falla", "<=", "$ultimo_dia")
                 ->where("equipo_id", $equipo_id)
                 ->get());
@@ -162,10 +170,19 @@ class IndicadorController extends Controller
         // armar fecha_filtro
         $fecha_filtro = $anio . "-" . ($mes < 10 ? '0' . $mes : $mes);
         $registro_final = HistorialFalla::where("fecha_falla", "LIKE", "$fecha_filtro%")->get()->last();
-        Log::debug($fecha_filtro);
-        $registro_inicial = HistorialFalla::where("fecha_falla", "<=", $registro_final->fecha_falla)->get()->first();
+        if ($registro_final) {
+            $fecha_final = $registro_final->fecha_falla;
+            // Log::debug($fecha_filtro);
+            // Log::debug("final: " . $registro_final->fecha_falla);
+        } else {
+            $ultimo_dia = IndicadorController::obtenerUltimoDiaMes($fecha_filtro);
+            $fecha_final = $ultimo_dia;
+        }
+        // numero de fallas
+        $numero_fallas = 0;
+        $registro_inicial = HistorialFalla::where("fecha_falla", "<=", $fecha_final)->get()->first();
 
-        $anios_meses = IndicadorController::obtenerAnioMesesEntreFechas($registro_inicial->fecha_falla, $registro_final->fecha_falla);
+        $anios_meses = IndicadorController::obtenerAnioMesesEntreFechas($registro_inicial->fecha_falla, $fecha_final);
 
         foreach ($anios_meses as $am) {
             $anio = date("Y", strtotime($am));
@@ -178,8 +195,6 @@ class IndicadorController extends Controller
                 ->sum("tiempo_falla");
             $tiempo_muerto_total += $tiempo_muerto;
 
-            // numero de fallas
-            $numero_fallas = 0;
             $numero_fallas = count(HistorialFalla::where("fecha_falla", "<=", "$ultimo_dia")
                 ->where("equipo_id", $equipo_id)
                 ->get());
@@ -243,10 +258,18 @@ class IndicadorController extends Controller
         // armar fecha_filtro
         $fecha_filtro = $anio . "-" . ($mes < 10 ? '0' . $mes : $mes);
         $registro_final = HistorialFalla::where("fecha_falla", "LIKE", "$fecha_filtro%")->get()->last();
-        Log::debug($fecha_filtro);
-        $registro_inicial = HistorialFalla::where("fecha_falla", "<=", $registro_final->fecha_falla)->get()->first();
+        if ($registro_final) {
+            $fecha_final = $registro_final->fecha_falla;
+            // Log::debug($fecha_filtro);
+            // Log::debug("final: " . $registro_final->fecha_falla);
+        } else {
+            $ultimo_dia = IndicadorController::obtenerUltimoDiaMes($fecha_filtro);
+            $fecha_final = $ultimo_dia;
+        }
+        $numero_fallas = 0;
+        $registro_inicial = HistorialFalla::where("fecha_falla", "<=", $fecha_final)->get()->first();
 
-        $anios_meses = IndicadorController::obtenerAnioMesesEntreFechas($registro_inicial->fecha_falla, $registro_final->fecha_falla);
+        $anios_meses = IndicadorController::obtenerAnioMesesEntreFechas($registro_inicial->fecha_falla, $fecha_final);
 
         foreach ($anios_meses as $am) {
             $anio = date("Y", strtotime($am));
@@ -279,8 +302,6 @@ class IndicadorController extends Controller
                 ->sum("tiempo_falla");
             $tiempo_muerto_total += $tiempo_muerto;
 
-            // numero de fallas
-            $numero_fallas = 0;
             $numero_fallas = count(HistorialFalla::where("fecha_falla", "<=", "$ultimo_dia")
                 ->where("equipo_id", $equipo_id)
                 ->get());
@@ -320,21 +341,19 @@ class IndicadorController extends Controller
         return $ultimoDia;
     }
 
-    function obtenerAnioMesesEntreFechas($fecha1, $fecha2)
+    function obtenerAnioMesesEntreFechas($fechaInicial, $fechaFinal)
     {
-        $meses = array();
+        $aniosMeses = array();
 
-        $inicio = new DateTime($fecha1);
-        $fin = new DateTime($fecha2);
+        $fechaActual = new DateTime($fechaInicial);
+        $fechaLimite = new DateTime($fechaFinal);
 
-        $meses[] = $inicio->format('Y-m');
-
-        while ($inicio < $fin) {
-            $inicio->add(new DateInterval('P1M'));
-            $meses[] = $inicio->format('Y-m');
+        while ($fechaActual <= $fechaLimite) {
+            $aniosMeses[] = $fechaActual->format('Y-m');
+            $fechaActual->add(new DateInterval('P1M'));
         }
 
-        return $meses;
+        return $aniosMeses;
     }
 
     function obtenerMesesEntreFechas($fecha1, $fecha2)

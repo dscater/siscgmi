@@ -411,6 +411,8 @@
                         v-if="permisos.includes('herramientas.index')"
                         :class="[
                             $route.name == 'herramientas.index' ||
+                            $route.name == 'herramientas.create' ||
+                            $route.name == 'herramientas.edit' ||
                             $route.name == 'entrada_herramientas.index'
                                 ? 'menu-is-opening menu-open'
                                 : '',
@@ -427,6 +429,8 @@
                             class="nav nav-treeview"
                             :style.display="[
                                 $route.name == 'herramientas.index' ||
+                                $route.name == 'herramientas.create' ||
+                                $route.name == 'herramientas.edit' ||
                                 $route.name == 'entrada_herramientas.index'
                                     ? 'block'
                                     : '',
@@ -440,6 +444,13 @@
                                     exact
                                     :to="{ name: 'herramientas.index' }"
                                     class="nav-link"
+                                    :class="[
+                                        $route.name == 'herramientas.index' ||
+                                        $route.name == 'herramientas.create' ||
+                                        $route.name == 'herramientas.edit'
+                                            ? 'active'
+                                            : '',
+                                    ]"
                                     v-loading.fullscreen.lock="
                                         fullscreenLoading
                                     "
@@ -901,7 +912,13 @@ export default {
             user: JSON.parse(localStorage.getItem("user")),
             fullscreenLoading: false,
             permisos: localStorage.getItem("permisos"),
+            timeoutId: null,
         };
+    },
+    mounted() {
+        // Configurar el temporizador para llamar a logout después de 5 minutos de inactividad
+        this.resetLogoutTimer();
+        window.addEventListener("mousemove", this.resetLogoutTimer);
     },
     methods: {
         logout() {
@@ -914,6 +931,18 @@ export default {
                 }, 500);
             });
         },
+        resetLogoutTimer() {
+            // Reiniciar el temporizador cuando se detecta actividad
+            clearTimeout(this.timeoutId);
+            this.timeoutId = setTimeout(() => {
+                this.logout();
+            }, 5 * 60 * 1000); // 5 minutos en milisegundos
+        },
+    },
+    beforeDestroy() {
+        // Limpiar el temporizador y quitar el evento cuando se destruye el componente
+        clearTimeout(this.timeoutId);
+        window.removeEventListener("mousemove", this.resetLogoutTimer);
     },
 };
 </script>

@@ -8,10 +8,13 @@ use Illuminate\Http\Request;
 
 class NotificacionUserController extends Controller
 {
-    public function notificacions(User $user)
+    public function notificacions(User $user, Request $request)
     {
         $notificacions = NotificacionUser::with("notificacion")->where("user_id", $user->id)->orderBy("created_at", "desc")->get();
         $total = count($notificacions);
+        if (isset($request->vistos)) {
+            $user->notificacions_user()->update(["visto" => 1]);
+        }
         $sin_ver = count($user->notificacions_user()->where("visto", 0)->get());
         return response()->JSON([
             "sw" => true,

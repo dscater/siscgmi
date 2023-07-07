@@ -534,7 +534,11 @@
                                     <div
                                         class="col-md-4"
                                         v-if="
-                                            oOrdenTrabajo?.estado == 'INICIADO'
+                                            oOrdenTrabajo?.estado ==
+                                                'INICIADO' &&
+                                            permisos.includes(
+                                                'orden_trabajos.terminar_ot'
+                                            )
                                         "
                                     >
                                         <button

@@ -24,7 +24,11 @@
                     </div>
                     <div class="col-md-2 pl-0 pr-0">
                         <router-link
-                            v-if="permisos.includes('orden_generadas.consultar_ot')"
+                            v-if="
+                                permisos.includes(
+                                    'orden_generadas.consultar_ot'
+                                )
+                            "
                             :to="{
                                 name: 'orden_trabajos.consultar_ot',
                             }"
@@ -120,6 +124,11 @@
                                                             variant="outline-primary"
                                                             class="btn-flat btn-block"
                                                             title="Visualizar registro"
+                                                            v-if="
+                                                                permisos.includes(
+                                                                    'orden_trabajos.visualizar'
+                                                                )
+                                                            "
                                                             @click="
                                                                 visualizarOrdenTrabajo(
                                                                     row.item

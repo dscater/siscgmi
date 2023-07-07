@@ -230,9 +230,49 @@ export default {
         generaReporte() {
             this.enviando = true;
             axios
-                .post("/admin/reportes/resumen_ots", this.oReporte)
-                .then((res) => {
+                .post("/admin/reportes/grafico_ots", this.oReporte)
+                .then((response) => {
                     this.errors = [];
+                    Highcharts.chart("container", {
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: "pie",
+                        },
+                        title: {
+                            text: "ORDENES DE TRABAJO",
+                            align: "center",
+                        },
+                        tooltip: {
+                            pointFormat:
+                                "{series.name}: <b>{point.y:.0f}</b>",
+                        },
+                        accessibility: {
+                            point: {
+                                valueSuffix: "%",
+                            },
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: "pointer",
+                                dataLabels: {
+                                    enabled: true,
+                                    format: "<b>{point.name}</b>: {point.y:.0f} ",
+                                },
+                            },
+                        },
+                        series: [
+                            {
+                                name: "Ordenes",
+                                colorByPoint: true,
+                                data: response.data.datos,
+                            },
+                        ],
+                    });
+
+                    this.enviando = false;
                 })
                 .catch(async (error) => {
                     let responseObj = await error.response.data.text();
